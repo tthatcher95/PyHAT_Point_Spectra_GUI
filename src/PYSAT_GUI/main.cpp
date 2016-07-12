@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     QSplashScreen *splash = new QSplashScreen;
-    splash->setPixmap(QPixmap("C:/Users/User/Documents/QTprograms/SplashScreen/acxiom-data-packages4.png"));
+    splash->setPixmap(QPixmap("./splash.png"));
     splash->show();
     GuiTest w;
     QTimer::singleShot(2700, splash, SLOT(close()));
