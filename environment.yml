@@ -1,0 +1,5 @@
+name: pysat_point_spectra_gui
+dependencies:
+  - python=3
+  - numpy
+  - pandas

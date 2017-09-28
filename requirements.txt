@@ -1,0 +1,10 @@
+qtmodern
+wheel
+pvl
+matplotlib
+scipy
+sklearn
+numpy
+pandas
+PyQt5
+pysat
