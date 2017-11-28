@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>292</width>
+    <height>398</height>
+   </rect>
+  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
     <horstretch>0</horstretch>
@@ -15,166 +23,256 @@
    <item>
     <widget class="QGroupBox" name="formGroupBox">
      <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+      </property>
       <item row="0" column="0">
        <widget class="QLabel" name="alphaLabel">
         <property name="text">
-         <string>Alpha </string>
+         <string>alpha</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QDoubleSpinBox" name="alphaDoubleSpinBox"/>
+       <widget class="QDoubleSpinBox" name="alphaDoubleSpinBox">
+        <property name="toolTip">
+         <string>Constant that multiplies the penalty term. Defaults to 1.0. alpha = 0
+is equivalent to an ordinary least square, solved by LinearRegression.
+For numerical reasons, using alpha = 0 with the LassoLars object is not
+advised and you should prefer the LinearRegression object.</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="fitInterceptLabel">
+       <widget class="QLabel" name="fit_interceptLabel">
         <property name="text">
-         <string>Fit Intercept</string>
+         <string>fit_intercept</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QCheckBox" name="fitInterceptCheckBox">
-        <property name="checked">
-         <bool>true</bool>
+       <widget class="QCheckBox" name="fit_interceptCheckBox">
+        <property name="toolTip">
+         <string>whether to calculate the intercept for this model. If set to false,
+no intercept will be used in calculations (e.g. data is expected to
+be already centered).</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="positiveLabel">
+       <widget class="QLabel" name="verboseLabel">
         <property name="text">
-         <string>Positive</string>
+         <string>verbose</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QCheckBox" name="positiveCheckBox"/>
+       <widget class="QCheckBox" name="verboseCheckBox">
+        <property name="toolTip">
+         <string>Sets the verbosity amount</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="verboseLabel">
+       <widget class="QLabel" name="normalizeLabel">
         <property name="text">
-         <string>Verbose</string>
+         <string>normalize</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QCheckBox" name="verboseCheckBox"/>
+       <widget class="QCheckBox" name="normalizeCheckBox">
+        <property name="toolTip">
+         <string>This parameter is ignored when fit_intercept is set to False. If True,
+the regressors X will be normalized before regression by subtracting
+the mean and dividing by the l2-norm. If you wish to standardize,
+please use sklearn.preprocessing.StandardScaler before calling fit
+on an estimator with normalize=False.</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
+        </property>
+       </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QLabel" name="normalizeLabel">
+       <widget class="QLabel" name="precomputeLabel">
         <property name="text">
-         <string>Normalize</string>
+         <string>precompute</string>
         </property>
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QCheckBox" name="normalizeCheckBox">
-        <property name="checked">
-         <bool>true</bool>
+       <widget class="QComboBox" name="precomputeComboBox">
+        <property name="toolTip">
+         <string>Whether to use a precomputed Gram matrix to speed up calculations. If
+set to 'auto' let us decide. The Gram matrix can also be passed as
+argument.</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
         </property>
        </widget>
       </item>
       <item row="5" column="0">
-       <widget class="QLabel" name="copyXLabel">
+       <widget class="QLabel" name="max_iterLabel">
         <property name="text">
-         <string>Copy X</string>
+         <string>max_iter
+</string>
         </property>
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QCheckBox" name="copyXCheckBox">
-        <property name="checked">
-         <bool>true</bool>
+       <widget class="QSpinBox" name="max_iterSpinBox">
+        <property name="toolTip">
+         <string>Maximum number of iterations to perform.</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
         </property>
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QLabel" name="precomputeLabel">
+       <widget class="QLabel" name="copy_XLabel">
         <property name="text">
-         <string>Precompute</string>
+         <string>copy_X
+</string>
         </property>
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="QComboBox" name="precomputeComboBox">
-        <item>
-         <property name="text">
-          <string>Auto</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>True</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>False</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>array-like</string>
-         </property>
-        </item>
+       <widget class="QCheckBox" name="copy_XCheckBox">
+        <property name="toolTip">
+         <string>If True, X will be copied; else, it may be overwritten.</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
+        </property>
        </widget>
       </item>
       <item row="7" column="0">
-       <widget class="QLabel" name="maxIterationsLabel">
+       <widget class="QLabel" name="fit_pathLabel">
         <property name="text">
-         <string>Max Iterations</string>
+         <string>fit_path
+</string>
         </property>
        </widget>
       </item>
       <item row="7" column="1">
-       <widget class="QSpinBox" name="maxIterationsSpinBox">
-        <property name="maximum">
-         <number>9999999</number>
+       <widget class="QCheckBox" name="fit_pathCheckBox">
+        <property name="toolTip">
+         <string>If True the full path is stored in the coef_path_ attribute. If you
+compute the solution for a large problem or many targets, setting
+fit_path to False will lead to a speedup, especially with a small
+alpha.</string>
         </property>
-        <property name="value">
-         <number>500</number>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
         </property>
        </widget>
       </item>
       <item row="8" column="0">
-       <widget class="QLabel" name="epsLabel">
+       <widget class="QLabel" name="positiveLabel">
         <property name="text">
-         <string>Eps</string>
+         <string>positive</string>
         </property>
        </widget>
       </item>
       <item row="8" column="1">
-       <widget class="QDoubleSpinBox" name="epsDoubleSpinBox">
-        <property name="decimals">
-         <number>16</number>
+       <widget class="QCheckBox" name="positiveCheckBox">
+        <property name="toolTip">
+         <string>Restrict coefficients to be &gt;= 0. Be aware that you might want to
+remove fit_intercept which is set True by default. Under the positive
+restriction the model coefficients will not converge to the
+ordinary-least-squares solution for small values of alpha. Only
+coefficients up to the smallest alpha value
+(alphas_[alphas_ &gt; 0.].min() when fit_path=True) reached by the
+stepwise Lars-Lasso algorithm are typically in congruence with the
+solution of the coordinate descent Lasso estimator.</string>
         </property>
-        <property name="value">
-         <double>2.220446000000000</double>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
         </property>
        </widget>
       </item>
       <item row="9" column="0">
-       <widget class="QLabel" name="fitPathLabel">
+       <widget class="QLabel" name="cvLabel">
         <property name="text">
-         <string>Fit Path</string>
+         <string>cv
+</string>
         </property>
        </widget>
       </item>
       <item row="9" column="1">
-       <widget class="QCheckBox" name="fitPathCheckBox">
-        <property name="checked">
-         <bool>true</bool>
+       <widget class="QSpinBox" name="cvSpinBox">
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
         </property>
        </widget>
       </item>
       <item row="10" column="0">
+       <widget class="QLabel" name="max_n_alphasLabel">
+        <property name="text">
+         <string>max_n_alphas
+</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="1">
+       <widget class="QSpinBox" name="max_n_alphasSpinBox">
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="0">
+       <widget class="QLabel" name="n_jobsLabel">
+        <property name="text">
+         <string>n_jobs</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="1">
+       <widget class="QSpinBox" name="n_jobsSpinBox">
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="0">
+       <widget class="QLabel" name="criterionLabel">
+        <property name="text">
+         <string>criterion </string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="1">
+       <widget class="QComboBox" name="criterionComboBox">
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="0">
        <widget class="QLabel" name="modelLabel">
         <property name="text">
          <string>Model</string>
         </property>
        </widget>
       </item>
-      <item row="10" column="1">
+      <item row="13" column="1">
        <widget class="QComboBox" name="modelComboBox">
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LassoLars.html</string>
+        </property>
         <item>
          <property name="text">
           <string>Lasso Lars</string>

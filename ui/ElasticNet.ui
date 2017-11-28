@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>Form</class>
  <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>411</width>
+    <height>564</height>
+   </rect>
+  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
     <horstretch>0</horstretch>
@@ -14,216 +22,531 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="groupBox">
-     <layout class="QFormLayout" name="formLayout">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="alphaLabel">
-        <property name="text">
-         <string>Alpha</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QDoubleSpinBox" name="alphaDoubleSpinBox">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="maximum">
-         <double>9999999.000000000000000</double>
-        </property>
-        <property name="singleStep">
-         <double>1.000000000000000</double>
-        </property>
-        <property name="value">
-         <double>1.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="l1RatioLabel">
-        <property name="text">
-         <string>L1 Ratio</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="l1RatioDoubleSpinBox">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="maximum">
-         <double>9999999.000000000000000</double>
-        </property>
-        <property name="singleStep">
-         <double>0.500000000000000</double>
-        </property>
-        <property name="value">
-         <double>0.500000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="fitInterceptLabel">
-        <property name="text">
-         <string>Fit Intercept</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QCheckBox" name="fitInterceptCheckBox">
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="normalizeLabel">
-        <property name="text">
-         <string>Normalize</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QCheckBox" name="normalizeCheckBox"/>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="precomputeLabel">
-        <property name="text">
-         <string>Precompute</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QComboBox" name="precomputeComboBox">
+     <layout class="QVBoxLayout" name="ENLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <property name="text">
-          <string>False</string>
-         </property>
+         <widget class="QGroupBox" name="elasticNetCVGroupBox">
+          <property name="title">
+           <string>Elastic Net CV</string>
+          </property>
+          <layout class="QFormLayout" name="ElasticNetCV_2">
+           <property name="fieldGrowthPolicy">
+            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+           </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="l1_ratioLabel">
+             <property name="text">
+              <string>l1_ratio
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="l1_ratioDoubleSpinBox">
+             <property name="toolTip">
+              <string>The ElasticNet mixing parameter, with 0 &lt;= l1_ratio &lt;= 1. For l1_ratio
+= 0 the penalty is an L2 penalty. For l1_ratio = 1 it is an L1 penalty.
+For 0 &lt; l1_ratio &lt; 1, the penalty is a combination of L1 and L2.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="epsLabel">
+             <property name="text">
+              <string>eps
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="epsDoubleSpinBox">
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="n_alphasLabel">
+             <property name="text">
+              <string>n_alphas
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QSpinBox" name="n_alphasSpinBox">
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="alphasLabel">
+             <property name="text">
+              <string>alphas
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="alphasLineEdit">
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="fit_interceptLabel">
+             <property name="text">
+              <string>fit_intercept
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QCheckBox" name="fit_interceptCheckBox">
+             <property name="toolTip">
+              <string>Whether the intercept should be estimated or not. If False, the data
+is assumed to be already centered.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="normalizeLabel">
+             <property name="text">
+              <string>normalize
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QCheckBox" name="normalizeCheckBox">
+             <property name="toolTip">
+              <string>This parameter is ignored when fit_intercept is set to False. If True,
+the regressors X will be normalized before regression by subtracting
+the mean and dividing by the l2-norm. If you wish to standardize,
+please use sklearn.preprocessing. StandardScaler before calling fit on
+an estimator with normalize=False.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="precomputeLabel">
+             <property name="text">
+              <string>precompute
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QComboBox" name="precomputeComboBox">
+             <property name="toolTip">
+              <string>Whether to use a precomputed Gram matrix to speed up calculations.
+The Gram matrix can also be passed as argument. For sparse input this
+option is always True to preserve sparsity.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="max_iterLabel">
+             <property name="text">
+              <string>max_iter
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QSpinBox" name="max_iterSpinBox">
+             <property name="toolTip">
+              <string>The maximum number of iterations</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="tolLabel">
+             <property name="text">
+              <string>tol
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QDoubleSpinBox" name="tolDoubleSpinBox">
+             <property name="toolTip">
+              <string>The tolerance for the optimization:</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="0">
+            <widget class="QLabel" name="copy_XLabel">
+             <property name="text">
+              <string>copy_X
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="1">
+            <widget class="QCheckBox" name="copy_XCheckBox">
+             <property name="toolTip">
+              <string>If True, X will be copied; else, it may be overwritten.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="0">
+            <widget class="QLabel" name="verboseLabel">
+             <property name="text">
+              <string>verbose
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="1">
+            <widget class="QCheckBox" name="verboseCheckBox">
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="13" column="0">
+            <widget class="QLabel" name="n_jobsLabel">
+             <property name="text">
+              <string>n_jobs
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="13" column="1">
+            <widget class="QSpinBox" name="n_jobsSpinBox">
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="14" column="0">
+            <widget class="QLabel" name="positiveLabel">
+             <property name="text">
+              <string>positive
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="14" column="1">
+            <widget class="QCheckBox" name="positiveCheckBox">
+             <property name="toolTip">
+              <string>When set to True, forces the coefficients to be positive.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="15" column="0">
+            <widget class="QLabel" name="selectionLabel">
+             <property name="text">
+              <string>selection</string>
+             </property>
+            </widget>
+           </item>
+           <item row="15" column="1">
+            <widget class="QComboBox" name="selectionComboBox">
+             <property name="toolTip">
+              <string>If set to 'random', a random coefficient is updated every iteration
+rather than looping over features sequentially by default. This
+(setting to 'random') often leads to significantly faster convergence
+especially when tol is higher than 1e-4.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QLabel" name="cVLabel">
+             <property name="text">
+              <string>cv</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1">
+            <widget class="QSpinBox" name="cVSpinBox">
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
         <item>
-         <property name="text">
-          <string>True</string>
-         </property>
+         <widget class="QGroupBox" name="elasticNetGroupBox">
+          <property name="title">
+           <string>Elastic Net</string>
+          </property>
+          <layout class="QFormLayout" name="ElasticNet">
+           <property name="fieldGrowthPolicy">
+            <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+           </property>
+           <item row="0" column="0">
+            <widget class="QLabel" name="enalphaLabel">
+             <property name="text">
+              <string>alpha
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="enalphaDoubleSpinBox">
+             <property name="toolTip">
+              <string>Constant that multiplies the penalty terms. Defaults to 1.0. See the
+notes for the exact mathematical meaning of this parameter. alpha = 0
+is equivalent to an ordinary least square, solved by the
+LinearRegression object. For numerical reasons, using alpha = 0 with
+the Lasso object is not advised. Given this, you should use the
+LinearRegression object.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="enl1_ratioLabel">
+             <property name="text">
+              <string>l1_ratio
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="enl1_ratioDoubleSpinBox">
+             <property name="toolTip">
+              <string>The ElasticNet mixing parameter, with 0 &lt;= l1_ratio &lt;= 1. For l1_ratio
+= 0 the penalty is an L2 penalty. For l1_ratio = 1 it is an L1 penalty.
+For 0 &lt; l1_ratio &lt; 1, the penalty is a combination of L1 and L2.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="enfit_interceptLabel">
+             <property name="text">
+              <string>fit_intercept
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QCheckBox" name="enfit_interceptCheckBox">
+             <property name="toolTip">
+              <string>Whether the intercept should be estimated or not. If False, the data
+is assumed to be already centered.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="ennormalizeLabel">
+             <property name="text">
+              <string>normalize
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QCheckBox" name="ennormalizeCheckBox">
+             <property name="toolTip">
+              <string>This parameter is ignored when fit_intercept is set to False. If True,
+the regressors X will be normalized before regression by subtracting
+the mean and dividing by the l2-norm. If you wish to standardize,
+please use sklearn.preprocessing. StandardScaler before calling fit on
+an estimator with normalize=False.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="enprecomputeLabel">
+             <property name="text">
+              <string>precompute
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QCheckBox" name="enprecomputeCheckBox">
+             <property name="toolTip">
+              <string>Whether to use a precomputed Gram matrix to speed up calculations.
+The Gram matrix can also be passed as argument. For sparse input this
+option is always True to preserve sparsity.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QLabel" name="enmax_iterLabel">
+             <property name="text">
+              <string>max_iter
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QSpinBox" name="enmax_iterSpinBox">
+             <property name="toolTip">
+              <string>The maximum number of iterations</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QLabel" name="encopy_XLabel">
+             <property name="text">
+              <string>copy_X
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QCheckBox" name="encopy_XCheckBox">
+             <property name="toolTip">
+              <string>If True, X will be copied; else, it may be overwritten.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QLabel" name="entolLabel">
+             <property name="text">
+              <string>tol
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QDoubleSpinBox" name="entolDoubleSpinBox">
+             <property name="toolTip">
+              <string>The tolerance for the optimization:</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="enwarm_startLabel">
+             <property name="text">
+              <string>warm_start
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QCheckBox" name="enwarm_startCheckBox">
+             <property name="toolTip">
+              <string>When set to True, reuse the solution of the previous call to fit as
+initialization, otherwise, just erase the previous solution.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QLabel" name="enpositiveLabel">
+             <property name="text">
+              <string>positive</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1">
+            <widget class="QCheckBox" name="enpositiveCheckBox">
+             <property name="toolTip">
+              <string>When set to True, forces the coefficients to be positive.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0">
+            <widget class="QLabel" name="enselectionLabel">
+             <property name="text">
+              <string>selection</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="1">
+            <widget class="QComboBox" name="enselectionComboBox">
+             <property name="toolTip">
+              <string>If set to 'random', a random coefficient is updated every iteration
+rather than looping over features sequentially by default. This
+(setting to 'random') often leads to significantly faster convergence
+especially when tol is higher than 1e-4.</string>
+             </property>
+             <property name="whatsThis">
+              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>cyclic</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>random</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
-        <item>
-         <property name="text">
-          <string>Array-like</string>
-         </property>
-        </item>
-       </widget>
+       </layout>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="maxNumOfIterationsLabel">
-        <property name="text">
-         <string>Max Num of Iterations</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QSpinBox" name="maxNumOfIterationsSpinBox">
-        <property name="maximum">
-         <number>99999</number>
-        </property>
-        <property name="value">
-         <number>1000</number>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="copyXLabel">
-        <property name="text">
-         <string>Copy X</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QCheckBox" name="copyXCheckBox">
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="toleranceLabel">
-        <property name="text">
-         <string>Tolerance</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QDoubleSpinBox" name="toleranceDoubleSpinBox">
-        <property name="decimals">
-         <number>4</number>
-        </property>
-        <property name="singleStep">
-         <double>0.000100000000000</double>
-        </property>
-        <property name="value">
-         <double>0.000100000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="warmStartLabel">
-        <property name="text">
-         <string>Warm Start</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="1">
-       <widget class="QCheckBox" name="warmStartCheckBox"/>
-      </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="positiveLabel">
-        <property name="text">
-         <string>Positive</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="1">
-       <widget class="QCheckBox" name="positiveCheckBox"/>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="selectionLabel">
-        <property name="text">
-         <string>Selection</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="1">
-       <widget class="QLineEdit" name="selectionLineEdit">
-        <property name="text">
-         <string>cyclic</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="randomStateLabel">
-        <property name="text">
-         <string>Random State</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="1">
-       <widget class="QLineEdit" name="randomStateLineEdit">
-        <property name="text">
-         <string>None</string>
-        </property>
-       </widget>
-      </item>
-      <item row="12" column="0">
-       <widget class="QLabel" name="crossValidateLabel">
-        <property name="text">
+      <item>
+       <widget class="QCheckBox" name="CVCheckBox">
+        <property name="toolTip">
          <string>Cross Validate</string>
         </property>
-       </widget>
-      </item>
-      <item row="12" column="1">
-       <widget class="QCheckBox" name="crossValidateCheckBox">
-        <property name="checked">
-         <bool>true</bool>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
+        </property>
+        <property name="text">
+         <string>CV</string>
         </property>
        </widget>
       </item>
@@ -235,34 +558,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>crossValidateCheckBox</sender>
+   <sender>CVCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>alphaDoubleSpinBox</receiver>
-   <slot>setDisabled(bool)</slot>
+   <receiver>elasticNetCVGroupBox</receiver>
+   <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>136</x>
-     <y>299</y>
+     <x>20</x>
+     <y>496</y>
     </hint>
     <hint type="destinationlabel">
-     <x>161</x>
-     <y>29</y>
+     <x>26</x>
+     <y>472</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>crossValidateCheckBox</sender>
+   <sender>CVCheckBox</sender>
    <signal>toggled(bool)</signal>
-   <receiver>l1RatioDoubleSpinBox</receiver>
-   <slot>setDisabled(bool)</slot>
+   <receiver>elasticNetGroupBox</receiver>
+   <slot>setHidden(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>139</x>
-     <y>297</y>
+     <x>47</x>
+     <y>494</y>
     </hint>
     <hint type="destinationlabel">
-     <x>146</x>
-     <y>62</y>
+     <x>298</x>
+     <y>465</y>
     </hint>
    </hints>
   </connection>

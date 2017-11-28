@@ -1,5 +1,14 @@
 name: pysat_point_spectra_gui
 dependencies:
-  - python=3
-  - numpy
-  - pandas
+ - python=3
+ - pyqt
+ - numpy
+ - pandas
+ - scipy
+ - matplotlib
+ - pip:
+   - sklearn
+   - qtmodern
+   - libpysat
+   - Qtickle
+   - point_spectra_gui

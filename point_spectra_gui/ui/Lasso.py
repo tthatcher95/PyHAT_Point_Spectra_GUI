@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\nfinch\Desktop\GitHub\PySAT_Point_Spectra_GUI\ui\Lasso.ui'
-#
-# Created by: PyQt5 UI code generator 5.6
-#
-# WARNING! All changes made in this file will be lost!
+# Automatically generated - don't edit.
+# Use `python setup.py build_ui` to update it.
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -74,16 +71,38 @@ class Ui_Form(object):
         self.retranslateUi(Form)
         self.optimizeWCrossValidaitonCheckBox.toggled['bool'].connect(self.alphaDoubleSpinBox.setDisabled)
         QtCore.QMetaObject.connectSlotsByName(Form)
+        Form.setTabOrder(self.alphaDoubleSpinBox, self.maxNumOfIterationsSpinBox)
+        Form.setTabOrder(self.maxNumOfIterationsSpinBox, self.toleranceDoubleSpinBox)
+        Form.setTabOrder(self.toleranceDoubleSpinBox, self.fitInterceptCheckBox)
+        Form.setTabOrder(self.fitInterceptCheckBox, self.forcePositiveCoefficientsCheckBox)
+        Form.setTabOrder(self.forcePositiveCoefficientsCheckBox, self.optimizeWCrossValidaitonCheckBox)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        self.alphaLabel.setText(_translate("Form", "Alpha"))
-        self.maxNumOfIterationsLabel.setText(_translate("Form", "Max # of iterations"))
-        self.toleranceLabel.setText(_translate("Form", "Tolerance"))
-        self.fitInterceptLabel.setText(_translate("Form", "Fit Intercept"))
-        self.forcePositiveCoefficientsLabel.setText(_translate("Form", "Force positive coefficients"))
-        self.optimizeWCrossValidaitonLabel.setText(_translate("Form", "Optimize w/ Cross Validaiton (Ignores alpha)"))
+        Form.setWindowTitle(("Form"))
+        self.alphaLabel.setText(("Alpha"))
+        self.alphaDoubleSpinBox.setToolTip(_translate("Form", "Constant that multiplies the L1 term. Defaults to 1.0. alpha = 0 is\n"
+"equivalent to an ordinary least square, solved by the LinearRegression\n"
+"object. For numerical reasons, using alpha = 0 with the Lasso object\n"
+"is not advised. Given this, you should use the LinearRegression object."))
+        self.alphaDoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.maxNumOfIterationsLabel.setText(("Max # of iterations"))
+        self.maxNumOfIterationsSpinBox.setToolTip(("The maximum number of iterations"))
+        self.maxNumOfIterationsSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.toleranceLabel.setText(("Tolerance"))
+        self.fitInterceptLabel.setText(("Fit Intercept"))
+        self.fitInterceptCheckBox.setToolTip(_translate("Form", "whether to calculate the intercept for this model. If set to false,\n"
+"no intercept will be used in calculations (e.g. data is expected to\n"
+"be already centered)."))
+        self.fitInterceptCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.forcePositiveCoefficientsLabel.setText(("Force positive coefficients"))
+        self.forcePositiveCoefficientsCheckBox.setToolTip(("When set to True, forces the coefficients to be positive."))
+        self.forcePositiveCoefficientsCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.optimizeWCrossValidaitonLabel.setText(("Optimize w/ Cross Validation (Ignores alpha)"))
+        self.optimizeWCrossValidaitonCheckBox.setToolTip(("Optimize with Cross Validaiton"))
+        self.optimizeWCrossValidaitonCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.toleranceDoubleSpinBox.setToolTip(("The tolerance for the optimization"))
+        self.toleranceDoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
 
 
 if __name__ == "__main__":

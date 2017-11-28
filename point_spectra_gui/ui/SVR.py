@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\nfinch\Desktop\GitHub\PySAT_Point_Spectra_GUI\ui\SVR.ui'
-#
-# Created by: PyQt5 UI code generator 5.6
-#
-# WARNING! All changes made in this file will be lost!
+# Automatically generated - don't edit.
+# Use `python setup.py build_ui` to update it.
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -51,9 +48,6 @@ class Ui_Form(object):
         self.degreeLabel = QtWidgets.QLabel(self.formGroupBox)
         self.degreeLabel.setObjectName("degreeLabel")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.degreeLabel)
-        self.degreeSpinBox = QtWidgets.QSpinBox(self.formGroupBox)
-        self.degreeSpinBox.setObjectName("degreeSpinBox")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.degreeSpinBox)
         self.gammaLabel = QtWidgets.QLabel(self.formGroupBox)
         self.gammaLabel.setObjectName("gammaLabel")
         self.formLayout.setWidget(4, QtWidgets.QFormLayout.LabelRole, self.gammaLabel)
@@ -107,6 +101,9 @@ class Ui_Form(object):
         self.maxIterationsSpinBox.setProperty("value", -1)
         self.maxIterationsSpinBox.setObjectName("maxIterationsSpinBox")
         self.formLayout.setWidget(10, QtWidgets.QFormLayout.FieldRole, self.maxIterationsSpinBox)
+        self.degreeSpinBox = QtWidgets.QSpinBox(self.formGroupBox)
+        self.degreeSpinBox.setObjectName("degreeSpinBox")
+        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.degreeSpinBox)
         self.verticalLayout.addWidget(self.formGroupBox)
 
         self.retranslateUi(Form)
@@ -114,27 +111,60 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        self.cLabel.setText(_translate("Form", "C"))
-        self.epsilonLabel.setText(_translate("Form", "Epsilon"))
-        self.kernelLabel.setText(_translate("Form", "Kernel"))
-        self.kernelComboBox.setItemText(0, _translate("Form", "rbf"))
-        self.kernelComboBox.setItemText(1, _translate("Form", "poly"))
-        self.kernelComboBox.setItemText(2, _translate("Form", "sigmoid"))
-        self.kernelComboBox.setItemText(3, _translate("Form", "linear"))
-        self.kernelComboBox.setItemText(4, _translate("Form", "precomputed"))
-        self.degreeLabel.setText(_translate("Form", "Degree"))
-        self.gammaLabel.setText(_translate("Form", "Gamma"))
-        self.gammaComboBox.setItemText(0, _translate("Form", "auto"))
-        self.gammaComboBox.setItemText(1, _translate("Form", "rbf"))
-        self.gammaComboBox.setItemText(2, _translate("Form", "poly"))
-        self.gammaComboBox.setItemText(3, _translate("Form", "sigmoid"))
-        self.coeff0Label.setText(_translate("Form", "Coeff 0"))
-        self.shrinkingLabel.setText(_translate("Form", "Shrinking"))
-        self.toleranceLabel.setText(_translate("Form", "Tolerance"))
-        self.cacheSizeLabel.setText(_translate("Form", "Cache Size"))
-        self.verboseLabel.setText(_translate("Form", "Verbose"))
-        self.maxIterationsLabel.setText(_translate("Form", "Max Iterations"))
+        Form.setWindowTitle(("Form"))
+        self.cLabel.setText(("C"))
+        self.cDoubleSpinBox.setToolTip(("Penalty parameter C of the error term."))
+        self.cDoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.epsilonLabel.setText(("Epsilon"))
+        self.epsilonDoubleSpinBox.setToolTip(_translate("Form", "Epsilon in the epsilon-SVR model. It specifies the epsilon-tube\n"
+"within which no penalty is associated in the training loss function\n"
+"with points predicted within a distance epsilon from the actual\n"
+"value."))
+        self.epsilonDoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.kernelLabel.setText(("Kernel"))
+        self.kernelComboBox.setToolTip(_translate("Form", "Specifies the kernel type to be used in the algorithm. It must be one\n"
+"of \'linear\', \'poly\', \'rbf\', \'sigmoid\', \'precomputed\' or a callable.\n"
+"If none is given, \'rbf\' will be used. If a callable is given it is\n"
+"used to precompute the kernel matrix."))
+        self.kernelComboBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.kernelComboBox.setItemText(0, ("rbf"))
+        self.kernelComboBox.setItemText(1, ("poly"))
+        self.kernelComboBox.setItemText(2, ("sigmoid"))
+        self.kernelComboBox.setItemText(3, ("linear"))
+        self.kernelComboBox.setItemText(4, ("precomputed"))
+        self.degreeLabel.setText(("Degree"))
+        self.gammaLabel.setText(("Gamma"))
+        self.gammaComboBox.setToolTip(_translate("Form", "Kernel coefficient for \'rbf\', \'poly\' and \'sigmoid\'. If gamma is \'auto\'\n"
+"then 1/n_features will be used instead."))
+        self.gammaComboBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.gammaComboBox.setItemText(0, ("auto"))
+        self.gammaComboBox.setItemText(1, ("rbf"))
+        self.gammaComboBox.setItemText(2, ("poly"))
+        self.gammaComboBox.setItemText(3, ("sigmoid"))
+        self.coeff0Label.setText(("Coeff 0"))
+        self.coeff0DoubleSpinBox.setToolTip(_translate("Form", "Independent term in kernel function. It is only significant in \'poly\'\n"
+"and \'sigmoid\'."))
+        self.coeff0DoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.shrinkingLabel.setText(("Shrinking"))
+        self.shrinkingCheckBox.setToolTip(("Whether to use the shrinking heuristic."))
+        self.shrinkingCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.toleranceLabel.setText(("Tolerance"))
+        self.toleranceDoubleSpinBox.setToolTip(("Tolerance for stopping criterion."))
+        self.toleranceDoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.cacheSizeLabel.setText(("Cache Size"))
+        self.cacheSizeSpinBox.setToolTip(("Specify the size of the kernel cache (in MB)."))
+        self.cacheSizeSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.verboseLabel.setText(("Verbose"))
+        self.verboseCheckBox.setToolTip(_translate("Form", "Enable verbose output. Note that this setting takes advantage of a\n"
+"per-process runtime setting in libsvm that, if enabled, may not work\n"
+"properly in a multithreaded context."))
+        self.verboseCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.maxIterationsLabel.setText(("Max Iterations"))
+        self.maxIterationsSpinBox.setToolTip(("Hard limit on iterations within solver, or -1 for no limit."))
+        self.maxIterationsSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
+        self.degreeSpinBox.setToolTip(("Degree of the polynomial kernel function (\'poly\'). Ignored by all\n"
+"other kernels."))
+        self.degreeSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVR.html"))
 
 
 if __name__ == "__main__":

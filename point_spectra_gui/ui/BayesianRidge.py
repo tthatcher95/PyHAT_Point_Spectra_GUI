@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\nfinch\Desktop\GitHub\PySAT_Point_Spectra_GUI\ui\BayesianRidge.ui'
-#
-# Created by: PyQt5 UI code generator 5.6
-#
-# WARNING! All changes made in this file will be lost!
+# Automatically generated - don't edit.
+# Use `python setup.py build_ui` to update it.
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -106,22 +103,46 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
-        self.numOfIterationsLabel.setText(_translate("Form", "num of iterations"))
-        self.toleranceLabel.setText(_translate("Form", "Tolerance"))
-        self.alpha1Label.setText(_translate("Form", "Alpha 1"))
-        self.alpha2Label.setText(_translate("Form", "Alpha 2"))
-        self.lambdaLabel.setText(_translate("Form", "Lambda"))
-        self.computerScoreLabel.setText(_translate("Form", "Computer Score"))
-        self.computerScoreCheckBox.setText(_translate("Form", "compute the objective function at each step of the model"))
-        self.fitInterceptLabel.setText(_translate("Form", "Fit Intercept"))
-        self.fitInterceptCheckBox.setText(_translate("Form", "calculate the intercept for this model"))
-        self.normalizeLabel.setText(_translate("Form", "Normalize"))
-        self.normalizeCheckBox.setText(_translate("Form", "regressors X will be normlized before regression"))
-        self.copyXLabel.setText(_translate("Form", "Copy X"))
-        self.copyXCheckBox.setText(_translate("Form", "X will be copied; else, it may be overwritten"))
-        self.verboseLabel.setText(_translate("Form", "Verbose"))
-        self.verboseCheckBox.setText(_translate("Form", "Verbose mode when fitting the model"))
+        Form.setWindowTitle(("Form"))
+        self.numOfIterationsLabel.setText(("num of iterations"))
+        self.numOfIterationsSpinBox.setToolTip(("Maximum number of iterations. Default is 300."))
+        self.numOfIterationsSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.toleranceLabel.setText(("Tolerance"))
+        self.toleranceDoubleSpinBox.setToolTip(("Stop the algorithm if w has converged. Default is 1.e-3."))
+        self.toleranceDoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.alpha1Label.setText(("Alpha 1"))
+        self.alpha1DoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.alpha2Label.setText(("Alpha 2"))
+        self.alpha2DoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.lambdaLabel.setText(("Lambda"))
+        self.lambdaDoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.computerScoreLabel.setText(("Computer Score"))
+        self.computerScoreCheckBox.setToolTip(_translate("Form", "If True, compute the objective function at each step of the model.\n"
+"Default is False"))
+        self.computerScoreCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.computerScoreCheckBox.setText(("compute the objective function at each step of the model"))
+        self.fitInterceptLabel.setText(("Fit Intercept"))
+        self.fitInterceptCheckBox.setToolTip(_translate("Form", "whether to calculate the intercept for this model. If set to false,\n"
+"no intercept will be used in calculations (e.g. data is expected to\n"
+"be already centered). Default is True."))
+        self.fitInterceptCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.fitInterceptCheckBox.setText(("calculate the intercept for this model"))
+        self.normalizeLabel.setText(("Normalize"))
+        self.normalizeCheckBox.setToolTip(_translate("Form", "This parameter is ignored when fit_intercept is set to False. If True,\n"
+"the regressors X will be normalized before regression by subtracting\n"
+"the mean and dividing by the l2-norm. If you wish to standardize,\n"
+"please use sklearn.preprocessing.StandardScaler before calling fit on\n"
+"an estimator with normalize=False."))
+        self.normalizeCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.normalizeCheckBox.setText(("regressors X will be normlized before regression"))
+        self.copyXLabel.setText(("Copy X"))
+        self.copyXCheckBox.setToolTip(("If True, X will be copied; else, it may be overwritten."))
+        self.copyXCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.copyXCheckBox.setText(("X will be copied; else, it may be overwritten"))
+        self.verboseLabel.setText(("Verbose"))
+        self.verboseCheckBox.setToolTip(("Verbose mode when fitting the model."))
+        self.verboseCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.BayesianRidge.html"))
+        self.verboseCheckBox.setText(("Verbose mode when fitting the model"))
 
 
 if __name__ == "__main__":

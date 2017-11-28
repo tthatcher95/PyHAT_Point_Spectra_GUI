@@ -1,37 +1,23 @@
 language: python
-sudo: required
-python:
-  - "3.6"
-  - "3.5"
 cache:
-  - pip
-env:
-  global:
-    - PIP_INSTALL="pip3 install"
-  matrix:
-    - PYQT="$PIP_INSTALL pyqt5==5.9"
-before_install:
-  - $PYQT
+- pip
 install:
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - conda info -a
-  - conda create -q -n test_environment python=$TRAVIS_PYTHON_VERSION
-  - source activate test_environment 
-  - conda install pytest pytest-cov coverage sh anaconda-client
-  - pip install -r requirements.txt
-  - conda list
-  - python setup.py install
-  - git clone https://github.com/USGS-Astrogeology/PySAT.git
-  - cd PySAT
-  - python setup.py install
-  - cd ..
+- wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+- bash miniconda.sh -b -p $HOME/miniconda
+- export PATH="$HOME/miniconda/bin:$PATH"
+- hash -r
 script:
-  - python setup.py clean
-  - python setup.py build
-  - python setup.py install
-  - python tests/test_main_.py
+- bash build.sh
+- python setup.py install
+deploy:
+  provider: pypi
+  user: tisaconundrum
+  password:
+    secure: gSgpEqoiW/3U4ybL5S0MNNlqXPP99v5G9Wjnjh4B4xCmkZgMYvLl01Xwj/RyPXTnR6+uU1fwXNOeCTzXGN1Tu2NJdlPvMsdEOQbcZIgdvM6TqTCuLAzxWTkXeAhKBfctViPqZvDIPRSNbdAxDAlchZbHjx+MIs/S+/LBcIuI4RUt7+Q0ZML4HN57de1Dxd2bHQwjCOjRCDMavAmsoaWToY9Qzdh+Ti30Le1ZY3ZsO/nM4d6PDAng4vBjwdJ6iSK/5BqY9ipkfqWAvkbDLxVfkFyNt/QIOAg4h6tlyj2RdCLLBIjEGmdrL3K1T5jttnchkmBzc5bCDJF8AmzGPd916t5tXBShqxp2KA/Fg8MTPEuhoISp2o2ABZnQawATeKSqVV4F24zrUwiGT5tj8SEsLvPa+HlaAH3g7u1w2Vm2qinRjGGX4IRj+6jxkPGjEgHR2GMwRnHDkCEwo/VxyRCC/fJi42bUJoF97+IepoHQrrTe07wa0BRhfD/FsNivAxecIAUk/hLD/XHxujwxL2KTDWpKmR5Na3byp9hugIAjBgtPEknedEabwqthAD10glnjfXjJ6Pz/Y4wty82FqmYZ2dj1K4EaEO00G2mIjj71ItpIEL6RjzLbsAHOyUK6T6r7GBrp9PgQAmf6EsODdwJ1JEAte/bxqRqHmL9S62uVqw4=
+  distributions: sdist bdist_wheel
+  on:
+    branch: master
+after_deploy:
+- conda env create -n ppsg -f environment.yml
+- source activate ppsg
+- point_spectra_gui
