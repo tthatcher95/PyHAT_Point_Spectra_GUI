@@ -6,7 +6,6 @@ from point_spectra_gui.ui.BaselineRemoval import Ui_Form
 from point_spectra_gui.util.BasicFunctionality import Basics
 
 
-
 class BaselineRemoval(Ui_Form, Basics):
     def setupUi(self, Form):
         self.Form = Form
