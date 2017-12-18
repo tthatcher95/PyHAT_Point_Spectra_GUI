@@ -33,10 +33,10 @@ class Ui_Form(Ui_Form, Basics):
 
         self.cLineEdit.setText(str(svr.C))
         self.epsilonLineEdit.setText(str(svr.epsilon))
-        self.kernel_list.setCurrentItem(self.kernel_list.findItems('Radial Basis Function',QtCore.Qt.MatchExactly)[0])
+        self.kernel_list.setCurrentItem(self.kernel_list.findItems('Radial Basis Function', QtCore.Qt.MatchExactly)[0])
         self.degreeLineEdit.setText(str(svr.degree))
         self.coeff0LineEdit.setText(str(svr.coef0))
-        self.shrinking_list.setCurrentItem(self.shrinking_list.findItems(str(svr.shrinking),QtCore.Qt.MatchExactly)[0])
+        self.shrinking_list.setCurrentItem(self.shrinking_list.findItems(str(svr.shrinking), QtCore.Qt.MatchExactly)[0])
         self.toleranceLineEdit.setText(str(svr.tol))
         self.maxIterationsLineEdit.setText(str(svr.max_iter))
 

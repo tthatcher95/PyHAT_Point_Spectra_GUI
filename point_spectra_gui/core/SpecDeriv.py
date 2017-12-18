@@ -19,7 +19,7 @@ class SpecDeriv(Ui_Form, Basics):
         datakey = self.chooseDataToDerivComboBox.currentText()
         new_datakey = datakey + ' - Derivative'
         self.datakeys.append(new_datakey)
-        self.data[new_datakey]=self.data[datakey].deriv()
+        self.data[new_datakey] = self.data[datakey].deriv()
         print("Derivative Applied")
 
 

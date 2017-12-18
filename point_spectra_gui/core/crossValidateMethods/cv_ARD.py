@@ -25,8 +25,10 @@ class Ui_Form(Ui_Form, ARDRegression, Basics):
         self.lambdaLineEdit.setText(str(self.lambda_1))
         self.lambdaLineEdit_2.setText(str(self.lambda_2))
         self.thresholdLambdaLineEdit.setText(str(self.threshold_lambda))
-        self.fitIntercept_list.setCurrentItem(self.fitIntercept_list.findItems(str(self.fit_intercept),QtCore.Qt.MatchExactly)[0])
-        self.normalize_list.setCurrentItem(self.normalize_list.findItems(str(self.normalize),QtCore.Qt.MatchExactly)[0])
+        self.fitIntercept_list.setCurrentItem(
+            self.fitIntercept_list.findItems(str(self.fit_intercept), QtCore.Qt.MatchExactly)[0])
+        self.normalize_list.setCurrentItem(
+            self.normalize_list.findItems(str(self.normalize), QtCore.Qt.MatchExactly)[0])
 
     def function(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fitIntercept_list.selectedItems()]

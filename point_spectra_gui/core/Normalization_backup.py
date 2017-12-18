@@ -1,4 +1,5 @@
 from PyQt5 import QtWidgets
+
 from point_spectra_gui.ui.Normalization import Ui_Form
 from point_spectra_gui.util.BasicFunctionality import Basics
 
@@ -63,7 +64,6 @@ class Normalization(Ui_Form, Basics):
         self.qt.isGuiChanged(self.checkForNewMax)
         self.add_range_button.clicked.connect(lambda: self.on_addRange_pushed())
         self.delete_range_button.clicked.connect(lambda: self.on_deleteRange_pushed())
-
 
     def on_change_rangeCountPushButton(self):
         spin = int(self.rangeCountSpinBox.value())

@@ -1,4 +1,5 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets
+
 from point_spectra_gui.ui.dimred_JADE import Ui_Form
 from point_spectra_gui.util.BasicFunctionality import Basics
 
@@ -19,7 +20,6 @@ class Ui_Form(Ui_Form, Basics):
         self.nc_spin.setValue(8)
 
     def function(self):
-
         params = {
             'n_components': self.nc_spin.value()}
         params_key = str(params)

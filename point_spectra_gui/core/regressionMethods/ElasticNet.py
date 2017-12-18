@@ -103,7 +103,6 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Basics):
             return params, self.getChangedValues(params, ElasticNet())
 
 
-
 if __name__ == "__main__":
     import sys
 
