@@ -30,11 +30,7 @@ class subWidgets:
         self.maxSpinBox.setHidden(bool)
 
     def getValues(self):
-        return [self.predictionComboBox.currentText(), [int(self.minSpinBox.value()), int(self.maxSpinBox.value())]]
-
-    def setMaximum(self, int_):
-        self.minSpinBox.setMaximum(int_)
-        self.maxSpinBox.setMaximum(int_)
+        return [self.predictionComboBox.currentText(), [float(self.minSpinBox.value()), float(self.maxSpinBox.value())]]
 
     def setValue(self, int_):
         self.minSpinBox.setValue(int_)
@@ -100,6 +96,19 @@ class SubmodelBlend(Ui_Form, Basics):
     def get_Predictions(self):
         try:
             self.predictnames = self.data[self.chooseDatacomboBox.currentText()].df['predict'].columns.values
+            self.setComboBox(self.referencePredictionComboBox, self.predictnames)
+            self.setComboBox(self.lowPredictionComboBox, self.predictnames)
+            self.setComboBox(self.highPredictionComboBox, self.predictnames)
+            for i in self.subwidgets:
+                self.setComboBox(i.get_predictionComboBox(), self.predictnames)
+
+            if self.optimizeSubRangesCheckBox.isChecked():
+                try:
+                    self.setComboBox(self.optimizeSubRangesComboBox,
+                             self.data[self.chooseDatacomboBox.currentText()].df['comp'].columns.values)
+                except:
+                    self.setComboBox(self.optimizeSubRangesComboBox, ['No Compositions'])
+
         except:
             pass
 
@@ -158,7 +167,7 @@ class SubmodelBlend(Ui_Form, Basics):
             print("Cannot add more submodels")
 
     def on_deleteSubmodel_pushed(self):
-        if self.index > 1:
+        if self.index > 0:
             self.index -= 1
             self.subwidgets[self.index].setHidden(True)
             self.subwidgets[self.index].setValue(0)

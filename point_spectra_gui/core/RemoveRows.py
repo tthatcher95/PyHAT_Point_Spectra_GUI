@@ -95,13 +95,17 @@ class RemoveRows(Ui_Form, Basics):
     def hide_operations(self):
         for i in range(len(self.operations) - 1):
             try:
-                if self.operations[i].logic.currentText() != '-':
-                    self.operations[i + 1].hidden.setChecked(False)
+                if self.operations[i].logic.currentText() == 'and':
+                    self.operations[i+1].hidden.setChecked(False)
                 else:
-                    self.operations[i + 1].hidden.setChecked(True)
+                    self.operations[i+1].hidden.setChecked(True)
+
+                if self.operations[i+1].logic.currentText() == 'and':
+                    self.operations[i].logic.setEnabled(False)
+                else:
+                    self.operations[i].logic.setEnabled(True)
             except:
                 pass
-
     def function(self):
         match_vectors = []
         logic_list = []
