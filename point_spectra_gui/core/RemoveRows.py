@@ -106,7 +106,7 @@ class RemoveRows(Ui_Form, Basics):
                     self.operations[i].logic.setEnabled(True)
             except:
                 pass
-    def function(self):
+    def run(self):
         match_vectors = []
         logic_list = []
         datakey = self.chooseData.currentText()

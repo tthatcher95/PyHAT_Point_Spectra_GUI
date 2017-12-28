@@ -54,7 +54,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Basics):
         self.setComboBox(self.selectionComboBox, ['cyclic', 'random'])
         self.defaultComboItem(self.selectionComboBox, encv.selection)
 
-    def function(self):
+    def run(self):
         p_attrib = {'False': False, 'True': True, 'Array-like': 'array-like'}
         r_attrib = {'None': None}
         # TODO Add back the random state later.

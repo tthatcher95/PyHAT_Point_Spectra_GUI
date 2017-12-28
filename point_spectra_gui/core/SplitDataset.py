@@ -21,7 +21,7 @@ class SplitDataset(Ui_Form, Basics):
         except:
             pass
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
         colname = self.splitOnUniqueValuesOfComboBox.currentText()
         vars_level0 = self.data[datakey].df.columns.get_level_values(0)

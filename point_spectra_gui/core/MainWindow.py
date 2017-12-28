@@ -512,7 +512,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Basics):
     def runModules(self):
         """
         This function iterates through a list of object addresses
-        which then run it's dot notated function()
+        which then run it's dot notated run()
 
         iterate through our widgets, start from the last left off item
         get the name of our current widget item
@@ -562,7 +562,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Basics):
         logpath = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop\\logs')
 
         try:
-            function()
+            run()
         except:
             if not os.path.exists(logpath):
                 os.makedirs(logpath)

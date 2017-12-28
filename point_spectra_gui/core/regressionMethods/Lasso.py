@@ -24,7 +24,7 @@ class Ui_Form(Ui_Form, Lasso, Basics):
         self.toleranceDoubleSpinBox.setValue(self.tol)
         self.forcePositiveCoefficientsCheckBox.setChecked(self.positive)
 
-    def function(self):
+    def run(self):
         params = {'alpha': float(self.alpha_text.text()),
                   'fit_intercept': self.fitInterceptCheckBox.isChecked(),
                   'max_iter': int(self.maxNumOfIterationsSpinBox.value()),

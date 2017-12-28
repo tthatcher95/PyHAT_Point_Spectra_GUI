@@ -21,7 +21,7 @@ class Ui_Form(Ui_Form, Basics):
         br = MedianFilter()
         self.windowSizeSpinBox.setValue(br.window_)
 
-    def function(self):
+    def run(self):
         methodParameters = {'window_': self.windowSizeSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, MedianFilter())
 

@@ -173,7 +173,7 @@ class Normalization(Ui_Form, Basics):
         else:
             print("Cannot delete any more ranges!")
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
         range_vals = []
         for i in self.ranges:

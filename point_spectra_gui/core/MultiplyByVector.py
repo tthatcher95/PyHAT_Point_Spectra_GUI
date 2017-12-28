@@ -16,7 +16,7 @@ class MultiplyByVector(Ui_Form, Basics):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.vectorFileLineEdit))
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
         vectorfile = self.vectorFileLineEdit.text()
 

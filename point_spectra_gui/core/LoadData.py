@@ -23,7 +23,7 @@ class LoadData(Ui_loadData, Basics):
         if lineEdit.text() == "":
             lineEdit.setText("*.csv")
 
-    def function(self):
+    def run(self):
         params = self.getGuiParams()
         filename = params['fileNameLineEdit']
         keyname = params['dataSetNameLineEdit']

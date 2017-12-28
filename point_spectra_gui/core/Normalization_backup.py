@@ -147,7 +147,7 @@ class Normalization(Ui_Form, Basics):
             xvarchoices = ['No valid choices!']
         return xvarchoices
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
 
         if self.checkoptions(datakey, self.datakeys, 'data set'):

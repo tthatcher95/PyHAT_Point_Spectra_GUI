@@ -103,14 +103,14 @@ class Basics:
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict)
 
-    def function(self):
+    def run(self):
         """
         Each Module's functionality will be ran in this function.
         You will define what will happen to the data and parameters in here
         :return:
         """
         sys.exit('Error: Application closed unexpectedly\n'
-                 'The method "function()" was not found in this module')
+                 'The method "run()" was not found in this module')
 
     def isEnabled(self):
         """

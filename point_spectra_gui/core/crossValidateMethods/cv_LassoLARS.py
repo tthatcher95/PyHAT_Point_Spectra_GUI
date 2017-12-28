@@ -29,7 +29,7 @@ class Ui_Form(Ui_Form, Basics):
         self.force_positive_list.setCurrentItem(self.force_positive_list.findItems(str(ll.positive),QtCore.Qt.MatchExactly)[0])
 
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
         positive_items = [i.text() == 'True' for i in self.force_positive_list.selectedItems()]

@@ -22,7 +22,7 @@ class Ui_Form(Ui_Form, LocallyLinearEmbedding, Basics):
         self.nc_spin.setValue(2)
         self.regularization_spin.setValue(0.001)
 
-    def function(self):
+    def run(self):
         params = {
             'n_components': self.nc_spin.value(),
             'n_neighbors': self.neighbors_spin.value(),

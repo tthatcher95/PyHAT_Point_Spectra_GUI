@@ -22,7 +22,7 @@ class Ui_Form(Ui_Form, Basics):
         self.smoothnessDoubleSpinBox.setValue(br.dilation_)
         self.dilationSpinBox.setValue(br.smoothness_)
 
-    def function(self):
+    def run(self):
         methodParameters = {'dilation_': self.smoothnessDoubleSpinBox.value(),
                             'smoothness_': self.dilationSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, FABC())

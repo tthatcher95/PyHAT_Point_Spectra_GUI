@@ -24,7 +24,7 @@ class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, B
         self.normalize_list.setCurrentItem(
             self.normalize_list.findItems(str(self.normalize), QtCore.Qt.MatchExactly)[0])
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
 

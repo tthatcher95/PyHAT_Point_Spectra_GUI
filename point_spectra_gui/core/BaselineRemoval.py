@@ -60,7 +60,7 @@ class BaselineRemoval(Ui_Form, Basics):
         for i in range(len(dict)):
             self.alg[i - 1].setGuiParams(dict[i])
 
-    def function(self):
+    def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         # return method parameters and parameters that changed
@@ -79,7 +79,7 @@ class BaselineRemoval(Ui_Form, Basics):
             a.setHidden(True)
 
     def getMethodParams(self, index):
-        return self.alg[index - 1].function()
+        return self.alg[index - 1].run()
 
     def baselineMethods(self):
         self.alg = []

@@ -66,7 +66,7 @@ class Plot(Ui_Form, Basics):
             lambda: self.get_minmax(self.yMinDoubleSpinBox, self.yMaxDoubleSpinBox,
                                     self.chooseYVariableComboBox.currentText()))
 
-    def function(self):
+    def run(self):
 
         datakey = self.chooseDataComboBox.currentText()
         xvar = self.chooseXVariableComboBox.currentText()

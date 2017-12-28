@@ -24,7 +24,7 @@ class Ui_Form(Ui_Form, Basics):
         self.polynomialOrderSpinBox.setValue(br.poly_order_)
         self.toleranceDoubleSpinBox.setValue(br.tol_)
 
-    def function(self):
+    def run(self):
         maxNIDSpinBox = self.maximumNumOfIterationsDoubleSpinBox.value()
         if maxNIDSpinBox == 0:
             maxNIDSpinBox = None

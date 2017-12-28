@@ -23,7 +23,7 @@ class CombineDataSets(Ui_Form, Basics):
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
         self.setComboBox(self.outputToDataSetComboBox, self.datakeys)
 
-    def function(self):
+    def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
         dataIn = self.outputToDataSetComboBox.currentText()

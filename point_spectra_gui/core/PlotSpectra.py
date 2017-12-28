@@ -56,7 +56,7 @@ class PlotSpectra(Ui_Form, Basics):
         except:
             pass
 
-    def function(self):
+    def run(self):
         yrange = None
         xtitle = 'Wavelength (nm)'
         ytitle = None

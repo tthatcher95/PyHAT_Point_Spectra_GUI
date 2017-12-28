@@ -43,7 +43,7 @@ class Ui_Form(Ui_Form, Basics):
         self.verboseCheckBox.setChecked(svr.verbose)
         self.maxIterationsSpinBox.setValue(svr.max_iter)
 
-    def function(self):
+    def run(self):
         gamma_index = self.gammaComboBox.currentIndex()
         kernel_index = self.kernelComboBox.currentIndex()
         params = {'C': self.cDoubleSpinBox.value(),

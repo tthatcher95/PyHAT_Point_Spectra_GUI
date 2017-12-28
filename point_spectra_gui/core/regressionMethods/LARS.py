@@ -36,7 +36,7 @@ class Ui_Form(Ui_Form, Basics):
         self.max_n_alphasSpinBox.setValue(larscv.max_n_alphas)
         self.n_jobsSpinBox.setValue(larscv.n_jobs)
 
-    def function(self):
+    def run(self):
         if self.cVCheckBox.isChecked():
             params = {
                 'fit_intercept': self.fit_interceptCheckBox.isChecked(),

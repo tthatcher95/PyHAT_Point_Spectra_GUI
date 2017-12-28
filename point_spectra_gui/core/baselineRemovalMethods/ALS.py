@@ -28,7 +28,7 @@ class Ui_Form(Ui_Form, Basics):
         self.maxNumOfIterationsSpinBox.setValue(als.max_iters_)
         self.convergenceThresholdDoubleSpinBox.setValue(als.conv_thresh_)
 
-    def function(self):
+    def run(self):
         methodParameters = {'asymmetry_': self.asymmetryDoubleSpinBox.value(),
                             'smoothness_': self.smoothnessDoubleSpinBox.value(),
                             'max_iters_': self.maxNumOfIterationsSpinBox.value(),

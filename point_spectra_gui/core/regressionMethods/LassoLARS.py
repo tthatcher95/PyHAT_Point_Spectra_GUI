@@ -42,7 +42,7 @@ class Ui_Form(Ui_Form, Basics):
         self.setComboBox(self.criterionComboBox, ['aic', 'bic'])
         self.defaultComboItem(self.criterionComboBox, llic.criterion)
 
-    def function(self):
+    def run(self):
         model = self.modelComboBox.currentIndex()
         if model == 0:
             params = {

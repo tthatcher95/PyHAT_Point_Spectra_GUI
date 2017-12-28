@@ -23,7 +23,7 @@ class OutputFolder(Ui_Form, Basics):
 
         self.pushButton.clicked.connect(lambda: self.on_outPutLocationButton_clicked())
 
-    def function(self):
+    def run(self):
         params = self.getGuiParams()
         outpath = params['folderNameLineEdit']
         try:
