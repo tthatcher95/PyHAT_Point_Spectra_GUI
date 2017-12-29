@@ -63,16 +63,14 @@ class Basics:
         styling. Use this function to get the variable
         :return:
         """
-        sys.exit('Error: Application closed unexpectedly\n'
-                 'The method "get_widget()" was not found in this module')
+        raise NotImplementedError('The method "get_widget()" was not found in the module {}'.format(type(self).__name__))
 
     def connectWidgets(self):
         """
         Connect the necessary widgets.
         :return:
         """
-        sys.exit('Error: Application closed unexpectedly\n'
-                 'The method "connectWidgets()" was not found in this module')
+        raise NotImplementedError('The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
 
     def getGuiParams(self):
         """
@@ -111,8 +109,7 @@ class Basics:
         You will define what will happen to the data and parameters in here
         :return:
         """
-        sys.exit('Error: Application closed unexpectedly\n'
-                 'The method "run()" was not found in this module')
+        raise NotImplementedError('The method "run()" was not found in the module {}'.format(type(self).__name__))
 
     def isEnabled(self):
         """
