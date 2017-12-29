@@ -183,14 +183,11 @@ class Normalization(Ui_Form, Basics):
                 pass
         try:
             col_var = self.varToNormalizeListWidget.currentItem().text()
-        except:
-            print("Did you remember to select a variable?")
-        print("{}".format(range_vals))
-        try:
             self.data[datakey].norm(range_vals, col_var)
             print("Normalization has been applied to the ranges: " + str(range_vals))
+            print("{}".format(range_vals))
         except Exception as e:
-            print("There was a problem: ", e)
+            print(str(e) + "Did you remember to select a variable?")
 
     def xvar_choices(self):
         try:
