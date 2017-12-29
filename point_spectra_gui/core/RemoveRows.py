@@ -134,8 +134,7 @@ class RemoveRows(Ui_Form, Basics):
         vars_level1 = list(vars_level1[vars_level0 != 'wvl'])
         vars_level0 = list(vars_level0[vars_level0 != 'wvl'])
         colname = (vars_level0[vars_level1.index(colname)], colname)
-        coldata = np.array([str(i) for i in self.data[datakey].df[colname]]) \
- \
+        coldata = np.array([str(i) for i in self.data[datakey].df[colname]])
         #
         # if value == 'Null':
         #     self.data[datakey] = spectral_data(self.data[datakey].df.ix[-self.data[datakey].df[colname].isnull()])
