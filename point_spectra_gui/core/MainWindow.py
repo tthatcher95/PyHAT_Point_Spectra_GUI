@@ -549,7 +549,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Basics):
         logpath = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop\\logs')
 
         try:
-            run()
+            function()
         except:
             if not os.path.exists(logpath):
                 os.makedirs(logpath)
