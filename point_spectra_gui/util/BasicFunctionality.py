@@ -37,6 +37,7 @@ class Basics:
     models = {}  # For regression training
     model_xvars = {}
     model_yvars = {}
+    moduleCount = 0
 
     def __init__(self):
         self.qt = Qtickle.Qtickle(self)
@@ -44,16 +45,18 @@ class Basics:
         self.flag = False
 
     def setupUi(self, Form):
+        Basics.moduleCount += 1
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
+
 
     def mousePressEvent(self, QMouseEvent):
         """
         Right click event
         """
         # TODO Add mouse Event
-        # print("Right Button Clicked {}".format(type(self).__name__))
+        print("Right Button Clicked {}".format(type(self).__name__))
 
     def get_widget(self):
         """
@@ -80,16 +83,6 @@ class Basics:
         self.qt = Qtickle.Qtickle(self)
         s = self.qt.guiSave()
         return s
-
-    def setGuiParams(self, dict):
-        """
-        Using a dictionary, restore the UI
-        :param dict:
-        :return:
-        """
-        self.qt = Qtickle.Qtickle(self)
-        self.qt.guiRestore(dict)
-        self.qt.isGuiChanged(self.setGuiState)
 
     def selectiveSetGuiParams(self, dict):
         """
