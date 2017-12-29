@@ -80,7 +80,7 @@ class SubmodelPredict(Ui_Form, Basics):
         for i in range(0, len(list)):
             list[i].setHidden(True)
 
-    def function(self):
+    def run(self):
         blendranges = []
         submodel_names = []
         x_ref = []

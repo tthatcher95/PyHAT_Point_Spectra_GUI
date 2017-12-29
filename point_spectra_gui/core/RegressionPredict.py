@@ -16,13 +16,15 @@ class RegressionPredict(Ui_Form, Basics):
         self.setComboBox(self.chooseDataComboBox, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
         modelkey = self.chooseModelComboBox.currentText()
         predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
 
+        data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
+        data_tmp.fillna(value=0,inplace=True)
         try:
-            prediction = self.models[modelkey].predict(self.data[datakey].df[self.model_xvars[modelkey]])
+            prediction = self.models[modelkey].predict(data_tmp)
             self.data[datakey].df[predictname] = prediction
             pass
         except Exception as e:

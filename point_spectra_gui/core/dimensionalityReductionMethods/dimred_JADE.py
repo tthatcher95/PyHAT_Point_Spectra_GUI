@@ -19,7 +19,7 @@ class Ui_Form(Ui_Form, Basics):
     def connectWidgets(self):
         self.nc_spin.setValue(8)
 
-    def function(self):
+    def run(self):
         params = {
             'n_components': self.nc_spin.value()}
         params_key = str(params)

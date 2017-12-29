@@ -31,7 +31,7 @@ class Ui_Form(Ui_Form, KernelRidge, Basics):
         self.coeff0LineEdit.setText(str(self.coef0))
         self.kernel_list.setCurrentItem(self.kernel_list.findItems('Radial Basis Function',QtCore.Qt.MatchExactly)[0])
 
-    def function(self):
+    def run(self):
         k_attrib = {'None': None}
         params = {'alpha': [float(i) for i in self.alphaLineEdit.text().split(',')],
                   'kernel': self.kernel_list.selectedItems(),

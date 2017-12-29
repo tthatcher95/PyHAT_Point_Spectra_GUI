@@ -22,7 +22,7 @@ class MaskData(Ui_Form, Basics):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.maskFileLineEdit))
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
         maskfile = self.maskFileLineEdit.text()
         self.data[datakey].mask(maskfile, maskvar='wvl')

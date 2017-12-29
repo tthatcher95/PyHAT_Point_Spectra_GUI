@@ -21,7 +21,7 @@ class Ui_Form(Ui_Form, IsolationForest, Basics):
         self.n_est_spin.setValue(self.n_estimators)
         self.prop_outliers_spin.setValue(self.contamination)
 
-    def function(self):
+    def run(self):
 
         params = {
             'n_estimators': self.n_est_spin.value(),

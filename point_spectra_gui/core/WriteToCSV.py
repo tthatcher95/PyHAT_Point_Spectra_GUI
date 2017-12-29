@@ -20,7 +20,7 @@ class WriteToCSV(Ui_Form, Basics):
             lambda: self.changeComboListVars(self.variablesToWriteListWidget, self.xvar_choices()))
         self.pushButton.clicked.connect(self.on_pushButton_clicked)
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataSetComboBox.currentText()
         filename = self.specifyAFilenameLineEdit.text()
         selected_cols = self.variablesToWriteListWidget.selectedItems()

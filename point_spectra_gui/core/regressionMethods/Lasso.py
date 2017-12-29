@@ -24,14 +24,14 @@ class Ui_Form(Ui_Form, Lasso, Basics):
         self.toleranceDoubleSpinBox.setValue(self.tol)
         self.forcePositiveCoefficientsCheckBox.setChecked(self.positive)
 
-    def function(self):
+    def run(self):
         params = {'alpha': float(self.alpha_text.text()),
                   'fit_intercept': self.fitInterceptCheckBox.isChecked(),
                   'max_iter': int(self.maxNumOfIterationsSpinBox.value()),
                   'tol': self.toleranceDoubleSpinBox.value(),
                   'positive': self.forcePositiveCoefficientsCheckBox.isChecked(),
-                  'selection': 'random',
-                  'CV': self.optimizeWCrossValidaitonCheckBox.isChecked()}
+                  'selection': 'random'}
+#                  'CV': self.optimizeWCrossValidaitonCheckBox.isChecked()}
         return params, self.getChangedValues(params, Lasso())
 
 

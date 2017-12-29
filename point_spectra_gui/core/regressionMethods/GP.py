@@ -32,7 +32,7 @@ class Ui_Form(Ui_Form, GaussianProcess, Basics):
         self.randomStartSpinBox.setValue(self.random_start)
         self.normalizeCheckBox.setChecked(self.normalize)
 
-    def function(self):
+    def run(self):
         params = {
             'reduce_dim': self.reductionMethodComboBox.currentText(),
             'n_components': self.numOfComponenetsSpinBox.value(),

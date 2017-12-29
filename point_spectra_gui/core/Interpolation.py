@@ -16,7 +16,7 @@ class Interpolation(Ui_Form, Basics):
         self.setComboBox(self.interpolateDataComboBox, self.datakeys)
         self.setComboBox(self.referenceDataComboBox, self.datakeys)
 
-    def function(self):
+    def run(self):
         datakey_to_interp = self.interpolateDataComboBox.currentText()
         datakey_ref = self.referenceDataComboBox.currentText()
         print(self.data[datakey_ref].df.columns.levels[0])

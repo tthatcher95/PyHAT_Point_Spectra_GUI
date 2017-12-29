@@ -21,7 +21,7 @@ class Ui_Form(Ui_Form, Basics):
         self.halfWindowSpinBox.setValue(br.half_window_)
         self.numOfErosionsSpinBox.setValue(br.num_erosions_)
 
-    def function(self):
+    def run(self):
         methodParameters = {'half_window_': self.halfWindowSpinBox.value(),
                             'num_erosions_': self.numOfErosionsSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, Dietrich())

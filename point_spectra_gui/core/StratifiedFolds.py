@@ -24,7 +24,7 @@ class StratifiedFolds(Ui_Form, Basics):
         self.chooseDataToStratifyComboBox.activated[int].connect(self.strat_fold_change_vars)
         self.nFoldsSpinBox.valueChanged.connect(self.strat_fold_change_testfolds)
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataToStratifyComboBox.currentText()
         nfolds = self.nFoldsSpinBox.value()
         try:

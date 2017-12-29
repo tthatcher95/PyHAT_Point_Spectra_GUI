@@ -30,7 +30,7 @@ class Ui_Form(Ui_Form, BayesianRidge, Basics):
         self.copyXCheckBox.setChecked(self.copy_X)
         self.verboseCheckBox.setChecked(self.verbose)
 
-    def function(self):
+    def run(self):
         params = {'n_iter': self.numOfIterationsSpinBox.value(),
                   'tol': self.toleranceDoubleSpinBox.value(),
                   'alpha_1': self.alpha1DoubleSpinBox.value(),

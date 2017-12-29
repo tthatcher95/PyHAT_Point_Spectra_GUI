@@ -27,7 +27,7 @@ class Ui_Form(Ui_Form, GaussianProcess, Basics):
         self.randomStartLineEdit.setText(str(self.random_start))
         self.normalize_list.setCurrentItem(self.normalize_list.findItems(str(self.normalize),QtCore.Qt.MatchExactly)[0])
 
-    def function(self):
+    def run(self):
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
         regr_items = [str(i.text().lower()) for i in self.regression_list.selectedItems()]
         corr_items = [str(i.text().lower().replace(' ','_')) for i in self.CorrelationList.selectedItems()]

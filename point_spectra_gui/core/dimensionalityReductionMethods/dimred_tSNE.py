@@ -23,7 +23,7 @@ class Ui_Form(Ui_Form, TSNE, Basics):
         self.no_progress_spin.setValue(300)
         self.perplexity_spin.setValue(50)
 
-    def function(self):
+    def run(self):
 
         params = {
             'n_components': self.nc_spin.value(),

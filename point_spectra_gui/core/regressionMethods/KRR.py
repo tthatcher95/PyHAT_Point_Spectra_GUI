@@ -31,7 +31,7 @@ class Ui_Form(Ui_Form, KernelRidge, Basics):
         self.coeff0DoubleSpinBox.setValue(self.coef0)
         self.kernelLineEdit.setText(str(self.kernel))
 
-    def function(self):
+    def run(self):
         k_attrib = {'None': None}
         params = {'alpha': self.alphaSpinBox.value(),
                   'kernel': self.kernelLineEdit.text(),

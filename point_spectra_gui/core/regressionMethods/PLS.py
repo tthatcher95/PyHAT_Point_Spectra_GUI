@@ -20,7 +20,7 @@ class Ui_Form(Ui_Form, PLSRegression, Basics):
     def connectWidgets(self):
         self.numOfComponentsLineEdit.setText(str(self.n_components))
 
-    def function(self):
+    def run(self):
         nc = self.numOfComponentsLineEdit.text().split(',')
         nc = [int(i) for i in nc]
         print("PLS is using the first value")

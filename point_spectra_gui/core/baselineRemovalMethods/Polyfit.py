@@ -22,7 +22,7 @@ class Ui_Form(Ui_Form, Basics):
         self.orderSpinBox.setValue(br.poly_order_)
         self.numOfStandardDeviationsSpinBox.setValue(br.stdv_)
 
-    def function(self):
+    def run(self):
         methodParameters = {'poly_order_': self.orderSpinBox.value(),
                             'stdv_': self.numOfStandardDeviationsSpinBox.value(),
                             'max_iter_': self.maxNumOfIterationsSpinBox.value()}

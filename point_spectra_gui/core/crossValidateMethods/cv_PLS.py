@@ -20,7 +20,7 @@ class Ui_Form(Ui_Form, PLSRegression, Basics):
     def connectWidgets(self):
         self.numOfComponentsLineEdit.setText('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15')
 
-    def function(self):
+    def run(self):
         params = {'n_components': [int(i) for i in self.numOfComponentsLineEdit.text().split(',')],
                   'scale': [False]}
         modelkey = '(nc=' + str(params['n_components']) + ')'

@@ -38,10 +38,9 @@ class RegressionTrain(Ui_Form, Basics):
                                'BRR',
                                'ARD',
                                'LARS',
-                               'LASSO LARS',
+                               #'LASSO LARS', - This is having issues. Hide until we can debug
                                'SVR',
-                               'KRR',
-                               'More to come...']
+                               'KRR']
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.yMaxDoubleSpinBox.setMaximum(999999)
@@ -99,7 +98,7 @@ class RegressionTrain(Ui_Form, Basics):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
-    def function(self):
+    def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
@@ -155,7 +154,7 @@ class RegressionTrain(Ui_Form, Basics):
             a.setHidden(True)
 
     def getMethodParams(self, index):
-        return self.alg[index - 1].function()
+        return self.alg[index - 1].run()
 
     def regressionMethods(self):
         self.alg = []

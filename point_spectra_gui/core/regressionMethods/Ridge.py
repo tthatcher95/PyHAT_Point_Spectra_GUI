@@ -41,7 +41,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Basics):
         self.toleranceDoubleSpinBox.setValue(ridge.tol)
         self.randomStateLineEdit.setText(str(ridge.random_state))
 
-    def function(self):
+    def run(self):
         m_attrib = {'None': None}
         r_attrib = {'None': None}
         try:

@@ -20,7 +20,7 @@ class Ui_Form(Ui_Form, LinearRegression, Basics):
     def connectWidgets(self):
         self.fitInterceptCheckBox.setChecked(self.fit_intercept)
 
-    def function(self):
+    def run(self):
         params = {'fit_intercept': self.fitInterceptCheckBox.isChecked()}
         return params, self.getChangedValues(params, LinearRegression())
 

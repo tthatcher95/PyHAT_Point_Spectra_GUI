@@ -37,7 +37,7 @@ class Ui_Form(Ui_Form, ElasticNet, Basics):
         #self.defaultComboItem(self.enselectionComboBox, en.selection)
 
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.enfit_intercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.ennormalize_list.selectedItems()]
         positive_items = [i.text() == 'True' for i in self.enpositive_list.selectedItems()]

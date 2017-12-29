@@ -24,7 +24,7 @@ class Plot_ICA_PCA(Ui_Form, Basics):
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.chooseYVariableComboBox, self.xychoices()))
 
-    def function(self):
+    def run(self):
         cmap = 'viridis'
         datakey = self.chooseDataComboBox.currentText()
         method = self.chooseMethodComboBox.currentText()

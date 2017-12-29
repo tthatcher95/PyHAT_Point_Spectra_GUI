@@ -20,7 +20,7 @@ class Ui_Form(Ui_Form, Basics):
     def connectWidgets(self):
         # LassoLARS
         ll = LassoLars()
-        self.alpha_text.setValue(ll.alpha)
+        self.alpha_text.setText(str(ll.alpha))
         self.fit_interceptCheckBox.setChecked(ll.fit_intercept)
         self.verboseCheckBox.setChecked(ll.verbose)
         self.normalizeCheckBox.setChecked(ll.normalize)
@@ -42,11 +42,11 @@ class Ui_Form(Ui_Form, Basics):
         self.setComboBox(self.criterionComboBox, ['aic', 'bic'])
         self.defaultComboItem(self.criterionComboBox, llic.criterion)
 
-    def function(self):
+    def run(self):
         model = self.modelComboBox.currentIndex()
         if model == 0:
             params = {
-                'alpha': self.alpha_text.value(),
+                'alpha': self.alpha_text.text(),
                 'fit_intercept': self.fit_interceptCheckBox.isChecked(),
                 'verbose': self.fit_interceptCheckBox.isChecked(),
                 'normalize': self.normalizeCheckBox.isChecked(),
@@ -57,7 +57,9 @@ class Ui_Form(Ui_Form, Basics):
                 'positive': self.positiveCheckBox.isChecked(),
                 'model': model
             }
-            return params, self.getChangedValues(params, LassoLars())
+            params_check=dict(params)
+            params_check.pop('model')
+            return params, self.getChangedValues(params_check, LassoLars())
 
         elif model == 1:
             params = {
@@ -73,7 +75,9 @@ class Ui_Form(Ui_Form, Basics):
                 'positive': self.positiveCheckBox.isChecked(),
                 'model': model
             }
-            return params, self.getChangedValues(params, LassoLarsCV())
+            params_check = dict(params)
+            params_check.pop('model')
+            return params, self.getChangedValues(params_check, LassoLarsCV())
 
         elif model == 2:
             params = {
@@ -87,7 +91,9 @@ class Ui_Form(Ui_Form, Basics):
                 'positive': self.positiveCheckBox.isChecked(),
                 'model': model
             }
-            return params, self.getChangedValues(params, LassoLarsIC())
+            params_check = dict(params)
+            params_check.pop('model')
+            return params, self.getChangedValues(params_check, LassoLarsIC())
         else:
             params = {}
             print("Error")

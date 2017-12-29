@@ -18,7 +18,7 @@ class PeakAreas(Ui_Form, Basics):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.peakMinimaLineEdit))
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
         peaks_mins_file = self.peakMinimaLineEdit.text()
         if peaks_mins_file == "None (calculate from average spectrum)":

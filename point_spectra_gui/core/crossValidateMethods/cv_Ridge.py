@@ -30,7 +30,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Basics):
         self.maxNumOfIterationslineEdit.setText(str(ridge.max_iter))
 
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
         try:

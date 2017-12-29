@@ -23,7 +23,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Basics):
         en = ElasticNet()
         encv = ElasticNetCV()
 
-        self.alpha_text.setValue(en.alpha)
+        self.alpha_text.setText(str(en.alpha))
         self.enl1_ratioDoubleSpinBox.setValue(en.l1_ratio)
         self.enfit_interceptCheckBox.setChecked(en.fit_intercept)
         self.ennormalizeCheckBox.setChecked(en.normalize)
@@ -54,7 +54,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Basics):
         self.setComboBox(self.selectionComboBox, ['cyclic', 'random'])
         self.defaultComboItem(self.selectionComboBox, encv.selection)
 
-    def function(self):
+    def run(self):
         p_attrib = {'False': False, 'True': True, 'Array-like': 'array-like'}
         r_attrib = {'None': None}
         # TODO Add back the random state later.

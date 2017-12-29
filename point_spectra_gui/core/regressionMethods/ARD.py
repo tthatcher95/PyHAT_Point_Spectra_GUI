@@ -32,7 +32,7 @@ class Ui_Form(Ui_Form, ARDRegression, Basics):
         self.copyXCheckBox.setChecked(self.copy_X)
         self.verboseCheckBox.setChecked(self.verbose)
 
-    def function(self):
+    def run(self):
         params = {
             'n_iter': self.numOfIterationsSpinBox.value(),
             'tol': self.toleranceDoubleSpinBox.value(),
