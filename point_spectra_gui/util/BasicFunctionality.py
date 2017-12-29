@@ -50,7 +50,6 @@ class Basics:
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
 
-
     def mousePressEvent(self, QMouseEvent):
         """
         Right click event
@@ -83,6 +82,16 @@ class Basics:
         self.qt = Qtickle.Qtickle(self)
         s = self.qt.guiSave()
         return s
+
+    def setGuiParams(self, dict):
+        """
+        Using a dictionary, restore the UI
+        :param dict:
+        :return:
+        """
+        self.qt = Qtickle.Qtickle(self)
+        self.qt.guiRestore(dict)
+        self.qt.isGuiChanged(self.setGuiState)
 
     def selectiveSetGuiParams(self, dict):
         """
