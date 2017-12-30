@@ -37,7 +37,6 @@ class Basics:
     models = {}  # For regression training
     model_xvars = {}
     model_yvars = {}
-    moduleCount = 0
 
     def __init__(self):
         self.qt = Qtickle.Qtickle(self)
@@ -45,7 +44,6 @@ class Basics:
         self.flag = False
 
     def setupUi(self, Form):
-        Basics.moduleCount += 1
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
