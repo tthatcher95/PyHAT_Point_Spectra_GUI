@@ -23,6 +23,7 @@ class Qtickle(object):
     def guiSave(self):
         """
         Save all values in a particular UI
+
         :return:
         """
         dict = {}
@@ -92,6 +93,13 @@ class Qtickle(object):
             print(e)
 
     def guiRestore(self, dict):
+        """
+        Restore the GUI. This is a hard restore, meaning that anything that is in the boxes
+        will be overwritten
+
+        :param dict:
+        :return:
+        """
         # Restore geometry
         # self.core.resize(self.settings.value('size', QtCore.QSize(500, 500)))
         # self.core.move(self.settings.value('pos', QtCore.QPoint(60, 60)))
@@ -176,6 +184,12 @@ class Qtickle(object):
                 print(e)
 
     def isGuiChanged(self, functionCall):
+        """
+        Check to see if the gui changed, if it did run the parameter `functionCall`
+
+        :param functionCall:
+        :return:
+        """
         try:
             for name, obj in inspect.getmembers(self.ui):
                 if isinstance(obj, QLineEdit):
@@ -206,6 +220,13 @@ class Qtickle(object):
             print(e)
 
     def selectiveGuiRestore(self, dict):
+        """
+        Restore the GUI. This is a soft restore, meaning that the boxes will not be overwritten
+        but instead will be given an index to set themselves to.
+
+        :param dict:
+        :return:
+        """
         for name, obj in inspect.getmembers(self.ui):
             pass
             try:
