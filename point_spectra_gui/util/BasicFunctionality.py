@@ -1,5 +1,4 @@
 import inspect
-import sys
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import *
@@ -61,14 +60,16 @@ class Basics:
         styling. Use this function to get the variable
         :return:
         """
-        raise NotImplementedError('The method "get_widget()" was not found in the module {}'.format(type(self).__name__))
+        raise NotImplementedError(
+            'The method "get_widget()" was not found in the module {}'.format(type(self).__name__))
 
     def connectWidgets(self):
         """
         Connect the necessary widgets.
         :return:
         """
-        raise NotImplementedError('The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
+        raise NotImplementedError(
+            'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
 
     def getGuiParams(self):
         """

@@ -38,7 +38,7 @@ class RegressionTrain(Ui_Form, Basics):
                                'BRR',
                                'ARD',
                                'LARS',
-                               #'LASSO LARS', - This is having issues. Hide until we can debug
+                               # 'LASSO LARS', - This is having issues. Hide until we can debug
                                'SVR',
                                'KRR']
         self.setComboBox(self.chooseDataComboBox, self.datakeys)

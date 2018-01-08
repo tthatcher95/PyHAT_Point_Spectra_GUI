@@ -37,6 +37,7 @@ class DataTable(QtWidgets.QWidget, Ui_Form, Basics):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Form = DataTable()
     Form.show()
