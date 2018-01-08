@@ -1,13 +1,13 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.OutputFolder import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class OutputFolder(Ui_Form, Basics):
+class OutputFolder(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox
@@ -27,10 +27,10 @@ class OutputFolder(Ui_Form, Basics):
         params = self.getGuiParams()
         outpath = params['folderNameLineEdit']
         try:
-            Basics.outpath = outpath
+            Modules.outpath = outpath
             print("Output path folder has been set to " + outpath)
         except Exception as e:
-            print("Error: {}; using default outpath: {}".format(e, Basics.outpath))
+            print("Error: {}; using default outpath: {}".format(e, Modules.outpath))
 
 
 if __name__ == "__main__":

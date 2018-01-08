@@ -3,13 +3,13 @@ from PyQt5 import QtWidgets
 from libpysat.plotting.plots import make_plot
 
 from point_spectra_gui.ui.PlotSpectra import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class PlotSpectra(Ui_Form, Basics):
+class PlotSpectra(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox

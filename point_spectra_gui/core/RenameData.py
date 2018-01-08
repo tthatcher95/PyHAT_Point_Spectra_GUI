@@ -1,13 +1,13 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.RenameData import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class RenameData(Ui_Form, Basics):
+class RenameData(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox

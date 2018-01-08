@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 from libpysat.spectral.spectral_data import spectral_data
 
 from point_spectra_gui.ui.RemoveRows import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
 class remove_operation:
@@ -45,11 +45,11 @@ class remove_operation:
                     'value': self.value.currentText().split(' : ')[0]}
 
 
-class RemoveRows(Ui_Form, Basics):
+class RemoveRows(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.setup_remove_operations()
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def setup_remove_operations(self):
         self.operations = [remove_operation(self.colName_1, self.operator_1, self.value_1, logic=self.logic_1),

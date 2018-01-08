@@ -6,14 +6,14 @@ import pandas as pd
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.CombineDataSets import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class CombineDataSets(Ui_Form, Basics):
+class CombineDataSets(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.formGroupBox

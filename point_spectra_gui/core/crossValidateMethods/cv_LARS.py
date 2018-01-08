@@ -3,10 +3,10 @@ from sklearn.linear_model.least_angle import Lars
 from sklearn.linear_model.least_angle import LarsCV
 
 from point_spectra_gui.ui.cv_LARS import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()

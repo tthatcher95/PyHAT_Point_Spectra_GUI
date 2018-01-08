@@ -2,7 +2,7 @@ from PyQt5 import QtWidgets
 from libpysat.regression import sm
 
 from point_spectra_gui.ui.SubmodelBlend import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
 class subWidgets:
@@ -45,7 +45,7 @@ class subWidgets:
             return "Not a valid number"
 
 
-class SubmodelBlend(Ui_Form, Basics):
+class SubmodelBlend(Ui_Form, Modules):
     def __init__(self):
         super().__init__()
         self.subwidgets = []
@@ -54,7 +54,7 @@ class SubmodelBlend(Ui_Form, Basics):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox

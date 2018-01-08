@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets, QtCore
 from sklearn.kernel_ridge import KernelRidge
 
 from point_spectra_gui.ui.cv_KRR import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, KernelRidge, Basics):
+class Ui_Form(Ui_Form, KernelRidge, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()

@@ -6,13 +6,11 @@ from PyQt5.QtWidgets import *
 from Qtickle import Qtickle
 
 
-class Basics:
+class Modules:
     """
-    This class is a scaffolding class, it holds global
-    functionality for all classes inheriting from it.
-    It is here to simplify and globalize certain
-    variables and functionalities to each of the
-    UI classes.
+    This class is the parent class that holds global
+    functionality and variables for all classes
+    inheriting from it.
 
     *Note: Rigorous prototyping is still occurring
     So, naturally, assume that something in this class
@@ -21,7 +19,7 @@ class Basics:
 
     ...
 
-    Since `Basics` is shared among all the UI
+    Since `Modules` is shared among all the UI
     classes it would make sense that we would have
     some variables, that are necessary among all these
     classes, be put here in a high place where they

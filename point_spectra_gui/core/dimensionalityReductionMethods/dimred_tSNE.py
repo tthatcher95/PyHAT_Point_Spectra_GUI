@@ -1,10 +1,10 @@
 from PyQt5 import QtWidgets, QtCore
 from sklearn.manifold.t_sne import TSNE
 from point_spectra_gui.ui.dimred_tSNE import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, TSNE, Basics):
+class Ui_Form(Ui_Form, TSNE, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()

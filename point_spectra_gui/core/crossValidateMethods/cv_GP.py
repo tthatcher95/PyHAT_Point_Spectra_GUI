@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets,QtCore
 from sklearn.gaussian_process.gaussian_process import GaussianProcess
 
 from point_spectra_gui.ui.cv_GP import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, GaussianProcess, Basics):
+class Ui_Form(Ui_Form, GaussianProcess, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.connectWidgets()

@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets
 from sklearn.manifold.locally_linear import LocallyLinearEmbedding
 
 from point_spectra_gui.ui.dimred_LLE import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, LocallyLinearEmbedding, Basics):
+class Ui_Form(Ui_Form, LocallyLinearEmbedding, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()

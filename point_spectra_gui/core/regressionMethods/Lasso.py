@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets
 from sklearn.linear_model.coordinate_descent import Lasso
 
 from point_spectra_gui.ui.Lasso import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Lasso, Basics):
+class Ui_Form(Ui_Form, Lasso, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()

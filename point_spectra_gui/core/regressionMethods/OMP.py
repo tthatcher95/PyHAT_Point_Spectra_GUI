@@ -3,10 +3,10 @@ from sklearn.linear_model.omp import OrthogonalMatchingPursuit
 from sklearn.linear_model.omp import OrthogonalMatchingPursuitCV
 
 from point_spectra_gui.ui.OMP import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, Basics):
+class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()

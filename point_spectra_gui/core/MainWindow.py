@@ -30,7 +30,7 @@ from PyQt5.QtCore import QSettings
 from point_spectra_gui import core, __version__
 from point_spectra_gui.ui.MainWindow import Ui_MainWindow
 from point_spectra_gui.util import delete
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.excepthook import my_exception_hook
 
 
@@ -73,7 +73,7 @@ class TitleWindow:
             return "{} - {} - {}".format(self.mainName, self.fileName, self.debugName)
 
 
-class MainWindow(Ui_MainWindow, QtCore.QThread, Basics):
+class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
     taskFinished = QtCore.pyqtSignal()
 
     def __init__(self):

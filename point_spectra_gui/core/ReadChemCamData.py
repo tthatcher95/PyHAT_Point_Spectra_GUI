@@ -4,13 +4,13 @@ from libpysat.fileio import io_ccam_pds
 from libpysat.spectral.spectral_data import spectral_data
 
 from point_spectra_gui.ui.ReadChemCamData import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class ReadChemCamData(Ui_Form, Basics):
+class ReadChemCamData(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox
@@ -46,9 +46,9 @@ class ReadChemCamData(Ui_Form, Basics):
             lookupfile = None
         ave = bool(params['averagesradioButton'])
         progressbar = QtWidgets.QProgressDialog()
-        io_ccam_pds.ccam_batch(searchdir, searchstring=searchstring, to_csv=Basics.outpath + '/' + to_csv,
+        io_ccam_pds.ccam_batch(searchdir, searchstring=searchstring, to_csv=Modules.outpath + '/' + to_csv,
                                lookupfile=lookupfile, ave=ave, progressbar=progressbar)
-        self.do_get_data(Basics.outpath + '/' + to_csv, 'ChemCam')
+        self.do_get_data(Modules.outpath + '/' + to_csv, 'ChemCam')
 
     def do_get_data(self, filename, keyname):
         try:

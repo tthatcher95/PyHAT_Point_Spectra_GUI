@@ -3,13 +3,13 @@ from PyQt5 import QtWidgets
 from libpysat.spectral.spectral_data import spectral_data
 
 from point_spectra_gui.ui.SplitDataset import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class SplitDataset(Ui_Form, Basics):
+class SplitDataset(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.formGroupBox

@@ -2,7 +2,7 @@ import numpy as np
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Normalization import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
 class norm_range:
@@ -42,14 +42,14 @@ class norm_range:
         self.maxSpin.setValue(int_)
 
 
-class Normalization(Ui_Form, Basics):
+class Normalization(Ui_Form, Modules):
     def setupUi(self, Form, restore=False):
         if restore:
             self.restored = True
         super().setupUi(Form)
         self.setup_norm_ranges()
         self.index.setHidden(True)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox

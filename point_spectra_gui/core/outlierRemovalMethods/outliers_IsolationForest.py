@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets, QtCore
 from sklearn.ensemble import IsolationForest
 
 from point_spectra_gui.ui.outliers_IsolationForest import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, IsolationForest, Basics):
+class Ui_Form(Ui_Form, IsolationForest, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
