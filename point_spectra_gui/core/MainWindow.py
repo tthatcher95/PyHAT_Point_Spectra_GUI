@@ -606,7 +606,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             try:
                 self.runModules()
             except Exception as e:
-                print("Your module broke: please fix.", e)
+                print("Your module broke: ", e)
                 try:
                     self.widgetList[self.leftOff].setDisabled(False)
                 except:
