@@ -291,7 +291,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
     def closeEvent(self, event):
         """
-        Write window size and position to config file
+        Write window size and position to config file, or system registry
         """
         self._writeWindowAttributeSettings()
         event.accept()
@@ -299,9 +299,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
     def getWidgetItems(self):
         """
         This function iterates through widgetList
-        gets the name of all the fuctions
+        gets the name of all the Modules
         and then all of the parameters in the UI
-        and write it to a list to be returned
+        and then writes it to a list to be returned
 
         Iterate through widgetList
         get the names of core, add it to a temp l
@@ -319,8 +319,11 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
     def setWidgetItems(self, dict):
         """
-        This function iterates through a `dict`
-        and restores the UI
+        This function iterates through a dictionary supplied by the parameter `dict`
+        The [0]th element of the dictionary is the header that contains the names of each
+        module. We use the names as a way to identify what module we want to add to the UI
+        Once the full UI has been restored, the parameters are filled in for each individual
+        module.
 
         :param dict:
         :return:
@@ -329,8 +332,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             """
             Really complex way of running essentially this:
             `self.addWidget(core.SplitDataset.SplitDataset))`
-            Part of the reason why we're doing this is because we're saving function
-            names to a list, you can't save function instances. So this is the next
+            Part of the reason why we're doing this is because we're saving class
+            names to a list, you can't save class instances. So this is the next
             best thing.
             """
             self.addWidget(getattr(getattr(core, f_items), f_items))
@@ -421,7 +424,11 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
     def on_stopButton_clicked(self):
         """
-        Terminate running thread
+        Hard terminate running thread
+
+        Technically you should never do this.
+        But given that some tasks are monumentally huge,
+        I feel that it is justified.
 
         :return:
         """
@@ -432,6 +439,11 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             print("There is nothing running right now")
 
     def on_About_clicked(self):
+        """
+        Display an about window that lets the user know what version their application is
+
+        :return:
+        """
         self.aboutForm = core.About.About()
         self.aboutForm.show()
 
@@ -483,13 +495,20 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.progressBar.setRange(0, 0)
         self.start()
 
-    def onFinished(self):  # onFinished function
-        self.progressBar.setRange(0, 1)  # stop the bar pulsing green
-        self.progressBar.setValue(1)  # displays 100% after process is finished.
+    def onFinished(self):
+        """
+        When a give task is finished
+        stop the bar pulsing green
+        and display 100% for bar.
+        :return:
+        """
+        self.progressBar.setRange(0, 1)
+        self.progressBar.setValue(1)
 
     def clear(self):
         """
         Delete all modules in GUI
+        Except those that are greyed out
 
         :return:
         """
@@ -519,10 +538,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         start the timers
         print the name of the module running
         if a restored file exists
-            run connectWidgets # to update the current UI widget
-            run selectiveRestore # to select the right items
+            run connectWidgets to update the current UI widget
+            run selectiveRestore to select the right items
             Terminate running process, and let the user decide if they want to continue forward
-        run our current modules function()
+        run our current modules run()
         get our end time
         print how long it took our current module to execute based on start time and end time
         disable our current module

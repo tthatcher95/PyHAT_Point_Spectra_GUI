@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import *
 class Qtickle(object):
     """
     A script designed to aid in saving values inside Qt objects.
-    It works by inspecting for objectnames and then collecting their
+    It works by inspecting for `objectnames` and then collecting their
     values.
 
     The name is a portmanteau of Qt and pickle. Originally the script
@@ -94,8 +94,7 @@ class Qtickle(object):
 
     def guiRestore(self, dict):
         """
-        Restore the GUI. This is a hard restore, meaning that anything that is in the boxes
-        will be overwritten
+        Restore the GUI. This is a hard restore, meaning that everything will be overwritten
 
         :param dict:
         :return:
@@ -185,7 +184,8 @@ class Qtickle(object):
 
     def isGuiChanged(self, functionCall):
         """
-        Check to see if the gui changed, if it did run the parameter `functionCall`
+        Check to see if the gui changed,
+        if it did run the parameter `functionCall`
 
         :param functionCall:
         :return:
@@ -221,8 +221,10 @@ class Qtickle(object):
 
     def selectiveGuiRestore(self, dict):
         """
-        Restore the GUI. This is a soft restore, meaning that the boxes will not be overwritten
-        but instead will be given an index to set themselves to.
+        Restore the GUI. This is a softer restore in regards to comboboxes.
+        Comboboxes will not be overwritten but instead will be given an index to set themselves to.
+        Everything else will continue to be overwritten, be careful.
+
 
         :param dict:
         :return:

@@ -8,9 +8,7 @@ from Qtickle import Qtickle
 
 class Modules:
     """
-    This class is the parent class that holds global
-    functionality and variables for all classes
-    inheriting from it.
+    Modules class that UI modules will inherit from.
 
     *Note: Rigorous prototyping is still occurring
     So, naturally, assume that something in this class
@@ -44,13 +42,16 @@ class Modules:
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
+        self.guiChanged()
 
     def mousePressEvent(self, QMouseEvent):
         """
-        Right click event
+        TODO: Add right click event
+        The hope is that we can add a right click dialogue for users
+        The dialogue would give the option to delete particular
+        modules from the UI, or insert modules, or copy modules.
         """
         # TODO Add mouse Event
-        # print("Right Button Clicked {}".format(type(self).__name__))
 
     def get_widget(self):
         """
