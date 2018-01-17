@@ -3,6 +3,7 @@
 
 ## Installation
 
+
 ### 1. Fresh install of Miniconda (Skip to step 2 if you have Anaconda/Miniconda)
 
 \*Note for Windows: Please make sure you do not have any previous versions of Python on your system. If you do, it may make it difficult for Anaconda/Miniconda to use the command `conda` 
