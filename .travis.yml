@@ -42,11 +42,11 @@ install:
   - pip install coveralls
 
 script:
-  - python setup.py install 
+  - python setup.py install
   - pytest
 
-# after_success:
-#   - coveralls
+after_success:
+  - coveralls
 #   - source deactivate
 #   - conda install conda-build anaconda-client
 #   - conda config --set anaconda_upload yes
