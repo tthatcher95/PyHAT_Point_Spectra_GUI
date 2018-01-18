@@ -5,6 +5,9 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionPredict(Ui_Form, Modules):
+    """
+    You will need to have ran the RegressionTrain module for this to work.
+    """
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)

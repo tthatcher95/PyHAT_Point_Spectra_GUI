@@ -10,6 +10,11 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class CombineDataSets(Ui_Form, Modules):
+    """
+    Combine the various datasets into one bigger dataset
+    This is still in Beta and needs to be improved.
+    This is in part due to the fact that we are using multidimensional columns to reference data
+    """
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)

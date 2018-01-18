@@ -7,6 +7,9 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class PlotSpectra(Ui_Form, Modules):
+    """
+    Plot the spectra in a nice pretty graph
+    """
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)

@@ -12,6 +12,9 @@ from point_spectra_gui.util.Worker import Worker
 
 
 class DataTable(QtWidgets.QWidget, Ui_Form, Modules):
+    """
+    Displays the data stored inside the memory of this application
+    """
     def __init__(self, *args, **kwargs):
         QtWidgets.QWidget.__init__(self, *args, **kwargs)
         self.setupUi(self)

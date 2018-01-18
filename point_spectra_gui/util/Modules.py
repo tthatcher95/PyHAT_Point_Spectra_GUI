@@ -8,7 +8,8 @@ from Qtickle import Qtickle
 
 class Modules:
     """
-    Modules class that UI modules will inherit from.
+    Modules is an abstract class that a great majority
+    of the UI modules will inherit from.
 
     *Note: Rigorous prototyping is still occurring
     So, naturally, assume that something in this class

@@ -7,6 +7,10 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class LoadData(Ui_loadData, Modules):
+    """
+    Loads the data into the UI.
+    The data needs to be a *.csv in order for this application to work
+    """
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)

@@ -11,6 +11,9 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class CrossValidation(Ui_Form, Modules):
+    """
+    Cross validate our data
+    """
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)

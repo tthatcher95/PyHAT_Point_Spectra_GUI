@@ -45,6 +45,11 @@ class EmittingStream(QtCore.QObject):
 
 
 class TitleWindow:
+    """
+    Top portion of the application needs a name.
+    Displays the name of our restored, or saved file
+    Displays whether we are debugging or not
+    """
     def __init__(self, mainName):
         self.mainName = mainName
         self.fileName = ''
@@ -74,6 +79,9 @@ class TitleWindow:
 
 
 class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
+    """
+    The Main part of the application where everything magical happens
+    """
     taskFinished = QtCore.pyqtSignal()
 
     def __init__(self):
@@ -637,6 +645,9 @@ def get_splash(app):
 
 
 def setDarkmode(app):
+    """
+    Start the darkmode for the application
+    """
     settings = QSettings('USGS', 'PPSG')
     p = settings.value('theme') == 'qtmodern'
     if q and p:
