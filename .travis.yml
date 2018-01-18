@@ -1,23 +1,52 @@
-language: python
-cache:
-- pip
+language: generic
+
+env:
+  - PYTHON_VERSION=3.5
+  - PYTHON_VERSION=3.6
+os:
+  - linux
+
+branches:
+only:
+  - dev
+  - master
+
+before_install:
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
+      wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+    else
+      curl -o miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh;
+    fi
+
+  # More conda setup to get miniconda in and a virtual env. setup
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda info -a   # Useful for debugging any issues with conda
+  # Create the env
+  - conda create -q -n test python=$PYTHON_VERSION
+  - source activate test
+
 install:
-- wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-- bash miniconda.sh -b -p $HOME/miniconda
-- export PATH="$HOME/miniconda/bin:$PATH"
-- hash -r
+  # Install dependencies
+  - conda config --add channels usgs-astrogeology
+  - conda config --add channels conda-forge
+  - conda install -c conda-forge numpy scipy pandas gdal scikit-learn matplotlib pyqt
+  - conda install -c usgs-astrogeology plio
+
+  # Development installation
+  - conda install pytest pytest-cov pytest-qt
+  - pip install coveralls
+
 script:
-- bash build.sh
-- python setup.py install
-deploy:
-  provider: pypi
-  user: tisaconundrum
-  password:
-    secure: gSgpEqoiW/3U4ybL5S0MNNlqXPP99v5G9Wjnjh4B4xCmkZgMYvLl01Xwj/RyPXTnR6+uU1fwXNOeCTzXGN1Tu2NJdlPvMsdEOQbcZIgdvM6TqTCuLAzxWTkXeAhKBfctViPqZvDIPRSNbdAxDAlchZbHjx+MIs/S+/LBcIuI4RUt7+Q0ZML4HN57de1Dxd2bHQwjCOjRCDMavAmsoaWToY9Qzdh+Ti30Le1ZY3ZsO/nM4d6PDAng4vBjwdJ6iSK/5BqY9ipkfqWAvkbDLxVfkFyNt/QIOAg4h6tlyj2RdCLLBIjEGmdrL3K1T5jttnchkmBzc5bCDJF8AmzGPd916t5tXBShqxp2KA/Fg8MTPEuhoISp2o2ABZnQawATeKSqVV4F24zrUwiGT5tj8SEsLvPa+HlaAH3g7u1w2Vm2qinRjGGX4IRj+6jxkPGjEgHR2GMwRnHDkCEwo/VxyRCC/fJi42bUJoF97+IepoHQrrTe07wa0BRhfD/FsNivAxecIAUk/hLD/XHxujwxL2KTDWpKmR5Na3byp9hugIAjBgtPEknedEabwqthAD10glnjfXjJ6Pz/Y4wty82FqmYZ2dj1K4EaEO00G2mIjj71ItpIEL6RjzLbsAHOyUK6T6r7GBrp9PgQAmf6EsODdwJ1JEAte/bxqRqHmL9S62uVqw4=
-  distributions: sdist bdist_wheel
-  on:
-    branch: master
-after_deploy:
-- conda env create -n ppsg -f environment.yml
-- source activate ppsg
-- point_spectra_gui
+  - python setup.py develop
+  - pytest
+
+after_success:
+  - coveralls
+#   - source deactivate
+#   - conda install conda-build anaconda-client
+#   - conda config --set anaconda_upload yes
+#   - conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION .

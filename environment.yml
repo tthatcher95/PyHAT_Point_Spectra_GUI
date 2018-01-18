@@ -1,4 +1,4 @@
-name: pysat_point_spectra_gui
+name: psg
 dependencies:
  - python=3
  - pyqt
@@ -6,8 +6,8 @@ dependencies:
  - pandas
  - scipy
  - matplotlib
+ - scikit-learn
+ - pysat
  - pip:
-   - sklearn
    - qtmodern
-   - libpysat
    - point_spectra_gui

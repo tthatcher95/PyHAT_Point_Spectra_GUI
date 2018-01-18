@@ -1,0 +1,9 @@
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
+
+omit =
+  point_spectra_gui/ui/*
+  point_spectra_gui/core/DataTable.py
+  point_spectra_gui/core/CombineDataSets.py
