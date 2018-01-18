@@ -12,7 +12,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.connectWidgets()
+        self.updateWidgets()
 
     def get_widget(self):
         return self.groupBox
@@ -20,7 +20,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.Ridge.setVisible(False)
         ridgecv = RidgeCV()
 

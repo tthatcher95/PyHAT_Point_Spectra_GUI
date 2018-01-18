@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         br = FABC()
         self.smoothnessDoubleSpinBox.setValue(br.dilation_)
         self.dilationSpinBox.setValue(br.smoothness_)

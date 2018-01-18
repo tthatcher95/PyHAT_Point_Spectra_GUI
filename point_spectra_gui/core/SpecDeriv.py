@@ -12,7 +12,7 @@ class SpecDeriv(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.setComboBox(self.chooseDataToDerivComboBox, self.datakeys)
 
     def run(self):

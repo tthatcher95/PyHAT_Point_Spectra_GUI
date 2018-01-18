@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         CCAM = ccam_br()
         self.lowestWaveletScaleSpinBox.setValue(CCAM.lvmin_)
         self.largestWaveletScaleSpinBox.setValue(CCAM.lv_)

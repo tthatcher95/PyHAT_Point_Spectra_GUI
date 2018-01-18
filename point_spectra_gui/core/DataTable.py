@@ -18,16 +18,16 @@ class DataTable(QtWidgets.QWidget, Ui_Form, Modules):
     def __init__(self, *args, **kwargs):
         QtWidgets.QWidget.__init__(self, *args, **kwargs)
         self.setupUi(self)
-        self.connectWidgets()
+        self.updateWidgets()
         self.refreshTable = Worker(self.on_refreshTable)
 
     def get_widget(self):
         return self.dockWidget
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.on_refreshTable())
-        self.refreshDataPushButton.clicked.connect(lambda: self.connectWidgets())
+        self.refreshDataPushButton.clicked.connect(lambda: self.updateWidgets())
         self.refreshTablePushButton.clicked.connect(lambda: self.on_refreshTable())
 
     def on_refreshTable(self):

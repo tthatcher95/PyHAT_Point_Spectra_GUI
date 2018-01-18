@@ -12,7 +12,7 @@ class RenameData(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.setComboBox(self.renameDataComboBox, self.datakeys)
 
     def run(self):

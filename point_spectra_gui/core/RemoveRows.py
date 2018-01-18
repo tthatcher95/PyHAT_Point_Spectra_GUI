@@ -70,7 +70,7 @@ class RemoveRows(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.setComboBox(self.chooseData, self.datakeys)
         self.chooseData.currentIndexChanged.connect(lambda: self.update_cols())
         self.update_cols()

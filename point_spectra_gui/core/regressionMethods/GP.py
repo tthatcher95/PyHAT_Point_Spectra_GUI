@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, GaussianProcess, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.connectWidgets()
+        self.updateWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, GaussianProcess, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.numOfComponenetsSpinBox.setValue(4)
         self.setComboBox(self.regrComboBox, self._regression_types)
         self.defaultComboItem(self.regrComboBox, self.regr)
