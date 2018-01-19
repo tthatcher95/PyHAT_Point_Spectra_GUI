@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         airPLS = AirPLS()
         self.smoothnessSpinBox.setValue(airPLS.smoothness_)
         self.convergenceThresholdDoubleSpinBox.setValue(airPLS.conv_thresh_)

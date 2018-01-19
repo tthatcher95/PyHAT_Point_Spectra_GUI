@@ -13,7 +13,7 @@ class PeakAreas(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.peakMinimaLineEdit.setText("None (calculate from average spectrum)")
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.peakMinimaLineEdit))

@@ -63,7 +63,7 @@ class SubmodelPredict(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.setComboBox(self.referenceModelComboBox, self.modelkeys)
         self.setComboBox(self.lowModelComboBox, self.modelkeys)
         self.setComboBox(self.highModelComboBox, self.modelkeys)

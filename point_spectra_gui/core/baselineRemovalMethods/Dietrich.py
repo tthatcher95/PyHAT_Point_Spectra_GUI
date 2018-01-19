@@ -16,7 +16,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         br = Dietrich()
         self.halfWindowSpinBox.setValue(br.half_window_)
         self.numOfErosionsSpinBox.setValue(br.num_erosions_)

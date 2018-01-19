@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.updateWidget()
 
 
     def get_widget(self):
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.numOfIterationsSpinBox.setValue(self.n_iter)
         self.toleranceDoubleSpinBox.setValue(self.tol)
         self.alpha1DoubleSpinBox.setValue(self.alpha_1)

@@ -62,7 +62,7 @@ class Modules:
         raise NotImplementedError(
             'The method "get_widget()" was not found in the module {}'.format(type(self).__name__))
 
-    def updateWidgets(self):
+    def updateWidget(self):
         """
         Connect the necessary widgets.
         :return:

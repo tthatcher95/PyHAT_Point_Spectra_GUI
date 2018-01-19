@@ -15,7 +15,7 @@ class Interpolation(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.setComboBox(self.interpolateDataComboBox, self.datakeys)
         self.setComboBox(self.referenceDataComboBox, self.datakeys)
 

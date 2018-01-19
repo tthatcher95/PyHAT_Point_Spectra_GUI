@@ -18,7 +18,7 @@ from point_spectra_gui.core.MainWindow import MainWindow
 
 
 class Ui_MainWindow(MainWindow):
-    def updateWidgets(self):
+    def updateWidget(self):
         """
         Connect all the widgets associated with the MainWindow UI
         :return:

@@ -17,7 +17,7 @@ class PlotSpectra(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.colorComboBox.addItem("Red")
         self.colorComboBox.addItem("Green")
         self.colorComboBox.addItem("Blue")

@@ -10,7 +10,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.updateWidget()
 
     def get_widget(self):
         return self.groupBox
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.elasticNetCVGroupBox.setHidden(True)
         en = ElasticNet()
         encv = ElasticNetCV()

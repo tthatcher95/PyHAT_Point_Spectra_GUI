@@ -27,7 +27,7 @@ class RegressionTrain(Ui_Form, Modules):
             if alg == self.algorithm_list[i] and i > 0:
                 self.alg[i - 1].setHidden(False)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.algorithm_list = ['Choose an algorithm',
                                'PLS',
                                'OLS',

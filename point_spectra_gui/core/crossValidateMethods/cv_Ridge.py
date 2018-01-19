@@ -12,7 +12,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.updateWidget()
 
     def get_widget(self):
         return self.Ridge
@@ -20,7 +20,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         ridge = Ridge()
 
         self.alphaLineEdit.setText('0.01, 0.1, 1.0, 10, 100')

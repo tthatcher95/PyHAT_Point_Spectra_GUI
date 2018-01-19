@@ -63,7 +63,7 @@ class SubmodelBlend(Ui_Form, Modules):
         self.index = self.index_spin.value()
         self.setHidden(self.subwidgets)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.index_spin.valueChanged.connect(self.set_index)
         self.index_spin.setHidden(True)
         self.setComboBox(self.chooseDatacomboBox, self.datakeys)

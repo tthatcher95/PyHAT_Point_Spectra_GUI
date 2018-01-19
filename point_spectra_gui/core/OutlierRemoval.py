@@ -24,7 +24,7 @@ class OutlierRemoval(Ui_Form, Modules):
             if alg == self.algorithm_list[i]:
                 self.alg[i - 1].setHidden(False)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.algorithm_list = ['Choose an algorithm',
                                'Isolation Forest',
                                'Other algorithms go here...']

@@ -14,7 +14,7 @@ class Plot(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.figureNameComboBox, self.figname)
         self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices())

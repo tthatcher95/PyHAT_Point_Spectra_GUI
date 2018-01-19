@@ -8,7 +8,7 @@ class Ui_Form(Ui_Form, TSNE, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.updateWidget()
 
     def get_widget(self):
         return self.groupBox
@@ -16,7 +16,7 @@ class Ui_Form(Ui_Form, TSNE, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.nc_spin.setValue(self.n_components)
         self.learning_spin.setValue(self.learning_rate)
         self.n_iter_spin.setValue(self.n_iter)

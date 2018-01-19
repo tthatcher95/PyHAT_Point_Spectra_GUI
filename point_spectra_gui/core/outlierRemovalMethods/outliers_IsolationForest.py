@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, IsolationForest, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.updateWidget()
 
     def get_widget(self):
         return self.groupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, IsolationForest, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.n_est_spin.setValue(self.n_estimators)
         self.prop_outliers_spin.setValue(self.contamination)
 

@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, KernelRidge, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.updateWidget()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, KernelRidge, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         print("alpha", self.alpha)
         print("kernel", self.kernel)
         print("gamma", self.gamma)

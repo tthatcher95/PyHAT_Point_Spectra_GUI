@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, LinearRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.updateWidget()
 
     def get_widget(self):
         return self.groupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, LinearRegression, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.fit_intercept_list.setCurrentItem(self.fit_intercept_list.findItems(str(self.fit_intercept), QtCore.Qt.MatchExactly)[0])
 
     def run(self):

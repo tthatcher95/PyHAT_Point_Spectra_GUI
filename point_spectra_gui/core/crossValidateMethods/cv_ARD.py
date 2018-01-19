@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.updateWidget()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def updateWidget(self):
         self.numOfIterationsLineEdit.setText(str(self.n_iter))
         self.toleranceLineEdit.setText(str(self.tol))
         self.alpha1LineEdit.setText(str(self.alpha_1))

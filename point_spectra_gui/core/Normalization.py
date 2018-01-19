@@ -138,7 +138,7 @@ class Normalization(Ui_Form, Modules):
             if self.spin_list[i].value() < self.spin_list[i - 1].value():
                 self.spin_list[i].setValue(self.spin_list[i - 1].value())
 
-    def updateWidgets(self):
+    def updateWidget(self):
         # populate combobox with dataset names
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
 

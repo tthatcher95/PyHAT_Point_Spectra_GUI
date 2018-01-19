@@ -14,7 +14,7 @@ class SplitDataset(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def updateWidgets(self):
+    def updateWidget(self):
         try:
             self.setComboBox(self.chooseDataComboBox, self.datakeys)
             self.setComboBox(self.splitOnUniqueValuesOfComboBox, self.get_choices())
