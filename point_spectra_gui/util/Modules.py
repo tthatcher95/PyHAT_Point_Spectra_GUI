@@ -11,18 +11,12 @@ class Modules:
     Modules is an abstract class that a great majority
     of the UI modules will inherit from.
 
-    *Note: Rigorous prototyping is still occurring
-    So, naturally, assume that something in this class
-    is always getting changed or added to better serve
-    all cases in each UI class.
-
     ...
 
-    Since `Modules` is shared among all the UI
-    classes it would make sense that we would have
-    some variables, that are necessary among all these
-    classes, be put here in a high place where they
-    can be referenced often.
+    Since `Modules` is the parent class for the UI
+    classes we can take advantage of this and share
+    some of the variables, that are necessary among
+    all these classes.
     """
     data = {}  # initialize with an empty dict to hold data frames
     datakeys = []  # hold all the specific key for a specific data frame
@@ -42,7 +36,8 @@ class Modules:
     def setupUi(self, Form):
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
-        self.updateWidgets()
+        self.updateWidget()
+        self.connectWidget()
 
     def mousePressEvent(self, QMouseEvent):
         """
@@ -64,7 +59,12 @@ class Modules:
 
     def updateWidget(self):
         """
-        Connect the necessary widgets.
+        Update the contents inside the necessary widgets.
+        :return:
+        """
+        raise NotImplementedError(
+            'The method "updateWidgets()" was not found in the module {}'.format(type(self).__name__))
+
         :return:
         """
         raise NotImplementedError(
