@@ -7,3 +7,9 @@ omit =
   point_spectra_gui/ui/*
   point_spectra_gui/core/DataTable.py
   point_spectra_gui/core/CombineDataSets.py
+  point_spectra_gui/util/BasicFunctionality.py
+  point_spectra_gui/util/colormaps.py
+  point_spectra_gui/util/delete.py
+  point_spectra_gui/util/excepthook.py
+  point_spectra_gui/util/themes.py
+  point_spectra_gui/util/Worker.py
