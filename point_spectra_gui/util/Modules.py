@@ -64,11 +64,15 @@ class Modules:
         """
         raise NotImplementedError(
             'The method "updateWidgets()" was not found in the module {}'.format(type(self).__name__))
+            'The method "updateWidget()" was not found in the module {}'.format(type(self).__name__))
 
+    def connectWidget(self):
+        """
+        Connect the necessary widgets.
         :return:
         """
         raise NotImplementedError(
-            'The method "updateWidgets()" was not found in the module {}'.format(type(self).__name__))
+            'The method "connectWidget()" was not found in the module {}'.format(type(self).__name__))
 
     def getGuiParams(self):
         """
