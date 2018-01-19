@@ -31,6 +31,7 @@ class LoadData(Ui_loadData, Basics):
         if keyname in self.datakeys:
             print("That data set name is already in use. Try something else.")
         else:
+            # TODO: `header=[0,1]` well most likeley make the code more brittle, better alternative?
             self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
             self.datakeys.append(keyname)
 
