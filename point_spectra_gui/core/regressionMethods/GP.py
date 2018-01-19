@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets
 from sklearn.gaussian_process.gaussian_process import GaussianProcess
 
 from point_spectra_gui.ui.GP import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, GaussianProcess, Basics):
+class Ui_Form(Ui_Form, GaussianProcess, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -32,7 +32,7 @@ class Ui_Form(Ui_Form, GaussianProcess, Basics):
         self.randomStartSpinBox.setValue(self.random_start)
         self.normalizeCheckBox.setChecked(self.normalize)
 
-    def function(self):
+    def run(self):
         params = {
             'reduce_dim': self.reductionMethodComboBox.currentText(),
             'n_components': self.numOfComponenetsSpinBox.value(),

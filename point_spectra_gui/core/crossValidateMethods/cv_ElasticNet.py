@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets,QtCore
 from sklearn.linear_model import ElasticNet
 import numpy as np
 from point_spectra_gui.ui.cv_ElasticNet import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, ElasticNet, Basics):
+class Ui_Form(Ui_Form, ElasticNet, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -37,7 +37,7 @@ class Ui_Form(Ui_Form, ElasticNet, Basics):
         #self.defaultComboItem(self.enselectionComboBox, en.selection)
 
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.enfit_intercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.ennormalize_list.selectedItems()]
         positive_items = [i.text() == 'True' for i in self.enpositive_list.selectedItems()]

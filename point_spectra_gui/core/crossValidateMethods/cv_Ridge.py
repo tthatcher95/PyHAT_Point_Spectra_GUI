@@ -5,10 +5,10 @@ from sklearn.linear_model.ridge import Ridge
 from sklearn.linear_model.ridge import RidgeCV
 
 from point_spectra_gui.ui.cv_Ridge import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Ridge, RidgeCV, Basics):
+class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -30,7 +30,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Basics):
         self.maxNumOfIterationslineEdit.setText(str(ridge.max_iter))
 
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
         try:

@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import *
 class Qtickle(object):
     """
     A script designed to aid in saving values inside Qt objects.
-    It works by inspecting for objectnames and then collecting their
+    It works by inspecting for `objectnames` and then collecting their
     values.
 
     The name is a portmanteau of Qt and pickle. Originally the script
@@ -23,6 +23,7 @@ class Qtickle(object):
     def guiSave(self):
         """
         Save all values in a particular UI
+
         :return:
         """
         dict = {}
@@ -92,11 +93,16 @@ class Qtickle(object):
             print(e)
 
     def guiRestore(self, dict):
+        """
+        Restore the GUI. This is a hard restore, meaning that everything will be overwritten
+
+        :param dict:
+        :return:
+        """
         # Restore geometry
         # self.core.resize(self.settings.value('size', QtCore.QSize(500, 500)))
         # self.core.move(self.settings.value('pos', QtCore.QPoint(60, 60)))
         for name, obj in inspect.getmembers(self.ui):
-            pass
             try:
                 if isinstance(obj, QLineEdit):
                     name = obj.objectName()
@@ -176,6 +182,13 @@ class Qtickle(object):
                 print(e)
 
     def isGuiChanged(self, functionCall):
+        """
+        Check to see if the gui changed,
+        if it did run the parameter `functionCall`
+
+        :param functionCall:
+        :return:
+        """
         try:
             for name, obj in inspect.getmembers(self.ui):
                 if isinstance(obj, QLineEdit):
@@ -206,6 +219,15 @@ class Qtickle(object):
             print(e)
 
     def selectiveGuiRestore(self, dict):
+        """
+        Restore the GUI. This is a softer restore in regards to comboboxes.
+        Comboboxes will not be overwritten but instead will be given an index to set themselves to.
+        Everything else will continue to be overwritten, be careful.
+
+
+        :param dict:
+        :return:
+        """
         for name, obj in inspect.getmembers(self.ui):
             pass
             try:

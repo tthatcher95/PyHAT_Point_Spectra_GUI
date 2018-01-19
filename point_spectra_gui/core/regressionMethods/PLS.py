@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets
 from sklearn.cross_decomposition.pls_ import PLSRegression
 
 from point_spectra_gui.ui.PLS import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, PLSRegression, Basics):
+class Ui_Form(Ui_Form, PLSRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -20,7 +20,7 @@ class Ui_Form(Ui_Form, PLSRegression, Basics):
     def connectWidgets(self):
         self.numOfComponentsLineEdit.setText(str(self.n_components))
 
-    def function(self):
+    def run(self):
         nc = self.numOfComponentsLineEdit.text().split(',')
         nc = [int(i) for i in nc]
         print("PLS is using the first value")

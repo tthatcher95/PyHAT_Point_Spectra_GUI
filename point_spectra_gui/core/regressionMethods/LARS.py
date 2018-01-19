@@ -3,10 +3,10 @@ from sklearn.linear_model.least_angle import Lars
 from sklearn.linear_model.least_angle import LarsCV
 
 from point_spectra_gui.ui.LARS import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -36,7 +36,7 @@ class Ui_Form(Ui_Form, Basics):
         self.max_n_alphasSpinBox.setValue(larscv.max_n_alphas)
         self.n_jobsSpinBox.setValue(larscv.n_jobs)
 
-    def function(self):
+    def run(self):
         if self.cVCheckBox.isChecked():
             params = {
                 'fit_intercept': self.fit_interceptCheckBox.isChecked(),

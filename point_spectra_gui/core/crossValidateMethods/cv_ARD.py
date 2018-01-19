@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets, QtCore
 from sklearn.linear_model import ARDRegression
 
 from point_spectra_gui.ui.cv_ARD import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, ARDRegression, Basics):
+class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -25,10 +25,12 @@ class Ui_Form(Ui_Form, ARDRegression, Basics):
         self.lambdaLineEdit.setText(str(self.lambda_1))
         self.lambdaLineEdit_2.setText(str(self.lambda_2))
         self.thresholdLambdaLineEdit.setText(str(self.threshold_lambda))
-        self.fitIntercept_list.setCurrentItem(self.fitIntercept_list.findItems(str(self.fit_intercept),QtCore.Qt.MatchExactly)[0])
-        self.normalize_list.setCurrentItem(self.normalize_list.findItems(str(self.normalize),QtCore.Qt.MatchExactly)[0])
+        self.fitIntercept_list.setCurrentItem(
+            self.fitIntercept_list.findItems(str(self.fit_intercept), QtCore.Qt.MatchExactly)[0])
+        self.normalize_list.setCurrentItem(
+            self.normalize_list.findItems(str(self.normalize), QtCore.Qt.MatchExactly)[0])
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fitIntercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
 

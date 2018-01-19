@@ -5,10 +5,10 @@ from sklearn.linear_model.ridge import Ridge
 from sklearn.linear_model.ridge import RidgeCV
 
 from point_spectra_gui.ui.Ridge import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Ridge, RidgeCV, Basics):
+class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -41,7 +41,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Basics):
         self.toleranceDoubleSpinBox.setValue(ridge.tol)
         self.randomStateLineEdit.setText(str(ridge.random_state))
 
-    def function(self):
+    def run(self):
         m_attrib = {'None': None}
         r_attrib = {'None': None}
         try:

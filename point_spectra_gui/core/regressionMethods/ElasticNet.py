@@ -3,10 +3,10 @@ from sklearn.linear_model import ElasticNet
 from sklearn.linear_model.coordinate_descent import ElasticNetCV
 
 from point_spectra_gui.ui.ElasticNet import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Basics):
+class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -54,7 +54,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Basics):
         self.setComboBox(self.selectionComboBox, ['cyclic', 'random'])
         self.defaultComboItem(self.selectionComboBox, encv.selection)
 
-    def function(self):
+    def run(self):
         p_attrib = {'False': False, 'True': True, 'Array-like': 'array-like'}
         r_attrib = {'None': None}
         # TODO Add back the random state later.
@@ -82,13 +82,12 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Basics):
                 'verbose': self.verboseCheckBox.isChecked(),
                 'n_jobs': self.n_jobsSpinBox.value(),
                 'positive': self.positiveCheckBox.isChecked(),
-                'selection': self.selectionComboBox.currentText(),
-                'CV': self.CVCheckBox.isChecked()}
+                'selection': self.selectionComboBox.currentText()}
             return params, self.getChangedValues(params, ElasticNetCV())
 
         else:
             params = {
-                'alpha': self.alpha_text.value(),
+                'alpha': self.alpha_text.text(),
                 'l1_ratio': self.enl1_ratioDoubleSpinBox.value(),
                 'fit_intercept': self.enfit_interceptCheckBox.isChecked(),
                 'normalize': self.ennormalizeCheckBox.isChecked(),
@@ -98,10 +97,9 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Basics):
                 'tol': self.entolDoubleSpinBox.value(),
                 'warm_start': self.enwarm_startCheckBox.isChecked(),
                 'positive': self.enpositiveCheckBox.isChecked(),
-                'selection': self.selectionComboBox.currentText(),
-                'CV': self.CVCheckBox.isChecked()}
+                'selection': self.selectionComboBox.currentText()
+                     }
             return params, self.getChangedValues(params, ElasticNet())
-
 
 
 if __name__ == "__main__":
