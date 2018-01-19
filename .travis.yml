@@ -41,6 +41,7 @@ install:
   - pip install coveralls
 
 script:
+  - python setup.py build_ui
   - python setup.py develop
   - pytest
 
