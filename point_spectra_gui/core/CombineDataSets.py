@@ -15,6 +15,7 @@ class CombineDataSets(Ui_Form, Modules):
     This is still in Beta and needs to be improved.
     This is in part due to the fact that we are using multidimensional columns to reference data
     """
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -27,6 +28,9 @@ class CombineDataSets(Ui_Form, Modules):
         self.setComboBox(self.dataSet1ComboBox, self.datakeys)
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
         self.setComboBox(self.outputToDataSetComboBox, self.datakeys)
+
+    def connectWidget(self):
+        pass
 
     def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()

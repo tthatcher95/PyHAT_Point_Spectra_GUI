@@ -1,5 +1,6 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets
 from sklearn.decomposition.pca import PCA
+
 from point_spectra_gui.ui.dimred_PCA import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
@@ -20,7 +21,6 @@ class Ui_Form(Ui_Form, PCA, Modules):
         self.nc_spin.setValue(8)
 
     def run(self):
-
         params = {
             'n_components': self.nc_spin.value()}
         params_key = str(params)

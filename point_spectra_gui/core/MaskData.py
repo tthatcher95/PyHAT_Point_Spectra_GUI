@@ -20,6 +20,8 @@ class MaskData(Ui_Form, Modules):
 
     def updateWidget(self):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
+
+    def connectWidget(self):
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.maskFileLineEdit))
 
     def run(self):

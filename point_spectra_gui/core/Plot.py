@@ -47,6 +47,7 @@ class Plot(Ui_Form, Modules):
         self.yMaxDoubleSpinBox.setMaximum(110)
         self.plotFilenamePushButton.clicked.connect(self.on_plotFilenamePushButton_clicked)
 
+    def connectWidget(self):
         self.figureNameComboBox.activated[int].connect(
             lambda: self.figureNameLineEdit.setText(self.figureNameComboBox.currentText()))
         self.chooseDataComboBox.activated[int].connect(

@@ -12,6 +12,9 @@ class RenameData(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
+    def connectWidget(self):
+        pass
+
     def updateWidget(self):
         self.setComboBox(self.renameDataComboBox, self.datakeys)
 

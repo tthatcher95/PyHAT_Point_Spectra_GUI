@@ -3,7 +3,8 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_loadData(object):
     def setupUi(self, loadData):
@@ -54,10 +55,10 @@ class Ui_loadData(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     loadData = QtWidgets.QWidget()
     ui = Ui_loadData()
     ui.setupUi(loadData)
     loadData.show()
     sys.exit(app.exec_())
-

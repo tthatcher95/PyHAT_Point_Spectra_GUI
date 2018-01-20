@@ -3,7 +3,8 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -341,7 +342,7 @@ class Ui_Form(object):
         self.gridLayout_2.addWidget(self.maxSpinBox_2, 5, 5, 1, 1)
         self.formLayout_3 = QtWidgets.QFormLayout()
         self.formLayout_3.setFieldGrowthPolicy(QtWidgets.QFormLayout.AllNonFixedFieldsGrow)
-        self.formLayout_3.setFormAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.formLayout_3.setFormAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.formLayout_3.setObjectName("formLayout_3")
         self.optimizeSubRangesLabel = QtWidgets.QLabel(self.groupBox)
         self.optimizeSubRangesLabel.setObjectName("optimizeSubRangesLabel")
@@ -465,10 +466,10 @@ class Ui_Form(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-

@@ -3,7 +3,8 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -94,13 +95,15 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(("Form"))
-        self.groupBox.setToolTip(("<html><head/><body><p>The <span style=\" font-weight:600;\">Lasso</span> is a linear model that estimates sparse coefficients. It is useful in some contexts due to its tendency to prefer solutions with fewer parameter values, effectively reducing the number of variables upon which the given solution is dependent. For this reason, the Lasso and its variants are fundamental to the field of compressed sensing. Under certain conditions, it can recover the exact set of non-zero weights (see Compressive sensing: tomography reconstruction with L1 prior (Lasso)).</p></body></html>"))
+        self.groupBox.setToolTip((
+                                 "<html><head/><body><p>The <span style=\" font-weight:600;\">Lasso</span> is a linear model that estimates sparse coefficients. It is useful in some contexts due to its tendency to prefer solutions with fewer parameter values, effectively reducing the number of variables upon which the given solution is dependent. For this reason, the Lasso and its variants are fundamental to the field of compressed sensing. Under certain conditions, it can recover the exact set of non-zero weights (see Compressive sensing: tomography reconstruction with L1 prior (Lasso)).</p></body></html>"))
         self.minalphaLabel.setText(("Minimum Alpha"))
         self.maxalpha_label.setText(("Maximum Alpha"))
         self.nalphas_label.setText(("# of Alphas"))
         self.maxNumOfIterationsLabel.setText(("Max # of iterations"))
         self.toleranceLabel.setText(("Tolerance"))
-        self.toleranceLineEdit.setToolTip(("<html><head/><body><p>tol : float, optional</p><p>The tolerance for the optimization: if the updates are smaller than tol, the optimization code checks the dual gap for optimality and continues until it is smaller than tol</p></body></html>"))
+        self.toleranceLineEdit.setToolTip((
+                                          "<html><head/><body><p>tol : float, optional</p><p>The tolerance for the optimization: if the updates are smaller than tol, the optimization code checks the dual gap for optimality and continues until it is smaller than tol</p></body></html>"))
         self.fitInterceptLabel.setText(("Fit Intercept"))
         __sortingEnabled = self.fit_intercept_list.isSortingEnabled()
         self.fit_intercept_list.setSortingEnabled(False)
@@ -121,10 +124,10 @@ class Ui_Form(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-

@@ -1,15 +1,16 @@
 import numpy as np
 from PyQt5 import QtWidgets
-from point_spectra_gui.util.plots import make_plot
 
 from point_spectra_gui.ui.PlotSpectra import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.plots import make_plot
 
 
 class PlotSpectra(Ui_Form, Modules):
     """
     Plot the spectra in a nice pretty graph
     """
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -18,6 +19,15 @@ class PlotSpectra(Ui_Form, Modules):
         return self.groupBox
 
     def updateWidget(self):
+        try:
+            self.setComboBox(self.chooseDataComboBox, self.datakeys)
+            self.setListWidget(self.xVariableListWidget, self.xvar_choices())
+            self.plot_spect_change_vars(self.chooseColumnComboBox)
+            self.plot_spect_update_list(self.chooseRowsListWidget)
+        except Exception as e:
+            print("Could not process lists: {}".format(e))
+
+    def connectWidget(self):
         self.colorComboBox.addItem("Red")
         self.colorComboBox.addItem("Green")
         self.colorComboBox.addItem("Blue")
@@ -41,20 +51,13 @@ class PlotSpectra(Ui_Form, Modules):
         self.minDoubleSpinBox.setMaximum(99999)
         self.minDoubleSpinBox.setMinimum(0)
         self.pushButton.clicked.connect(self.on_pushButton_clicked)
-        try:
-            self.setComboBox(self.chooseDataComboBox, self.datakeys)
-            self.setListWidget(self.xVariableListWidget, self.xvar_choices())
-            self.plot_spect_change_vars(self.chooseColumnComboBox)
-            self.plot_spect_update_list(self.chooseRowsListWidget)
-        except Exception as e:
-            print("Could not process lists: {}".format(e))
-
         self.chooseDataComboBox.activated[int].connect(lambda: self.plot_spect_change_vars(self.chooseColumnComboBox))
         self.chooseColumnComboBox.activated[int].connect(lambda: self.plot_spect_update_list(self.chooseRowsListWidget))
         self.chooseDataComboBox.activated[int].connect(lambda: self.plot_spect_update_list(self.chooseRowsListWidget))
         try:
             self.xVariableListWidget.itemSelectionChanged.connect(
-                lambda: self.set_spect_minmax(self.minDoubleSpinBox, self.maxDoubleSpinBox,
+                lambda: self.set_spect_minmax(self.minDoubleSpinBox,
+                                              self.maxDoubleSpinBox,
                                               self.xVariableListWidget.selectedItems()[0].text()))
         except:
             pass

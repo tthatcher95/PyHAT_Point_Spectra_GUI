@@ -39,6 +39,8 @@ class BaselineRemoval(Ui_Form, Modules):
                                     ]
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.chooseAlgorithmList)
+
+    def connectWidget(self):
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
 

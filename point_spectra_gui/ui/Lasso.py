@@ -3,7 +3,8 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -78,29 +79,35 @@ class Ui_Form(object):
         self.alphaLabel.setText(("Alpha"))
         self.maxNumOfIterationsLabel.setText(("Max # of iterations"))
         self.maxNumOfIterationsSpinBox.setToolTip(("The maximum number of iterations"))
-        self.maxNumOfIterationsSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.maxNumOfIterationsSpinBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
         self.toleranceLabel.setText(("Tolerance"))
         self.fitInterceptLabel.setText(("Fit Intercept"))
-        self.fitInterceptCheckBox.setToolTip(_translate("Form", "whether to calculate the intercept for this model. If set to false,\n"
-"no intercept will be used in calculations (e.g. data is expected to\n"
-"be already centered)."))
-        self.fitInterceptCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.fitInterceptCheckBox.setToolTip(
+            _translate("Form", "whether to calculate the intercept for this model. If set to false,\n"
+                               "no intercept will be used in calculations (e.g. data is expected to\n"
+                               "be already centered)."))
+        self.fitInterceptCheckBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
         self.forcePositiveCoefficientsLabel.setText(("Force positive coefficients"))
         self.forcePositiveCoefficientsCheckBox.setToolTip(("When set to True, forces the coefficients to be positive."))
-        self.forcePositiveCoefficientsCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.forcePositiveCoefficientsCheckBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
         self.optimizeWCrossValidaitonLabel.setText(("Optimize w/ Cross Validation (Ignores alpha)"))
         self.optimizeWCrossValidaitonCheckBox.setToolTip(("Optimize with Cross Validaiton"))
-        self.optimizeWCrossValidaitonCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.optimizeWCrossValidaitonCheckBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
         self.toleranceDoubleSpinBox.setToolTip(("The tolerance for the optimization"))
-        self.toleranceDoubleSpinBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
+        self.toleranceDoubleSpinBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.Lasso.html"))
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-

@@ -29,7 +29,7 @@ class Ui_Form(Ui_Form, KernelRidge, Modules):
         self.gammaLineEdit.setText(str(self.gamma))
         self.degreeLineEdit.setText(str(self.degree))
         self.coeff0LineEdit.setText(str(self.coef0))
-        self.kernel_list.setCurrentItem(self.kernel_list.findItems('Radial Basis Function',QtCore.Qt.MatchExactly)[0])
+        self.kernel_list.setCurrentItem(self.kernel_list.findItems('Radial Basis Function', QtCore.Qt.MatchExactly)[0])
 
     def run(self):
         k_attrib = {'None': None}

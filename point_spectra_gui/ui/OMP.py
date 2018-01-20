@@ -3,7 +3,8 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -56,37 +57,44 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(("Form"))
         self.fitInterceptLabel.setText(("Fit Intercept"))
-        self.fitInterceptCheckBox.setToolTip(_translate("Form", "whether to calculate the intercept for this model. If set to false,\n"
-"no intercept will be used in calculations (e.g. data is expected to\n"
-"be already centered)."))
-        self.fitInterceptCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
+        self.fitInterceptCheckBox.setToolTip(
+            _translate("Form", "whether to calculate the intercept for this model. If set to false,\n"
+                               "no intercept will be used in calculations (e.g. data is expected to\n"
+                               "be already centered)."))
+        self.fitInterceptCheckBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
         self.normalizeLabel.setText(("Normalize"))
-        self.normalizeCheckBox.setToolTip(_translate("Form", "This parameter is ignored when fit_intercept is set to False. If True,\n"
-"the regressors X will be normalized before regression by subtracting\n"
-"the mean and dividing by the l2-norm. If you wish to standardize,\n"
-"please use sklearn.preprocessing.StandardScaler before calling fit on\n"
-"an estimator with normalize=False."))
-        self.normalizeCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
+        self.normalizeCheckBox.setToolTip(
+            _translate("Form", "This parameter is ignored when fit_intercept is set to False. If True,\n"
+                               "the regressors X will be normalized before regression by subtracting\n"
+                               "the mean and dividing by the l2-norm. If you wish to standardize,\n"
+                               "please use sklearn.preprocessing.StandardScaler before calling fit on\n"
+                               "an estimator with normalize=False."))
+        self.normalizeCheckBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
         self.precomputeLabel.setText(("Precompute"))
-        self.precomputeComboBox.setToolTip(_translate("Form", "Whether to use a precomputed Gram and Xy matrix to speed up\n"
-"calculations. Improves performance when n_targets or n_samples is very\n"
-"large. Note that if you already have such matrices, you can pass them\n"
-"directly to the fit method."))
-        self.precomputeComboBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
+        self.precomputeComboBox.setToolTip(
+            _translate("Form", "Whether to use a precomputed Gram and Xy matrix to speed up\n"
+                               "calculations. Improves performance when n_targets or n_samples is very\n"
+                               "large. Note that if you already have such matrices, you can pass them\n"
+                               "directly to the fit method."))
+        self.precomputeComboBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
         self.precomputeComboBox.setItemText(0, ("auto"))
         self.precomputeComboBox.setItemText(1, ("True"))
         self.precomputeComboBox.setItemText(2, ("False"))
         self.cVLabel.setText(("CV"))
         self.cVCheckBox.setToolTip(("Cross Validate"))
-        self.cVCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
+        self.cVCheckBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-

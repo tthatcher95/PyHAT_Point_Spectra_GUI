@@ -17,18 +17,16 @@ class DimensionalityReduction(Ui_Form, Modules):
         return self.formGroupBox
 
     def updateWidget(self):
+        self.setComboBox(self.chooseDataComboBox, self.datakeys)
+        self.setComboBox(self.chooseMethodComboBox, self.algorithm_list)
+
+    def connectWidget(self):
         self.algorithm_list = ['Choose an algorithm',
                                'PCA',
                                'FastICA',
                                'JADE-ICA',
                                't-SNE',
                                'LLE']
-
-        self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.setComboBox(self.chooseMethodComboBox, self.algorithm_list)
-
-
-    def connectWidget(self):
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.make_dimred_widget(self.chooseMethodComboBox.currentText()))
 

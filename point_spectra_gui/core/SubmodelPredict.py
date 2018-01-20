@@ -69,6 +69,8 @@ class SubmodelPredict(Ui_Form, Modules):
         self.setComboBox(self.highModelComboBox, self.modelkeys)
         self.setComboBox(self.optimizeSubmodelRangesComboBox, self.datakeys)
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
+
+    def connectWidget(self):
         self.addSubModelPushButton.clicked.connect(self.on_addRange_pushed)
         self.deleteSubModelPushButton.clicked.connect(self.on_deleteRange_pushed)
         self.setupWidgets()

@@ -50,6 +50,7 @@ class TitleWindow:
     Displays the name of our restored, or saved file
     Displays whether we are debugging or not
     """
+
     def __init__(self, mainName):
         self.mainName = mainName
         self.fileName = ''
@@ -96,7 +97,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.title = TitleWindow(self.MainWindow.windowTitle())
         self._readAndApplyWindowAttributeSettings()
         self.menu_item_shortcuts()  # set up the shortcuts
-        self.updateWidget()
+        self.connectWidget()
 
         # Check the mode for debugging
         if self.settings.value("debug") == 'true':
@@ -219,7 +220,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.actionSave_Current_Workflow.setShortcut("ctrl+S")
         self.okPushButton.setShortcut("Ctrl+Return")
 
-    def updateWidget(self):
+    def connectWidget(self):
         """
         Connect all the widgets associated with the MainWindow UI
 
@@ -296,6 +297,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         except Exception as e:
             print(e)
+
+    def updateWidget(self):
+        pass
 
     def closeEvent(self, event):
         """

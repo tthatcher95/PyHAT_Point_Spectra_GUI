@@ -3,7 +3,8 @@
 # Automatically generated - don't edit.
 # Use `python setup.py build_ui` to update it.
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
+
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -36,18 +37,20 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(("Form"))
         self.fitInterceptLabel.setText(("Fit Intercept"))
-        self.fitInterceptCheckBox.setToolTip(_translate("Form", "whether to calculate the intercept for this model. If set to False,\n"
-"no intercept will be used in calculations (e.g. data is expected to\n"
-"be already centered)."))
-        self.fitInterceptCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html"))
+        self.fitInterceptCheckBox.setToolTip(
+            _translate("Form", "whether to calculate the intercept for this model. If set to False,\n"
+                               "no intercept will be used in calculations (e.g. data is expected to\n"
+                               "be already centered)."))
+        self.fitInterceptCheckBox.setWhatsThis(
+            ("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html"))
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-
