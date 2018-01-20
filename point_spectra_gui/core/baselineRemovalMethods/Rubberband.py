@@ -17,6 +17,9 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
+    def connectWidget(self):
+        pass
+
     def updateWidget(self):
         br = Rubberband()
         self.windowSizeSpinBox.setValue(br.num_iters_)

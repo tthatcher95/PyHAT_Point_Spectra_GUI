@@ -17,6 +17,9 @@ class Ui_Form(Ui_Form, TSNE, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
+    def connectWidget(self):
+        pass
+
     def updateWidget(self):
         self.nc_spin.setValue(self.n_components)
         self.learning_spin.setValue(self.learning_rate)

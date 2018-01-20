@@ -22,6 +22,9 @@ class Ui_Form(Ui_Form, Modules):
         self.smoothnessDoubleSpinBox.setValue(br.dilation_)
         self.dilationSpinBox.setValue(br.smoothness_)
 
+    def connectWidget(self):
+        pass
+
     def run(self):
         methodParameters = {'dilation_': self.smoothnessDoubleSpinBox.value(),
                             'smoothness_': self.dilationSpinBox.value()}

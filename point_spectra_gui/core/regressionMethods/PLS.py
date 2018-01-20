@@ -17,6 +17,9 @@ class Ui_Form(Ui_Form, PLSRegression, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
+    def connectWidget(self):
+        pass
+
     def updateWidget(self):
         self.numOfComponentsLineEdit.setText(str(self.n_components))
 

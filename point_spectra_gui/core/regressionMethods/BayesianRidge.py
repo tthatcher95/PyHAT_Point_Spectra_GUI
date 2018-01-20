@@ -17,6 +17,9 @@ class Ui_Form(Ui_Form, BayesianRidge, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
+    def connectWidget(self):
+        pass
+
     def updateWidget(self):
         self.numOfIterationsSpinBox.setValue(self.n_iter)
         self.toleranceDoubleSpinBox.setValue(self.tol)

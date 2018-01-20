@@ -18,6 +18,9 @@ class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, M
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
+    def connectWidget(self):
+        pass
+
     def updateWidget(self):
         self.fitInterceptCheckBox.setChecked(self.fit_intercept)
         self.normalizeCheckBox.setChecked(self.normalize)

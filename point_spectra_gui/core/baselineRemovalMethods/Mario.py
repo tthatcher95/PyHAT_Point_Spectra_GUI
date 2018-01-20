@@ -17,6 +17,9 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
+    def connectWidget(self):
+        pass
+
     def updateWidget(self):
         br = Mario()
         # This algorithm doesn't work for now, but let the user get a sneak peek of it.

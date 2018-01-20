@@ -18,6 +18,9 @@ class Ui_Form(Ui_Form, Lasso, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
+    def connectWidget(self):
+        pass
+
     def updateWidget(self):
         self.minalpha_spin.setValue(0.0000001)
         self.maxalpha_spin.setValue(0.01)
