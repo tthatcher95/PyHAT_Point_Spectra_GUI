@@ -16,13 +16,10 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidget(self):
+    def connectWidgets(self):
         br = Dietrich()
         self.halfWindowSpinBox.setValue(br.half_window_)
         self.numOfErosionsSpinBox.setValue(br.num_erosions_)
-
-    def connectWidget(self):
-        pass
 
     def run(self):
         methodParameters = {'half_window_': self.halfWindowSpinBox.value(),

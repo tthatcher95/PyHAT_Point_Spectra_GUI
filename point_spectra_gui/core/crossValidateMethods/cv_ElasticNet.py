@@ -1,7 +1,6 @@
-import numpy as np
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets,QtCore
 from sklearn.linear_model import ElasticNet
-
+import numpy as np
 from point_spectra_gui.ui.cv_ElasticNet import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
@@ -10,7 +9,7 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidget()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.elasticNetGroupBox
@@ -18,10 +17,7 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidget(self):
-        pass
-
-    def updateWidget(self):
+    def connectWidgets(self):
         en = ElasticNet()
 
         self.minalpha_spin.setValue(0.0000001)
@@ -29,19 +25,17 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
         self.nalpha_spin.setValue(100)
 
         self.enl1_ratioLineEdit.setText('0.1, 0.5, 0.7, 0.9, 0.95, 0.99, 1.0')
-        self.enfit_intercept_list.setCurrentItem(
-            self.enfit_intercept_list.findItems(str(en.fit_intercept), QtCore.Qt.MatchExactly)[0])
-        self.ennormalize_list.setCurrentItem(
-            self.ennormalize_list.findItems(str(en.normalize), QtCore.Qt.MatchExactly)[0])
-        # self.enprecomputeCheckBox.setChecked(en.precompute)
+        self.enfit_intercept_list.setCurrentItem(self.enfit_intercept_list.findItems(str(en.fit_intercept),QtCore.Qt.MatchExactly)[0])
+        self.ennormalize_list.setCurrentItem(self.ennormalize_list.findItems(str(en.normalize),QtCore.Qt.MatchExactly)[0])
+        #self.enprecomputeCheckBox.setChecked(en.precompute)
         self.enmax_iterLineEdit.setText(str(en.max_iter))
-        # self.encopy_XCheckBox.setChecked(en.copy_X)
+        #self.encopy_XCheckBox.setChecked(en.copy_X)
         self.entolLineEdit.setText(str(en.tol))
-        self.enwarm_start_list.setCurrentItem(
-            self.enwarm_start_list.findItems(str(en.warm_start), QtCore.Qt.MatchExactly)[0])
-        self.enpositive_list.setCurrentItem(self.enpositive_list.findItems(str(en.positive), QtCore.Qt.MatchExactly)[0])
-        # self.setComboBox(self.enselectionComboBox, ['cyclic', 'random'])
-        # self.defaultComboItem(self.enselectionComboBox, en.selection)
+        self.enwarm_start_list.setCurrentItem(self.enwarm_start_list.findItems(str(en.warm_start),QtCore.Qt.MatchExactly)[0])
+        self.enpositive_list.setCurrentItem(self.enpositive_list.findItems(str(en.positive),QtCore.Qt.MatchExactly)[0])
+        #self.setComboBox(self.enselectionComboBox, ['cyclic', 'random'])
+        #self.defaultComboItem(self.enselectionComboBox, en.selection)
+
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.enfit_intercept_list.selectedItems()]

@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidget()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,11 +17,20 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidget(self):
-        pass
-
-    def updateWidget(self):
+    def connectWidgets(self):
         svr = SVR()
+        svr.kernel = 'rbf'
+        svr.degree = 3
+        svr.gamma = 'auto'
+        svr.coef0 = 0.0
+        svr.tol = 1e-3
+        svr.C = 1.0
+        svr.epsilon = 0.1
+        svr.shrinking = True
+        svr.cache_size = 200
+        svr.verbose = False
+        svr.max_iter = -1
+
         self.cLineEdit.setText(str(svr.C))
         self.epsilonLineEdit.setText(str(svr.epsilon))
         self.kernel_list.setCurrentItem(self.kernel_list.findItems('Radial Basis Function', QtCore.Qt.MatchExactly)[0])

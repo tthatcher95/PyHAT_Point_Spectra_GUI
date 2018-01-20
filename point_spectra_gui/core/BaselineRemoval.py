@@ -24,7 +24,7 @@ class BaselineRemoval(Ui_Form, Modules):
             if alg == self.chooseAlgorithmList[i] and i > 0:
                 self.alg[i - 1].setHidden(False)
 
-    def updateWidget(self):
+    def connectWidgets(self):
         self.chooseAlgorithmList = ['Choose an algorithm',
                                     'AirPLS',
                                     'ALS',
@@ -39,8 +39,6 @@ class BaselineRemoval(Ui_Form, Modules):
                                     ]
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.chooseAlgorithmList)
-
-    def connectWidget(self):
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
 

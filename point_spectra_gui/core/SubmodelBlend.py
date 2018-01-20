@@ -63,21 +63,23 @@ class SubmodelBlend(Ui_Form, Modules):
         self.index = self.index_spin.value()
         self.setHidden(self.subwidgets)
 
-    def updateWidget(self):
-        self.get_Predictions()
-        self.setComboBox(self.chooseDatacomboBox, self.datakeys)
-        self.setComboBox(self.referencePredictionComboBox, self.predictnames)
-        self.setComboBox(self.lowPredictionComboBox, self.predictnames)
-        self.setComboBox(self.highPredictionComboBox, self.predictnames)
-        self.setComboBox(self.optimizeSubRangesComboBox,
-                         self.data[self.chooseDatacomboBox.currentText()].df['comp'].columns.values)
-
-    def connectWidget(self):
+    def connectWidgets(self):
         self.index_spin.valueChanged.connect(self.set_index)
         self.index_spin.setHidden(True)
+        self.setComboBox(self.chooseDatacomboBox, self.datakeys)
+        self.get_Predictions()
         self.chooseDatacomboBox.currentIndexChanged.connect(self.get_Predictions)
         self.setupWidgets()
         self.setHidden(self.subwidgets)
+        try:
+            self.setComboBox(self.referencePredictionComboBox, self.predictnames)
+            self.setComboBox(self.lowPredictionComboBox, self.predictnames)
+            self.setComboBox(self.highPredictionComboBox, self.predictnames)
+            self.setComboBox(self.optimizeSubRangesComboBox,
+                             self.data[self.chooseDatacomboBox.currentText()].df['comp'].columns.values)
+
+        except:
+            pass
         self.addSubPushButton.clicked.connect(self.on_addSubmodel_pushed)
         self.deleteSubPushButton.clicked.connect(self.on_deleteSubmodel_pushed)
         self.optimizeSubRangesLabel.setHidden(True)
@@ -91,7 +93,6 @@ class SubmodelBlend(Ui_Form, Modules):
                 list[i].setHidden(True)
 
     def get_Predictions(self):
-        # TODO this needs to be fixed, this is badly written
         try:
             self.predictnames = self.data[self.chooseDatacomboBox.currentText()].df['predict'].columns.values
             self.setComboBox(self.referencePredictionComboBox, self.predictnames)

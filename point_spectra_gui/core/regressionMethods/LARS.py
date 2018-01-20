@@ -10,7 +10,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidget()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -18,10 +18,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidget(self):
-        pass
-
-    def updateWidget(self):
+    def connectWidgets(self):
         # LARS/         # LARSCV
 
         lars = Lars()
@@ -70,6 +67,8 @@ class Ui_Form(Ui_Form, Modules):
                 'CV': self.cVCheckBox.isChecked(),
             }
             return params, self.getChangedValues(params, Lars())
+
+
 
 
 if __name__ == "__main__":

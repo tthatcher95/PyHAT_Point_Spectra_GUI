@@ -8,7 +8,6 @@ class RegressionPredict(Ui_Form, Modules):
     """
     You will need to have ran the RegressionTrain module for this to work.
     """
-
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -16,12 +15,9 @@ class RegressionPredict(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def updateWidget(self):
+    def connectWidgets(self):
         self.setComboBox(self.chooseDataComboBox, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
-
-    def connectWidget(self):
-        pass
 
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
@@ -29,7 +25,7 @@ class RegressionPredict(Ui_Form, Modules):
         predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
 
         data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
-        data_tmp.fillna(value=0, inplace=True)
+        data_tmp.fillna(value=0,inplace=True)
         try:
             prediction = self.models[modelkey].predict(data_tmp)
             self.data[datakey].df[predictname] = prediction

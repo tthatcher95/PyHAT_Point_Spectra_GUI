@@ -9,7 +9,8 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidget()
+        self.connectWidgets()
+
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,10 +18,7 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidget(self):
-        pass
-
-    def updateWidget(self):
+    def connectWidgets(self):
         self.numOfIterationsSpinBox.setValue(self.n_iter)
         self.toleranceDoubleSpinBox.setValue(self.tol)
         self.alpha1DoubleSpinBox.setValue(self.alpha_1)

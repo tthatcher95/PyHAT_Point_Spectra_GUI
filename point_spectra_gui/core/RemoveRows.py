@@ -70,14 +70,11 @@ class RemoveRows(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidget(self):
+    def connectWidgets(self):
         self.setComboBox(self.chooseData, self.datakeys)
-        # TODO, this smells fishy to me. Please spend some time reorganizing this portion
+        self.chooseData.currentIndexChanged.connect(lambda: self.update_cols())
         self.update_cols()
         self.connect_logic()
-
-    def connectWidget(self):
-        self.chooseData.currentIndexChanged.connect(lambda: self.update_cols())
 
     def update_cols(self):
         for i in self.operations:
@@ -99,17 +96,16 @@ class RemoveRows(Ui_Form, Modules):
         for i in range(len(self.operations) - 1):
             try:
                 if self.operations[i].logic.currentText() == 'and':
-                    self.operations[i + 1].hidden.setChecked(False)
+                    self.operations[i+1].hidden.setChecked(False)
                 else:
-                    self.operations[i + 1].hidden.setChecked(True)
+                    self.operations[i+1].hidden.setChecked(True)
 
-                if self.operations[i + 1].logic.currentText() == 'and':
+                if self.operations[i+1].logic.currentText() == 'and':
                     self.operations[i].logic.setEnabled(False)
                 else:
                     self.operations[i].logic.setEnabled(True)
             except:
                 pass
-
     def run(self):
         match_vectors = []
         logic_list = []

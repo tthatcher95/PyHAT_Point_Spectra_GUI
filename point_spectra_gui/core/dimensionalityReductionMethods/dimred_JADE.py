@@ -8,7 +8,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidget()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.groupBox
@@ -16,10 +16,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidget(self):
-        pass
-
-    def updateWidget(self):
+    def connectWidgets(self):
         self.nc_spin.setValue(8)
 
     def run(self):

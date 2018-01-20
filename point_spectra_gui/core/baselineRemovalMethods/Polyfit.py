@@ -17,10 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidget(self):
-        pass
-
-    def updateWidget(self):
+    def connectWidgets(self):
         br = PolyFit()
         self.orderSpinBox.setValue(br.poly_order_)
         self.numOfStandardDeviationsSpinBox.setValue(br.stdv_)

@@ -11,7 +11,6 @@ class LoadData(Ui_loadData, Modules):
     Loads the data into the UI.
     The data needs to be a *.csv in order for this application to work
     """
-
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -19,11 +18,8 @@ class LoadData(Ui_loadData, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidget(self):
+    def connectWidgets(self):
         self.newFilePushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.fileNameLineEdit))
-
-    def connectWidget(self):
-        pass
 
     def on_getDataButton_clicked(self, lineEdit):
         filename, _filter = QtWidgets.QFileDialog.getOpenFileName(None, "Open Data File", self.outpath, "(*.csv)")
@@ -41,7 +37,6 @@ class LoadData(Ui_loadData, Modules):
         else:
             self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
             self.datakeys.append(keyname)
-
 
 if __name__ == "__main__":
     import sys

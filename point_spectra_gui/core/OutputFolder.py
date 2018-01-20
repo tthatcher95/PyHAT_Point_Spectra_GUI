@@ -8,7 +8,6 @@ class OutputFolder(Ui_Form, Modules):
     """
     This is the `outpath` module. It can designate where data goes after processing
     """
-
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -22,10 +21,9 @@ class OutputFolder(Ui_Form, Modules):
         if self.folderNameLineEdit.text() == "":
             self.folderNameLineEdit.setText("*/")
 
-    def updateWidget(self):
+    def connectWidgets(self):
         pass
 
-    def connectWidget(self):
         self.pushButton.clicked.connect(lambda: self.on_outPutLocationButton_clicked())
 
     def run(self):

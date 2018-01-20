@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidget()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,10 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidget(self):
-        pass
-
-    def updateWidget(self):
+    def connectWidgets(self):
         # LassoLARS
         ll = LassoLars()
         self.alpha_text.setText(str(ll.alpha))
@@ -60,7 +57,7 @@ class Ui_Form(Ui_Form, Modules):
                 'positive': self.positiveCheckBox.isChecked(),
                 'model': model
             }
-            params_check = dict(params)
+            params_check=dict(params)
             params_check.pop('model')
             return params, self.getChangedValues(params_check, LassoLars())
 

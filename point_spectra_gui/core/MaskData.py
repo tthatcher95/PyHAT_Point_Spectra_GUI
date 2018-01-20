@@ -18,10 +18,8 @@ class MaskData(Ui_Form, Modules):
         if lineEdit.text() == "":
             lineEdit.setText("*.csv")
 
-    def updateWidget(self):
+    def connectWidgets(self):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-
-    def connectWidget(self):
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.maskFileLineEdit))
 
     def run(self):

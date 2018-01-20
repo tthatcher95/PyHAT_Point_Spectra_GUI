@@ -8,7 +8,7 @@ from point_spectra_gui.util.Modules import Modules
 class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        self.updateWidget()
+        self.connectWidgets()
         Modules.setupUi(self, Form)
 
     def get_widget(self):
@@ -17,10 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidget(self):
-        pass
-
-    def updateWidget(self):
+    def connectWidgets(self):
         br = Mario()
         # This algorithm doesn't work for now, but let the user get a sneak peek of it.
         self.get_widget().setDisabled(True)

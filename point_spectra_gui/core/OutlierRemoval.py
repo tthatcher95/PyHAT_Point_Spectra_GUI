@@ -24,7 +24,7 @@ class OutlierRemoval(Ui_Form, Modules):
             if alg == self.algorithm_list[i]:
                 self.alg[i - 1].setHidden(False)
 
-    def updateWidget(self):
+    def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
                                'Isolation Forest',
                                'Other algorithms go here...']
@@ -33,8 +33,6 @@ class OutlierRemoval(Ui_Form, Modules):
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.changeComboListVars(self.xVariableList, self.xvar_choices())
         self.xvar_choices()
-
-    def connectWidget(self):
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_outlier_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(

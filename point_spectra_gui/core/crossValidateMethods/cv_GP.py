@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets,QtCore
 from sklearn.gaussian_process.gaussian_process import GaussianProcess
 
 from point_spectra_gui.ui.cv_GP import Ui_Form
@@ -8,7 +8,7 @@ from point_spectra_gui.util.Modules import Modules
 class Ui_Form(Ui_Form, GaussianProcess, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        self.updateWidget()
+        self.connectWidgets()
         self.checkMinAndMax()
 
     def get_widget(self):
@@ -17,25 +17,20 @@ class Ui_Form(Ui_Form, GaussianProcess, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidget(self):
-        pass
-
-    def updateWidget(self):
-        self.DimRedList.setCurrentItem(self.DimRedList.findItems('PCA', QtCore.Qt.MatchExactly)[0])
-        self.regression_list.setCurrentItem(self.regression_list.findItems('Linear', QtCore.Qt.MatchExactly)[0])
-        self.CorrelationList.setCurrentItem(
-            self.CorrelationList.findItems('Squared Exponential', QtCore.Qt.MatchExactly)[0])
+    def connectWidgets(self):
+        self.DimRedList.setCurrentItem(self.DimRedList.findItems('PCA',QtCore.Qt.MatchExactly)[0])
+        self.regression_list.setCurrentItem(self.regression_list.findItems('Linear',QtCore.Qt.MatchExactly)[0])
+        self.CorrelationList.setCurrentItem(self.CorrelationList.findItems('Squared Exponential',QtCore.Qt.MatchExactly)[0])
         self.theta0LineEdit.setText(str(self.theta0))
         self.ThetaL.setText(str(self.thetaL))
         self.ThetaU.setText(str(self.thetaU))
         self.randomStartLineEdit.setText(str(self.random_start))
-        self.normalize_list.setCurrentItem(
-            self.normalize_list.findItems(str(self.normalize), QtCore.Qt.MatchExactly)[0])
+        self.normalize_list.setCurrentItem(self.normalize_list.findItems(str(self.normalize),QtCore.Qt.MatchExactly)[0])
 
     def run(self):
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
         regr_items = [str(i.text().lower()) for i in self.regression_list.selectedItems()]
-        corr_items = [str(i.text().lower().replace(' ', '_')) for i in self.CorrelationList.selectedItems()]
+        corr_items = [str(i.text().lower().replace(' ','_')) for i in self.CorrelationList.selectedItems()]
         dim_red_items = [str(i.text()) for i in self.DimRedList.selectedItems()]
         params = {
             'reduce_dim': dim_red_items,
@@ -45,7 +40,7 @@ class Ui_Form(Ui_Form, GaussianProcess, Modules):
             'storage_mode': ['light'],
             'verbose': [True],
             'theta0': [float(i) for i in self.theta0LineEdit.text().split(',')],
-            # where are the bounds on Theta? need to check this
+            #where are the bounds on Theta? need to check this
             'normalize': [normalize_items],
             'optimizer': ['fmin_cobyla'],
             'random_start': [int(i) for i in self.randomStartLineEdit.text().split(',')],

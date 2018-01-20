@@ -8,7 +8,6 @@ class Interpolation(Ui_Form, Modules):
     """
     Interpolates two datasets
     """
-
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -16,12 +15,9 @@ class Interpolation(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def updateWidget(self):
+    def connectWidgets(self):
         self.setComboBox(self.interpolateDataComboBox, self.datakeys)
         self.setComboBox(self.referenceDataComboBox, self.datakeys)
-
-    def connectWidget(self):
-        pass
 
     def run(self):
         datakey_to_interp = self.interpolateDataComboBox.currentText()

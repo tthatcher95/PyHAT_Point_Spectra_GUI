@@ -15,22 +15,19 @@ class DataTable(QtWidgets.QWidget, Ui_Form, Modules):
     """
     Displays the data stored inside the memory of this application
     """
-
     def __init__(self, *args, **kwargs):
         QtWidgets.QWidget.__init__(self, *args, **kwargs)
         self.setupUi(self)
-        self.updateWidget()
+        self.connectWidgets()
         self.refreshTable = Worker(self.on_refreshTable)
 
     def get_widget(self):
         return self.dockWidget
 
-    def updateWidget(self):
+    def connectWidgets(self):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-
-    def connectWidget(self):
         self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.on_refreshTable())
-        self.refreshDataPushButton.clicked.connect(lambda: self.updateWidget())
+        self.refreshDataPushButton.clicked.connect(lambda: self.connectWidgets())
         self.refreshTablePushButton.clicked.connect(lambda: self.on_refreshTable())
 
     def on_refreshTable(self):
