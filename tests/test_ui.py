@@ -1,4 +1,5 @@
 import sys
+import time
 import warnings
 
 from point_spectra_gui import core
@@ -17,7 +18,23 @@ from PyQt5 import QtWidgets
 from point_spectra_gui.core.MainWindow import MainWindow
 
 
+def timeit(method):
+    def timed(*args, **kw):
+        ts = time.time()
+        result = method(*args, **kw)
+        te = time.time()
+        if 'log_time' in kw:
+            name = kw.get('log_name', method.__name__.upper())
+            kw['log_time'][name] = int((te - ts) * 1000)
+        else:
+            print('%r  %2.2f ms' % (method.__name__, (te - ts) * 1000))
+        return result
+
+    return timed
+
+
 class Ui_MainWindow(MainWindow):
+    @timeit
     def connectWidgets(self):
         """
         Connect all the widgets associated with the MainWindow UI
