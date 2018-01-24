@@ -12,7 +12,7 @@ class WriteToCSV(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.setComboBox(self.chooseDataSetComboBox, self.datakeys)
         self.setListWidget(self.variablesToWriteListWidget, self.xvar_choices())
         self.variablesToWriteListWidget.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)

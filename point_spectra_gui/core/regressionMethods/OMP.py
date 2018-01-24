@@ -10,7 +10,7 @@ class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, M
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.connectWidgets()
+        self.updateWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, M
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.fitInterceptCheckBox.setChecked(self.fit_intercept)
         self.normalizeCheckBox.setChecked(self.normalize)
         self.defaultComboItem(self.precomputeComboBox, self.precompute)

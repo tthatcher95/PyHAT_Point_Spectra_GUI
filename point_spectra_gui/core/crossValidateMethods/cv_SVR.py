@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.connectWidgets()
+        self.updateWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         svr = SVR()
         svr.kernel = 'rbf'
         svr.degree = 3

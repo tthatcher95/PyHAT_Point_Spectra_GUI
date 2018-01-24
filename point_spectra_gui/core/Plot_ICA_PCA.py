@@ -13,7 +13,7 @@ class Plot_ICA_PCA(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         alg_choices = ['Choose a method', 'PCA', 'FastICA', 'JADE-ICA']
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseMethodComboBox, alg_choices)

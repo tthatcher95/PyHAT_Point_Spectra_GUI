@@ -24,7 +24,7 @@ class BaselineRemoval(Ui_Form, Modules):
             if alg == self.chooseAlgorithmList[i] and i > 0:
                 self.alg[i - 1].setHidden(False)
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.chooseAlgorithmList = ['Choose an algorithm',
                                     'AirPLS',
                                     'ALS',

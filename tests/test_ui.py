@@ -35,7 +35,7 @@ def timeit(method):
 
 class Ui_MainWindow(MainWindow):
     @timeit
-    def connectWidgets(self):
+    def updateWidgets(self):
         """
         Connect all the widgets associated with the MainWindow UI
         :return:

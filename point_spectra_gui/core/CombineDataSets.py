@@ -20,7 +20,7 @@ class CombineDataSets(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.setComboBox(self.dataSet1ComboBox, self.datakeys)
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
         self.setComboBox(self.outputToDataSetComboBox, self.datakeys)

@@ -12,7 +12,7 @@ class StratifiedFolds(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         self.nFoldsSpinBox.setValue(2)
         self.testFoldsSpinBox.setValue(2)
         self.setComboBox(self.chooseDataToStratifyComboBox, self.datakeys)

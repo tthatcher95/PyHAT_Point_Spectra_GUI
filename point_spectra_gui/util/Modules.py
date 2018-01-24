@@ -42,6 +42,7 @@ class Modules:
     def setupUi(self, Form):
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
+        self.updateWidgets()
         self.connectWidgets()
 
     def mousePressEvent(self, QMouseEvent):
@@ -62,13 +63,22 @@ class Modules:
         raise NotImplementedError(
             'The method "get_widget()" was not found in the module {}'.format(type(self).__name__))
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         """
         Connect the necessary widgets.
         :return:
         """
         raise NotImplementedError(
-            'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
+            'The method "updateWidgets()" was not found in the module {}'.format(type(self).__name__))
+
+    def connectWidgets(self):
+        """
+        Connect the necessary parts of the UI with .connect
+        This function may also contain some necessary prefix stuff
+        :return:
+        """
+        raise NotImplementedError(
+            'This method "connectWidgets()" was not found inthe module {}'.format(type(self).__name__))
 
     def getGuiParams(self):
         """

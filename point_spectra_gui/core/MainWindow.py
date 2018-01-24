@@ -96,7 +96,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.title = TitleWindow(self.MainWindow.windowTitle())
         self._readAndApplyWindowAttributeSettings()
         self.menu_item_shortcuts()  # set up the shortcuts
-        self.connectWidgets()
+        self.updateWidgets()
 
         # Check the mode for debugging
         if self.settings.value("debug") == 'true':
@@ -219,7 +219,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.actionSave_Current_Workflow.setShortcut("ctrl+S")
         self.okPushButton.setShortcut("Ctrl+Return")
 
-    def connectWidgets(self):
+    def updateWidgets(self):
         """
         Connect all the widgets associated with the MainWindow UI
 
