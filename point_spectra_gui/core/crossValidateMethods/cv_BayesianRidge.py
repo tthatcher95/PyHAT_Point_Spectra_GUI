@@ -29,6 +29,9 @@ class Ui_Form(Ui_Form, BayesianRidge, Modules):
         self.normalize_List.setCurrentItem(
             self.normalize_List.findItems(str(self.normalize), QtCore.Qt.MatchExactly)[0])
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fitIntercept_List.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_List.selectedItems()]

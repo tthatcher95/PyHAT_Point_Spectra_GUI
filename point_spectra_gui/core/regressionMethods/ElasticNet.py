@@ -54,6 +54,9 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
         self.setComboBox(self.selectionComboBox, ['cyclic', 'random'])
         self.defaultComboItem(self.selectionComboBox, encv.selection)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         p_attrib = {'False': False, 'True': True, 'Array-like': 'array-like'}
         r_attrib = {'None': None}
@@ -98,7 +101,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
                 'warm_start': self.enwarm_startCheckBox.isChecked(),
                 'positive': self.enpositiveCheckBox.isChecked(),
                 'selection': self.selectionComboBox.currentText()
-                     }
+            }
             return params, self.getChangedValues(params, ElasticNet())
 
 

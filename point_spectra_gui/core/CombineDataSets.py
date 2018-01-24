@@ -25,6 +25,9 @@ class CombineDataSets(Ui_Form, Modules):
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
         self.setComboBox(self.outputToDataSetComboBox, self.datakeys)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()

@@ -22,6 +22,9 @@ class Ui_Form(Ui_Form, LocallyLinearEmbedding, Modules):
         self.nc_spin.setValue(2)
         self.regularization_spin.setValue(0.001)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         params = {
             'n_components': self.nc_spin.value(),

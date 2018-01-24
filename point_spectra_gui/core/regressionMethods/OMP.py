@@ -23,6 +23,9 @@ class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, M
         self.normalizeCheckBox.setChecked(self.normalize)
         self.defaultComboItem(self.precomputeComboBox, self.precompute)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         params = {'fit_intercept': self.fitInterceptCheckBox.isChecked(),
                   'normalize': self.normalizeCheckBox.isChecked(),

@@ -73,8 +73,12 @@ class RemoveRows(Ui_Form, Modules):
     def updateWidgets(self):
         self.setComboBox(self.chooseData, self.datakeys)
         self.chooseData.currentIndexChanged.connect(lambda: self.update_cols())
+        # TODO this is poorly made function, please refactor at some point
         self.update_cols()
         self.connect_logic()
+
+    def connectWidgets(self):
+        pass
 
     def update_cols(self):
         for i in self.operations:

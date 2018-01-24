@@ -19,6 +19,9 @@ class Ui_Form(Ui_Form, Modules):
     def updateWidgets(self):
         self.nc_spin.setValue(8)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         params = {
             'n_components': self.nc_spin.value()}

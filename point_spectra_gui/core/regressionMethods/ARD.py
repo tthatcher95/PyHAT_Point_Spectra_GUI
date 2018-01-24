@@ -11,7 +11,6 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
         self.checkMinAndMax()
         self.updateWidgets()
 
-
     def get_widget(self):
         return self.formGroupBox
 
@@ -31,6 +30,9 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
         self.normalizeCheckBox.setChecked(self.normalize)
         self.copyXCheckBox.setChecked(self.copy_X)
         self.verboseCheckBox.setChecked(self.verbose)
+
+    def connectWidgets(self):
+        pass
 
     def run(self):
         params = {

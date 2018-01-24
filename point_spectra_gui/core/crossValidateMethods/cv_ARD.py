@@ -30,6 +30,9 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
         self.normalize_list.setCurrentItem(
             self.normalize_list.findItems(str(self.normalize), QtCore.Qt.MatchExactly)[0])
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fitIntercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]

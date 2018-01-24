@@ -36,6 +36,9 @@ class Ui_Form(Ui_Form, Modules):
         self.max_n_alphasSpinBox.setValue(larscv.max_n_alphas)
         self.n_jobsSpinBox.setValue(larscv.n_jobs)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         if self.cVCheckBox.isChecked():
             params = {

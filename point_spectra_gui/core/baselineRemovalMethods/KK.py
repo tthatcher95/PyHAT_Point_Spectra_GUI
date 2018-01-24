@@ -24,6 +24,9 @@ class Ui_Form(Ui_Form, Modules):
         self.tangentCheckBox.setChecked(br.tangent_)
         self.exponentSpinBox.setValue(br.exponent_)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         methodParameters = {'top_width_': self.topWidthSpinBox.value(),
                             'bottom_width_': self.bottomWidthSpinBox.value(),

@@ -15,6 +15,9 @@ class SpecDeriv(Ui_Form, Modules):
     def updateWidgets(self):
         self.setComboBox(self.chooseDataToDerivComboBox, self.datakeys)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         datakey = self.chooseDataToDerivComboBox.currentText()
         new_datakey = datakey + ' - Derivative'

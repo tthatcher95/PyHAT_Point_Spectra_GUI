@@ -22,6 +22,9 @@ class Ui_Form(Ui_Form, Modules):
         self.lowestWaveletScaleSpinBox.setValue(CCAM.lvmin_)
         self.largestWaveletScaleSpinBox.setValue(CCAM.lv_)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         methodParameters = {'lv_': self.largestWaveletScaleSpinBox.value(),
                             'lvmin_': self.lowestWaveletScaleSpinBox.value()}

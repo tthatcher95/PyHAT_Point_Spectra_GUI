@@ -17,6 +17,8 @@ class ReadChemCamData(Ui_Form, Modules):
 
     def updateWidgets(self):
         self.searchStringLineEdit.setText("*ccs*.csv")
+
+    def connectWidgets(self):
         self.searchDirectorypushButton.clicked.connect(self.on_searchpathButton_clicked)
         self.metadatapushButton.clicked.connect(self.on_metadataButton_clicked)
 

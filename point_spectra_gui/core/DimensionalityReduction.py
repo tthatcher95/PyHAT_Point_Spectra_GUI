@@ -26,6 +26,8 @@ class DimensionalityReduction(Ui_Form, Modules):
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseMethodComboBox, self.algorithm_list)
+
+    def connectWidgets(self):
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.make_dimred_widget(self.chooseMethodComboBox.currentText()))
 

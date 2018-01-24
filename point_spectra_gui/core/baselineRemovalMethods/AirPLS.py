@@ -23,6 +23,9 @@ class Ui_Form(Ui_Form, Modules):
         self.convergenceThresholdDoubleSpinBox.setValue(airPLS.conv_thresh_)
         self.maxNumOfIterationsSpinBox.setValue(airPLS.max_iters_)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         methodParameters = {'smoothness_': float(self.smoothnessSpinBox.value()),
                             'conv_thresh_': int(self.convergenceThresholdDoubleSpinBox.value()),

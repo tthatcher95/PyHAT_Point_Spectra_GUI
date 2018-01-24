@@ -43,12 +43,14 @@ class RegressionTrain(Ui_Form, Modules):
                                'KRR']
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
+        self.changeComboListVars(self.xVariableList, self.xvar_choices())
+        self.xvar_choices()
+        self.changeComboListVars(self.yVariableList, self.yvar_choices())
+
+    def connectWidgets(self):
         self.yMaxDoubleSpinBox.setMaximum(999999)
         self.yMinDoubleSpinBox.setMaximum(999999)
         self.yMaxDoubleSpinBox.setValue(100)
-        self.changeComboListVars(self.yVariableList, self.yvar_choices())
-        self.changeComboListVars(self.xVariableList, self.xvar_choices())
-        self.xvar_choices()
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(

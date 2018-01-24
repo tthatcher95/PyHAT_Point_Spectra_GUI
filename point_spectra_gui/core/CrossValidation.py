@@ -14,6 +14,7 @@ class CrossValidation(Ui_Form, Modules):
     """
     Cross validate our data
     """
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -39,7 +40,7 @@ class CrossValidation(Ui_Form, Modules):
                                # 'KRR',  This needs more work since it requires parameters for the kernel passed as an object
                                'LARS',
                                'LASSO',
-                              # 'LASSO LARS', - this also need to be debugged
+                               # 'LASSO LARS', - this also need to be debugged
                                'OLS',
                                'OMP',
                                'PLS',
@@ -48,12 +49,14 @@ class CrossValidation(Ui_Form, Modules):
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
-        self.yMaxDoubleSpinBox.setMaximum(999999)
-        self.yMinDoubleSpinBox.setMaximum(999999)
-        self.yMaxDoubleSpinBox.setValue(100)
         self.changeComboListVars(self.yVariableList, self.yvar_choices())
         self.changeComboListVars(self.xVariableList, self.xvar_choices())
         self.xvar_choices()
+
+    def connectWidgets(self):
+        self.yMaxDoubleSpinBox.setMaximum(999999)
+        self.yMinDoubleSpinBox.setMaximum(999999)
+        self.yMaxDoubleSpinBox.setValue(100)
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(

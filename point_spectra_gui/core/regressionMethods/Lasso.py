@@ -24,6 +24,9 @@ class Ui_Form(Ui_Form, Lasso, Modules):
         self.toleranceDoubleSpinBox.setValue(self.tol)
         self.forcePositiveCoefficientsCheckBox.setChecked(self.positive)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         params = {'alpha': float(self.alpha_text.text()),
                   'fit_intercept': self.fitInterceptCheckBox.isChecked(),

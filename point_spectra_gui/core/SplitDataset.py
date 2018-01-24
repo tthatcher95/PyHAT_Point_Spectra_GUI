@@ -21,6 +21,9 @@ class SplitDataset(Ui_Form, Modules):
         except:
             pass
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
         colname = self.splitOnUniqueValuesOfComboBox.currentText()

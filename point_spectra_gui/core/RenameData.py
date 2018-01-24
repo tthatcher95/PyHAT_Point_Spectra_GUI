@@ -15,6 +15,9 @@ class RenameData(Ui_Form, Modules):
     def updateWidgets(self):
         self.setComboBox(self.renameDataComboBox, self.datakeys)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         self.datakeys.append(self.toDataLineEdit.text())
         self.data[self.toDataLineEdit.text()] = self.data[self.renameDataComboBox.currentText()]

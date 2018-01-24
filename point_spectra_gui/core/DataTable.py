@@ -22,6 +22,8 @@ class DataTable(QtWidgets.QWidget, Ui_Form, Modules):
 
     def updateWidgets(self):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
+
+    def connectWidgets(self):
         self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.on_refreshTable())
         self.refreshDataPushButton.clicked.connect(lambda: self.updateWidgets())
         self.refreshTablePushButton.clicked.connect(lambda: self.on_refreshTable())

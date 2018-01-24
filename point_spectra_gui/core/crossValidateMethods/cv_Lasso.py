@@ -1,6 +1,7 @@
-from PyQt5 import QtWidgets,QtCore
-from sklearn.linear_model.coordinate_descent import Lasso
 import numpy as np
+from PyQt5 import QtWidgets, QtCore
+from sklearn.linear_model.coordinate_descent import Lasso
+
 from point_spectra_gui.ui.cv_Lasso import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
@@ -18,21 +19,25 @@ class Ui_Form(Ui_Form, Lasso, Modules):
         self.get_widget().setHidden(bool)
 
     def updateWidgets(self):
-
         self.minalpha_spin.setValue(0.0000001)
         self.maxalpha_spin.setValue(0.01)
         self.nalphas_spin.setValue(100)
 
-        self.fit_intercept_list.setCurrentItem(self.fit_intercept_list.findItems(str(self.fit_intercept),QtCore.Qt.MatchExactly)[0])
+        self.fit_intercept_list.setCurrentItem(
+            self.fit_intercept_list.findItems(str(self.fit_intercept), QtCore.Qt.MatchExactly)[0])
         self.maxNumOfIterationsLineEdit.setText(str(self.max_iter))
         self.toleranceLineEdit.setText(str(self.tol))
-        self.forcePositive_list.setCurrentItem(self.forcePositive_list.findItems(str(self.positive),QtCore.Qt.MatchExactly)[0])
+        self.forcePositive_list.setCurrentItem(
+            self.forcePositive_list.findItems(str(self.positive), QtCore.Qt.MatchExactly)[0])
+
+    def connectWidgets(self):
+        pass
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         positive_items = [i.text() == 'True' for i in self.forcePositive_list.selectedItems()]
         alphas = np.logspace(np.log10(self.minalpha_spin.value()), np.log10(self.maxalpha_spin.value()),
-                       num=self.nalphas_spin.value())
+                             num=self.nalphas_spin.value())
         params = {'alpha': list(alphas),
                   'fit_intercept': fit_intercept_items,
                   'max_iter': [int(i) for i in self.maxNumOfIterationsLineEdit.text().split(',')],
@@ -40,8 +45,8 @@ class Ui_Form(Ui_Form, Lasso, Modules):
                   'positive': positive_items,
                   'selection': ['random']
                   }
-        keyparams = {} #params.pop('alpha')
-        keyparams['alpha_min']=self.minalpha_spin.value()
+        keyparams = {}  # params.pop('alpha')
+        keyparams['alpha_min'] = self.minalpha_spin.value()
         keyparams['alpha_max'] = self.maxalpha_spin.value()
         keyparams['n_alpha'] = self.nalphas_spin.value()
 

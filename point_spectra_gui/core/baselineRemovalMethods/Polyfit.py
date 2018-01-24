@@ -22,6 +22,9 @@ class Ui_Form(Ui_Form, Modules):
         self.orderSpinBox.setValue(br.poly_order_)
         self.numOfStandardDeviationsSpinBox.setValue(br.stdv_)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         methodParameters = {'poly_order_': self.orderSpinBox.value(),
                             'stdv_': self.numOfStandardDeviationsSpinBox.value(),

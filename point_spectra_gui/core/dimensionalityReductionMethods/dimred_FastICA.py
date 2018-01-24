@@ -1,5 +1,6 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets
 from sklearn.decomposition import FastICA
+
 from point_spectra_gui.ui.dimred_FastICA import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
@@ -19,8 +20,10 @@ class Ui_Form(Ui_Form, FastICA, Modules):
     def updateWidgets(self):
         self.nc_spin.setValue(8)
 
-    def run(self):
+    def connectWidgets(self):
+        pass
 
+    def run(self):
         params = {
             'n_components': self.nc_spin.value()}
         params_key = str(params)

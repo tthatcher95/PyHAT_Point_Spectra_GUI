@@ -28,6 +28,9 @@ class Ui_Form(Ui_Form, Modules):
         self.maxNumOfIterationsSpinBox.setValue(als.max_iters_)
         self.convergenceThresholdDoubleSpinBox.setValue(als.conv_thresh_)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         methodParameters = {'asymmetry_': self.asymmetryDoubleSpinBox.value(),
                             'smoothness_': self.smoothnessDoubleSpinBox.value(),

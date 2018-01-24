@@ -19,6 +19,9 @@ class Interpolation(Ui_Form, Modules):
         self.setComboBox(self.interpolateDataComboBox, self.datakeys)
         self.setComboBox(self.referenceDataComboBox, self.datakeys)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         datakey_to_interp = self.interpolateDataComboBox.currentText()
         datakey_ref = self.referenceDataComboBox.currentText()

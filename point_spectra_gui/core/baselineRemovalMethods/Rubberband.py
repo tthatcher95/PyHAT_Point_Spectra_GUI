@@ -22,6 +22,9 @@ class Ui_Form(Ui_Form, Modules):
         self.windowSizeSpinBox.setValue(br.num_iters_)
         self.numOfRangesSpinBox.setValue(br.num_ranges_)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         methodParameters = {'num_iters': self.windowSizeSpinBox.value(),
                             'num_ranges': self.numOfRangesSpinBox.value()}

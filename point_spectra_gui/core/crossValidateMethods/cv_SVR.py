@@ -40,6 +40,9 @@ class Ui_Form(Ui_Form, Modules):
         self.toleranceLineEdit.setText(str(svr.tol))
         self.maxIterationsLineEdit.setText(str(svr.max_iter))
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         kernels = [str(i.text()) for i in self.kernel_list.selectedItems()]
         shrinking_items = [i.text() == 'True' for i in self.shrinking_list.selectedItems()]

@@ -30,6 +30,9 @@ class Ui_Form(Ui_Form, Modules):
         self.n_nonzero_coefsLineEdit.setText(str(lars.n_nonzero_coefs))
         self.positive_list.setCurrentItem(self.positive_list.findItems(str(lars.positive), QtCore.Qt.MatchExactly)[0])
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_listWidget.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]

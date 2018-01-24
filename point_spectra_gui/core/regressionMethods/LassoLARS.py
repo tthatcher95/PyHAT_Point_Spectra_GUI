@@ -42,6 +42,9 @@ class Ui_Form(Ui_Form, Modules):
         self.setComboBox(self.criterionComboBox, ['aic', 'bic'])
         self.defaultComboItem(self.criterionComboBox, llic.criterion)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         model = self.modelComboBox.currentIndex()
         if model == 0:

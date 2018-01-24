@@ -1,8 +1,8 @@
 from PyQt5 import QtWidgets
-from point_spectra_gui.util.plots import pca_ica_plot
 
 from point_spectra_gui.ui.Plot_ICA_PCA import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.plots import pca_ica_plot
 
 
 class Plot_ICA_PCA(Ui_Form, Modules):
@@ -18,11 +18,13 @@ class Plot_ICA_PCA(Ui_Form, Modules):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseMethodComboBox, alg_choices)
         self.colorchoices_change_vars(self.colorCodedVariableComboBox)
+
+    def connectWidgets(self):
         self.pushButton.clicked.connect(self.on_plotFilenamePushButton_clicked)
-        self.chooseMethodComboBox.currentIndexChanged.connect(
-            lambda: self.changeComboListVars(self.chooseXVariableComboBox, self.xychoices()))
-        self.chooseMethodComboBox.currentIndexChanged.connect(
-            lambda: self.changeComboListVars(self.chooseYVariableComboBox, self.xychoices()))
+        self.chooseMethodComboBox.currentIndexChanged.connect(lambda: self.changeComboListVars(
+            self.chooseXVariableComboBox, self.xychoices()))
+        self.chooseMethodComboBox.currentIndexChanged.connect(lambda: self.changeComboListVars(
+            self.chooseYVariableComboBox, self.xychoices()))
 
     def run(self):
         cmap = 'viridis'

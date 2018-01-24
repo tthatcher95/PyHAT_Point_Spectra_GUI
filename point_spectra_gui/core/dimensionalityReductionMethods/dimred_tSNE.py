@@ -1,5 +1,6 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets
 from sklearn.manifold.t_sne import TSNE
+
 from point_spectra_gui.ui.dimred_tSNE import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
@@ -23,15 +24,17 @@ class Ui_Form(Ui_Form, TSNE, Modules):
         self.no_progress_spin.setValue(300)
         self.perplexity_spin.setValue(50)
 
-    def run(self):
+    def connectWidgets(self):
+        pass
 
+    def run(self):
         params = {
             'n_components': self.nc_spin.value(),
             'learning_rate': self.learning_spin.value(),
             'n_iter': self.n_iter_spin.value(),
             'n_iter_without_progress': self.no_progress_spin.value(),
-            'perplexity' : self.perplexity_spin.value()
-            }
+            'perplexity': self.perplexity_spin.value()
+        }
 
         params_key = str(params)
         return params, params_key

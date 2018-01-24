@@ -21,6 +21,9 @@ class Ui_Form(Ui_Form, Modules):
         self.halfWindowSpinBox.setValue(br.half_window_)
         self.numOfErosionsSpinBox.setValue(br.num_erosions_)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         methodParameters = {'half_window_': self.halfWindowSpinBox.value(),
                             'num_erosions_': self.numOfErosionsSpinBox.value()}

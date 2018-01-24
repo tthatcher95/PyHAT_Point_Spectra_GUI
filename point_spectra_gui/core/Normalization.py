@@ -139,21 +139,22 @@ class Normalization(Ui_Form, Modules):
                 self.spin_list[i].setValue(self.spin_list[i - 1].value())
 
     def updateWidgets(self):
-        # populate combobox with dataset names
+        """
+        populate combobox with dataset names
+        update list of variables to normalize when data set selection is changed
+        when the variable to normalize is changed, update the min max and default norm ranges
+        when anything in the gui is changed, run update val to make sure values are increasing
+        connect the add and delete ranges buttons
+        :param self:
+        :return:
+        """
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-
-        # update list of variables to normalize when data set selection is changed
-        self.chooseDataComboBox.currentIndexChanged.connect(
-            lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices()))
         self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices())
-
-        # when the variable to normalize is changed, update the min max and default norm ranges
         self.varToNormalizeListWidget.itemSelectionChanged.connect(self.setDataLimits)
-
-        # when anything in the gui is changed, run update val to make sure values are increasing
         self.qt.isGuiChanged(self.updateVal)
 
-        # connect the add and delete ranges buttons
+    def connectWidgets(self):
+        self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices()))
         self.add_range_button.clicked.connect(lambda: self.on_addRange_pushed())
         self.delete_range_button.clicked.connect(lambda: self.on_deleteRange_pushed())
 

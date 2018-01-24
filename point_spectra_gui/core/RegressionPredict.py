@@ -19,6 +19,9 @@ class RegressionPredict(Ui_Form, Modules):
         self.setComboBox(self.chooseDataComboBox, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
         modelkey = self.chooseModelComboBox.currentText()

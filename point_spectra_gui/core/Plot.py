@@ -19,6 +19,8 @@ class Plot(Ui_Form, Modules):
         self.setComboBox(self.figureNameComboBox, self.figname)
         self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices())
         self.changeComboListVars(self.chooseYVariableComboBox, self.get_choices())
+
+    def connectWidgets(self):
         self.colorComboBox.addItem("Red")
         self.colorComboBox.addItem("Green")
         self.colorComboBox.addItem("Blue")

@@ -19,6 +19,9 @@ class LoadData(Ui_loadData, Modules):
         return self.groupBox
 
     def updateWidgets(self):
+        pass
+
+    def connectWidgets(self):
         self.newFilePushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.fileNameLineEdit))
 
     def on_getDataButton_clicked(self, lineEdit):

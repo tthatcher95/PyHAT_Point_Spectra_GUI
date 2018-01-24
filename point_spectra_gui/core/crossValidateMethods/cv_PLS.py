@@ -20,6 +20,9 @@ class Ui_Form(Ui_Form, PLSRegression, Modules):
     def updateWidgets(self):
         self.numOfComponentsLineEdit.setText('1,2,3,4,5,6,7,8,9,10,11,12,13,14,15')
 
+    def connectWidgets(self):
+        pass
+
     def run(self):
         params = {'n_components': [int(i) for i in self.numOfComponentsLineEdit.text().split(',')],
                   'scale': [False]}
