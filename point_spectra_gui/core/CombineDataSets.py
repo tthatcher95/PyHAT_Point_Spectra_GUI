@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Automatically generated - don't edit.
-# Use `python setup.py build_ui` to update it.
 import pandas as pd
 from PyQt5 import QtWidgets
 
@@ -15,6 +11,7 @@ class CombineDataSets(Ui_Form, Modules):
     This is still in Beta and needs to be improved.
     This is in part due to the fact that we are using multidimensional columns to reference data
     """
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
