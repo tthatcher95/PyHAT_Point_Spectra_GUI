@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Automatically generated - don't edit.
-# Use `python setup.py build_ui` to update it.
 import pandas as pd
 from PyQt5 import QtWidgets
 
@@ -27,7 +25,9 @@ class CombineDataSets(Ui_Form, Modules):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
         dataIn = self.outputToDataSetComboBox.currentText()
-        self.data[dataIn] = pd.concat([dataSet1, dataSet2])
+        # Suppose to concat two dataframes but inputs are strings
+        print(dataSet1, dataSet2)
+        self.data[dataIn] = dataSet1 + dataSet2
 
 
 if __name__ == "__main__":
