@@ -128,6 +128,7 @@ class Modules:
         :param dict:
         :return:
         """
+        #@@TODO this is where we will need to put the propogation part
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict)
 
