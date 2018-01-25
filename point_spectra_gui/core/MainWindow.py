@@ -559,20 +559,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
-        dic = None
-        try:
-            with open(self.restorefilename, 'rb') as fp:
-                dic = pickle.load(fp)
-        except:
-            pass
-
         for modules in range(self.leftOff, len(self.widgetList)):
             name_ = type(self.widgetList[modules]).__name__
             s = time.time()
             print("{} Module is Running...".format(name_))
-            # if dic is not None:
-            #     self.widgetList[modules].updateWidgets()
-            #     self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
             self.widgetList[modules].run()
             e = time.time()
             print("Module {} executed in: {} seconds".format(name_, e - s))
@@ -617,9 +607,19 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         
         """
 
-        for widget in self.widgetList[start_idx:]:
+        dic = None
+        try:
+            with open(self.restorefilename, 'rb') as fp:
+                dic = pickle.load(fp)
+        except:
+            pass
+
+        for modules in range(start_idx, len(self.widgetList)):
             try:
-                widget.refresh()
+                if dic is not None:
+                    self.widgetList[modules].updateWidgets()
+                    self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
+                # widget.updateWidgets()
             except NotImplementedError:
                 pass
 
