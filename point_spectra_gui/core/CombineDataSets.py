@@ -32,7 +32,9 @@ class CombineDataSets(Ui_Form, Modules):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
         dataIn = self.outputToDataSetComboBox.currentText()
+        # TODO Module on hold until we can figure out the proper solution to concatenating data sets
         self.data[dataIn] = pd.concat([dataSet1, dataSet2])
+        self.setCurrentData(dataIn)
 
 
 if __name__ == "__main__":

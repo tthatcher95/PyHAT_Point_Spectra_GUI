@@ -50,6 +50,7 @@ class TitleWindow:
     Displays the name of our restored, or saved file
     Displays whether we are debugging or not
     """
+
     def __init__(self, mainName):
         self.mainName = mainName
         self.fileName = ''
@@ -424,8 +425,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :return:
         """
         try:
-            if not self.widgetList[-1].isEnabled():
-                self.leftOff -= 1
+            if not self.widgetList[self.leftOff - 1].isEnabled():
+                if self.leftOff > 0:
+                    self.leftOff -= 1
                 self.widgetList[self.leftOff].setDisabled(False)
         except:
             pass
@@ -575,6 +577,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             e = time.time()
             print("Module {} executed in: {} seconds".format(name_, e - s))
             self.widgetList[modules].setDisabled(True)
+            self.propagate(self.leftOff)
             self.leftOff = modules + 1
 
     def _exceptionLogger(self, function):
@@ -602,6 +605,24 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             traceback.print_exc()
             print('\nException was logged to "%s"' % (os.path.join(logpath, logfilename)))
 
+    def propagate(self, start_idx=0):
+        """
+        Propagate changes to other widgets
+        
+        Parameters
+        ----------
+        start_idx : int
+            The index of the first widget after which changes will be propagated.
+            (e.g. if changes should be enacted to widgets 3 : -1, start_idx = 2)
+        
+        """
+
+        for widget in self.widgetList[start_idx:]:
+            try:
+                widget.refresh()
+            except NotImplementedError:
+                pass
+
     def run(self):
         """
         Start the thread for running all the modules
@@ -613,6 +634,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         else:
             try:
                 self.runModules()
+            # @@TODO is this the type of error handling we want?
             except Exception as e:
                 print("Your module broke: ", e)
                 try:

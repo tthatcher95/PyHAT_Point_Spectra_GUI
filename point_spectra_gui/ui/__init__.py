@@ -32,4 +32,3 @@ from point_spectra_gui.ui import SVR
 from point_spectra_gui.ui import SplitDataset
 from point_spectra_gui.ui import StratifiedFolds
 from point_spectra_gui.ui import SubmodelBlend
-

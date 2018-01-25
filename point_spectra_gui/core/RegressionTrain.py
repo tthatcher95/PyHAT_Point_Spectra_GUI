@@ -108,7 +108,6 @@ class RegressionTrain(Ui_Form, Modules):
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
 
         params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
-        # try:
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
         self.modelkeys.append(modelkey)
         print(params, modelkey)
@@ -134,6 +133,8 @@ class RegressionTrain(Ui_Form, Modules):
         except:
             self.data['Model Coefficients'] = spectral_data(coef)
             self.datakeys.append('Model Coefficients')
+        self.current_model = modelkey
+        self.current_data = datakey
 
     def yvar_choices(self):
         try:
