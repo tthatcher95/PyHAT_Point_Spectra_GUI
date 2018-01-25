@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Automatically generated - don't edit.
-# Use `python setup.py build_ui` to update it.
 import pandas as pd
 from PyQt5 import QtWidgets
 
@@ -31,6 +29,7 @@ class CombineDataSets(Ui_Form, Modules):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
         dataIn = self.outputToDataSetComboBox.currentText()
+        # TODO Module on hold until we can figure out the proper solution to concatenating data sets
         self.data[dataIn] = pd.concat([dataSet1, dataSet2])
         self.setCurrentData(dataIn)
 
