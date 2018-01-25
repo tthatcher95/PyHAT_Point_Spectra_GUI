@@ -19,15 +19,14 @@ class CombineDataSets(Ui_Form, Modules):
     def connectWidgets(self):
         self.setComboBox(self.dataSet1ComboBox, self.datakeys)
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
-        self.setComboBox(self.outputToDataSetComboBox, self.datakeys)
+        # self.setComboBox(self.outputToDataSetTextBox, self.datakeys)
 
     def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
-        dataIn = self.outputToDataSetComboBox.currentText()
-        # Suppose to concat two dataframes but inputs are strings
-        print(dataSet1, dataSet2)
-        self.data[dataIn] = dataSet1 + dataSet2
+        dataIn = self.outputToDataSetTextBox.toPlainText()
+
+        self.data[dataIn] = pd.concat([self.data[dataSet1], self.data[dataSet2]])
 
 
 if __name__ == "__main__":
