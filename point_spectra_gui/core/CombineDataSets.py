@@ -21,6 +21,10 @@ class CombineDataSets(Ui_Form, Modules):
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
         # self.setComboBox(self.outputToDataSetTextBox, self.datakeys)
 
+    # @@TODO ask which values should be propagated
+    def refresh(self):
+        pass
+
     def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
