@@ -154,7 +154,8 @@ class Normalization(Ui_Form, Modules):
         self.qt.isGuiChanged(self.updateVal)
 
     def connectWidgets(self):
-        self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices()))
+        self.chooseDataComboBox.currentIndexChanged.connect(
+            lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices()))
         self.add_range_button.clicked.connect(lambda: self.on_addRange_pushed())
         self.delete_range_button.clicked.connect(lambda: self.on_deleteRange_pushed())
 

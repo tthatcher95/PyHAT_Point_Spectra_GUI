@@ -66,7 +66,7 @@ if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    
+
     Form = QtWidgets.QWidget()
     ui = ReadChemCamData()
     ui.setupUi(Form)

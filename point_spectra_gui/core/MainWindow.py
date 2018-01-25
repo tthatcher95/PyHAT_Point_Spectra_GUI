@@ -619,7 +619,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 if dic is not None:
                     self.widgetList[modules].updateWidgets()
                     self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
-                # widget.updateWidgets()
+                    # widget.updateWidgets()
             except NotImplementedError:
                 pass
 

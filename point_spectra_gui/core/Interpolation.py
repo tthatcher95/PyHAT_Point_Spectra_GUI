@@ -8,6 +8,7 @@ class Interpolation(Ui_Form, Modules):
     """
     Interpolates two datasets
     """
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)

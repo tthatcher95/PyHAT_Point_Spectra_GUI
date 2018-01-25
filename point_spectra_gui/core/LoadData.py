@@ -11,6 +11,7 @@ class LoadData(Ui_loadData, Modules):
     Loads the data into the UI.
     The data needs to be a *.csv in order for this application to work
     """
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -53,6 +54,7 @@ class LoadData(Ui_loadData, Modules):
             # TODO: `header=[0,1]` well most likeley make the code more brittle, better alternative?
             self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
             self.datakeys.append(keyname)
+
 
 if __name__ == "__main__":
     import sys
