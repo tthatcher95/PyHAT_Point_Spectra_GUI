@@ -131,6 +131,8 @@ class RegressionTrain(Ui_Form, Modules):
         except:
             self.data['Model Coefficients'] = spectral_data(coef)
             self.datakeys.append('Model Coefficients')
+        self.current_model = modelkey
+        self.current_data = datakey
 
     def yvar_choices(self):
         try:

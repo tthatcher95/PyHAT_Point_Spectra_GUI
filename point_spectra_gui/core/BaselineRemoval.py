@@ -89,6 +89,7 @@ class BaselineRemoval(Ui_Form, Modules):
         self.data[datakey_new] = spectral_data(self.data[datakey].df.copy(deep=True))
         self.data[datakey_new].remove_baseline(method, segment=True, params=methodParameters)
         self.data[datakey_baseline] = spectral_data(self.data[datakey_new].df_baseline)
+        #@@TODO make sure that this is the data that we want to propagate.
         self.setCurrentData(datakey_new)
         
     def hideAll(self):

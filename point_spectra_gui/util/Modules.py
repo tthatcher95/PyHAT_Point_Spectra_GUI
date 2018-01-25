@@ -34,7 +34,7 @@ class Modules:
     model_yvars = {}
 
     # Hacky way of making a static string.
-    _current_data = ['']
+    _current_data = ['', '']
 
     @property
     def current_data(self):
@@ -43,6 +43,14 @@ class Modules:
     @current_data.setter
     def current_data(self, value):
         self._current_data[0] = value
+
+    @property
+    def current_model(self):
+        return self._current_data[1]
+    
+    @current_model.setter
+    def current_model(self, value):
+        self._current_data[1] = value
 
     def __init__(self):
         self.qt = Qtickle.Qtickle(self)
