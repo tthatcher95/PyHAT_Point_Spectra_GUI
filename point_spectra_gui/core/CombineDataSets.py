@@ -23,11 +23,16 @@ class CombineDataSets(Ui_Form, Modules):
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
         self.setComboBox(self.outputToDataSetComboBox, self.datakeys)
 
+    # @@TODO ask which values should be propagated
+    def refresh(self):
+        pass
+
     def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
         dataIn = self.outputToDataSetComboBox.currentText()
         self.data[dataIn] = pd.concat([dataSet1, dataSet2])
+        self.setCurrentData(dataIn)
 
 
 if __name__ == "__main__":
