@@ -188,7 +188,7 @@ class Normalization(Ui_Form, Modules):
             print("Normalization has been applied to the ranges: " + str(range_vals))
             print("{}".format(range_vals))
         except Exception as e:
-            print(str(e) + "Did you remember to select a variable?")
+            print(str(e) + ": Did you remember to select a variable?")
 
     def xvar_choices(self):
         try:
