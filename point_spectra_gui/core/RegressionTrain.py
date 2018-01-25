@@ -56,6 +56,17 @@ class RegressionTrain(Ui_Form, Modules):
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
 
+
+    def refresh(self):
+        self.setComboBox(self.chooseDataComboBox, self.datakeys)
+        self.setDataBox(self.current_data)
+
+    def setDataBox(self, datakey):
+        try:
+            self.chooseDataComboBox.setCurrentIndex(self.chooseDataComboBox.findText(datakey))
+        except:
+            self.chooseDataComboBox.setCurrentIndex(-1)
+
     def getGuiParams(self):
         """
         Overriding Modules' getGuiParams, because I'll need to do a list of lists
@@ -131,6 +142,7 @@ class RegressionTrain(Ui_Form, Modules):
         except:
             self.data['Model Coefficients'] = spectral_data(coef)
             self.datakeys.append('Model Coefficients')
+
         self.current_model = modelkey
         self.current_data = datakey
 

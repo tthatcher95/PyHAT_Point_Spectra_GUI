@@ -420,6 +420,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 if self.leftOff > 0:
                     self.leftOff -= 1
                 self.widgetList[self.leftOff].setDisabled(False)
+                self.propagate(self.leftOff)
         except:
             pass
 
@@ -568,8 +569,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             e = time.time()
             print("Module {} executed in: {} seconds".format(name_, e - s))
             self.widgetList[modules].setDisabled(True)
-            self.propagate(self.leftOff)
             self.leftOff = modules + 1
+            self.propagate(self.leftOff)
 
     def _exceptionLogger(self, function):
         """
