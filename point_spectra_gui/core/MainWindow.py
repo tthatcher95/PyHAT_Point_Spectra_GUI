@@ -191,7 +191,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :param obj:
         :return:
         """
-        self.widgetList.append(obj())
+        self.widgetList.append(obj(self))
         self.widgetList[-1].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")

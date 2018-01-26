@@ -33,6 +33,8 @@ class Modules:
     model_xvars = {}
     model_yvars = {}
 
+    open_idx = 0
+
     # Hacky way of making a static string.
     _current_data = ['', '']
 
@@ -52,12 +54,11 @@ class Modules:
     def current_model(self, value):
         self._current_data[1] = value
 
-    def __init__(self):
+    def __init__(self, parent = None):
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
         self.flag = False
-
-
+        self.parent = parent
 
     def setupUi(self, Form):
         self.Form = Form
@@ -167,6 +168,9 @@ class Modules:
         """
         self.progressBar = progressBar
 
+    def setPropogateFunction(function):
+        self.function = function
+        
     def checkMinAndMax(self):
         """
         Go through the entire UI and set the maximums and minimums of each widget
@@ -187,6 +191,19 @@ class Modules:
         else:
             raise TypeError("Current data must be assigned by a string value or integer index")
 
+
+    def rename_data(self, idx, value):
+        old = self.datakeys[idx]
+        self.datakeys[idx] = value
+        try:
+            self.data[value] = self.data.pop(old)
+        except KeyError:
+            pass
+
+    def get_open_idx(self):
+        i = self.open_idx
+        self.open_idx +=1
+        return i
 
 
     @staticmethod
