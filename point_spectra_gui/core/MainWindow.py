@@ -358,7 +358,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.title.setFileName(filename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
-            raise Exception("File not loaded {}".format(e))
+            print("Save file not loaded: {}".format(e))
 
     def on_restore_clicked(self):
         """
@@ -379,7 +379,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.title.setFileName(self.restorefilename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
-            raise Exception("File not loaded: {}".format(e))
+            print("Restore file not loaded: {}".format(e))
 
     def on_delete_module_clicked(self):
         """
