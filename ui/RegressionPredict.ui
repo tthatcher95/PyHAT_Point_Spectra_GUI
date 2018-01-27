@@ -47,7 +47,11 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QListWidget" name="chooseDataListWidget"/>
+       <widget class="QListWidget" name="chooseDataListWidget">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::MultiSelection</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

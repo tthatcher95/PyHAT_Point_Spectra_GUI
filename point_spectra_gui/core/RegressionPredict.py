@@ -17,14 +17,14 @@ class RegressionPredict(Ui_Form, Modules):
         return self.formGroupBox
 
     def updateWidgets(self):
-        self.setComboBox(self.chooseDataComboBox, self.data)
+        self.setListWidget(self.chooseDataListWidget, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
 
     def connectWidgets(self):
         pass
 
     def run(self):
-        datakey = self.chooseDataComboBox.currentText()
+        datakey = [i.text() == 'True' for i in self.chooseDataListWidget.selectedItems()]
         modelkey = self.chooseModelComboBox.currentText()
         predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
 
