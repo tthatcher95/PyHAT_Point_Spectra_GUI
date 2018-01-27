@@ -39,7 +39,7 @@ class Modules:
     @property
     def current_data(self):
         return self._current_data[0]
-    
+
     @current_data.setter
     def current_data(self, value):
         self._current_data[0] = value
@@ -47,17 +47,16 @@ class Modules:
     @property
     def current_model(self):
         return self._current_data[1]
-    
+
     @current_model.setter
     def current_model(self, value):
         self._current_data[1] = value
 
-    def __init__(self):
+    def __init__(self, parent = None):
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
         self.flag = False
-
-
+        self.parent = parent
 
     def setupUi(self, Form):
         self.Form = Form
@@ -167,6 +166,9 @@ class Modules:
         """
         self.progressBar = progressBar
 
+    def setPropogateFunction(function):
+        self.function = function
+
     def checkMinAndMax(self):
         """
         Go through the entire UI and set the maximums and minimums of each widget
@@ -187,6 +189,17 @@ class Modules:
         else:
             raise TypeError("Current data must be assigned by a string value or integer index")
 
+
+    def rename_data(self, idx, value):
+        old = self.datakeys[idx]
+        self.datakeys[idx] = value
+        try:
+            self.data[value] = self.data.pop(old)
+        except KeyError:
+            pass
+
+    def get_open_idx(self):
+        return len(self.datakeys) - 1
 
 
     @staticmethod

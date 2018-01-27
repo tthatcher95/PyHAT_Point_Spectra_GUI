@@ -3,6 +3,7 @@ from libpysat.regression import sm
 
 from point_spectra_gui.ui.SubmodelBlend import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
 class subWidgets:
@@ -45,9 +46,9 @@ class subWidgets:
             return "Not a valid number"
 
 
-class SubmodelBlend(Ui_Form, Modules):
-    def __init__(self):
-        super().__init__()
+class SubmodelBlend(Ui_Form, SingleData):
+    def __init__(self, _):
+        super().__init__(None)
         self.subwidgets = []
         self.index = 0
 
@@ -66,9 +67,9 @@ class SubmodelBlend(Ui_Form, Modules):
     def connectWidgets(self):
         self.index_spin.valueChanged.connect(self.set_index)
         self.index_spin.setHidden(True)
-        self.setComboBox(self.chooseDatacomboBox, self.datakeys)
+        self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.get_Predictions()
-        self.chooseDatacomboBox.currentIndexChanged.connect(self.get_Predictions)
+        self.chooseDataComboBox.currentIndexChanged.connect(self.get_Predictions)
         self.setupWidgets()
         self.setHidden(self.subwidgets)
         try:
@@ -76,7 +77,7 @@ class SubmodelBlend(Ui_Form, Modules):
             self.setComboBox(self.lowPredictionComboBox, self.predictnames)
             self.setComboBox(self.highPredictionComboBox, self.predictnames)
             self.setComboBox(self.optimizeSubRangesComboBox,
-                             self.data[self.chooseDatacomboBox.currentText()].df['comp'].columns.values)
+                             self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values)
 
         except:
             pass
@@ -84,6 +85,7 @@ class SubmodelBlend(Ui_Form, Modules):
         self.deleteSubPushButton.clicked.connect(self.on_deleteSubmodel_pushed)
         self.optimizeSubRangesLabel.setHidden(True)
         self.optimizeSubRangesComboBox.setHidden(True)
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def setHidden(self, list):
         for i in range(0, len(list)):
@@ -94,7 +96,7 @@ class SubmodelBlend(Ui_Form, Modules):
 
     def get_Predictions(self):
         try:
-            self.predictnames = self.data[self.chooseDatacomboBox.currentText()].df['predict'].columns.values
+            self.predictnames = self.data[self.chooseDataComboBox.currentText()].df['predict'].columns.values
             self.setComboBox(self.referencePredictionComboBox, self.predictnames)
             self.setComboBox(self.lowPredictionComboBox, self.predictnames)
             self.setComboBox(self.highPredictionComboBox, self.predictnames)
@@ -104,7 +106,7 @@ class SubmodelBlend(Ui_Form, Modules):
             if self.optimizeSubRangesCheckBox.isChecked():
                 try:
                     self.setComboBox(self.optimizeSubRangesComboBox,
-                                     self.data[self.chooseDatacomboBox.currentText()].df['comp'].columns.values)
+                                     self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values)
                 except:
                     self.setComboBox(self.optimizeSubRangesComboBox, ['No Compositions'])
 
@@ -115,7 +117,7 @@ class SubmodelBlend(Ui_Form, Modules):
         blendranges = []
         submodel_blend_names = []
         submodel_predictions = []
-        datakey = self.chooseDatacomboBox.currentText()
+        datakey = self.chooseDataComboBox.currentText()
         refcol = ('comp', self.optimizeSubRangesComboBox.currentText())
 
         # start with the low model

@@ -8,9 +8,10 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
-class CrossValidation(Ui_Form, Modules):
+class CrossValidation(Ui_Form, SingleData):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -55,8 +56,7 @@ class CrossValidation(Ui_Form, Modules):
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
-        self.chooseDataComboBox.currentIndexChanged.connect(
-            lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx, lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices())]]
 
     def getGuiParams(self):
         """
