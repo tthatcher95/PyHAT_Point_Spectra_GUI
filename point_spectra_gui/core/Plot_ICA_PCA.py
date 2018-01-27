@@ -3,9 +3,10 @@ from point_spectra_gui.util.plots import pca_ica_plot
 
 from point_spectra_gui.ui.Plot_ICA_PCA import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
-class Plot_ICA_PCA(Ui_Form, Modules):
+class Plot_ICA_PCA(Ui_Form, SingleData):
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -23,6 +24,7 @@ class Plot_ICA_PCA(Ui_Form, Modules):
             lambda: self.changeComboListVars(self.chooseXVariableComboBox, self.xychoices()))
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.chooseYVariableComboBox, self.xychoices()))
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def run(self):
         cmap = 'viridis'

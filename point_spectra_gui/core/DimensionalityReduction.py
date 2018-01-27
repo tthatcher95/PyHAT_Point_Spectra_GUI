@@ -3,10 +3,11 @@ from PyQt5 import QtWidgets
 from Qtickle import Qtickle
 from point_spectra_gui.core.dimensionalityReductionMethods import *
 from point_spectra_gui.ui.DimensionalityReduction import Ui_Form
-from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.Modules import Modules 
+from point_spectra_gui.util.SingleData import SingleData
 
 
-class DimensionalityReduction(Ui_Form, Modules):
+class DimensionalityReduction(Ui_Form, SingleData):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -29,20 +30,7 @@ class DimensionalityReduction(Ui_Form, Modules):
         # Connect combo box such that when the value is changed, the respective values are set
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.make_dimred_widget(self.chooseMethodComboBox.currentText()))
-        self.chooseDataComboBox.currentIndexChanged.connect(self.setCurrentData)
-        
-
-    def refresh(self):
-        self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.setDataBox(self.current_data)
-
-       
-    def setDataBox(self, datakey):
-        try:
-            self.chooseDataComboBox.setCurrentIndex(self.chooseDataComboBox.findText(self.current_data))
-        except:
-            self.chooseDataComboBox.setCurrentIndex(-1)
-
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def getGuiParams(self):
         """

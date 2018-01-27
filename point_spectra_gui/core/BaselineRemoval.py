@@ -5,9 +5,10 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.baselineRemovalMethods import *
 from point_spectra_gui.ui.BaselineRemoval import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
-class BaselineRemoval(Ui_Form, Modules):
+class BaselineRemoval(Ui_Form, SingleData):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -41,21 +42,7 @@ class BaselineRemoval(Ui_Form, Modules):
         self.setComboBox(self.chooseAlgorithmComboBox, self.chooseAlgorithmList)
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
-        self.chooseDataComboBox.currentIndexChanged.connect(self.setCurrentData)
-
-
-    def refresh(self):
-        self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.setDataBox(self.current_data)
-
-       
-    def setDataBox(self, datakey):
-        try:
-            self.chooseDataComboBox.setCurrentIndex(self.chooseDataComboBox.findText(self.current_data))
-        except:
-            self.chooseDataComboBox.setCurrentIndex(-1)
- 
-
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def getGuiParams(self):
         """

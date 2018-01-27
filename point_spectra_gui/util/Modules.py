@@ -33,15 +33,13 @@ class Modules:
     model_xvars = {}
     model_yvars = {}
 
-    open_idx = 0
-
     # Hacky way of making a static string.
     _current_data = ['', '']
 
     @property
     def current_data(self):
         return self._current_data[0]
-    
+
     @current_data.setter
     def current_data(self, value):
         self._current_data[0] = value
@@ -49,7 +47,7 @@ class Modules:
     @property
     def current_model(self):
         return self._current_data[1]
-    
+
     @current_model.setter
     def current_model(self, value):
         self._current_data[1] = value
@@ -170,7 +168,7 @@ class Modules:
 
     def setPropogateFunction(function):
         self.function = function
-        
+
     def checkMinAndMax(self):
         """
         Go through the entire UI and set the maximums and minimums of each widget
@@ -201,9 +199,7 @@ class Modules:
             pass
 
     def get_open_idx(self):
-        i = self.open_idx
-        self.open_idx +=1
-        return i
+        return len(self.datakeys) - 1
 
 
     @staticmethod

@@ -24,7 +24,7 @@ class LoadData(Ui_loadData, Modules):
         self.dataSetNameLineEdit.editingFinished.connect(self.setDataKey)
 
     def setDataKey(self):
-        name = self.dataSetNameLineEdit.text() 
+        name = self.dataSetNameLineEdit.text()
         if name not in self.datakeys:
             self.datakey = self.dataSetNameLineEdit.text()
             self.rename_data(self.idx, self.datakey)

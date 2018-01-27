@@ -7,11 +7,12 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.DataTable import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 from point_spectra_gui.util.PandasModel import PandasModel
 from point_spectra_gui.util.Worker import Worker
 
 
-class DataTable(QtWidgets.QWidget, Ui_Form, Modules):
+class DataTable(QtWidgets.QWidget, Ui_Form, SingleData):
     def __init__(self, *args, **kwargs):
         QtWidgets.QWidget.__init__(self, *args, **kwargs)
         self.setupUi(self)
@@ -26,6 +27,7 @@ class DataTable(QtWidgets.QWidget, Ui_Form, Modules):
         self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.on_refreshTable())
         self.refreshDataPushButton.clicked.connect(lambda: self.connectWidgets())
         self.refreshTablePushButton.clicked.connect(lambda: self.on_refreshTable())
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def on_refreshTable(self):
         try:

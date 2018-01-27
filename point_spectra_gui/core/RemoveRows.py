@@ -5,7 +5,6 @@ from libpysat.spectral.spectral_data import spectral_data
 from point_spectra_gui.ui.RemoveRows import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
-
 class remove_operation:
     def __init__(self, colname, operator, value, logic=None, hidden=None):
         self.colname = colname
@@ -36,6 +35,7 @@ class remove_operation:
             except:
                 pass
 
+
     def GetValues(self):
         try:
             return {'column': self.colname.currentText(), 'operator': self.operator.currentText(),
@@ -50,6 +50,9 @@ class RemoveRows(Ui_Form, Modules):
         super().setupUi(Form)
         self.setup_remove_operations()
         Modules.setupUi(self, Form)
+
+    def __init__(self , _):
+        self.data_idx = 0
 
     def setup_remove_operations(self):
         self.operations = [remove_operation(self.colName_1, self.operator_1, self.value_1, logic=self.logic_1),
@@ -72,7 +75,7 @@ class RemoveRows(Ui_Form, Modules):
 
     def connectWidgets(self):
         self.setComboBox(self.chooseData, self.datakeys)
-        self.chooseData.currentIndexChanged.connect(lambda: self.update_cols())
+        [self.chooseData.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx, lambda: self.update_cols()]]
         self.update_cols()
         self.connect_logic()
 
@@ -91,6 +94,28 @@ class RemoveRows(Ui_Form, Modules):
                 i.logic.currentIndexChanged.connect(lambda: self.hide_operations())
             except:
                 pass
+
+    def set_data_idx(self, val):
+        self.data_idx = val
+
+    def refresh(self):
+        #Repopulating the combobox sets idx to 0 and loses info. There has to be
+        # a better way to do this.
+        tmp = self.data_idx
+        self.setComboBox(self.chooseData, self.datakeys)
+        self.data_idx = tmp
+        self.setDataBox(self.data_idx)
+
+
+    def setDataBox(self, datakey):
+        try:
+            if isinstance(datakey, str):
+                self.chooseData.setCurrentIndex(self.chooseData.findText(self.current_data))
+            elif isinstance(datakey, int):
+                self.chooseData.setCurrentIndex(datakey)
+        except IndexError:
+            self.chooseData.setCurrentIndex(-1)
+
 
     def hide_operations(self):
         for i in range(len(self.operations) - 1):

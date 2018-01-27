@@ -23,6 +23,34 @@ class StratifiedFolds(Ui_Form, Modules):
             pass
         self.chooseDataToStratifyComboBox.activated[int].connect(self.strat_fold_change_vars)
         self.nFoldsSpinBox.valueChanged.connect(self.strat_fold_change_testfolds)
+        [self.chooseDataToStratifyComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
+
+    def __init__(self, _):
+        self.data_idx = 0
+
+    def set_data_idx(self, val):
+        self.data_idx = val
+
+    def refresh(self):
+        #Repopulating the combobox sets idx to 0 and loses info. There has to be
+        # a better way to do this.
+        tmp = self.data_idx
+        self.setComboBox(self.chooseDataToStratifyComboBox, self.datakeys)
+        self.data_idx = tmp
+        self.setDataBox(self.data_idx)
+
+
+    def setDataBox(self, datakey):
+        try:
+            if isinstance(datakey, str):
+                self.chooseDataToStratifyComboBox.setCurrentIndex(self.chooseDataToStratifyComboBox.findText(self.current_data))
+            elif isinstance(datakey, int):
+                self.chooseDataToStratifyComboBox.setCurrentIndex(datakey)
+        except IndexError:
+            self.chooseDataToStratifyComboBox.setCurrentIndex(-1)
+
+
+
 
     def run(self):
         datakey = self.chooseDataToStratifyComboBox.currentText()

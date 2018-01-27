@@ -4,9 +4,10 @@ from point_spectra_gui.util.plots import make_plot
 
 from point_spectra_gui.ui.PlotSpectra import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
-class PlotSpectra(Ui_Form, Modules):
+class PlotSpectra(Ui_Form, SingleData):
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -38,6 +39,7 @@ class PlotSpectra(Ui_Form, Modules):
         self.minDoubleSpinBox.setMaximum(99999)
         self.minDoubleSpinBox.setMinimum(0)
         self.pushButton.clicked.connect(self.on_pushButton_clicked)
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
         try:
             self.setComboBox(self.chooseDataComboBox, self.datakeys)
             self.setListWidget(self.xVariableListWidget, self.xvar_choices())
