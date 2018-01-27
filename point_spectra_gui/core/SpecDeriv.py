@@ -14,7 +14,8 @@ class SpecDeriv(Ui_Form, Modules):
 
     def connectWidgets(self):
         self.setComboBox(self.chooseDataToDerivComboBox, self.datakeys)
-        [self.chooseDataToDerivComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
+        [self.chooseDataToDerivComboBox.currentIndexChanged.connect(x) for x in
+         [self.setCurrentData, self.set_data_idx]]
 
     def run(self):
         datakey = self.chooseDataToDerivComboBox.currentText()
@@ -31,18 +32,18 @@ class SpecDeriv(Ui_Form, Modules):
         self.data_idx = val
 
     def refresh(self):
-        #Repopulating the combobox sets idx to 0 and loses info. There has to be
+        # Repopulating the combobox sets idx to 0 and loses info. There has to be
         # a better way to do this.
         tmp = self.data_idx
         self.setComboBox(self.chooseDataToDerivComboBox, self.datakeys)
         self.data_idx = tmp
         self.setDataBox(self.data_idx)
 
-
     def setDataBox(self, datakey):
         try:
             if isinstance(datakey, str):
-                self.chooseDataToDerivComboBox.setCurrentIndex(self.chooseDataToDerivComboBox.findText(self.current_data))
+                self.chooseDataToDerivComboBox.setCurrentIndex(
+                    self.chooseDataToDerivComboBox.findText(self.current_data))
             elif isinstance(datakey, int):
                 self.chooseDataToDerivComboBox.setCurrentIndex(datakey)
         except IndexError:

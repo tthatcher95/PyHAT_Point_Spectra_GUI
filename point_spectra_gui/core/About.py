@@ -1,5 +1,3 @@
-import sys
-
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.__init__ import __version__
@@ -15,8 +13,8 @@ class About(QtWidgets.QWidget, Ui_Form):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     form = About()
     form.show()
     sys.exit(app.exec_())
-

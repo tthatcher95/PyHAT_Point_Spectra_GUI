@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 from Qtickle import Qtickle
 from point_spectra_gui.core.dimensionalityReductionMethods import *
 from point_spectra_gui.ui.DimensionalityReduction import Ui_Form
-from point_spectra_gui.util.Modules import Modules 
+from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.SingleData import SingleData
 
 

@@ -69,8 +69,6 @@ class Ui_Form(Ui_Form, Modules):
             return params, self.getChangedValues(params, Lars())
 
 
-
-
 if __name__ == "__main__":
     import sys
 

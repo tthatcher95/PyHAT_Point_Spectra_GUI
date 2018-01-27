@@ -30,7 +30,7 @@ class LoadData(Ui_loadData, Modules):
             self.rename_data(self.idx, self.datakey)
             self.parent.propagate()
         else:
-            self.dataSetNameLineEdit.setText(name+"_copy")
+            self.dataSetNameLineEdit.setText(name + "_copy")
             self.setDataKey()
 
     def setFileName(self, filename):
@@ -54,6 +54,7 @@ class LoadData(Ui_loadData, Modules):
         self.setCurrentData(keyname)
         # TODO: `header=[0,1]` well most likeley make the code more brittle, better alternative?
         self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
+
 
 if __name__ == "__main__":
     import sys

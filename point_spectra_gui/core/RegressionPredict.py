@@ -34,14 +34,13 @@ class RegressionPredict(Ui_Form, Modules):
         except:
             self.chooseModelComboBox.setCurrentIndex(-1)
 
-
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
         modelkey = self.chooseModelComboBox.currentText()
         predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
 
         data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
-        data_tmp.fillna(value=0,inplace=True)
+        data_tmp.fillna(value=0, inplace=True)
         try:
             prediction = self.models[modelkey].predict(data_tmp)
             self.data[datakey].df[predictname] = prediction
@@ -50,7 +49,6 @@ class RegressionPredict(Ui_Form, Modules):
             print(e)
 
         self.current_data = datakey
-
 
 
 if __name__ == "__main__":

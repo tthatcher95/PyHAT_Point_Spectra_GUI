@@ -57,7 +57,7 @@ class Ui_Form(Ui_Form, Modules):
                 'positive': self.positiveCheckBox.isChecked(),
                 'model': model
             }
-            params_check=dict(params)
+            params_check = dict(params)
             params_check.pop('model')
             return params, self.getChangedValues(params_check, LassoLars())
 
