@@ -98,7 +98,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
                 'warm_start': self.enwarm_startCheckBox.isChecked(),
                 'positive': self.enpositiveCheckBox.isChecked(),
                 'selection': self.selectionComboBox.currentText()
-                     }
+            }
             return params, self.getChangedValues(params, ElasticNet())
 
 

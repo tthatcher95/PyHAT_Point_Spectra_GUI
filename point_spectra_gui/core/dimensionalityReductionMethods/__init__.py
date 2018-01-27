@@ -3,4 +3,3 @@ from point_spectra_gui.core.dimensionalityReductionMethods import dimred_JADE
 from point_spectra_gui.core.dimensionalityReductionMethods import dimred_LLE
 from point_spectra_gui.core.dimensionalityReductionMethods import dimred_PCA
 from point_spectra_gui.core.dimensionalityReductionMethods import dimred_tSNE
-

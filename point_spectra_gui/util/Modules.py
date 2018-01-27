@@ -1,6 +1,6 @@
 import inspect
 
-from PyQt5.QtCore import QSettings, pyqtSignal
+from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import *
 
 from Qtickle import Qtickle
@@ -52,7 +52,7 @@ class Modules:
     def current_model(self, value):
         self._current_data[1] = value
 
-    def __init__(self, parent = None):
+    def __init__(self, parent=None):
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
         self.flag = False
@@ -93,7 +93,6 @@ class Modules:
         """
         raise NotImplementedError(
             'The method "refresh()" was not found in the module {}'.format(type(self).__name__))
-
 
     def connectWidgets(self):
         """
@@ -189,7 +188,6 @@ class Modules:
         else:
             raise TypeError("Current data must be assigned by a string value or integer index")
 
-
     def rename_data(self, idx, value):
         old = self.datakeys[idx]
         self.datakeys[idx] = value
@@ -200,7 +198,6 @@ class Modules:
 
     def get_open_idx(self):
         return len(self.datakeys) - 1
-
 
     @staticmethod
     def getChangedValues(input_dictionary, algorithm):

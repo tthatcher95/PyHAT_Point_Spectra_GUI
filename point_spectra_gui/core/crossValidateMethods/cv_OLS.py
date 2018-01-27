@@ -18,7 +18,8 @@ class Ui_Form(Ui_Form, LinearRegression, Modules):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
-        self.fit_intercept_list.setCurrentItem(self.fit_intercept_list.findItems(str(self.fit_intercept), QtCore.Qt.MatchExactly)[0])
+        self.fit_intercept_list.setCurrentItem(
+            self.fit_intercept_list.findItems(str(self.fit_intercept), QtCore.Qt.MatchExactly)[0])
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]

@@ -416,7 +416,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :return:
         """
         try:
-            if not self.widgetList[self.leftOff-1].isEnabled():
+            if not self.widgetList[self.leftOff - 1].isEnabled():
                 if self.leftOff > 0:
                     self.leftOff -= 1
                 self.widgetList[self.leftOff].setDisabled(False)
@@ -597,8 +597,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             traceback.print_exc()
             print('\nException was logged to "%s"' % (os.path.join(logpath, logfilename)))
 
-
-    def propagate(self, start_idx = 0):
+    def propagate(self, start_idx=0):
         """
         Propagate changes to other widgets
         
@@ -615,9 +614,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 widget.refresh()
             except NotImplementedError:
                 pass
-        
-            
-        
+
     def run(self):
         """
         Start the thread for running all the modules

@@ -5,6 +5,7 @@ from libpysat.spectral.spectral_data import spectral_data
 from point_spectra_gui.ui.RemoveRows import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
+
 class remove_operation:
     def __init__(self, colname, operator, value, logic=None, hidden=None):
         self.colname = colname
@@ -35,7 +36,6 @@ class remove_operation:
             except:
                 pass
 
-
     def GetValues(self):
         try:
             return {'column': self.colname.currentText(), 'operator': self.operator.currentText(),
@@ -51,7 +51,7 @@ class RemoveRows(Ui_Form, Modules):
         self.setup_remove_operations()
         Modules.setupUi(self, Form)
 
-    def __init__(self , _):
+    def __init__(self, _):
         self.data_idx = 0
 
     def setup_remove_operations(self):
@@ -75,7 +75,8 @@ class RemoveRows(Ui_Form, Modules):
 
     def connectWidgets(self):
         self.setComboBox(self.chooseData, self.datakeys)
-        [self.chooseData.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx, lambda: self.update_cols()]]
+        [self.chooseData.currentIndexChanged.connect(x) for x in
+         [self.setCurrentData, self.set_data_idx, lambda: self.update_cols()]]
         self.update_cols()
         self.connect_logic()
 
@@ -99,13 +100,12 @@ class RemoveRows(Ui_Form, Modules):
         self.data_idx = val
 
     def refresh(self):
-        #Repopulating the combobox sets idx to 0 and loses info. There has to be
+        # Repopulating the combobox sets idx to 0 and loses info. There has to be
         # a better way to do this.
         tmp = self.data_idx
         self.setComboBox(self.chooseData, self.datakeys)
         self.data_idx = tmp
         self.setDataBox(self.data_idx)
-
 
     def setDataBox(self, datakey):
         try:
@@ -116,21 +116,21 @@ class RemoveRows(Ui_Form, Modules):
         except IndexError:
             self.chooseData.setCurrentIndex(-1)
 
-
     def hide_operations(self):
         for i in range(len(self.operations) - 1):
             try:
                 if self.operations[i].logic.currentText() == 'and':
-                    self.operations[i+1].hidden.setChecked(False)
+                    self.operations[i + 1].hidden.setChecked(False)
                 else:
-                    self.operations[i+1].hidden.setChecked(True)
+                    self.operations[i + 1].hidden.setChecked(True)
 
-                if self.operations[i+1].logic.currentText() == 'and':
+                if self.operations[i + 1].logic.currentText() == 'and':
                     self.operations[i].logic.setEnabled(False)
                 else:
                     self.operations[i].logic.setEnabled(True)
             except:
                 pass
+
     def run(self):
         match_vectors = []
         logic_list = []

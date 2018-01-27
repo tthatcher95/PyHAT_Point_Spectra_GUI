@@ -152,7 +152,10 @@ class Normalization(Ui_Form, SingleData):
         # connect the add and delete ranges buttons
         self.add_range_button.clicked.connect(lambda: self.on_addRange_pushed())
         self.delete_range_button.clicked.connect(lambda: self.on_deleteRange_pushed())
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx, lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices())]]
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx,
+                                                                          lambda: self.changeComboListVars(
+                                                                              self.varToNormalizeListWidget,
+                                                                              self.xvar_choices())]]
 
     def on_addRange_pushed(self):
         if self.index.value() < len(self.ranges):

@@ -6,9 +6,8 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.DataTable import Ui_Form
-from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 from point_spectra_gui.util.PandasModel import PandasModel
+from point_spectra_gui.util.SingleData import SingleData
 from point_spectra_gui.util.Worker import Worker
 
 

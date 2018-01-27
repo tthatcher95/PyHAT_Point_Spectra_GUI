@@ -1,7 +1,7 @@
 from point_spectra_gui.util.Modules import Modules
 
-class SingleData(Modules):
 
+class SingleData(Modules):
     def __init__(self, _):
         super().__init__()
         self.data_idx = 0
@@ -10,13 +10,12 @@ class SingleData(Modules):
         self.data_idx = val
 
     def refresh(self):
-        #Repopulating the combobox sets idx to 0 and loses info. There has to be
+        # Repopulating the combobox sets idx to 0 and loses info. There has to be
         # a better way to do this.
         tmp = self.data_idx
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.data_idx = tmp
         self.setDataBox(self.data_idx)
-
 
     def setDataBox(self, datakey):
         try:

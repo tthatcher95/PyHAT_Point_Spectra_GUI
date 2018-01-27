@@ -36,7 +36,9 @@ class OutlierRemoval(Ui_Form, SingleData):
         self.xvar_choices()
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_outlier_widget(self.chooseAlgorithmComboBox.currentText()))
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx, lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices())]]
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx,
+                                                                          lambda: self.changeComboListVars(
+                                                                              self.xVariableList, self.xvar_choices())]]
 
     def getGuiParams(self):
         """

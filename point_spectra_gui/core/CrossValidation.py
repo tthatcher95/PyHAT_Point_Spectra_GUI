@@ -37,7 +37,7 @@ class CrossValidation(Ui_Form, SingleData):
                                # 'KRR',  This needs more work since it requires parameters for the kernel passed as an object
                                'LARS',
                                'LASSO',
-                              # 'LASSO LARS', - this also need to be debugged
+                               # 'LASSO LARS', - this also need to be debugged
                                'OLS',
                                'OMP',
                                'PLS',
@@ -56,7 +56,9 @@ class CrossValidation(Ui_Form, SingleData):
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx, lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices())]]
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx,
+                                                                          lambda: self.changeComboListVars(
+                                                                              self.xVariableList, self.xvar_choices())]]
 
     def getGuiParams(self):
         """
