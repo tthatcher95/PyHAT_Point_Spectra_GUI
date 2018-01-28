@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, FastICA, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.groupBox
@@ -17,11 +17,8 @@ class Ui_Form(Ui_Form, FastICA, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
-        self.nc_spin.setValue(8)
-
     def connectWidgets(self):
-        pass
+        self.nc_spin.setValue(8)
 
     def run(self):
         params = {

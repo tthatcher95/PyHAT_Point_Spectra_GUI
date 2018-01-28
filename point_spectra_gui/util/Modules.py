@@ -8,8 +8,7 @@ from Qtickle import Qtickle
 
 class Modules:
     """
-    Modules is an abstract class that a great majority
-    of the UI modules will inherit from.
+    Modules class that UI modules will inherit from.
 
     *Note: Rigorous prototyping is still occurring
     So, naturally, assume that something in this class
@@ -51,15 +50,15 @@ class Modules:
     def current_model(self, value):
         self._current_data[1] = value
 
-    def __init__(self):
+    def __init__(self, parent=None):
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
         self.flag = False
+        self.parent = parent
 
     def setupUi(self, Form):
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
-        self.updateWidgets()
         self.connectWidgets()
 
     def mousePressEvent(self, QMouseEvent):
@@ -71,6 +70,7 @@ class Modules:
         """
         # TODO Add mouse Event
 
+    # @@TODO Remove all references to guiChanged
     def guiChanged(self):
         pass
 
@@ -83,7 +83,7 @@ class Modules:
         raise NotImplementedError(
             'The method "get_widget()" was not found in the module {}'.format(type(self).__name__))
 
-    def updateWidgets(self):
+    def refresh(self):
         """
         This function is used to enable propagation, and is responsible for resetting widget properties
         based on the static variables found in this class.
@@ -94,12 +94,11 @@ class Modules:
 
     def connectWidgets(self):
         """
-        Connect the necessary parts of the UI with .connect
-        This function may also contain some necessary prefix stuff
+        Connect the necessary widgets.
         :return:
         """
         raise NotImplementedError(
-            'This method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
+            'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
 
     def getGuiParams(self):
         """
@@ -128,7 +127,6 @@ class Modules:
         :param dict:
         :return:
         """
-        # @@TODO this is where we will need to put the propogation part
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict)
 
@@ -165,6 +163,9 @@ class Modules:
         """
         self.progressBar = progressBar
 
+    def setPropogateFunction(function):
+        self.function = function
+
     def checkMinAndMax(self):
         """
         Go through the entire UI and set the maximums and minimums of each widget
@@ -184,6 +185,17 @@ class Modules:
             self.current_data = c
         else:
             raise TypeError("Current data must be assigned by a string value or integer index")
+
+    def rename_data(self, idx, value):
+        old = self.datakeys[idx]
+        self.datakeys[idx] = value
+        try:
+            self.data[value] = self.data.pop(old)
+        except KeyError:
+            pass
+
+    def get_open_idx(self):
+        return len(self.datakeys) - 1
 
     @staticmethod
     def getChangedValues(input_dictionary, algorithm):

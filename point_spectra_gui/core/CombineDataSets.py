@@ -23,7 +23,7 @@ class CombineDataSets(Ui_Form, Modules):
     def updateWidgets(self):
         self.setComboBox(self.dataSet1ComboBox, self.datakeys)
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
-        self.setComboBox(self.outputToDataSetComboBox, self.datakeys)
+        # self.setComboBox(self.outputToDataSetTextBox, self.datakeys)
 
     def connectWidgets(self):
         pass
@@ -31,10 +31,9 @@ class CombineDataSets(Ui_Form, Modules):
     def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
-        dataIn = self.outputToDataSetComboBox.currentText()
-        # TODO Module on hold until we can figure out the proper solution to concatenating data sets
-        self.data[dataIn] = pd.concat([dataSet1, dataSet2])
-        self.setCurrentData(dataIn)
+        dataIn = self.outputToDataSetTextBox.toPlainText()
+
+        self.data[dataIn] = pd.concat([self.data[dataSet1], self.data[dataSet2]])
 
 
 if __name__ == "__main__":

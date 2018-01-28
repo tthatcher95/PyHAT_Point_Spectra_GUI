@@ -10,7 +10,7 @@ class Ui_Form(Ui_Form, Lasso, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.groupBox
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, Lasso, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.minalpha_spin.setValue(0.0000001)
         self.maxalpha_spin.setValue(0.01)
         self.nalphas_spin.setValue(100)
@@ -29,9 +29,6 @@ class Ui_Form(Ui_Form, Lasso, Modules):
         self.toleranceLineEdit.setText(str(self.tol))
         self.forcePositive_list.setCurrentItem(
             self.forcePositive_list.findItems(str(self.positive), QtCore.Qt.MatchExactly)[0])
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]

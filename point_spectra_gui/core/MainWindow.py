@@ -200,7 +200,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :param obj:
         :return:
         """
-        self.widgetList.append(obj())
+        self.widgetList.append(obj(self))
         self.widgetList[-1].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")
@@ -367,7 +367,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.title.setFileName(filename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
-            raise Exception("File not loaded {}".format(e))
+            print("Save file not loaded: {}".format(e))
 
     def on_restore_clicked(self):
         """
@@ -388,7 +388,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.title.setFileName(self.restorefilename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
-            raise Exception("File not loaded: {}".format(e))
+            print("Restore file not loaded: {}".format(e))
 
     def on_delete_module_clicked(self):
         """
@@ -429,6 +429,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 if self.leftOff > 0:
                     self.leftOff -= 1
                 self.widgetList[self.leftOff].setDisabled(False)
+                self.propagate(self.leftOff)
         except:
             pass
 
@@ -567,8 +568,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             e = time.time()
             print("Module {} executed in: {} seconds".format(name_, e - s))
             self.widgetList[modules].setDisabled(True)
-            self.propagate(self.leftOff)
             self.leftOff = modules + 1
+            self.propagate(self.leftOff)
 
     def _exceptionLogger(self, function):
         """

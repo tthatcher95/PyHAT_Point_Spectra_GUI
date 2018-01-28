@@ -2,6 +2,10 @@
 exclude_lines =
     pragma: no cover
     if __name__ == .__main__.:
+    def get_widget
+    def connectWidgets
+    def getGuiParams
+    def setGuiParams
 
 omit =
   point_spectra_gui/ui/*

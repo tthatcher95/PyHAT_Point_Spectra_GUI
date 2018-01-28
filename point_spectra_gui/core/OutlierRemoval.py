@@ -4,9 +4,10 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.outlierRemovalMethods import *
 from point_spectra_gui.ui.OutlierRemoval import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
-class OutlierRemoval(Ui_Form, Modules):
+class OutlierRemoval(Ui_Form, SingleData):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)

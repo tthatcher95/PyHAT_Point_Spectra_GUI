@@ -5,26 +5,37 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionPredict(Ui_Form, Modules):
-    """
-    You will need to have ran the RegressionTrain module for this to work.
-    """
-
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
+        self.refresh()
 
     def get_widget(self):
         return self.formGroupBox
 
-    def updateWidgets(self):
-        self.setListWidget(self.chooseDataListWidget, self.data)
+    def connectWidgets(self):
+        self.setComboBox(self.chooseDataComboBox, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
 
-    def connectWidgets(self):
-        pass
+    def refresh(self):
+        self.connectWidgets()
+        self.setDataBox(self.current_data)
+        self.setModelBox(self.current_model)
+
+    def setDataBox(self, datakey):
+        try:
+            self.chooseDataComboBox.setCurrentIndex(self.chooseDataComboBox.findText(datakey))
+        except:
+            self.chooseDataComboBox.setCurrentIndex(-1)
+
+    def setModelBox(self, modelkey):
+        try:
+            self.chooseModelComboBox.setCurrentIndex(self.chooseModelComboBox.findText(modelkey))
+        except:
+            self.chooseModelComboBox.setCurrentIndex(-1)
 
     def run(self):
-        datakey = [i.text() == 'True' for i in self.chooseDataListWidget.selectedItems()]
+        datakey = self.chooseDataComboBox.currentText()
         modelkey = self.chooseModelComboBox.currentText()
         predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
 
@@ -36,6 +47,8 @@ class RegressionPredict(Ui_Form, Modules):
             pass
         except Exception as e:
             print(e)
+
+        self.current_data = datakey
 
 
 if __name__ == "__main__":

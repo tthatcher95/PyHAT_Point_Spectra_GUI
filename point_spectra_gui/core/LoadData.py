@@ -16,6 +16,11 @@ class LoadData(Ui_loadData, Modules):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
 
+    def __init__(self, parent):
+        self.datakeys.append('')
+        self.idx = self.get_open_idx()
+        self.parent = parent
+
     def get_widget(self):
         return self.groupBox
 
@@ -27,7 +32,14 @@ class LoadData(Ui_loadData, Modules):
         self.dataSetNameLineEdit.editingFinished.connect(self.setDataKey)
 
     def setDataKey(self):
-        self.datakey = self.dataSetNameLineEdit.text()
+        name = self.dataSetNameLineEdit.text()
+        if name not in self.datakeys:
+            self.datakey = self.dataSetNameLineEdit.text()
+            self.rename_data(self.idx, self.datakey)
+            self.parent.propagate()
+        else:
+            self.dataSetNameLineEdit.setText(name + "_copy")
+            self.setDataKey()
 
     def setFileName(self, filename):
         self.filename = filename

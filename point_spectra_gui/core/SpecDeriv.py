@@ -14,6 +14,8 @@ class SpecDeriv(Ui_Form, Modules):
 
     def updateWidgets(self):
         self.setComboBox(self.chooseDataToDerivComboBox, self.datakeys)
+        [self.chooseDataToDerivComboBox.currentIndexChanged.connect(x) for x in
+         [self.setCurrentData, self.set_data_idx]]
 
     def connectWidgets(self):
         pass
@@ -24,6 +26,31 @@ class SpecDeriv(Ui_Form, Modules):
         self.datakeys.append(new_datakey)
         self.data[new_datakey] = self.data[datakey].deriv()
         print("Derivative Applied")
+
+    def __init__(self, _):
+        super().__init__()
+        self.data_idx = 0
+
+    def set_data_idx(self, val):
+        self.data_idx = val
+
+    def refresh(self):
+        # Repopulating the combobox sets idx to 0 and loses info. There has to be
+        # a better way to do this.
+        tmp = self.data_idx
+        self.setComboBox(self.chooseDataToDerivComboBox, self.datakeys)
+        self.data_idx = tmp
+        self.setDataBox(self.data_idx)
+
+    def setDataBox(self, datakey):
+        try:
+            if isinstance(datakey, str):
+                self.chooseDataToDerivComboBox.setCurrentIndex(
+                    self.chooseDataToDerivComboBox.findText(self.current_data))
+            elif isinstance(datakey, int):
+                self.chooseDataToDerivComboBox.setCurrentIndex(datakey)
+        except IndexError:
+            self.chooseDataToDerivComboBox.setCurrentIndex(-1)
 
 
 if __name__ == "__main__":

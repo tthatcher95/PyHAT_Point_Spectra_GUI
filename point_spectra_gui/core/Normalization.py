@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Normalization import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
 class norm_range:
@@ -42,7 +43,7 @@ class norm_range:
         self.maxSpin.setValue(int_)
 
 
-class Normalization(Ui_Form, Modules):
+class Normalization(Ui_Form, SingleData):
     def setupUi(self, Form, restore=False):
         if restore:
             self.restored = True
@@ -138,7 +139,7 @@ class Normalization(Ui_Form, Modules):
             if self.spin_list[i].value() < self.spin_list[i - 1].value():
                 self.spin_list[i].setValue(self.spin_list[i - 1].value())
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         """
         populate combobox with dataset names
         update list of variables to normalize when data set selection is changed
@@ -153,7 +154,6 @@ class Normalization(Ui_Form, Modules):
         self.varToNormalizeListWidget.itemSelectionChanged.connect(self.setDataLimits)
         self.qt.isGuiChanged(self.updateVal)
 
-    def connectWidgets(self):
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices()))
         self.add_range_button.clicked.connect(lambda: self.on_addRange_pushed())

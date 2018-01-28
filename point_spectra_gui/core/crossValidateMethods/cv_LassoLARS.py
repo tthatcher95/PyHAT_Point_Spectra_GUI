@@ -10,7 +10,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         # LassoLARS
         ll = LassoLars()
         self.minalpha_spin.setValue(0.0000001)
@@ -30,9 +30,6 @@ class Ui_Form(Ui_Form, Modules):
         self.max_iterLineEdit.setText(str(ll.max_iter))
         self.force_positive_list.setCurrentItem(
             self.force_positive_list.findItems(str(ll.positive), QtCore.Qt.MatchExactly)[0])
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]

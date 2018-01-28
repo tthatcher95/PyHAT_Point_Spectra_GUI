@@ -8,13 +8,10 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
-class CrossValidation(Ui_Form, Modules):
-    """
-    Cross validate our data
-    """
-
+class CrossValidation(Ui_Form, SingleData):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -31,7 +28,7 @@ class CrossValidation(Ui_Form, Modules):
             if alg == self.algorithm_list[i] and i > 0:
                 self.alg[i - 1].setHidden(False)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
                                'ARD',
                                'BRR',
@@ -49,14 +46,12 @@ class CrossValidation(Ui_Form, Modules):
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
-        self.changeComboListVars(self.yVariableList, self.yvar_choices())
-        self.changeComboListVars(self.xVariableList, self.xvar_choices())
-        self.xvar_choices()
-
-    def connectWidgets(self):
         self.yMaxDoubleSpinBox.setMaximum(999999)
         self.yMinDoubleSpinBox.setMaximum(999999)
         self.yMaxDoubleSpinBox.setValue(100)
+        self.changeComboListVars(self.yVariableList, self.yvar_choices())
+        self.changeComboListVars(self.xVariableList, self.xvar_choices())
+        self.xvar_choices()
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(

@@ -8,7 +8,7 @@ from point_spectra_gui.util.Modules import Modules
 class Ui_Form(Ui_Form, GaussianProcess, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        self.updateWidgets()
+        self.connectWidgets()
         self.checkMinAndMax()
 
     def get_widget(self):
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, GaussianProcess, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.DimRedList.setCurrentItem(self.DimRedList.findItems('PCA', QtCore.Qt.MatchExactly)[0])
         self.regression_list.setCurrentItem(self.regression_list.findItems('Linear', QtCore.Qt.MatchExactly)[0])
         self.CorrelationList.setCurrentItem(
@@ -28,9 +28,6 @@ class Ui_Form(Ui_Form, GaussianProcess, Modules):
         self.randomStartLineEdit.setText(str(self.random_start))
         self.normalize_list.setCurrentItem(
             self.normalize_list.findItems(str(self.normalize), QtCore.Qt.MatchExactly)[0])
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]

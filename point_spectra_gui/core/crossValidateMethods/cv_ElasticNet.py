@@ -10,7 +10,7 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.elasticNetGroupBox
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         en = ElasticNet()
 
         self.minalpha_spin.setValue(0.0000001)
@@ -39,9 +39,6 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
         self.enpositive_list.setCurrentItem(self.enpositive_list.findItems(str(en.positive), QtCore.Qt.MatchExactly)[0])
         # self.setComboBox(self.enselectionComboBox, ['cyclic', 'random'])
         # self.defaultComboItem(self.enselectionComboBox, en.selection)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.enfit_intercept_list.selectedItems()]

@@ -4,9 +4,10 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.dimensionalityReductionMethods import *
 from point_spectra_gui.ui.DimensionalityReduction import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
-class DimensionalityReduction(Ui_Form, Modules):
+class DimensionalityReduction(Ui_Form, SingleData):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -16,7 +17,7 @@ class DimensionalityReduction(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
                                'PCA',
                                'FastICA',
@@ -26,9 +27,6 @@ class DimensionalityReduction(Ui_Form, Modules):
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseMethodComboBox, self.algorithm_list)
-        self.setDataBox(self.current_data)
-
-    def connectWidgets(self):
         # Connect combo box such that when the value is changed, the respective values are set
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.make_dimred_widget(self.chooseMethodComboBox.currentText()))

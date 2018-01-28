@@ -3,10 +3,11 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Plot import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 from point_spectra_gui.util.plots import make_plot
 
 
-class Plot(Ui_Form, Modules):
+class Plot(Ui_Form, SingleData):
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -14,13 +15,11 @@ class Plot(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.figureNameComboBox, self.figname)
         self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices())
         self.changeComboListVars(self.chooseYVariableComboBox, self.get_choices())
-
-    def connectWidgets(self):
         self.colorComboBox.addItem("Red")
         self.colorComboBox.addItem("Green")
         self.colorComboBox.addItem("Blue")
@@ -48,6 +47,7 @@ class Plot(Ui_Form, Modules):
         self.yMinDoubleSpinBox.setMaximum(110)
         self.yMaxDoubleSpinBox.setMaximum(110)
         self.plotFilenamePushButton.clicked.connect(self.on_plotFilenamePushButton_clicked)
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
         self.figureNameComboBox.activated[int].connect(
             lambda: self.figureNameLineEdit.setText(self.figureNameComboBox.currentText()))

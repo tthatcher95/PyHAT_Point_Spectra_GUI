@@ -8,9 +8,10 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.regressionMethods import *
 from point_spectra_gui.ui.RegressionTrain import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.SingleData import SingleData
 
 
-class RegressionTrain(Ui_Form, Modules):
+class RegressionTrain(Ui_Form, SingleData):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -57,6 +58,7 @@ class RegressionTrain(Ui_Form, Modules):
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
+        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def getGuiParams(self):
         """
