@@ -165,9 +165,6 @@ class Modules:
         """
         self.progressBar = progressBar
 
-    def setPropogateFunction(function):
-        self.function = function
-
     def checkMinAndMax(self):
         """
         Go through the entire UI and set the maximums and minimums of each widget
