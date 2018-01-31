@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets
 from sklearn.kernel_ridge import KernelRidge
 
 from point_spectra_gui.ui.KRR import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, KernelRidge, Basics):
+class Ui_Form(Ui_Form, KernelRidge, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -31,7 +31,7 @@ class Ui_Form(Ui_Form, KernelRidge, Basics):
         self.coeff0DoubleSpinBox.setValue(self.coef0)
         self.kernelLineEdit.setText(str(self.kernel))
 
-    def function(self):
+    def run(self):
         k_attrib = {'None': None}
         params = {'alpha': self.alphaSpinBox.value(),
                   'kernel': self.kernelLineEdit.text(),

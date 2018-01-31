@@ -1,17 +1,17 @@
 from PyQt5 import QtWidgets
-from Qtickle import Qtickle
 from libpysat.spectral.spectral_data import spectral_data
+
+from Qtickle import Qtickle
 from point_spectra_gui.core.baselineRemovalMethods import *
 from point_spectra_gui.ui.BaselineRemoval import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-
-class BaselineRemoval(Ui_Form, Basics):
+class BaselineRemoval(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
         self.baselineMethods()
 
     def get_widget(self):
@@ -44,7 +44,7 @@ class BaselineRemoval(Ui_Form, Basics):
 
     def getGuiParams(self):
         """
-        Overriding Basics' getGuiParams, because I'll need to do a list of lists
+        Overriding Modules' getGuiParams, because I'll need to do a list of lists
         in order to obtain the regressionMethods' parameters
         """
         self.qt = Qtickle.Qtickle(self)
@@ -60,7 +60,7 @@ class BaselineRemoval(Ui_Form, Basics):
         for i in range(len(dict)):
             self.alg[i - 1].setGuiParams(dict[i])
 
-    def function(self):
+    def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         # return method parameters and parameters that changed
@@ -79,7 +79,7 @@ class BaselineRemoval(Ui_Form, Basics):
             a.setHidden(True)
 
     def getMethodParams(self, index):
-        return self.alg[index - 1].function()
+        return self.alg[index - 1].run()
 
     def baselineMethods(self):
         self.alg = []

@@ -6,12 +6,12 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.DataTable import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.PandasModel import PandasModel
 from point_spectra_gui.util.Worker import Worker
 
 
-class DataTable(QtWidgets.QWidget, Ui_Form, Basics):
+class DataTable(QtWidgets.QWidget, Ui_Form, Modules):
     def __init__(self, *args, **kwargs):
         QtWidgets.QWidget.__init__(self, *args, **kwargs)
         self.setupUi(self)
@@ -37,6 +37,7 @@ class DataTable(QtWidgets.QWidget, Ui_Form, Basics):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Form = DataTable()
     Form.show()

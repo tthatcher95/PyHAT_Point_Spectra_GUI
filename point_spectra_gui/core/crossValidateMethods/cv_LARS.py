@@ -1,12 +1,12 @@
-from PyQt5 import QtWidgets,QtCore
+from PyQt5 import QtWidgets, QtCore
 from sklearn.linear_model.least_angle import Lars
 from sklearn.linear_model.least_angle import LarsCV
 
 from point_spectra_gui.ui.cv_LARS import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -23,12 +23,14 @@ class Ui_Form(Ui_Form, Basics):
 
         lars = Lars()
         larscv = LarsCV()
-        self.fit_intercept_listWidget.setCurrentItem(self.fit_intercept_listWidget.findItems(str(lars.fit_intercept),QtCore.Qt.MatchExactly)[0])
-        self.normalize_list.setCurrentItem(self.normalize_list.findItems(str(lars.normalize),QtCore.Qt.MatchExactly)[0])
+        self.fit_intercept_listWidget.setCurrentItem(
+            self.fit_intercept_listWidget.findItems(str(lars.fit_intercept), QtCore.Qt.MatchExactly)[0])
+        self.normalize_list.setCurrentItem(
+            self.normalize_list.findItems(str(lars.normalize), QtCore.Qt.MatchExactly)[0])
         self.n_nonzero_coefsLineEdit.setText(str(lars.n_nonzero_coefs))
-        self.positive_list.setCurrentItem(self.positive_list.findItems(str(lars.positive),QtCore.Qt.MatchExactly)[0])
+        self.positive_list.setCurrentItem(self.positive_list.findItems(str(lars.positive), QtCore.Qt.MatchExactly)[0])
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_listWidget.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
         positive_items = [i.text() == 'True' for i in self.positive_list.selectedItems()]

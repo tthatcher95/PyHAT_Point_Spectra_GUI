@@ -2,14 +2,14 @@ from PyQt5 import QtWidgets
 from libpysat.spectral.baseline_code.rubberband import Rubberband
 
 from point_spectra_gui.ui.Rubberband import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupbox
@@ -22,7 +22,7 @@ class Ui_Form(Ui_Form, Basics):
         self.windowSizeSpinBox.setValue(br.num_iters_)
         self.numOfRangesSpinBox.setValue(br.num_ranges_)
 
-    def function(self):
+    def run(self):
         methodParameters = {'num_iters': self.windowSizeSpinBox.value(),
                             'num_ranges': self.numOfRangesSpinBox.value()}
         return methodParameters, self.getChangedValues(methodParameters, Rubberband())

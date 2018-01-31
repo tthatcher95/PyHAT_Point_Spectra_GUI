@@ -1,13 +1,13 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.MultiplyByVector import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class MultiplyByVector(Ui_Form, Basics):
+class MultiplyByVector(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox
@@ -16,7 +16,7 @@ class MultiplyByVector(Ui_Form, Basics):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.vectorFileLineEdit))
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
         vectorfile = self.vectorFileLineEdit.text()
 

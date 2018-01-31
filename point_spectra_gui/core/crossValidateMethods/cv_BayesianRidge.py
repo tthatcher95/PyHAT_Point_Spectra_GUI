@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets, QtCore
 from sklearn.linear_model import BayesianRidge
 
 from point_spectra_gui.ui.cv_BayesianRidge import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, BayesianRidge, Basics):
+class Ui_Form(Ui_Form, BayesianRidge, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -24,10 +24,12 @@ class Ui_Form(Ui_Form, BayesianRidge, Basics):
         self.alpha2LineEdit.setText(str(self.alpha_2))
         self.lambdaLineEdit.setText(str(self.lambda_1))
         self.lambda2LineEdit.setText(str(self.lambda_2))
-        self.fitIntercept_List.setCurrentItem(self.fitIntercept_List.findItems(str(self.fit_intercept),QtCore.Qt.MatchExactly)[0])
-        self.normalize_List.setCurrentItem(self.normalize_List.findItems(str(self.normalize),QtCore.Qt.MatchExactly)[0])
+        self.fitIntercept_List.setCurrentItem(
+            self.fitIntercept_List.findItems(str(self.fit_intercept), QtCore.Qt.MatchExactly)[0])
+        self.normalize_List.setCurrentItem(
+            self.normalize_List.findItems(str(self.normalize), QtCore.Qt.MatchExactly)[0])
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fitIntercept_List.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_List.selectedItems()]
 

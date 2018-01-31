@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets
 from sklearn.linear_model.least_angle import LassoLars, LassoLarsCV, LassoLarsIC
 
 from point_spectra_gui.ui.LassoLARS import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -42,7 +42,7 @@ class Ui_Form(Ui_Form, Basics):
         self.setComboBox(self.criterionComboBox, ['aic', 'bic'])
         self.defaultComboItem(self.criterionComboBox, llic.criterion)
 
-    def function(self):
+    def run(self):
         model = self.modelComboBox.currentIndex()
         if model == 0:
             params = {

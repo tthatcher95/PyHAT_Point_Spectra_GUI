@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets,QtCore
 from sklearn.gaussian_process.gaussian_process import GaussianProcess
 
 from point_spectra_gui.ui.cv_GP import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, GaussianProcess, Basics):
+class Ui_Form(Ui_Form, GaussianProcess, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.connectWidgets()
@@ -27,7 +27,7 @@ class Ui_Form(Ui_Form, GaussianProcess, Basics):
         self.randomStartLineEdit.setText(str(self.random_start))
         self.normalize_list.setCurrentItem(self.normalize_list.findItems(str(self.normalize),QtCore.Qt.MatchExactly)[0])
 
-    def function(self):
+    def run(self):
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
         regr_items = [str(i.text().lower()) for i in self.regression_list.selectedItems()]
         corr_items = [str(i.text().lower().replace(' ','_')) for i in self.CorrelationList.selectedItems()]

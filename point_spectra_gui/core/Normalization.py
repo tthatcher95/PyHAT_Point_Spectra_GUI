@@ -2,7 +2,7 @@ import numpy as np
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Normalization import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
 class norm_range:
@@ -42,14 +42,14 @@ class norm_range:
         self.maxSpin.setValue(int_)
 
 
-class Normalization(Ui_Form, Basics):
+class Normalization(Ui_Form, Modules):
     def setupUi(self, Form, restore=False):
         if restore:
             self.restored = True
         super().setupUi(Form)
         self.setup_norm_ranges()
         self.index.setHidden(True)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox
@@ -173,7 +173,7 @@ class Normalization(Ui_Form, Basics):
         else:
             print("Cannot delete any more ranges!")
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
         range_vals = []
         for i in self.ranges:
@@ -183,14 +183,11 @@ class Normalization(Ui_Form, Basics):
                 pass
         try:
             col_var = self.varToNormalizeListWidget.currentItem().text()
-        except:
-            print("Did you remember to select a variable?")
-        print("{}".format(range_vals))
-        try:
             self.data[datakey].norm(range_vals, col_var)
             print("Normalization has been applied to the ranges: " + str(range_vals))
+            print("{}".format(range_vals))
         except Exception as e:
-            print("There was a problem: ", e)
+            print(str(e) + "Did you remember to select a variable?")
 
     def xvar_choices(self):
         try:

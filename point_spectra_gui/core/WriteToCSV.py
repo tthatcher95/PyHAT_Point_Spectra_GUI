@@ -1,13 +1,13 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.WriteToCSV import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class WriteToCSV(Ui_Form, Basics):
+class WriteToCSV(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox
@@ -20,7 +20,7 @@ class WriteToCSV(Ui_Form, Basics):
             lambda: self.changeComboListVars(self.variablesToWriteListWidget, self.xvar_choices()))
         self.pushButton.clicked.connect(self.on_pushButton_clicked)
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataSetComboBox.currentText()
         filename = self.specifyAFilenameLineEdit.text()
         selected_cols = self.variablesToWriteListWidget.selectedItems()

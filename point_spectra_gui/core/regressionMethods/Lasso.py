@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets
 from sklearn.linear_model.coordinate_descent import Lasso
 
 from point_spectra_gui.ui.Lasso import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Lasso, Basics):
+class Ui_Form(Ui_Form, Lasso, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -24,7 +24,7 @@ class Ui_Form(Ui_Form, Lasso, Basics):
         self.toleranceDoubleSpinBox.setValue(self.tol)
         self.forcePositiveCoefficientsCheckBox.setChecked(self.positive)
 
-    def function(self):
+    def run(self):
         params = {'alpha': float(self.alpha_text.text()),
                   'fit_intercept': self.fitInterceptCheckBox.isChecked(),
                   'max_iter': int(self.maxNumOfIterationsSpinBox.value()),

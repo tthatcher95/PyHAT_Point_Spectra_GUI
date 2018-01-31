@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets
 from sklearn.linear_model import ARDRegression
 
 from point_spectra_gui.ui.ARD import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, ARDRegression, Basics):
+class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -32,7 +32,7 @@ class Ui_Form(Ui_Form, ARDRegression, Basics):
         self.copyXCheckBox.setChecked(self.copy_X)
         self.verboseCheckBox.setChecked(self.verbose)
 
-    def function(self):
+    def run(self):
         params = {
             'n_iter': self.numOfIterationsSpinBox.value(),
             'tol': self.toleranceDoubleSpinBox.value(),

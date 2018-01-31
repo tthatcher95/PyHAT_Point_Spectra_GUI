@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets, QtCore
 from sklearn.kernel_ridge import KernelRidge
 
 from point_spectra_gui.ui.cv_KRR import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, KernelRidge, Basics):
+class Ui_Form(Ui_Form, KernelRidge, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -31,7 +31,7 @@ class Ui_Form(Ui_Form, KernelRidge, Basics):
         self.coeff0LineEdit.setText(str(self.coef0))
         self.kernel_list.setCurrentItem(self.kernel_list.findItems('Radial Basis Function',QtCore.Qt.MatchExactly)[0])
 
-    def function(self):
+    def run(self):
         k_attrib = {'None': None}
         params = {'alpha': [float(i) for i in self.alphaLineEdit.text().split(',')],
                   'kernel': self.kernel_list.selectedItems(),

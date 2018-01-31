@@ -6,14 +6,14 @@ import pandas as pd
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.CombineDataSets import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class CombineDataSets(Ui_Form, Basics):
+class CombineDataSets(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.formGroupBox
@@ -23,7 +23,7 @@ class CombineDataSets(Ui_Form, Basics):
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
         self.setComboBox(self.outputToDataSetComboBox, self.datakeys)
 
-    def function(self):
+    def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
         dataIn = self.outputToDataSetComboBox.currentText()

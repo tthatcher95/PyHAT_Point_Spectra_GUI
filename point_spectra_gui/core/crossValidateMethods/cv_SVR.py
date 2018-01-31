@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets, QtCore
 from sklearn.svm.classes import SVR
 
 from point_spectra_gui.ui.cv_SVR import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -33,14 +33,14 @@ class Ui_Form(Ui_Form, Basics):
 
         self.cLineEdit.setText(str(svr.C))
         self.epsilonLineEdit.setText(str(svr.epsilon))
-        self.kernel_list.setCurrentItem(self.kernel_list.findItems('Radial Basis Function',QtCore.Qt.MatchExactly)[0])
+        self.kernel_list.setCurrentItem(self.kernel_list.findItems('Radial Basis Function', QtCore.Qt.MatchExactly)[0])
         self.degreeLineEdit.setText(str(svr.degree))
         self.coeff0LineEdit.setText(str(svr.coef0))
-        self.shrinking_list.setCurrentItem(self.shrinking_list.findItems(str(svr.shrinking),QtCore.Qt.MatchExactly)[0])
+        self.shrinking_list.setCurrentItem(self.shrinking_list.findItems(str(svr.shrinking), QtCore.Qt.MatchExactly)[0])
         self.toleranceLineEdit.setText(str(svr.tol))
         self.maxIterationsLineEdit.setText(str(svr.max_iter))
 
-    def function(self):
+    def run(self):
         kernels = [str(i.text()) for i in self.kernel_list.selectedItems()]
         shrinking_items = [i.text() == 'True' for i in self.shrinking_list.selectedItems()]
         params = {'C': [float(i) for i in self.cLineEdit.text().split(',')],

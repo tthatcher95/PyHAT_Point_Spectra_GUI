@@ -3,14 +3,14 @@ from PyQt5 import QtWidgets
 from Qtickle import Qtickle
 from point_spectra_gui.core.dimensionalityReductionMethods import *
 from point_spectra_gui.ui.DimensionalityReduction import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class DimensionalityReduction(Ui_Form, Basics):
+class DimensionalityReduction(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
         self.dimensionalityReductionMethods()
 
     def get_widget(self):
@@ -31,7 +31,7 @@ class DimensionalityReduction(Ui_Form, Basics):
 
     def getGuiParams(self):
         """
-        Overriding Basics' getGuiParams, because I'll need to do a list of lists
+        Overriding Modules' getGuiParams, because I'll need to do a list of lists
         in order to obtain the regressionMethods' parameters
         """
         self.qt = Qtickle.Qtickle(self)
@@ -49,7 +49,7 @@ class DimensionalityReduction(Ui_Form, Basics):
 
     def selectiveSetGuiParams(self, dict):
         """
-        Override Basics' selective Restore function
+        Override Modules' selective Restore function
 
         Setup Qtickle
         selectively restore the UI, the data to do that will be in the 0th element of the dictionary
@@ -65,7 +65,7 @@ class DimensionalityReduction(Ui_Form, Basics):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
-    def function(self):
+    def run(self):
         method = self.chooseMethodComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         # xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
@@ -99,7 +99,7 @@ class DimensionalityReduction(Ui_Form, Basics):
             self.alg[-1].setHidden(True)
 
     def getMethodParams(self, index):
-        return self.alg[index - 1].function()
+        return self.alg[index - 1].run()
 
 
 if __name__ == "__main__":

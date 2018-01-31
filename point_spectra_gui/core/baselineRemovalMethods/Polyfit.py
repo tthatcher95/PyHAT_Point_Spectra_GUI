@@ -2,14 +2,14 @@ from PyQt5 import QtWidgets
 from libpysat.spectral.baseline_code.polyfit import PolyFit
 
 from point_spectra_gui.ui.Polyfit import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupbox
@@ -22,7 +22,7 @@ class Ui_Form(Ui_Form, Basics):
         self.orderSpinBox.setValue(br.poly_order_)
         self.numOfStandardDeviationsSpinBox.setValue(br.stdv_)
 
-    def function(self):
+    def run(self):
         methodParameters = {'poly_order_': self.orderSpinBox.value(),
                             'stdv_': self.numOfStandardDeviationsSpinBox.value(),
                             'max_iter_': self.maxNumOfIterationsSpinBox.value()}

@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets
 from sklearn.linear_model import BayesianRidge
 
 from point_spectra_gui.ui.BayesianRidge import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, BayesianRidge, Basics):
+class Ui_Form(Ui_Form, BayesianRidge, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -30,7 +30,7 @@ class Ui_Form(Ui_Form, BayesianRidge, Basics):
         self.copyXCheckBox.setChecked(self.copy_X)
         self.verboseCheckBox.setChecked(self.verbose)
 
-    def function(self):
+    def run(self):
         params = {'n_iter': self.numOfIterationsSpinBox.value(),
                   'tol': self.toleranceDoubleSpinBox.value(),
                   'alpha_1': self.alpha1DoubleSpinBox.value(),

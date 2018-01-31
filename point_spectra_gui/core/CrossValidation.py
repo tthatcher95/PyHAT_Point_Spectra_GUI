@@ -7,14 +7,14 @@ from libpysat.spectral.spectral_data import spectral_data
 from Qtickle import Qtickle
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class CrossValidation(Ui_Form, Basics):
+class CrossValidation(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
         self.regressionMethods()
 
     def get_widget(self):
@@ -23,9 +23,10 @@ class CrossValidation(Ui_Form, Basics):
     def make_regression_widget(self, alg, params=None):
         self.hideAll()
         print(alg)
-        for i in range(len(self.algorithm_list) - 1):
-            if alg == self.algorithm_list[i] and i > 0:
-                self.alg[i - 1].setHidden(False)
+        try:
+            self.alg[alg].setHidden(False)
+        except:
+            pass
 
     def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
@@ -60,47 +61,48 @@ class CrossValidation(Ui_Form, Basics):
 
     def getGuiParams(self):
         """
-        Overriding Basics' getGuiParams, because I'll need to do a list of lists
+        Overriding Modules' getGuiParams, because I'll need to do a list of lists
         in order to obtain the regressionMethods' parameters
         """
         self.qt = Qtickle.Qtickle(self)
         s = []
         s.append(self.qt.guiSave())
         for items in self.alg:
-            s.append(items.getGuiParams())
+            s.append(self.alg[items].getGuiParams())
         return s
 
     def setGuiParams(self, dict):
         self.qt = Qtickle.Qtickle(self)
         self.qt.guiRestore(dict[0])
+        keys = list(self.alg.keys())
         for i in range(len(dict)):
-            self.alg[i - 1].setGuiParams(dict[i])
+            self.alg[keys[i - 1]].setGuiParams(dict[i])
 
-    def selectiveSetGuiParams(self, dict):
-        """
-        Override Basics' selective Restore function
+    # def selectiveSetGuiParams(self, dict):
+    #     """
+    #     Override Modules' selective Restore function
+    #
+    #     Setup Qtickle
+    #     selectively restore the UI, the data to do that will be in the 0th element of the dictionary
+    #     We will then iterate through the rest of the dictionary
+    #     Will now restore the parameters for the algorithms in the list, Each of the algs have their own selectiveSetGuiParams
+    #
+    #     :param dict:
+    #     :return:
+    #     """
+    #
+    #     self.qt = Qtickle.Qtickle(self)
+    #     self.qt.selectiveGuiRestore(dict[0])
+    #     for i in range(len(dict)):
+    #         self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
-        Setup Qtickle
-        selectively restore the UI, the data to do that will be in the 0th element of the dictionary
-        We will then iterate through the rest of the dictionary
-        Will now restore the parameters for the algorithms in the list, Each of the algs have their own selectiveSetGuiParams
-
-        :param dict:
-        :return:
-        """
-
-        self.qt = Qtickle.Qtickle(self)
-        self.qt.selectiveGuiRestore(dict[0])
-        for i in range(len(dict)):
-            self.alg[i - 1].selectiveSetGuiParams(dict[i])
-
-    def function(self):
+    def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
-        params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
+        params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
 
         y = np.array(self.data[datakey].df[yvars])
         match = np.squeeze((y > yrange[0]) & (y < yrange[1]))
@@ -154,32 +156,28 @@ class CrossValidation(Ui_Form, Basics):
 
     def hideAll(self):
         for a in self.alg:
-            a.setHidden(True)
-
-    def getMethodParams(self, index):
-        return self.alg[index - 1].function()
+            self.alg[a].setHidden(True)
 
     def regressionMethods(self):
-        self.alg = []
-        list_forms = [cv_ARD,
-                      cv_BayesianRidge,
-                      cv_ElasticNet,
-                      cv_GP,
-                      #              cv_KRR,
-                      cv_LARS,
-                      cv_Lasso,
-                      cv_LassoLARS,
-                      cv_OLS,
-                      cv_OMP,
-                      cv_PLS,
-                      cv_Ridge,
-                      cv_SVR
-                      ]
-        for items in list_forms:
-            self.alg.append(items.Ui_Form())
-            self.alg[-1].setupUi(self.Form)
-            self.algorithmLayout.addWidget(self.alg[-1].get_widget())
-            self.alg[-1].setHidden(True)
+        self.alg = {'ARD': cv_ARD.Ui_Form(),
+                    'BRR': cv_BayesianRidge.Ui_Form(),
+                    'Elastic Net': cv_ElasticNet.Ui_Form(),
+                    'GP': cv_GP.Ui_Form(),
+                    #'KRR': cv_KRR.Ui_Form(),
+                    'LARS': cv_LARS.Ui_Form(),
+                    'LASSO': cv_Lasso.Ui_Form(),
+                    #'LASSO LARS': cv_LassoLARS.Ui_Form(),
+                    'OLS': cv_OLS.Ui_Form(),
+                    'OMP': cv_OMP.Ui_Form(),
+                    'PLS': cv_PLS.Ui_Form(),
+                    'Ridge': cv_Ridge.Ui_Form(),
+                    'SVR': cv_SVR.Ui_Form()
+                    }
+
+        for item in self.alg:
+            self.alg[item].setupUi(self.Form)
+            self.algorithmLayout.addWidget(self.alg[item].get_widget())
+            self.alg[item].setHidden(True)
 
 
 if __name__ == "__main__":
