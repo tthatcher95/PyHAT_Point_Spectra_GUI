@@ -10,7 +10,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         # LARS/         # LARSCV
 
         lars = Lars()
@@ -35,9 +35,6 @@ class Ui_Form(Ui_Form, Modules):
         self.max_iterSpinBox.setValue(larscv.max_iter)
         self.max_n_alphasSpinBox.setValue(larscv.max_n_alphas)
         self.n_jobsSpinBox.setValue(larscv.n_jobs)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         if self.cVCheckBox.isChecked():

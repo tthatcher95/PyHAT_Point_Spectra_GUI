@@ -16,50 +16,23 @@ class LoadData(Ui_loadData, Modules):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
 
-    def __init__(self, parent):
-        self.datakeys.append('')
-        self.idx = self.get_open_idx()
-        self.parent = parent
-
     def get_widget(self):
         return self.groupBox
 
-    def updateWidgets(self):
-        pass
-
     def connectWidgets(self):
         self.newFilePushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.fileNameLineEdit))
-        self.dataSetNameLineEdit.editingFinished.connect(self.setDataKey)
-
-    def setDataKey(self):
-        name = self.dataSetNameLineEdit.text()
-        if name not in self.datakeys:
-            self.datakey = self.dataSetNameLineEdit.text()
-            self.rename_data(self.idx, self.datakey)
-            self.parent.propagate()
-        else:
-            self.dataSetNameLineEdit.setText(name + "_copy")
-            self.setDataKey()
-
-    def setFileName(self, filename):
-        self.filename = filename
-
-    def setCurrentData(self, datakey):
-        self.current_data = datakey
 
     def on_getDataButton_clicked(self, lineEdit):
         filename, _filter = QtWidgets.QFileDialog.getOpenFileName(None, "Open Data File", self.outpath, "(*.csv)")
         lineEdit.setText(filename)
         if lineEdit.text() == "":
             lineEdit.setText("*.csv")
-        self.setFileName(filename)
 
     def run(self):
         params = self.getGuiParams()
         filename = params['fileNameLineEdit']
         keyname = params['dataSetNameLineEdit']
         print('Loading data file: ' + str(filename))
-        self.setCurrentData(keyname)
         if keyname in self.datakeys:
             raise Exception("That data set name is already in use. Try something else.")
         else:

@@ -97,7 +97,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.title = TitleWindow(self.MainWindow.windowTitle())
         self._readAndApplyWindowAttributeSettings()
         self.menu_item_shortcuts()  # set up the shortcuts
-        self.updateWidgets()
+        self.connectWidgets()
 
         # Check the mode for debugging
         if self.settings.value("debug") == 'true':
@@ -200,7 +200,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :param obj:
         :return:
         """
-        self.widgetList.append(obj(self))
+        self.widgetList.append(obj())
         self.widgetList[-1].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")
@@ -220,7 +220,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.actionSave_Current_Workflow.setShortcut("ctrl+S")
         self.okPushButton.setShortcut("Ctrl+Return")
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         """
         Connect all the widgets associated with the MainWindow UI
 
@@ -429,7 +429,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 if self.leftOff > 0:
                     self.leftOff -= 1
                 self.widgetList[self.leftOff].setDisabled(False)
-                self.propagate(self.leftOff)
         except:
             pass
 
@@ -508,9 +507,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
     def onFinished(self):
         """
-        When a give task is finished
+        When a given task is finished
         stop the bar pulsing green
         and display 100% for bar.
+        
         :return:
         """
         self.progressBar.setRange(0, 1)
@@ -549,8 +549,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         start the timers
         print the name of the module running
         if a restored file exists
-            run connectWidgets to update the current UI widget
-            run selectiveRestore to select the right items
+            run connectWidgets # to update the current UI widget
+            run selectiveRestore # to select the right items
             Terminate running process, and let the user decide if they want to continue forward
         run our current modules run()
         get our end time
@@ -635,7 +635,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         else:
             try:
                 self.runModules()
-            # @@TODO is this the type of error handling we want?
+            #@@TODO is this the type of error handling we want?
             except Exception as e:
                 print("Your module broke: ", e)
                 try:

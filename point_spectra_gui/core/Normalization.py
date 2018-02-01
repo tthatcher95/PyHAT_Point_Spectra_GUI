@@ -3,7 +3,6 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Normalization import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
 class norm_range:
@@ -43,7 +42,7 @@ class norm_range:
         self.maxSpin.setValue(int_)
 
 
-class Normalization(Ui_Form, SingleData):
+class Normalization(Ui_Form, Modules):
     def setupUi(self, Form, restore=False):
         if restore:
             self.restored = True
@@ -117,8 +116,7 @@ class Normalization(Ui_Form, SingleData):
             pass
 
     def setDataRanges(self):
-        x = self.data[self.chooseDataComboBox.currentText()].df[
-            self.varToNormalizeListWidget.currentItem().text()].columns.values
+        x = self.data[self.chooseDataComboBox.currentText()].df[self.varToNormalizeListWidget.currentItem().text()].columns.values
         # borrowed this from baseline removal code, which in turn borrowed from matplotlib's boxplot outlier detection.
         d = np.diff(x)
         q1, q3 = np.percentile(d, (25, 75))

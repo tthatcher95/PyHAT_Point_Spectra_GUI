@@ -20,7 +20,6 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
 
     def connectWidgets(self):
         ridge = Ridge()
-
         self.alphaLineEdit.setText('0.01, 0.1, 1.0, 10, 100')
         self.fit_intercept_list.setCurrentItem(
             self.fit_intercept_list.findItems(str(ridge.fit_intercept), QtCore.Qt.MatchExactly)[0])

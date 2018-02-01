@@ -16,7 +16,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         als = ALS()
 
         self.asymmetryDoubleSpinBox.setDecimals(2)
@@ -27,9 +27,6 @@ class Ui_Form(Ui_Form, Modules):
         self.smoothnessDoubleSpinBox.setValue(als.smoothness_)
         self.maxNumOfIterationsSpinBox.setValue(als.max_iters_)
         self.convergenceThresholdDoubleSpinBox.setValue(als.conv_thresh_)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         methodParameters = {'asymmetry_': self.asymmetryDoubleSpinBox.value(),

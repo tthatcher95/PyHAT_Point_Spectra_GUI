@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         # LassoLARS
         ll = LassoLars()
         self.alpha_text.setText(str(ll.alpha))
@@ -41,9 +41,6 @@ class Ui_Form(Ui_Form, Modules):
         self.cvSpinBox.setValue(3)
         self.setComboBox(self.criterionComboBox, ['aic', 'bic'])
         self.defaultComboItem(self.criterionComboBox, llic.criterion)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         model = self.modelComboBox.currentIndex()

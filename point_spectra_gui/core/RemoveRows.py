@@ -1,7 +1,6 @@
 import numpy as np
 from PyQt5 import QtWidgets
 from libpysat.spectral.spectral_data import spectral_data
-
 from point_spectra_gui.ui.RemoveRows import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
@@ -51,17 +50,11 @@ class RemoveRows(Ui_Form, Modules):
         self.setup_remove_operations()
         Modules.setupUi(self, Form)
 
-    def __init__(self, _):
-        self.data_idx = 0
-
     def setup_remove_operations(self):
-        self.operations = [remove_operation(self.colName_1, self.operator_1, self.value_1, logic=self.logic_1),
-                           remove_operation(self.colName_2, self.operator_2, self.value_2, logic=self.logic_2,
-                                            hidden=self.hidden_2),
-                           remove_operation(self.colName_3, self.operator_3, self.value_3, logic=self.logic_3,
-                                            hidden=self.hidden_3),
-                           remove_operation(self.colName_4, self.operator_4, self.value_4, logic=self.logic_4,
-                                            hidden=self.hidden_4),
+        self.operations = [remove_operation(self.colName_1, self.operator_1, self.value_1, logic = self.logic_1),
+                           remove_operation(self.colName_2, self.operator_2, self.value_2, logic=self.logic_2, hidden=self.hidden_2),
+                           remove_operation(self.colName_3, self.operator_3, self.value_3, logic=self.logic_3, hidden=self.hidden_3),
+                           remove_operation(self.colName_4, self.operator_4, self.value_4, logic=self.logic_4, hidden=self.hidden_4),
                            remove_operation(self.colName_5, self.operator_5, self.value_5, hidden=self.hidden_5)]
         for i in self.operations:
             try:
@@ -75,8 +68,7 @@ class RemoveRows(Ui_Form, Modules):
 
     def connectWidgets(self):
         self.setComboBox(self.chooseData, self.datakeys)
-        [self.chooseData.currentIndexChanged.connect(x) for x in
-         [self.setCurrentData, self.set_data_idx, lambda: self.update_cols()]]
+        self.chooseData.currentIndexChanged.connect(lambda: self.update_cols())
         self.update_cols()
         self.connect_logic()
 
@@ -95,26 +87,6 @@ class RemoveRows(Ui_Form, Modules):
                 i.logic.currentIndexChanged.connect(lambda: self.hide_operations())
             except:
                 pass
-
-    def set_data_idx(self, val):
-        self.data_idx = val
-
-    def refresh(self):
-        # Repopulating the combobox sets idx to 0 and loses info. There has to be
-        # a better way to do this.
-        tmp = self.data_idx
-        self.setComboBox(self.chooseData, self.datakeys)
-        self.data_idx = tmp
-        self.setDataBox(self.data_idx)
-
-    def setDataBox(self, datakey):
-        try:
-            if isinstance(datakey, str):
-                self.chooseData.setCurrentIndex(self.chooseData.findText(self.current_data))
-            elif isinstance(datakey, int):
-                self.chooseData.setCurrentIndex(datakey)
-        except IndexError:
-            self.chooseData.setCurrentIndex(-1)
 
     def hide_operations(self):
         for i in range(len(self.operations) - 1):
@@ -148,10 +120,7 @@ class RemoveRows(Ui_Form, Modules):
         match_combined = np.all(match_vectors, axis=0)
         print(self.data[datakey].df.shape)
         self.data[datakey] = spectral_data(self.data[datakey].df.ix[~match_combined])
-
         print(self.data[datakey].df.shape)
-
-        pass
 
     def evaluate_operation(self, datakey, operation_values):
         colname = operation_values['column']

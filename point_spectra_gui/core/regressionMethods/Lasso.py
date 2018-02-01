@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, Lasso, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.groupBox
@@ -17,15 +17,12 @@ class Ui_Form(Ui_Form, Lasso, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.alpha_text.setText(str(self.alpha))
         self.fitInterceptCheckBox.setChecked(self.fit_intercept)
         self.maxNumOfIterationsSpinBox.setValue(self.max_iter)
         self.toleranceDoubleSpinBox.setValue(self.tol)
         self.forcePositiveCoefficientsCheckBox.setChecked(self.positive)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         params = {'alpha': float(self.alpha_text.text()),

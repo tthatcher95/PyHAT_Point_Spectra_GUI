@@ -17,13 +17,10 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         br = FABC()
         self.smoothnessDoubleSpinBox.setValue(br.dilation_)
         self.dilationSpinBox.setValue(br.smoothness_)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         methodParameters = {'dilation_': self.smoothnessDoubleSpinBox.value(),

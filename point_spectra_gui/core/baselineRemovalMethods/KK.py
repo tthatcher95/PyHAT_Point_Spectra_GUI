@@ -17,15 +17,12 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         br = KK()
         self.topWidthSpinBox.setValue(br.top_width_)
         self.bottomWidthSpinBox.setValue(br.bottom_width_)
         self.tangentCheckBox.setChecked(br.tangent_)
         self.exponentSpinBox.setValue(br.exponent_)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         methodParameters = {'top_width_': self.topWidthSpinBox.value(),

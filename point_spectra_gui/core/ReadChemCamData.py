@@ -15,10 +15,8 @@ class ReadChemCamData(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidgets(self):
-        self.searchStringLineEdit.setText("*ccs*.csv")
-
     def connectWidgets(self):
+        self.searchStringLineEdit.setText("*ccs*.csv")
         self.searchDirectorypushButton.clicked.connect(self.on_searchpathButton_clicked)
         self.metadatapushButton.clicked.connect(self.on_metadataButton_clicked)
 
@@ -66,7 +64,7 @@ if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-
+    
     Form = QtWidgets.QWidget()
     ui = ReadChemCamData()
     ui.setupUi(Form)

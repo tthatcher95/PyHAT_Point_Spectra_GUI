@@ -1,6 +1,5 @@
 from PyQt5 import QtWidgets
 from sklearn.manifold.t_sne import TSNE
-
 from point_spectra_gui.ui.dimred_tSNE import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 

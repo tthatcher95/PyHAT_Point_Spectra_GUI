@@ -3,7 +3,6 @@ from libpysat.regression import sm
 
 from point_spectra_gui.ui.SubmodelPredict import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
 class subWidgets:
@@ -50,7 +49,7 @@ class subWidgets:
             return "Not a valid number"
 
 
-class SubmodelPredict(Ui_Form, SingleData):
+class SubmodelPredict(Ui_Form, Modules):
     def __init__(self):
         super().__init__()
         self.subwidgets = []
@@ -64,21 +63,18 @@ class SubmodelPredict(Ui_Form, SingleData):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.setComboBox(self.referenceModelComboBox, self.modelkeys)
         self.setComboBox(self.lowModelComboBox, self.modelkeys)
         self.setComboBox(self.highModelComboBox, self.modelkeys)
         self.setComboBox(self.optimizeSubmodelRangesComboBox, self.datakeys)
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-
-    def connectWidgets(self):
         self.addSubModelPushButton.clicked.connect(self.on_addRange_pushed)
         self.deleteSubModelPushButton.clicked.connect(self.on_deleteRange_pushed)
         self.setupWidgets()
         self.optimizeSubmodelRangesLabel.setHidden(True)
         self.optimizeSubmodelRangesComboBox.setHidden(True)
         self.setHidden(self.subwidgets)
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def setHidden(self, list):
         for i in range(0, len(list)):

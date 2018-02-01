@@ -12,7 +12,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.groupBox
@@ -20,7 +20,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.Ridge.setVisible(False)
         ridgecv = RidgeCV()
 
@@ -40,9 +40,6 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
         self.defaultComboItem(self.solverComboBox, ridge.solver)
         self.toleranceDoubleSpinBox.setValue(ridge.tol)
         self.randomStateLineEdit.setText(str(ridge.random_state))
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         m_attrib = {'None': None}

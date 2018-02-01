@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, PLSRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,11 +17,8 @@ class Ui_Form(Ui_Form, PLSRegression, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
-        self.numOfComponentsLineEdit.setText(str(self.n_components))
-
     def connectWidgets(self):
-        pass
+        self.numOfComponentsLineEdit.setText(str(self.n_components))
 
     def run(self):
         nc = self.numOfComponentsLineEdit.text().split(',')

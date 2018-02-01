@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         svr = SVR()
         svr.kernel = 'rbf'
         svr.degree = 3
@@ -39,9 +39,6 @@ class Ui_Form(Ui_Form, Modules):
         self.shrinking_list.setCurrentItem(self.shrinking_list.findItems(str(svr.shrinking), QtCore.Qt.MatchExactly)[0])
         self.toleranceLineEdit.setText(str(svr.tol))
         self.maxIterationsLineEdit.setText(str(svr.max_iter))
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         kernels = [str(i.text()) for i in self.kernel_list.selectedItems()]

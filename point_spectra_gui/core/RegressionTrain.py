@@ -8,10 +8,9 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.regressionMethods import *
 from point_spectra_gui.ui.RegressionTrain import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
-class RegressionTrain(Ui_Form, SingleData):
+class RegressionTrain(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -28,7 +27,7 @@ class RegressionTrain(Ui_Form, SingleData):
             if alg == self.algorithm_list[i] and i > 0:
                 self.alg[i - 1].setHidden(False)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
                                'PLS',
                                'OLS',
@@ -44,21 +43,18 @@ class RegressionTrain(Ui_Form, SingleData):
                                'KRR']
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
-        self.changeComboListVars(self.xVariableList, self.xvar_choices())
-        self.xvar_choices()
-        self.changeComboListVars(self.yVariableList, self.yvar_choices())
-
-    def connectWidgets(self):
         self.yMaxDoubleSpinBox.setMaximum(999999)
         self.yMinDoubleSpinBox.setMaximum(999999)
         self.yMaxDoubleSpinBox.setValue(100)
+        self.changeComboListVars(self.yVariableList, self.yvar_choices())
+        self.changeComboListVars(self.xVariableList, self.xvar_choices())
+        self.xvar_choices()
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def getGuiParams(self):
         """
@@ -135,8 +131,6 @@ class RegressionTrain(Ui_Form, SingleData):
         except:
             self.data['Model Coefficients'] = spectral_data(coef)
             self.datakeys.append('Model Coefficients')
-        self.current_model = modelkey
-        self.current_data = datakey
 
     def yvar_choices(self):
         try:

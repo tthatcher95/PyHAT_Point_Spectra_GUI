@@ -3,10 +3,9 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.PeakAreas import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
-class PeakAreas(Ui_Form, SingleData):
+class PeakAreas(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -14,13 +13,10 @@ class PeakAreas(Ui_Form, SingleData):
     def get_widget(self):
         return self.groupBox
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.peakMinimaLineEdit.setText("None (calculate from average spectrum)")
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-
-    def connectWidgets(self):
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.peakMinimaLineEdit))
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def run(self):
         datakey = self.chooseDataComboBox.currentText()

@@ -3,11 +3,10 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Plot import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 from point_spectra_gui.util.plots import make_plot
 
 
-class Plot(Ui_Form, SingleData):
+class Plot(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -47,7 +46,6 @@ class Plot(Ui_Form, SingleData):
         self.yMinDoubleSpinBox.setMaximum(110)
         self.yMaxDoubleSpinBox.setMaximum(110)
         self.plotFilenamePushButton.clicked.connect(self.on_plotFilenamePushButton_clicked)
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
         self.figureNameComboBox.activated[int].connect(
             lambda: self.figureNameLineEdit.setText(self.figureNameComboBox.currentText()))

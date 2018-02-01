@@ -8,7 +8,6 @@ class RegressionPredict(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
-        self.refresh()
 
     def get_widget(self):
         return self.formGroupBox
@@ -16,15 +15,6 @@ class RegressionPredict(Ui_Form, Modules):
     def connectWidgets(self):
         self.setListWidget(self.chooseDataListWidget, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
-
-    def refresh(self):
-        pass
-
-    def setModelBox(self, modelkey):
-        try:
-            self.chooseModelComboBox.setCurrentIndex(self.chooseModelComboBox.findText(modelkey))
-        except:
-            self.chooseModelComboBox.setCurrentIndex(-1)
 
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
@@ -39,8 +29,6 @@ class RegressionPredict(Ui_Form, Modules):
             pass
         except Exception as e:
             print(e)
-
-        self.current_data = datakey
 
 
 if __name__ == "__main__":

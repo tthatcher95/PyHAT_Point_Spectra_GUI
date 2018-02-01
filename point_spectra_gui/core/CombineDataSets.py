@@ -20,19 +20,15 @@ class CombineDataSets(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.setComboBox(self.dataSet1ComboBox, self.datakeys)
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
         # self.setComboBox(self.outputToDataSetTextBox, self.datakeys)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
         dataIn = self.outputToDataSetTextBox.toPlainText()
-
         self.data[dataIn] = pd.concat([self.data[dataSet1], self.data[dataSet2]])
 
 

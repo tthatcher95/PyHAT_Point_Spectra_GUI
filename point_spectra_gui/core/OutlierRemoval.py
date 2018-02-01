@@ -4,10 +4,9 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.outlierRemovalMethods import *
 from point_spectra_gui.ui.OutlierRemoval import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
-class OutlierRemoval(Ui_Form, SingleData):
+class OutlierRemoval(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -25,7 +24,7 @@ class OutlierRemoval(Ui_Form, SingleData):
             if alg == self.algorithm_list[i]:
                 self.alg[i - 1].setHidden(False)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
                                'Isolation Forest',
                                'Other algorithms go here...']
@@ -34,8 +33,6 @@ class OutlierRemoval(Ui_Form, SingleData):
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.changeComboListVars(self.xVariableList, self.xvar_choices())
         self.xvar_choices()
-
-    def connectWidgets(self):
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_outlier_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(

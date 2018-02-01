@@ -4,10 +4,9 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.dimensionalityReductionMethods import *
 from point_spectra_gui.ui.DimensionalityReduction import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
-class DimensionalityReduction(Ui_Form, SingleData):
+class DimensionalityReduction(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -27,16 +26,8 @@ class DimensionalityReduction(Ui_Form, SingleData):
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseMethodComboBox, self.algorithm_list)
-        # Connect combo box such that when the value is changed, the respective values are set
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.make_dimred_widget(self.chooseMethodComboBox.currentText()))
-        self.chooseDataComboBox.currentIndexChanged.connect(self.setCurrentData)
-
-    def setDataBox(self, datakey):
-        try:
-            self.chooseDataComboBox.setCurrentIndex(self.chooseDataComboBox.findText(datakey))
-        except:
-            self.chooseDataComboBox.setCurrentIndex(-1)
 
     def getGuiParams(self):
         """
@@ -81,8 +72,11 @@ class DimensionalityReduction(Ui_Form, SingleData):
     def run(self):
         method = self.chooseMethodComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
-        params, _ = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
-        self.data[self.current_data].dim_red('wvl', method, [], params, load_fit=False)
+        # xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
+        params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
+        load_fit = False
+        col = 'wvl'
+        self.data[datakey].dim_red(col, method, [], params, load_fit=load_fit)
 
     def make_dimred_widget(self, alg, params=None):
         self.hideAll()

@@ -23,7 +23,6 @@ class Qtickle(object):
     def guiSave(self):
         """
         Save all values in a particular UI
-
         :return:
         """
         dict = {}

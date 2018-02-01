@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         svr = SVR()
         svr.kernel = 'rbf'
         svr.degree = 3
@@ -42,9 +42,6 @@ class Ui_Form(Ui_Form, Modules):
         self.cacheSizeSpinBox.setValue(svr.cache_size)
         self.verboseCheckBox.setChecked(svr.verbose)
         self.maxIterationsSpinBox.setValue(svr.max_iter)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         gamma_index = self.gammaComboBox.currentIndex()

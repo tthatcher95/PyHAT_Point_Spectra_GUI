@@ -30,9 +30,7 @@ class Ui_Form(Ui_Form, ElasticNet, Modules):
             self.enfit_intercept_list.findItems(str(en.fit_intercept), QtCore.Qt.MatchExactly)[0])
         self.ennormalize_list.setCurrentItem(
             self.ennormalize_list.findItems(str(en.normalize), QtCore.Qt.MatchExactly)[0])
-        # self.enprecomputeCheckBox.setChecked(en.precompute)
         self.enmax_iterLineEdit.setText(str(en.max_iter))
-        # self.encopy_XCheckBox.setChecked(en.copy_X)
         self.entolLineEdit.setText(str(en.tol))
         self.enwarm_start_list.setCurrentItem(
             self.enwarm_start_list.findItems(str(en.warm_start), QtCore.Qt.MatchExactly)[0])

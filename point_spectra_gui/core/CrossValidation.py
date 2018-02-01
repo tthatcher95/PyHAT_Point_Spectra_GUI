@@ -8,10 +8,9 @@ from Qtickle import Qtickle
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
-class CrossValidation(Ui_Form, SingleData):
+class CrossValidation(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)

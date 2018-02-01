@@ -22,9 +22,6 @@ class OutputFolder(Ui_Form, Modules):
         if self.folderNameLineEdit.text() == "":
             self.folderNameLineEdit.setText("*/")
 
-    def updateWidgets(self):
-        pass
-
     def connectWidgets(self):
         self.pushButton.clicked.connect(lambda: self.on_outPutLocationButton_clicked())
 

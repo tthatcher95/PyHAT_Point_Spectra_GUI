@@ -10,7 +10,7 @@ class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         # LARS/         # LARSCV
 
         lars = Lars()
@@ -29,9 +29,6 @@ class Ui_Form(Ui_Form, Modules):
             self.normalize_list.findItems(str(lars.normalize), QtCore.Qt.MatchExactly)[0])
         self.n_nonzero_coefsLineEdit.setText(str(lars.n_nonzero_coefs))
         self.positive_list.setCurrentItem(self.positive_list.findItems(str(lars.positive), QtCore.Qt.MatchExactly)[0])
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_listWidget.selectedItems()]

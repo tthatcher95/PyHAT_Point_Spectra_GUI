@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, LinearRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.groupBox
@@ -17,11 +17,8 @@ class Ui_Form(Ui_Form, LinearRegression, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
-        self.fitInterceptCheckBox.setChecked(self.fit_intercept)
-
     def connectWidgets(self):
-        pass
+        self.fitInterceptCheckBox.setChecked(self.fit_intercept)
 
     def run(self):
         params = {'fit_intercept': self.fitInterceptCheckBox.isChecked()}

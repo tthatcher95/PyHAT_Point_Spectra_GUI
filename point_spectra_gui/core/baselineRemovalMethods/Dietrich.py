@@ -4,7 +4,6 @@ from libpysat.spectral.baseline_code.dietrich import Dietrich
 from point_spectra_gui.ui.Dietrich import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
-
 class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
@@ -16,13 +15,10 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         br = Dietrich()
         self.halfWindowSpinBox.setValue(br.half_window_)
         self.numOfErosionsSpinBox.setValue(br.num_erosions_)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         methodParameters = {'half_window_': self.halfWindowSpinBox.value(),

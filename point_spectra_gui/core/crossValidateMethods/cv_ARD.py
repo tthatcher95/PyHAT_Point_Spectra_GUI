@@ -9,7 +9,7 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.formGroupBox
@@ -17,7 +17,7 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.numOfIterationsLineEdit.setText(str(self.n_iter))
         self.toleranceLineEdit.setText(str(self.tol))
         self.alpha1LineEdit.setText(str(self.alpha_1))
@@ -29,9 +29,6 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
             self.fitIntercept_list.findItems(str(self.fit_intercept), QtCore.Qt.MatchExactly)[0])
         self.normalize_list.setCurrentItem(
             self.normalize_list.findItems(str(self.normalize), QtCore.Qt.MatchExactly)[0])
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fitIntercept_list.selectedItems()]

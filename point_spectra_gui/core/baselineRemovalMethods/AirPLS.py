@@ -17,14 +17,11 @@ class Ui_Form(Ui_Form, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         airPLS = AirPLS()
         self.smoothnessSpinBox.setValue(airPLS.smoothness_)
         self.convergenceThresholdDoubleSpinBox.setValue(airPLS.conv_thresh_)
         self.maxNumOfIterationsSpinBox.setValue(airPLS.max_iters_)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         methodParameters = {'smoothness_': float(self.smoothnessSpinBox.value()),

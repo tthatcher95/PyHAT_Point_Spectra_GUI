@@ -10,7 +10,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        self.updateWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
         return self.groupBox
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    def updateWidgets(self):
+    def connectWidgets(self):
         self.elasticNetCVGroupBox.setHidden(True)
         en = ElasticNet()
         encv = ElasticNetCV()
@@ -53,9 +53,6 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
         self.positiveCheckBox.setChecked(encv.positive)
         self.setComboBox(self.selectionComboBox, ['cyclic', 'random'])
         self.defaultComboItem(self.selectionComboBox, encv.selection)
-
-    def connectWidgets(self):
-        pass
 
     def run(self):
         p_attrib = {'False': False, 'True': True, 'Array-like': 'array-like'}

@@ -49,7 +49,6 @@ class Ui_Form(Ui_Form, Modules):
             'positive': positive_items,
             'model': [0]
         }
-
         modelkey = str(params)
         return params, modelkey
 
