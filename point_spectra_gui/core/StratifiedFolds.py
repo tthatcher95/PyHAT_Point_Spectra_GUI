@@ -1,13 +1,13 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.StratifiedFolds import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class StratifiedFolds(Ui_Form, Basics):
+class StratifiedFolds(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.formGroupBox
@@ -24,7 +24,7 @@ class StratifiedFolds(Ui_Form, Basics):
         self.chooseDataToStratifyComboBox.activated[int].connect(self.strat_fold_change_vars)
         self.nFoldsSpinBox.valueChanged.connect(self.strat_fold_change_testfolds)
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataToStratifyComboBox.currentText()
         nfolds = self.nFoldsSpinBox.value()
         try:

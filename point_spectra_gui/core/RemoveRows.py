@@ -3,10 +3,11 @@ from PyQt5 import QtWidgets
 from libpysat.spectral.spectral_data import spectral_data
 
 from point_spectra_gui.ui.RemoveRows import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
+
 
 class remove_operation:
-    def __init__(self, colname, operator, value, logic = None, hidden = None):
+    def __init__(self, colname, operator, value, logic=None, hidden=None):
         self.colname = colname
         self.operator = operator
         self.value = value
@@ -37,24 +38,27 @@ class remove_operation:
 
     def GetValues(self):
         try:
-            return {'column':self.colname.currentText(), 'operator':self.operator.currentText(),
-                    'value':self.value.currentText().split(' : ')[0], 'logic':self.logic.currentText()}
+            return {'column': self.colname.currentText(), 'operator': self.operator.currentText(),
+                    'value': self.value.currentText().split(' : ')[0], 'logic': self.logic.currentText()}
         except:
             return {'column': self.colname.currentText(), 'operator': self.operator.currentText(),
                     'value': self.value.currentText().split(' : ')[0]}
 
 
-class RemoveRows(Ui_Form, Basics):
+class RemoveRows(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.setup_remove_operations()
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def setup_remove_operations(self):
-        self.operations = [remove_operation(self.colName_1, self.operator_1, self.value_1, logic = self.logic_1),
-                           remove_operation(self.colName_2, self.operator_2, self.value_2, logic=self.logic_2, hidden=self.hidden_2),
-                           remove_operation(self.colName_3, self.operator_3, self.value_3, logic=self.logic_3, hidden=self.hidden_3),
-                           remove_operation(self.colName_4, self.operator_4, self.value_4, logic=self.logic_4, hidden=self.hidden_4),
+        self.operations = [remove_operation(self.colName_1, self.operator_1, self.value_1, logic=self.logic_1),
+                           remove_operation(self.colName_2, self.operator_2, self.value_2, logic=self.logic_2,
+                                            hidden=self.hidden_2),
+                           remove_operation(self.colName_3, self.operator_3, self.value_3, logic=self.logic_3,
+                                            hidden=self.hidden_3),
+                           remove_operation(self.colName_4, self.operator_4, self.value_4, logic=self.logic_4,
+                                            hidden=self.hidden_4),
                            remove_operation(self.colName_5, self.operator_5, self.value_5, hidden=self.hidden_5)]
         for i in self.operations:
             try:
@@ -62,7 +66,6 @@ class RemoveRows(Ui_Form, Basics):
             except:
                 pass
             i.colname.currentIndexChanged.connect(lambda: self.update_vals())
-
 
     def get_widget(self):
         return self.groupBox
@@ -72,7 +75,6 @@ class RemoveRows(Ui_Form, Basics):
         self.chooseData.currentIndexChanged.connect(lambda: self.update_cols())
         self.update_cols()
         self.connect_logic()
-
 
     def update_cols(self):
         for i in self.operations:
@@ -90,9 +92,8 @@ class RemoveRows(Ui_Form, Basics):
             except:
                 pass
 
-
     def hide_operations(self):
-        for i in range(len(self.operations)-1):
+        for i in range(len(self.operations) - 1):
             try:
                 if self.operations[i].logic.currentText() == 'and':
                     self.operations[i+1].hidden.setChecked(False)
@@ -103,10 +104,9 @@ class RemoveRows(Ui_Form, Basics):
                     self.operations[i].logic.setEnabled(False)
                 else:
                     self.operations[i].logic.setEnabled(True)
-
             except:
                 pass
-    def function(self):
+    def run(self):
         match_vectors = []
         logic_list = []
         datakey = self.chooseData.currentText()
@@ -120,7 +120,6 @@ class RemoveRows(Ui_Form, Basics):
                     match_vectors.append(self.evaluate_operation(datakey, values_tmp))
                     logic_list.append(values_tmp['logic'])
 
-
         match_combined = np.all(match_vectors, axis=0)
         print(self.data[datakey].df.shape)
         self.data[datakey] = spectral_data(self.data[datakey].df.ix[~match_combined])
@@ -128,9 +127,6 @@ class RemoveRows(Ui_Form, Basics):
         print(self.data[datakey].df.shape)
 
         pass
-
-
-
 
     def evaluate_operation(self, datakey, operation_values):
         colname = operation_values['column']
@@ -142,8 +138,7 @@ class RemoveRows(Ui_Form, Basics):
         vars_level1 = list(vars_level1[vars_level0 != 'wvl'])
         vars_level0 = list(vars_level0[vars_level0 != 'wvl'])
         colname = (vars_level0[vars_level1.index(colname)], colname)
-        coldata = np.array([str(i) for i in self.data[datakey].df[colname]])\
-
+        coldata = np.array([str(i) for i in self.data[datakey].df[colname]])
         #
         # if value == 'Null':
         #     self.data[datakey] = spectral_data(self.data[datakey].df.ix[-self.data[datakey].df[colname].isnull()])

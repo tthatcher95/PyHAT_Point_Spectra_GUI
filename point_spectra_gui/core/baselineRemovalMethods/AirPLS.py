@@ -2,14 +2,14 @@ from PyQt5 import QtWidgets
 from libpysat.spectral.baseline_code.airpls import AirPLS
 
 from point_spectra_gui.ui.AirPLS import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupbox
@@ -23,7 +23,7 @@ class Ui_Form(Ui_Form, Basics):
         self.convergenceThresholdDoubleSpinBox.setValue(airPLS.conv_thresh_)
         self.maxNumOfIterationsSpinBox.setValue(airPLS.max_iters_)
 
-    def function(self):
+    def run(self):
         methodParameters = {'smoothness_': float(self.smoothnessSpinBox.value()),
                             'conv_thresh_': int(self.convergenceThresholdDoubleSpinBox.value()),
                             'max_iters_': float(self.maxNumOfIterationsSpinBox.value())}

@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets,QtCore
 from sklearn.linear_model.coordinate_descent import Lasso
 import numpy as np
 from point_spectra_gui.ui.cv_Lasso import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Lasso, Basics):
+class Ui_Form(Ui_Form, Lasso, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -28,7 +28,7 @@ class Ui_Form(Ui_Form, Lasso, Basics):
         self.toleranceLineEdit.setText(str(self.tol))
         self.forcePositive_list.setCurrentItem(self.forcePositive_list.findItems(str(self.positive),QtCore.Qt.MatchExactly)[0])
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         positive_items = [i.text() == 'True' for i in self.forcePositive_list.selectedItems()]
         alphas = np.logspace(np.log10(self.minalpha_spin.value()), np.log10(self.maxalpha_spin.value()),

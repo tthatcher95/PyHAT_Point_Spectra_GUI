@@ -1,13 +1,13 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Interpolation import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Interpolation(Ui_Form, Basics):
+class Interpolation(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.formGroupBox
@@ -16,7 +16,7 @@ class Interpolation(Ui_Form, Basics):
         self.setComboBox(self.interpolateDataComboBox, self.datakeys)
         self.setComboBox(self.referenceDataComboBox, self.datakeys)
 
-    def function(self):
+    def run(self):
         datakey_to_interp = self.interpolateDataComboBox.currentText()
         datakey_ref = self.referenceDataComboBox.currentText()
         print(self.data[datakey_ref].df.columns.levels[0])

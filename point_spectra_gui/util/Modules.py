@@ -1,5 +1,4 @@
 import inspect
-import sys
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import *
@@ -7,13 +6,9 @@ from PyQt5.QtWidgets import *
 from Qtickle import Qtickle
 
 
-class Basics:
+class Modules:
     """
-    This class is a scaffolding class, it holds global
-    functionality for all classes inheriting from it.
-    It is here to simplify and globalize certain
-    variables and functionalities to each of the
-    UI classes.
+    Modules class that UI modules will inherit from.
 
     *Note: Rigorous prototyping is still occurring
     So, naturally, assume that something in this class
@@ -22,7 +17,7 @@ class Basics:
 
     ...
 
-    Since `Basics` is shared among all the UI
+    Since `Modules` is shared among all the UI
     classes it would make sense that we would have
     some variables, that are necessary among all these
     classes, be put here in a high place where they
@@ -47,13 +42,16 @@ class Basics:
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
+        self.guiChanged()
 
     def mousePressEvent(self, QMouseEvent):
         """
-        Right click event
+        TODO: Add right click event
+        The hope is that we can add a right click dialogue for users
+        The dialogue would give the option to delete particular
+        modules from the UI, or insert modules, or copy modules.
         """
         # TODO Add mouse Event
-        # print("Right Button Clicked {}".format(type(self).__name__))
 
     def get_widget(self):
         """
@@ -61,16 +59,16 @@ class Basics:
         styling. Use this function to get the variable
         :return:
         """
-        sys.exit('Error: Application closed unexpectedly\n'
-                 'The method "get_widget()" was not found in this module')
+        raise NotImplementedError(
+            'The method "get_widget()" was not found in the module {}'.format(type(self).__name__))
 
     def connectWidgets(self):
         """
         Connect the necessary widgets.
         :return:
         """
-        sys.exit('Error: Application closed unexpectedly\n'
-                 'The method "connectWidgets()" was not found in this module')
+        raise NotImplementedError(
+            'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
 
     def getGuiParams(self):
         """
@@ -89,7 +87,6 @@ class Basics:
         """
         self.qt = Qtickle.Qtickle(self)
         self.qt.guiRestore(dict)
-        self.qt.isGuiChanged(self.setGuiState)
 
     def selectiveSetGuiParams(self, dict):
         """
@@ -103,14 +100,13 @@ class Basics:
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict)
 
-    def function(self):
+    def run(self):
         """
         Each Module's functionality will be ran in this function.
         You will define what will happen to the data and parameters in here
         :return:
         """
-        sys.exit('Error: Application closed unexpectedly\n'
-                 'The method "function()" was not found in this module')
+        raise NotImplementedError('The method "run()" was not found in the module {}'.format(type(self).__name__))
 
     def isEnabled(self):
         """
@@ -148,20 +144,6 @@ class Basics:
 
             if isinstance(obj, QDoubleSpinBox):
                 obj.setDecimals(7)
-
-    def setGuiState(self):
-        """
-        Set the flag to true when the state of the current module changes
-        :return:
-        """
-        self.flag = True
-
-    def getGuiState(self):
-        """
-        Return the flag for the UI's state
-        :return:
-        """
-        return self.flag
 
     @staticmethod
     def getChangedValues(input_dictionary, algorithm):

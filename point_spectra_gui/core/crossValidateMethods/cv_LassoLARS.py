@@ -2,10 +2,10 @@ from PyQt5 import QtWidgets, QtCore
 from sklearn.linear_model.least_angle import LassoLars, LassoLarsCV, LassoLarsIC
 import numpy as np
 from point_spectra_gui.ui.cv_LassoLARS import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
@@ -29,7 +29,7 @@ class Ui_Form(Ui_Form, Basics):
         self.force_positive_list.setCurrentItem(self.force_positive_list.findItems(str(ll.positive),QtCore.Qt.MatchExactly)[0])
 
 
-    def function(self):
+    def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
         normalize_items = [i.text() == 'True' for i in self.normalize_list.selectedItems()]
         positive_items = [i.text() == 'True' for i in self.force_positive_list.selectedItems()]

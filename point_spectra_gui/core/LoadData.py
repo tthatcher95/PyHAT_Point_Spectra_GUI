@@ -3,13 +3,13 @@ from PyQt5 import QtWidgets
 from libpysat.spectral.spectral_data import spectral_data
 
 from point_spectra_gui.ui.LoadData import Ui_loadData
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class LoadData(Ui_loadData, Basics):
+class LoadData(Ui_loadData, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox
@@ -23,13 +23,13 @@ class LoadData(Ui_loadData, Basics):
         if lineEdit.text() == "":
             lineEdit.setText("*.csv")
 
-    def function(self):
+    def run(self):
         params = self.getGuiParams()
         filename = params['fileNameLineEdit']
         keyname = params['dataSetNameLineEdit']
         print('Loading data file: ' + str(filename))
         if keyname in self.datakeys:
-            print("That data set name is already in use. Try something else.")
+            raise Exception("That data set name is already in use. Try something else.")
         else:
             self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
             self.datakeys.append(keyname)

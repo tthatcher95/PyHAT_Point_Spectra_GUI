@@ -2,13 +2,13 @@ from PyQt5 import QtWidgets
 from point_spectra_gui.util.plots import pca_ica_plot
 
 from point_spectra_gui.ui.Plot_ICA_PCA import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Plot_ICA_PCA(Ui_Form, Basics):
+class Plot_ICA_PCA(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupBox
@@ -24,7 +24,7 @@ class Plot_ICA_PCA(Ui_Form, Basics):
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.chooseYVariableComboBox, self.xychoices()))
 
-    def function(self):
+    def run(self):
         cmap = 'viridis'
         datakey = self.chooseDataComboBox.currentText()
         method = self.chooseMethodComboBox.currentText()

@@ -1,13 +1,13 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.RegressionPredict import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class RegressionPredict(Ui_Form, Basics):
+class RegressionPredict(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.formGroupBox
@@ -16,7 +16,7 @@ class RegressionPredict(Ui_Form, Basics):
         self.setComboBox(self.chooseDataComboBox, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
 
-    def function(self):
+    def run(self):
         datakey = self.chooseDataComboBox.currentText()
         modelkey = self.chooseModelComboBox.currentText()
         predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')

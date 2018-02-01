@@ -2,14 +2,14 @@ from PyQt5 import QtWidgets
 from libpysat.spectral.baseline_code.kajfosz_kwiatek import KajfoszKwiatek as KK
 
 from point_spectra_gui.ui.KK import Ui_Form
-from point_spectra_gui.util.BasicFunctionality import Basics
+from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, Basics):
+class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
-        Basics.setupUi(self, Form)
+        Modules.setupUi(self, Form)
 
     def get_widget(self):
         return self.groupbox
@@ -24,7 +24,7 @@ class Ui_Form(Ui_Form, Basics):
         self.tangentCheckBox.setChecked(br.tangent_)
         self.exponentSpinBox.setValue(br.exponent_)
 
-    def function(self):
+    def run(self):
         methodParameters = {'top_width_': self.topWidthSpinBox.value(),
                             'bottom_width_': self.bottomWidthSpinBox.value(),
                             'tangent_': self.tangentCheckBox.isChecked(),
