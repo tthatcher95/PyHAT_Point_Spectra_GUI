@@ -14,19 +14,11 @@ class RegressionPredict(Ui_Form, Modules):
         return self.formGroupBox
 
     def connectWidgets(self):
-        self.setComboBox(self.chooseDataComboBox, self.data)
+        self.setListWidget(self.chooseDataListWidget, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
 
     def refresh(self):
-        self.connectWidgets()
-        self.setDataBox(self.current_data)
-        self.setModelBox(self.current_model)
-
-    def setDataBox(self, datakey):
-        try:
-            self.chooseDataComboBox.setCurrentIndex(self.chooseDataComboBox.findText(datakey))
-        except:
-            self.chooseDataComboBox.setCurrentIndex(-1)
+        pass
 
     def setModelBox(self, modelkey):
         try:
