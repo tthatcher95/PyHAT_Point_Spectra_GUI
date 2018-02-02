@@ -427,6 +427,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 if self.leftOff > 0:
                     self.leftOff -= 1
                 self.widgetList[self.leftOff].setDisabled(False)
+            else:
+                print("Cannot Re-run modules")
         except:
             pass
 
