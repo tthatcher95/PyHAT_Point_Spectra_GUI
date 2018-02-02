@@ -569,7 +569,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             print("Module {} executed in: {} seconds".format(name_, e - s))
             self.widgetList[modules].setDisabled(True)
             self.leftOff = modules + 1
-            self.propagate(self.leftOff)
+            self.propagate()
 
     def _exceptionLogger(self, function):
         """
@@ -596,7 +596,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             traceback.print_exc()
             print('\nException was logged to "%s"' % (os.path.join(logpath, logfilename)))
 
-    def propagate(self, start_idx=0):
+    def propagate(self):
         """
         Propagate changes to other widgets
         
