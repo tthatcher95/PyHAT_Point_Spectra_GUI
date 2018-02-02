@@ -615,15 +615,17 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         except:
             pass
 
-        for modules in range(start_idx, len(self.widgetList)):
-            try:
-                if dic is not None:
-                    self.widgetList[modules].updateWidgets()
         if dic is not None and not self.isDeleted:
+            # This should fix the problem of new modules being added and messing things up
+            if self.leftOff > len(dic[0]):
+                dic = self.getWidgetItems()
+
+            for modules in range(self.leftOff, len(self.widgetList)):
+                try:
+                    self.widgetList[modules].connectWidgets()
                     self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
-                    # widget.updateWidgets()
-            except NotImplementedError:
-                pass
+                except NotImplementedError:
+                    pass
 
     def run(self):
         """
