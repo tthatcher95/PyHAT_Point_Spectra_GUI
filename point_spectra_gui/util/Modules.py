@@ -32,23 +32,6 @@ class Modules:
     models = {}  # For regression training
     model_xvars = {}
     model_yvars = {}
-    _current_data = ['', '']  # Hacky way of making a static string.
-
-    @property
-    def current_data(self):
-        return self._current_data[0]
-
-    @current_data.setter
-    def current_data(self, value):
-        self._current_data[0] = value
-
-    @property
-    def current_model(self):
-        return self._current_data[1]
-
-    @current_model.setter
-    def current_model(self, value):
-        self._current_data[1] = value
 
     def __init__(self, parent=None):
         self.qt = Qtickle.Qtickle(self)
@@ -82,15 +65,6 @@ class Modules:
         """
         raise NotImplementedError(
             'The method "get_widget()" was not found in the module {}'.format(type(self).__name__))
-
-    def refresh(self):
-        """
-        This function is used to enable propagation, and is responsible for resetting widget properties
-        based on the static variables found in this class.
-        :return:
-        """
-        raise NotImplementedError(
-            'The method "refresh()" was not found in the module {}'.format(type(self).__name__))
 
     def connectWidgets(self):
         """
@@ -163,7 +137,7 @@ class Modules:
         """
         self.progressBar = progressBar
 
-    def setPropogateFunction(function):
+    def setPropogateFunction(self, function):
         self.function = function
 
     def checkMinAndMax(self):
@@ -185,17 +159,6 @@ class Modules:
             self.current_data = c
         else:
             raise TypeError("Current data must be assigned by a string value or integer index")
-
-    def rename_data(self, idx, value):
-        old = self.datakeys[idx]
-        self.datakeys[idx] = value
-        try:
-            self.data[value] = self.data.pop(old)
-        except KeyError:
-            pass
-
-    def get_open_idx(self):
-        return len(self.datakeys) - 1
 
     @staticmethod
     def getChangedValues(input_dictionary, algorithm):
@@ -221,6 +184,7 @@ class Modules:
         """
         Sets up the information inside comboBox widgets
         This function does not need to be overridden.
+
         :param comboBox: QtWidgets.QComboBox
         :param keyValues: []
         :return:
