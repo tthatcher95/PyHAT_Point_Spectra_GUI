@@ -311,10 +311,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         gets the name of all the Modules
         and then all of the parameters in the UI
         and then writes it to a list to be returned
-
-        Iterate through widgetList
-        get the names of core, add it to a temp l
-        add f list to be the first item in ui_items
         """
         f = []
         ui_items = []
