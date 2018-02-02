@@ -22,81 +22,24 @@ class Ui_Form(Ui_Form, Modules):
         ll = LassoLars()
         self.alpha_text.setText(str(ll.alpha))
         self.fit_interceptCheckBox.setChecked(ll.fit_intercept)
-        self.verboseCheckBox.setChecked(ll.verbose)
         self.normalizeCheckBox.setChecked(ll.normalize)
-        self.setComboBox(self.precomputeComboBox, ['True', 'False', 'auto', 'array-like'])
-        self.defaultComboItem(self.precomputeComboBox, ll.precompute)
         self.max_iterSpinBox.setValue(ll.max_iter)
-        self.copy_XCheckBox.setChecked(ll.copy_X)
-        self.fit_pathCheckBox.setChecked(ll.fit_path)
         self.positiveCheckBox.setChecked(ll.positive)
 
-        # LassoLarsCV
-        llcv = LassoLarsCV()
-        self.max_n_alphasSpinBox.setValue(llcv.max_n_alphas)
-        self.n_jobsSpinBox.setValue(llcv.n_jobs)
-
-        # LassoLarsIC
-        llic = LassoLarsIC()
-        self.cvSpinBox.setValue(3)
-        self.setComboBox(self.criterionComboBox, ['aic', 'bic'])
-        self.defaultComboItem(self.criterionComboBox, llic.criterion)
-
     def run(self):
-        model = self.modelComboBox.currentIndex()
-        if model == 0:
             params = {
                 'alpha': self.alpha_text.text(),
                 'fit_intercept': self.fit_interceptCheckBox.isChecked(),
-                'verbose': self.fit_interceptCheckBox.isChecked(),
+                'verbose': False,
                 'normalize': self.normalizeCheckBox.isChecked(),
-                'precompute': self.precomputeComboBox.currentText(),
+                'precompute': True,
                 'max_iter': self.max_iterSpinBox.value(),
-                'copy_X': self.copy_XCheckBox.isChecked(),
-                'fit_path': self.fit_pathCheckBox.isChecked(),
-                'positive': self.positiveCheckBox.isChecked(),
-                'model': model
+                'copy_X': True,
+                'fit_path': True,
+                'positive': self.positiveCheckBox.isChecked()
             }
             params_check=dict(params)
-            params_check.pop('model')
             return params, self.getChangedValues(params_check, LassoLars())
-
-        elif model == 1:
-            params = {
-                'fit_intercept': self.fit_interceptCheckBox.isChecked(),
-                'verbose': self.fit_interceptCheckBox.isChecked(),
-                'max_iter': self.max_iterSpinBox.value(),
-                'normalize': self.normalizeCheckBox.isChecked(),
-                'precompute': self.precomputeComboBox.currentText(),
-                'cv': self.cvSpinBox.value(),
-                'max_n_alphas': self.max_n_alphasSpinBox.value(),
-                'n_jobs': self.n_jobsSpinBox.value(),
-                'copy_X': self.copy_XCheckBox.isChecked(),
-                'positive': self.positiveCheckBox.isChecked(),
-                'model': model
-            }
-            params_check = dict(params)
-            params_check.pop('model')
-            return params, self.getChangedValues(params_check, LassoLarsCV())
-
-        elif model == 2:
-            params = {
-                'criterion': self.criterionComboBox.currentText(),
-                'fit_intercept': self.fit_interceptCheckBox.isChecked(),
-                'verbose': self.fit_interceptCheckBox.isChecked(),
-                'normalize': self.normalizeCheckBox.isChecked(),
-                'precompute': self.precomputeComboBox.currentText(),
-                'max_iter': self.max_iterSpinBox.value(),
-                'copy_X': self.copy_XCheckBox.isChecked(),
-                'positive': self.positiveCheckBox.isChecked(),
-                'model': model
-            }
-            params_check = dict(params)
-            params_check.pop('model')
-            return params, self.getChangedValues(params_check, LassoLarsIC())
-        else:
-            params = {}
-            print("Error")
 
 
 if __name__ == "__main__":

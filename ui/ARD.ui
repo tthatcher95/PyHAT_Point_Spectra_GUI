@@ -22,6 +22,9 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="formGroupBox">
+     <property name="title">
+      <string>ARD</string>
+     </property>
      <layout class="QFormLayout" name="formLayout">
       <property name="fieldGrowthPolicy">
        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
@@ -29,7 +32,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="numOfIterationsLabel">
         <property name="text">
-         <string>num of iterations</string>
+         <string># of iterations</string>
         </property>
        </widget>
       </item>
@@ -144,143 +147,6 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="computerScoreLabel">
-        <property name="text">
-         <string>Computer Score</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QCheckBox" name="computerScoreCheckBox">
-        <property name="toolTip">
-         <string>If True, compute the objective function at each step of the model.
-Default is False.</string>
-        </property>
-        <property name="whatsThis">
-         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html</string>
-        </property>
-        <property name="text">
-         <string>compute the objective function at each step of the model</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="thresholdLambdaLabel">
-        <property name="text">
-         <string>Threshold Lambda</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QSpinBox" name="thresholdLambdaSpinBox">
-        <property name="toolTip">
-         <string>threshold for removing (pruning) weights with high precision from the
-computation. Default is 1.e+4.</string>
-        </property>
-        <property name="whatsThis">
-         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html</string>
-        </property>
-        <property name="maximum">
-         <number>999999999</number>
-        </property>
-        <property name="value">
-         <number>100000</number>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="fitInterceptLabel">
-        <property name="text">
-         <string>Fit Intercept</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="1">
-       <widget class="QCheckBox" name="fitInterceptCheckBox">
-        <property name="toolTip">
-         <string>whether to calculate the intercept for this model. If set to false,
-no intercept will be used in calculations (e.g. data is expected to
-be already centered). Default is True.</string>
-        </property>
-        <property name="whatsThis">
-         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html</string>
-        </property>
-        <property name="text">
-         <string>calculate the intercept for this model</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="normalizeLabel">
-        <property name="text">
-         <string>Normalize</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="1">
-       <widget class="QCheckBox" name="normalizeCheckBox">
-        <property name="toolTip">
-         <string>This parameter is ignored when fit_intercept is set to False. If True,
-the regressors X will be normalized before regression by subtracting
-the mean and dividing by the l2-norm. If you wish to standardize,
-please use sklearn.preprocessing.StandardScaler before calling fit on
-an estimator with normalize=False.</string>
-        </property>
-        <property name="whatsThis">
-         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html</string>
-        </property>
-        <property name="text">
-         <string>regressors X will be normlized before regression</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="copyXLabel">
-        <property name="text">
-         <string>Copy X</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="1">
-       <widget class="QCheckBox" name="copyXCheckBox">
-        <property name="toolTip">
-         <string>If True, X will be copied; else, it may be overwritten.</string>
-        </property>
-        <property name="whatsThis">
-         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html</string>
-        </property>
-        <property name="text">
-         <string>X will be copied; else, it may be overwritten</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="0">
-       <widget class="QLabel" name="verboseLabel">
-        <property name="text">
-         <string>Verbose</string>
-        </property>
-       </widget>
-      </item>
-      <item row="11" column="1">
-       <widget class="QCheckBox" name="verboseCheckBox">
-        <property name="toolTip">
-         <string>Verbose mode when fitting the model.</string>
-        </property>
-        <property name="whatsThis">
-         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html</string>
-        </property>
-        <property name="text">
-         <string>Verbose mode when fitting the model</string>
-        </property>
-       </widget>
-      </item>
       <item row="5" column="0">
        <widget class="QLabel" name="lambdaLabel_2">
         <property name="text">
@@ -304,6 +170,79 @@ an estimator with normalize=False.</string>
         </property>
        </widget>
       </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="thresholdLambdaLabel">
+        <property name="text">
+         <string>Threshold Lambda</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QSpinBox" name="thresholdLambdaSpinBox">
+        <property name="toolTip">
+         <string>threshold for removing (pruning) weights with high precision from the
+computation. Default is 1.e+4.</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html</string>
+        </property>
+        <property name="maximum">
+         <number>999999999</number>
+        </property>
+        <property name="value">
+         <number>100000</number>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="fitInterceptLabel">
+        <property name="text">
+         <string>Fit Intercept</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QCheckBox" name="fitInterceptCheckBox">
+        <property name="toolTip">
+         <string>whether to calculate the intercept for this model. If set to false,
+no intercept will be used in calculations (e.g. data is expected to
+be already centered). Default is True.</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html</string>
+        </property>
+        <property name="text">
+         <string>calculate the intercept for this model</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="normalizeLabel">
+        <property name="text">
+         <string>Normalize</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QCheckBox" name="normalizeCheckBox">
+        <property name="toolTip">
+         <string>This parameter is ignored when fit_intercept is set to False. If True,
+the regressors X will be normalized before regression by subtracting
+the mean and dividing by the l2-norm. If you wish to standardize,
+please use sklearn.preprocessing.StandardScaler before calling fit on
+an estimator with normalize=False.</string>
+        </property>
+        <property name="whatsThis">
+         <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ARDRegression.html</string>
+        </property>
+        <property name="text">
+         <string>regressors X will be normlized before regression</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -315,12 +254,9 @@ an estimator with normalize=False.</string>
   <tabstop>alpha1DoubleSpinBox</tabstop>
   <tabstop>alpha2DoubleSpinBox</tabstop>
   <tabstop>lambdaDoubleSpinBox</tabstop>
-  <tabstop>computerScoreCheckBox</tabstop>
   <tabstop>thresholdLambdaSpinBox</tabstop>
   <tabstop>fitInterceptCheckBox</tabstop>
   <tabstop>normalizeCheckBox</tabstop>
-  <tabstop>copyXCheckBox</tabstop>
-  <tabstop>verboseCheckBox</tabstop>
  </tabstops>
  <resources/>
  <connections/>

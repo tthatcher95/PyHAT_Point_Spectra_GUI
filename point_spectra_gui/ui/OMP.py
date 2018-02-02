@@ -32,21 +32,6 @@ class Ui_Form(object):
         self.normalizeCheckBox = QtWidgets.QCheckBox(self.formGroupBox)
         self.normalizeCheckBox.setObjectName("normalizeCheckBox")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.normalizeCheckBox)
-        self.precomputeLabel = QtWidgets.QLabel(self.formGroupBox)
-        self.precomputeLabel.setObjectName("precomputeLabel")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.precomputeLabel)
-        self.precomputeComboBox = QtWidgets.QComboBox(self.formGroupBox)
-        self.precomputeComboBox.setObjectName("precomputeComboBox")
-        self.precomputeComboBox.addItem("")
-        self.precomputeComboBox.addItem("")
-        self.precomputeComboBox.addItem("")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.precomputeComboBox)
-        self.cVLabel = QtWidgets.QLabel(self.formGroupBox)
-        self.cVLabel.setObjectName("cVLabel")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.LabelRole, self.cVLabel)
-        self.cVCheckBox = QtWidgets.QCheckBox(self.formGroupBox)
-        self.cVCheckBox.setObjectName("cVCheckBox")
-        self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.cVCheckBox)
         self.verticalLayout.addWidget(self.formGroupBox)
 
         self.retranslateUi(Form)
@@ -55,6 +40,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(("Form"))
+        self.formGroupBox.setTitle(("OMP"))
         self.fitInterceptLabel.setText(("Fit Intercept"))
         self.fitInterceptCheckBox.setToolTip(_translate("Form", "whether to calculate the intercept for this model. If set to false,\n"
 "no intercept will be used in calculations (e.g. data is expected to\n"
@@ -67,18 +53,6 @@ class Ui_Form(object):
 "please use sklearn.preprocessing.StandardScaler before calling fit on\n"
 "an estimator with normalize=False."))
         self.normalizeCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
-        self.precomputeLabel.setText(("Precompute"))
-        self.precomputeComboBox.setToolTip(_translate("Form", "Whether to use a precomputed Gram and Xy matrix to speed up\n"
-"calculations. Improves performance when n_targets or n_samples is very\n"
-"large. Note that if you already have such matrices, you can pass them\n"
-"directly to the fit method."))
-        self.precomputeComboBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
-        self.precomputeComboBox.setItemText(0, ("auto"))
-        self.precomputeComboBox.setItemText(1, ("True"))
-        self.precomputeComboBox.setItemText(2, ("False"))
-        self.cVLabel.setText(("CV"))
-        self.cVCheckBox.setToolTip(("Cross Validate"))
-        self.cVCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
 
 
 if __name__ == "__main__":
