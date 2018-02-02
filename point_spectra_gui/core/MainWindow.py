@@ -89,6 +89,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         super().__init__()
         self.widgetList = []
         self.leftOff = 0
+        self.isDeleted = False
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)  # Run the basic window UI
@@ -398,6 +399,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             if self.widgetList[-1].isEnabled():
                 del self.widgetList[-1]
                 delete.del_layout(self.verticalLayout_3)
+                self.isDeleted = True
             else:
                 print("Cannot delete")
         except:
@@ -615,6 +617,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             try:
                 if dic is not None:
                     self.widgetList[modules].updateWidgets()
+        if dic is not None and not self.isDeleted:
                     self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
                     # widget.updateWidgets()
             except NotImplementedError:
