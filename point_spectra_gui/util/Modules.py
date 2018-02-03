@@ -100,6 +100,15 @@ class Modules:
         self.qt = Qtickle.Qtickle(self)
         self.qt.guiRestore(dict)
 
+    def getCurrentModuleCount(self):
+        """
+        Since each Module needs to have it's own number
+        Give the ability for Modules to retain that information about themselves
+
+        :return:
+        """
+        return self.personalCount
+
     def selectiveSetGuiParams(self, dict):
         """
         Selectively restore the UI.
