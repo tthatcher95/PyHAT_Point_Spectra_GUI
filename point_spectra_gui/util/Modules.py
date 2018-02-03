@@ -33,11 +33,9 @@ class Modules:
     model_xvars = {}
     model_yvars = {}
 
-    def __init__(self, parent=None):
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
         self.flag = False
-        self.parent = parent
         Modules.modCount += 1
         self.personalCount = Modules.modCount
 
@@ -137,6 +135,15 @@ class Modules:
         :return:
         """
         self.get_widget().setDisabled(bool)
+
+    def setParent(self, parent):
+        """
+        Set the parent class, so we can utilize it's propogate function
+
+        :param parent:
+        :return:
+        """
+        self.parent = parent
 
     def setProgressBar(self, progressBar):
         """
