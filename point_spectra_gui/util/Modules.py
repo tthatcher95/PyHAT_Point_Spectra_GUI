@@ -2,7 +2,6 @@ import inspect
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import *
-
 from Qtickle import Qtickle
 
 
@@ -34,6 +33,7 @@ class Modules:
     model_yvars = {}
     modCount = 0
 
+    def __init__(self):
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
         self.flag = False
