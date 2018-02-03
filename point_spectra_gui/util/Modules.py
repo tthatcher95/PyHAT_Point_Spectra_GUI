@@ -32,6 +32,7 @@ class Modules:
     models = {}  # For regression training
     model_xvars = {}
     model_yvars = {}
+    modCount = 0
 
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
