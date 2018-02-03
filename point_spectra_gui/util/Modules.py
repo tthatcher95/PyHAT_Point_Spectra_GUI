@@ -38,6 +38,13 @@ class Modules:
         self.settings = QSettings('USGS', 'PPSG')
         self.flag = False
         self.parent = parent
+    def __del__(self):
+        """
+        Delete our current module, and decrement the number of modules that exist
+
+        :return:
+        """
+        Modules.modCount -= 1
 
     def setupUi(self, Form):
         self.Form = Form

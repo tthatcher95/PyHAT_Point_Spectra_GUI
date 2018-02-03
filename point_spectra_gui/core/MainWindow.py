@@ -89,6 +89,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         super().__init__()
         self.widgetList = []
         self.leftOff = 0
+        Modules.setParent(self)
         self.isDeleted = False
 
     def setupUi(self, MainWindow):
@@ -596,7 +597,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             traceback.print_exc()
             print('\nException was logged to "%s"' % (os.path.join(logpath, logfilename)))
 
-    def propagate(self):
+    def propagate(self, idx=0):
         """
         Propagate changes to other widgets
         
@@ -620,7 +621,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             if self.leftOff > len(dic[0]):
                 dic = self.getWidgetItems()
 
-            for modules in range(self.leftOff, len(self.widgetList)):
+            for modules in range(idx, len(self.widgetList)):
                 try:
                     self.widgetList[modules].connectWidgets()
                     self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
@@ -638,7 +639,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         else:
             try:
                 self.runModules()
-            #@@TODO is this the type of error handling we want?
+            # @@TODO is this the type of error handling we want?
             except Exception as e:
                 print("Your module broke: ", e)
                 try:
