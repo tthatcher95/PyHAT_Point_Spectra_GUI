@@ -145,6 +145,17 @@ class Modules:
         """
         self.parent = parent
 
+    def startPropagate(self):
+        """
+        Get the current module's count
+        using this as the starting point for the propagation
+        we propagate our changes through the UI
+
+        :return:
+        """
+        idx = self.getCurrentModuleCount()
+        self.parent.propagate(idx)
+
     def setProgressBar(self, progressBar):
         """
         This function makes it possible to reference the progress bar
@@ -153,9 +164,6 @@ class Modules:
         :return:
         """
         self.progressBar = progressBar
-
-    def setPropogateFunction(self, function):
-        self.function = function
 
     def checkMinAndMax(self):
         """
