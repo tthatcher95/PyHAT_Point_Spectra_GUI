@@ -66,6 +66,7 @@ class Modules:
         """
         This function specifies the variable that holds the
         styling. Use this function to get the variable
+
         :return:
         """
         raise NotImplementedError(
@@ -74,6 +75,7 @@ class Modules:
     def connectWidgets(self):
         """
         Connect the necessary widgets.
+
         :return:
         """
         raise NotImplementedError(
@@ -82,6 +84,7 @@ class Modules:
     def getGuiParams(self):
         """
         Return the contents from lineEdits, comboBoxes, etc.
+
         :return:
         """
         self.qt = Qtickle.Qtickle(self)
@@ -177,6 +180,7 @@ class Modules:
     def checkMinAndMax(self):
         """
         Go through the entire UI and set the maximums and minimums of each widget
+
         :return:
         """
         for name, obj in inspect.getmembers(self):
