@@ -61,10 +61,6 @@ class Modules:
         """
         # TODO Add mouse Event
 
-    # @@TODO Remove all references to guiChanged
-    def guiChanged(self):
-        pass
-
     def get_widget(self):
         """
         This function specifies the variable that holds the
