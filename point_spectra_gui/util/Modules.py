@@ -38,6 +38,9 @@ class Modules:
         self.settings = QSettings('USGS', 'PPSG')
         self.flag = False
         self.parent = parent
+        Modules.modCount += 1
+        self.personalCount = Modules.modCount
+
     def __del__(self):
         """
         Delete our current module, and decrement the number of modules that exist
