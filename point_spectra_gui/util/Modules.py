@@ -177,14 +177,6 @@ class Modules:
             if isinstance(obj, QDoubleSpinBox):
                 obj.setDecimals(7)
 
-    def setCurrentData(self, c):
-        if isinstance(c, int):
-            self.current_data = self.datakeys[c]
-        elif isinstance(c, str):
-            self.current_data = c
-        else:
-            raise TypeError("Current data must be assigned by a string value or integer index")
-
     @staticmethod
     def getChangedValues(input_dictionary, algorithm):
         """
