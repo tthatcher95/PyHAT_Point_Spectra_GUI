@@ -91,6 +91,7 @@ class Modules:
     def setGuiParams(self, dict):
         """
         Using a dictionary, restore the UI
+
         :param dict:
         :return:
         """
@@ -137,6 +138,7 @@ class Modules:
         """
         After every execution we want to prevent the user from changing something.
         So, disable the layout by greying it out
+
         :param bool:
         :return:
         """
@@ -166,6 +168,7 @@ class Modules:
         """
         This function makes it possible to reference the progress bar
         in MainWindow
+
         :param progressBar:
         :return:
         """
@@ -221,6 +224,7 @@ class Modules:
         """
         Function changes combo boxes
         This function does not need to be overridden.
+
         :param obj:
         :param newchoices:
         :return:
@@ -237,6 +241,7 @@ class Modules:
         """
         Function changes lists
         This function does not need to be overridden
+
         :param obj:
         :param choices:
         :return:
@@ -248,6 +253,7 @@ class Modules:
     def defaultComboItem(obj, item):
         """
         Set the default selected item in a box.
+
         :param obj:
         :param item:
         :return:
