@@ -32,6 +32,7 @@ class Modules:
     model_xvars = {}
     model_yvars = {}
     modCount = 0
+    parent = []
     LOCK = []
 
     def __init__(self):
@@ -165,8 +166,8 @@ class Modules:
 
         :return:
         """
-        idx = self.getCurrentModuleCount()
-        self.parent.propagate(idx)
+        self.qt = Qtickle.Qtickle(self)
+        self.qt.guiHasChanged(self.parent[0].setupModules)
 
     def setProgressBar(self, progressBar):
         """
