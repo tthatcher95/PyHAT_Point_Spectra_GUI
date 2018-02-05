@@ -124,6 +124,16 @@ class Modules:
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict)
 
+    def setup(self):
+        """
+        Collect all the parameters for the static variables
+        And do a setup() of the UI, this will allow us to collect
+        the data inside everything without having to dip into PySAT
+
+        :return:
+        """
+        raise NotImplementedError('The method "setup()" was not found in the module {}'.format(type(self).__name__))
+
     def run(self):
         """
         Each Module's functionality will be ran in this function.
