@@ -28,17 +28,22 @@ class LoadData(Ui_loadData, Modules):
         if lineEdit.text() == "":
             lineEdit.setText("*.csv")
 
-    def run(self):
+    def setup(self):
         params = self.getGuiParams()
-        filename = params['fileNameLineEdit']
-        keyname = params['dataSetNameLineEdit']
-        print('Loading data file: ' + str(filename))
-        if keyname in self.datakeys:
-            raise Exception("That data set name is already in use. Try something else.")
+        self.filename = params['fileNameLineEdit']
+        self.keyname = params['dataSetNameLineEdit']
+        if self.keyname not in self.datakeys:
+            self.datakeys.append(self.keyname)
         else:
-            # TODO: `header=[0,1]` well most likeley make the code more brittle, better alternative?
-            self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
-            self.datakeys.append(keyname)
+            pass
+            # TODO we really should be checking when the user is using the same name for their datasets, however this should be done at run()
+            # print("That data set name is already in use. Try something else?")
+
+    def run(self):
+        self.setup()
+        print('Loading data file: ' + str(self.filename))
+        # TODO: `header=[0,1]` will most likely make the code brittle, better alternative?
+        self.data[self.keyname] = spectral_data(pd.read_csv(self.filename, header=[0, 1], verbose=True))
 
 
 if __name__ == "__main__":
