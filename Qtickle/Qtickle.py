@@ -180,10 +180,9 @@ class Qtickle(object):
             except Exception as e:
                 print(e)
 
-    def isGuiChanged(self, functionCall):
+    def guiHasChanged(self, functionCall):
         """
-        Check to see if the gui changed,
-        if it did run the parameter `functionCall`
+        when the UI changes run the parameter `functionCall`
 
         :param functionCall:
         :return:
@@ -191,22 +190,24 @@ class Qtickle(object):
         try:
             for name, obj in inspect.getmembers(self.ui):
                 if isinstance(obj, QLineEdit):
-                    obj.textChanged.connect(lambda: functionCall())
+                    obj.editingFinished.connect(lambda: functionCall())
 
-                if isinstance(obj, QCheckBox):
-                    obj.stateChanged.connect(lambda: functionCall())
-
-                if isinstance(obj, QRadioButton):
-                    obj.toggled.connect(lambda: functionCall())
-
-                if isinstance(obj, QSpinBox):
-                    obj.valueChanged.connect(lambda: functionCall())
-
-                if isinstance(obj, QDoubleSpinBox):
-                    obj.valueChanged.connect(lambda: functionCall())
-
-                if isinstance(obj, QSlider):
-                    obj.event.connect(lambda: functionCall())
+                # Comment these out for now as they may be unnecessary for our current situation
+                #
+                # if isinstance(obj, QCheckBox):
+                #     obj.stateChanged.connect(lambda: functionCall())
+                #
+                # if isinstance(obj, QRadioButton):
+                #     obj.toggled.connect(lambda: functionCall())
+                #
+                # if isinstance(obj, QSpinBox):
+                #     obj.valueChanged.connect(lambda: functionCall())
+                #
+                # if isinstance(obj, QDoubleSpinBox):
+                #     obj.valueChanged.connect(lambda: functionCall())
+                #
+                # if isinstance(obj, QSlider):
+                #     obj.event.connect(lambda: functionCall())
 
                 if isinstance(obj, QComboBox):
                     obj.currentIndexChanged.connect(lambda: functionCall())
