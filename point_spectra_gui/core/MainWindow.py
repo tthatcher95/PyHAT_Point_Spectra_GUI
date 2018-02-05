@@ -88,6 +88,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
     def __init__(self):
         super().__init__()
         self.widgetList = []
+        self.LOCK = False
         self.leftOff = 0
         Modules.parent = [self]
 
@@ -381,7 +382,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                                                                                   '(*.wrf)')
             print(self.restorefilename)
             with open(self.restorefilename, 'rb') as fp:
+                Modules.LOCK = [True]  # lock down the UI so that it doesn't try to run setupModules()
                 self.setWidgetItems(pickle.load(fp))
+                Modules.LOCK = [False]
             self.title.setFileName(self.restorefilename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
@@ -580,10 +583,12 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         # stackoverflow (recursion) we need to lock the UI so that
         # doesn't happen
         if not Modules.LOCK[0]:
+            # dic = self.getWidgetItems()
             for modules in range(self.leftOff, len(self.widgetList)):
                 # Have it run through exception logger, just so we don't mess anything up
                 self._exceptionLogger(self.widgetList[modules].setup)
-                self.widgetList[modules].select
+                self.widgetList[modules].connectWidgets()
+                # self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
 
     def _exceptionLogger(self, function):
         """

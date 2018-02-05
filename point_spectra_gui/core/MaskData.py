@@ -23,7 +23,7 @@ class MaskData(Ui_Form, Modules):
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.maskFileLineEdit))
 
     def setup(self):
-        self.connectWidgets()
+        pass
 
     def run(self):
         datakey = self.chooseDataComboBox.currentText()

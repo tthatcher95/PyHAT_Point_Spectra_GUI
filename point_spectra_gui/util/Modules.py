@@ -122,8 +122,9 @@ class Modules:
         :param dict:
         :return:
         """
-        self.qt = Qtickle.Qtickle(self)
-        self.qt.selectiveGuiRestore(dict)
+        if not Modules.LOCK[0]:
+            self.qt = Qtickle.Qtickle(self)
+            self.qt.selectiveGuiRestore(dict)
 
     def setup(self):
         """
