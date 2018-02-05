@@ -558,6 +558,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
+
         for modules in range(self.leftOff, len(self.widgetList)):
             name_ = type(self.widgetList[modules]).__name__
             s = time.time()
@@ -567,7 +568,22 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             print("Module {} executed in: {} seconds".format(name_, e - s))
             self.widgetList[modules].setDisabled(True)
             self.leftOff = modules + 1
-            self.propagate()
+
+    def setupModules(self):
+        """
+        This function iterates through a list of widgets
+        which then update Modules static variables
+
+        :return:
+        """
+        # in certain cases, functions like setcombobox() will cause
+        # stackoverflow (recursion) we need to lock the UI so that
+        # doesn't happen
+        if not Modules.LOCK[0]:
+            for modules in range(self.leftOff, len(self.widgetList)):
+                # Have it run through exception logger, just so we don't mess anything up
+                self._exceptionLogger(self.widgetList[modules].setup)
+                self.widgetList[modules].select
 
     def _exceptionLogger(self, function):
         """
@@ -593,37 +609,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 '[%s %s] (%s) Version: %s:' % (platform.system(), platform.release(), timenow, __version__))
             traceback.print_exc()
             print('\nException was logged to "%s"' % (os.path.join(logpath, logfilename)))
-
-    def propagate(self, idx=0):
-        """
-        Propagate changes to other widgets
-        
-        Parameters
-        ----------
-        start_idx : int
-            The index of the first widget after which changes will be propagated.
-            (e.g. if changes should be enacted to widgets 3 : -1, start_idx = 2)
-        
-        """
-
-        dic = None
-        try:
-            with open(self.restorefilename, 'rb') as fp:
-                dic = pickle.load(fp)
-        except:
-            pass
-
-        if dic is not None and not self.isDeleted:
-            # This should fix the problem of new modules being added and messing things up
-            if self.leftOff > len(dic[0]):
-                dic = self.getWidgetItems()
-
-            for modules in range(idx, len(self.widgetList)):
-                try:
-                    self.widgetList[modules].connectWidgets()
-                    self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
-                except NotImplementedError:
-                    pass
 
     def run(self):
         """
