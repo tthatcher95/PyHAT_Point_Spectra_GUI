@@ -54,6 +54,7 @@ class Modules:
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
+        self.startPropagate()
 
     def mousePressEvent(self, QMouseEvent):
         """
