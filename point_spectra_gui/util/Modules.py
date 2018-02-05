@@ -32,6 +32,7 @@ class Modules:
     model_xvars = {}
     model_yvars = {}
     modCount = 0
+    LOCK = []
 
     def __init__(self):
         self.qt = Qtickle.Qtickle(self)
@@ -219,9 +220,11 @@ class Modules:
         :param keyValues: []
         :return:
         """
+        Modules.LOCK = [True]
         comboBox.clear()
         comboBox.setMaximumWidth(200)
         comboBox.addItems(keyValues)
+        Modules.LOCK = [False]
 
     @staticmethod
     def changeComboListVars(obj, newchoices):
@@ -233,12 +236,14 @@ class Modules:
         :param newchoices:
         :return:
         """
+        Modules.LOCK = [True]
         obj.clear()
         for i in newchoices:
             if isinstance(i, tuple):
                 obj.addItem(i[1])
             elif isinstance(i, str):
                 obj.addItem(i)
+        Modules.LOCK = [False]
 
     @staticmethod
     def setListWidget(obj, choices):
@@ -250,8 +255,10 @@ class Modules:
         :param choices:
         :return:
         """
+        Modules.LOCK = [True]
         for item in choices:
             obj.addItem(item)
+        Modules.LOCK = [False]
 
     @staticmethod
     def defaultComboItem(obj, item):
@@ -262,4 +269,6 @@ class Modules:
         :param item:
         :return:
         """
+        Modules.LOCK = [True]
         obj.setCurrentIndex(obj.findText(str(item)))
+        Modules.LOCK = [False]
