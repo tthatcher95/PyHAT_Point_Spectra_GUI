@@ -149,15 +149,6 @@ class Modules:
         """
         self.get_widget().setDisabled(bool)
 
-    def setParent(self, parent):
-        """
-        Set the parent class, so we can utilize it's propogate function
-
-        :param parent:
-        :return:
-        """
-        self.parent = parent
-
     def startPropagate(self):
         """
         Get the current module's count
