@@ -543,14 +543,13 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         This function iterates through a list of object addresses
         which then run it's dot notated run()
 
+        Reset the entirety of our static variables, so we know for sure
+        we aren't going to error out on something stupid.
+
         iterate through our widgets, start from the last left off item
         get the name of our current widget item
-        start the timers
+        start the timer
         print the name of the module running
-        if a restored file exists
-            run connectWidgets # to update the current UI widget
-            run selectiveRestore # to select the right items
-            Terminate running process, and let the user decide if they want to continue forward
         run our current modules run()
         get our end time
         print how long it took our current module to execute based on start time and end time
