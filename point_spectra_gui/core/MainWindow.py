@@ -89,8 +89,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         super().__init__()
         self.widgetList = []
         self.leftOff = 0
-        Modules.setParent(self)
-        self.isDeleted = False
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)  # Run the basic window UI
@@ -400,7 +398,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             if self.widgetList[-1].isEnabled():
                 del self.widgetList[-1]
                 delete.del_layout(self.verticalLayout_3)
-                self.isDeleted = True
             else:
                 print("Cannot delete")
         except:
