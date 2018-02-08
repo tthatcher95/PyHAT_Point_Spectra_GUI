@@ -98,6 +98,9 @@ class RegressionTrain(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
+    def setup(self):
+        pass
+
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
@@ -166,7 +169,7 @@ class RegressionTrain(Ui_Form, Modules):
                       BayesianRidge,
                       ARD,
                       LARS,
-                      LassoLARS,
+                      # LassoLARS,
                       SVR,
                       KRR]
         for items in list_forms:
