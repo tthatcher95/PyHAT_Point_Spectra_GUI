@@ -37,15 +37,17 @@ class LoadData(Ui_loadData, Modules):
             lineEdit.setText("*.csv")
 
     def setup(self):
-        params = self.getGuiParams()
-        self.filename = params['fileNameLineEdit']
-        self.keyname = params['dataSetNameLineEdit']
-        if self.keyname not in self.datakeys:
-            self.datakeys.append(self.keyname)
-        else:
+        try:
+            params = self.getGuiParams()
+            self.filename = params['fileNameLineEdit']
+            self.keyname = params['dataSetNameLineEdit']
+            if self.keyname not in self.datakeys:
+                self.datakeys.append(self.keyname)
+            else:
+                self.datakeys[self.currentCount] = self.keyname
+            self.data[self.keyname] = spectral_data(pd.read_csv(self.filename, header=[0, 1], verbose=True, nrows=2))
+        except:
             pass
-            # TODO we really should be checking when the user is using the same name for their datasets, however this should be done at run()
-            # print("That data set name is already in use. Try something else?")
 
     def run(self):
         self.setup()
