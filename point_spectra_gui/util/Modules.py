@@ -38,7 +38,6 @@ class Modules:
     def __init__(self):
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
-        self.flag = False
         Modules.modCount += 1
         self.personalCount = Modules.modCount
 
@@ -122,7 +121,7 @@ class Modules:
         :param dict:
         :return:
         """
-        if not Modules.LOCK[0]:
+        if Modules.getLOCK() is False:
             self.qt = Qtickle.Qtickle(self)
             self.qt.selectiveGuiRestore(dict)
 
@@ -134,7 +133,7 @@ class Modules:
 
         :return:
         """
-        raise NotImplementedError('The method "setup()" was not found in the module {}'.format(type(self).__name__))
+        pass
 
     def run(self):
         """
@@ -224,11 +223,10 @@ class Modules:
         :param keyValues: []
         :return:
         """
-        Modules.LOCK = [True]
+        Modules.LOCK_ON()
         comboBox.clear()
         comboBox.setMaximumWidth(200)
         comboBox.addItems(keyValues)
-        Modules.LOCK = [False]
 
     @staticmethod
     def changeComboListVars(obj, newchoices):
@@ -240,14 +238,13 @@ class Modules:
         :param newchoices:
         :return:
         """
-        Modules.LOCK = [True]
+        Modules.LOCK_ON()
         obj.clear()
         for i in newchoices:
             if isinstance(i, tuple):
                 obj.addItem(i[1])
             elif isinstance(i, str):
                 obj.addItem(i)
-        Modules.LOCK = [False]
 
     @staticmethod
     def setListWidget(obj, choices):
@@ -259,10 +256,9 @@ class Modules:
         :param choices:
         :return:
         """
-        Modules.LOCK = [True]
+        Modules.LOCK_ON()
         for item in choices:
             obj.addItem(item)
-        Modules.LOCK = [False]
 
     @staticmethod
     def defaultComboItem(obj, item):
@@ -273,6 +269,17 @@ class Modules:
         :param item:
         :return:
         """
-        Modules.LOCK = [True]
+        Modules.LOCK_ON()
         obj.setCurrentIndex(obj.findText(str(item)))
+
+    @staticmethod
+    def LOCK_ON():
+        Modules.LOCK = [True]
+
+    @staticmethod
+    def LOCK_OFF():
         Modules.LOCK = [False]
+
+    @staticmethod
+    def getLOCK():
+        return Modules.LOCK[0]
