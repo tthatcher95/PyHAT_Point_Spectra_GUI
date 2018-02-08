@@ -11,6 +11,14 @@ class LoadData(Ui_loadData, Modules):
     Loads the data into the UI.
     The data needs to be a *.csv in order for this application to work
     """
+    count = -1
+
+    def __init__(self):
+        LoadData.count += 1
+        self.currentCount = LoadData.count
+
+    def __del__(self):
+        LoadData.count -= 1
 
     def setupUi(self, Form):
         super().setupUi(Form)
