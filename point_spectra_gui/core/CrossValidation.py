@@ -1,10 +1,9 @@
 import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
+from Qtickle import Qtickle
 from libpysat.regression import cv
 from libpysat.spectral.spectral_data import spectral_data
-
-from Qtickle import Qtickle
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
@@ -36,7 +35,7 @@ class CrossValidation(Ui_Form, Modules):
                                # 'KRR',  This needs more work since it requires parameters for the kernel passed as an object
                                'LARS',
                                'LASSO',
-                              # 'LASSO LARS', - this also need to be debugged
+                               # 'LASSO LARS', - this also need to be debugged
                                'OLS',
                                'OMP',
                                'PLS',
@@ -165,10 +164,10 @@ class CrossValidation(Ui_Form, Modules):
                       cv_BayesianRidge,
                       cv_ElasticNet,
                       cv_GP,
-                      #              cv_KRR,
+                      # cv_KRR,
                       cv_LARS,
                       cv_Lasso,
-                      cv_LassoLARS,
+                      # cv_LassoLARS,
                       cv_OLS,
                       cv_OMP,
                       cv_PLS,

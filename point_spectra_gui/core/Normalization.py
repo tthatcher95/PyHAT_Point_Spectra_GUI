@@ -151,7 +151,7 @@ class Normalization(Ui_Form, Modules):
         self.varToNormalizeListWidget.itemSelectionChanged.connect(self.setDataLimits)
 
         # when anything in the gui is changed, run update val to make sure values are increasing
-        self.qt.isGuiChanged(self.updateVal)
+        self.qt.guiChanged(self.updateVal)
 
         # connect the add and delete ranges buttons
         self.add_range_button.clicked.connect(lambda: self.on_addRange_pushed())

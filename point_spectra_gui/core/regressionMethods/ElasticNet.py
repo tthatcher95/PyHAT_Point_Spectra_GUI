@@ -88,7 +88,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
 
         else:
             params = {
-                'alpha': self.alpha_text.value(),
+                'alpha': self.alpha_text.text(),
                 'l1_ratio': self.enl1_ratioDoubleSpinBox.value(),
                 'fit_intercept': self.enfit_interceptCheckBox.isChecked(),
                 'normalize': self.ennormalizeCheckBox.isChecked(),
