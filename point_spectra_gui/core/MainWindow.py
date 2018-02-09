@@ -520,10 +520,12 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
+        dic = self.getWidgetItems()
         for modules in range(self.leftOff, len(self.widgetList)):
             self.widgetList[modules].setup()
             self.widgetList[modules].connectWidgets()
 
+            self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
 
     def runModules(self):
         """
