@@ -183,7 +183,7 @@ class Qtickle(object):
             except Exception as e:
                 print(e)
 
-    def isGuiChanged(self, functionCall):
+    def guiChanged(self, functionCall):
         """
         Check to see if the gui changed, if it did run the parameter `functionCall`
 
