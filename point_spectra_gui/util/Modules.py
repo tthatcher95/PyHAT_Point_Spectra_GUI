@@ -34,6 +34,7 @@ class Modules:
     models = {}  # For regression training
     model_xvars = {}
     model_yvars = {}
+    parent = []
 
     def __init__(self):
         self.qt = Qtickle.Qtickle(self)

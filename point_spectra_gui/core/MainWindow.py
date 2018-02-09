@@ -80,6 +80,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         super().__init__()
         self.widgetList = []
         self.leftOff = 0
+        Modules.parent = [self]
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)  # Run the basic window UI
