@@ -106,6 +106,16 @@ class Modules:
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict)
 
+    def setup(self):
+        """
+        This is a stripped down version of run()
+        Each Module's functionality will be quickly ran through, so we have
+        at least something in the UI to work with
+
+        :return:
+        """
+        raise NotImplementedError('The method "setup()" was not found in the module {}'.format(type(self).__name__))
+
     def run(self):
         """
         Each Module's functionality will be ran in this function.
