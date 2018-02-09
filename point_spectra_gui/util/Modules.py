@@ -2,7 +2,6 @@ import inspect
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import *
-
 from Qtickle import Qtickle
 
 
@@ -35,6 +34,7 @@ class Modules:
     model_xvars = {}
     model_yvars = {}
     parent = []
+    LOCK = []
 
     def __init__(self):
         self.qt = Qtickle.Qtickle(self)
@@ -122,6 +122,15 @@ class Modules:
         :return:
         """
         raise NotImplementedError('The method "run()" was not found in the module {}'.format(type(self).__name__))
+
+    def LOCK_ON(self):
+        Modules.LOCK = [True]
+
+    def LOCK_OFF(self):
+        Modules.LOCK = [False]
+
+    def get_LOCK(self):
+        return Modules.LOCK[0]
 
     def isEnabled(self):
         """
