@@ -45,6 +45,7 @@ class Modules:
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
+        self.guiChanged()
 
     def mousePressEvent(self, QMouseEvent):
         """
@@ -69,6 +70,10 @@ class Modules:
         """
         raise NotImplementedError(
             'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
+
+    def guiChanged(self):
+        self.qt = Qtickle.Qtickle(self)
+        self.qt.guiChanged()
 
     def getGuiParams(self):
         """
