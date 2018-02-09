@@ -510,20 +510,30 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         p = mp.Process(target=main, args=())
         p.start()
 
+    def setupModules(self):
+        """
+        This function iterates through a list of object addresses
+        which then run its dot notated setup()
+
+        iterate through our widgets, start from the last left off item
+        run our current module's setup()
+
+        :return:
+        """
+        for modules in range(self.leftOff, len(self.widgetList)):
+            self.widgetList[modules].setup()
+
+
     def runModules(self):
         """
         This function iterates through a list of object addresses
-        which then run it's dot notated run()
+        which then run its dot notated run()
 
         iterate through our widgets, start from the last left off item
         get the name of our current widget item
         start the timers
         print the name of the module running
-        if a restored file exists
-            run connectWidgets # to update the current UI widget
-            run selectiveRestore # to select the right items
-            Terminate running process, and let the user decide if they want to continue forward
-        run our current modules function()
+        run our current module's function()
         get our end time
         print how long it took our current module to execute based on start time and end time
         disable our current module
@@ -531,20 +541,11 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
-        dic = None
-        try:
-            with open(self.restorefilename, 'rb') as fp:
-                dic = pickle.load(fp)
-        except:
-            pass
 
         for modules in range(self.leftOff, len(self.widgetList)):
             name_ = type(self.widgetList[modules]).__name__
             s = time.time()
             print("{} Module is Running...".format(name_))
-            # if dic is not None:
-            #     self.widgetList[modules].connectWidgets()
-            #     self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
             self.widgetList[modules].run()
             e = time.time()
             print("Module {} executed in: {} seconds".format(name_, e - s))
