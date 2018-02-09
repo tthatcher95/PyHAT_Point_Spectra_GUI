@@ -41,7 +41,7 @@ class RegressionTrain(Ui_Form, Modules):
                                # 'LASSO LARS', - This is having issues. Hide until we can debug
                                'SVR',
                                'KRR']
-        self.setComboBox(self.chooseDataComboBox, self.datakeys)
+        self.setComboBox(self.chooseDataComboBox, self.data)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.yMaxDoubleSpinBox.setMaximum(999999)
         self.yMinDoubleSpinBox.setMaximum(999999)
@@ -55,6 +55,7 @@ class RegressionTrain(Ui_Form, Modules):
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
+
 
     def getGuiParams(self):
         """
@@ -111,6 +112,7 @@ class RegressionTrain(Ui_Form, Modules):
             self.models[modelkey] = regression.regression([method], [yrange], [params])
         except:
             pass
+
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
