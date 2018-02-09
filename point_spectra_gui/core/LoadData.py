@@ -23,10 +23,19 @@ class LoadData(Ui_loadData, Modules):
         if lineEdit.text() == "":
             lineEdit.setText("*.csv")
 
+    def setup(self):
+        try:
+            filename = self.fileNameLineEdit.text()
+            keyname = self.dataSetNameLineEdit.text()
+            print('Loading data file: ' + str(filename))
+            self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True, nrows=2))
+            self.datakeys.append(keyname)
+        except:
+            pass
+
     def run(self):
-        params = self.getGuiParams()
-        filename = params['fileNameLineEdit']
-        keyname = params['dataSetNameLineEdit']
+        filename = self.fileNameLineEdit.text()
+        keyname = self.dataSetNameLineEdit.text()
         print('Loading data file: ' + str(filename))
         if keyname in self.datakeys:
             raise Exception("That data set name is already in use. Try something else.")
