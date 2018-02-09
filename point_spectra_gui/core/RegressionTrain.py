@@ -98,6 +98,20 @@ class RegressionTrain(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
+    def setup(self):
+        method = self.chooseAlgorithmComboBox.currentText()
+        yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
+        yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
+
+        params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
+        try:
+            modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
+            self.modelkeys.append(modelkey)
+            print(params, modelkey)
+            self.models[modelkey] = regression.regression([method], [yrange], [params])
+        except:
+            pass
+
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()

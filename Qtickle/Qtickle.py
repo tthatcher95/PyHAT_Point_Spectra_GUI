@@ -193,7 +193,7 @@ class Qtickle(object):
         try:
             for name, obj in inspect.getmembers(self.ui):
                 if isinstance(obj, QLineEdit):
-                    obj.textChanged.connect(lambda: functionCall())
+                    obj.editingFinished.connect(lambda: functionCall())
 
                 if isinstance(obj, QCheckBox):
                     obj.stateChanged.connect(lambda: functionCall())

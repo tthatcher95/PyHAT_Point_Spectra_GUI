@@ -73,7 +73,7 @@ class Modules:
 
     def guiChanged(self):
         self.qt = Qtickle.Qtickle(self)
-        self.qt.guiChanged()
+        self.qt.guiChanged(self.parent[0].setupModules)
 
     def getGuiParams(self):
         """
@@ -90,8 +90,10 @@ class Modules:
         :param dict:
         :return:
         """
+        self.LOCK_ON()
         self.qt = Qtickle.Qtickle(self)
         self.qt.guiRestore(dict)
+        self.LOCK_OFF()
 
     def selectiveSetGuiParams(self, dict):
         """
@@ -102,8 +104,10 @@ class Modules:
         :param dict:
         :return:
         """
+        self.LOCK_ON()
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict)
+        self.LOCK_OFF()
 
     def setup(self):
         """
@@ -113,7 +117,8 @@ class Modules:
 
         :return:
         """
-        raise NotImplementedError('The method "setup()" was not found in the module {}'.format(type(self).__name__))
+        # raise NotImplementedError('The method "setup()" was not found in the module {}'.format(type(self).__name__))
+        pass
 
     def run(self):
         """
@@ -123,10 +128,12 @@ class Modules:
         """
         raise NotImplementedError('The method "run()" was not found in the module {}'.format(type(self).__name__))
 
-    def LOCK_ON(self):
+    @staticmethod
+    def LOCK_ON():
         Modules.LOCK = [True]
 
-    def LOCK_OFF(self):
+    @staticmethod
+    def LOCK_OFF():
         Modules.LOCK = [False]
 
     def get_LOCK(self):
@@ -181,12 +188,14 @@ class Modules:
         :param algorithm:
         :return:
         """
+        Modules.LOCK_ON()
         dic = {}
         for key in input_dictionary:
             if input_dictionary[key] != getattr(algorithm, key):  # key gives us a string
                 dic.update({key: input_dictionary[key]})
-
+        Modules.LOCK_OFF()
         return dic
+
 
     @staticmethod
     def setComboBox(comboBox, keyValues):
@@ -197,9 +206,11 @@ class Modules:
         :param keyValues: []
         :return:
         """
+        Modules.LOCK_ON()
         comboBox.clear()
         comboBox.setMaximumWidth(200)
         comboBox.addItems(keyValues)
+        Modules.LOCK_OFF()
 
     @staticmethod
     def changeComboListVars(obj, newchoices):
@@ -210,12 +221,14 @@ class Modules:
         :param newchoices:
         :return:
         """
+        Modules.LOCK_ON()
         obj.clear()
         for i in newchoices:
             if isinstance(i, tuple):
                 obj.addItem(i[1])
             elif isinstance(i, str):
                 obj.addItem(i)
+        Modules.LOCK_OFF()
 
     @staticmethod
     def setListWidget(obj, choices):
@@ -226,8 +239,10 @@ class Modules:
         :param choices:
         :return:
         """
+        Modules.LOCK_ON()
         for item in choices:
             obj.addItem(item)
+        Modules.LOCK_OFF()
 
     @staticmethod
     def defaultComboItem(obj, item):
@@ -237,4 +252,6 @@ class Modules:
         :param item:
         :return:
         """
+        Modules.LOCK_ON()
         obj.setCurrentIndex(obj.findText(str(item)))
+        Modules.LOCK_OFF()

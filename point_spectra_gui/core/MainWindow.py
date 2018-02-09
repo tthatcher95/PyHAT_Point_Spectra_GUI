@@ -326,6 +326,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :param dict:
         :return:
         """
+        Modules.LOCK_ON()
         for f_items in dict[0]:
             """
             Really complex way of running essentially this:
@@ -338,6 +339,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         for i in range(1, len(dict)):
             self.widgetList[i - 1].setGuiParams(dict[i])
+        Modules.LOCK_OFF()
 
     def on_save_clicked(self):
         """
@@ -377,7 +379,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.title.setFileName(self.restorefilename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
-            raise Exception("File not loaded: {}".format(e))
+            print("File not loaded: {}".format(e))
 
     def on_delete_module_clicked(self):
         """
@@ -522,7 +524,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         """
         for modules in range(self.leftOff, len(self.widgetList)):
             self.widgetList[modules].setup()
-
 
     def runModules(self):
         """
