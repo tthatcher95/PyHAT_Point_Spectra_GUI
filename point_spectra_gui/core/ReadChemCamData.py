@@ -35,6 +35,10 @@ class ReadChemCamData(Ui_Form, Modules):
         if self.metadataFilesLineEdit.text() == "":
             self.metadataFilesLineEdit.setText("*/")
 
+    def setup(self):
+        pass
+
+
     def run(self):
         params = self.getGuiParams()
         searchdir = params['searchDirectoryLineEdit']
