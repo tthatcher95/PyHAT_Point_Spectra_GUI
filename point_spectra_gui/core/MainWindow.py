@@ -544,7 +544,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             # if dic is not None:
             #     self.widgetList[modules].connectWidgets()
             #     self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
-            self.widgetList[modules].function()
+            self.widgetList[modules].run()
             e = time.time()
             print("Module {} executed in: {} seconds".format(name_, e - s))
             self.widgetList[modules].setDisabled(True)
