@@ -92,7 +92,6 @@ class Modules:
         """
         self.qt = Qtickle.Qtickle(self)
         self.qt.guiRestore(dict)
-        self.qt.isGuiChanged(self.setGuiState)
 
     def selectiveSetGuiParams(self, dict):
         """
@@ -160,20 +159,6 @@ class Modules:
 
             if isinstance(obj, QDoubleSpinBox):
                 obj.setDecimals(7)
-
-    def setGuiState(self):
-        """
-        Set the flag to true when the state of the current module changes
-        :return:
-        """
-        self.flag = True
-
-    def getGuiState(self):
-        """
-        Return the flag for the UI's state
-        :return:
-        """
-        return self.flag
 
     @staticmethod
     def getChangedValues(input_dictionary, algorithm):
