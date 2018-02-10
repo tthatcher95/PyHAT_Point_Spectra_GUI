@@ -282,6 +282,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.deleteModulePushButton.clicked.connect(self.on_delete_module_clicked)
             self.okPushButton.clicked.connect(self.on_okButton_clicked)
             self.undoModulePushButton.clicked.connect(self.on_Rerun_Button_clicked)
+            self.refreshModulePushButton.clicked.connect(self.on_Refresh_Modules_clicked)
             self.stopPushButton.clicked.connect(self.on_stopButton_clicked)
             self.actionOn.triggered.connect(self.debug_mode)
             self.actionOff.triggered.connect(self.normal_mode)
@@ -420,6 +421,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         except:
             pass
 
+    def on_Refresh_Modules_clicked(self):
+        self.setupModules()
+
     def on_stopButton_clicked(self):
         """
         Terminate running thread
@@ -524,7 +528,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         for modules in range(self.leftOff, len(self.widgetList)):
             self.widgetList[modules].setup()
             self.widgetList[modules].connectWidgets()
-
             self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
 
     def runModules(self):

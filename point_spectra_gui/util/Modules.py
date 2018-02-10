@@ -51,7 +51,6 @@ class Modules:
         """
         # TODO Add mouse Event
         # print("Right Button Clicked {}".format(type(self).__name__))
-        self.parent[0].setupModules()
 
     def get_widget(self):
         """
