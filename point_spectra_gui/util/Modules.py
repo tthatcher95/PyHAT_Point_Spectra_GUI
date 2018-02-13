@@ -1,6 +1,7 @@
 import inspect
 
 from PyQt5.QtCore import QSettings
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from Qtickle import Qtickle
 
@@ -45,12 +46,12 @@ class Modules:
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
 
-    def mousePressEvent(self, QMouseEvent):
+    def mousePressEvent(self, event):
         """
         Right click event
         """
-        # TODO Add mouse Event
-        # print("Right Button Clicked {}".format(type(self).__name__))
+        if event.buttons() == Qt.LeftButton:
+            print("Right Button Clicked {}".format(type(self).__name__))
 
     def get_widget(self):
         """
@@ -111,7 +112,6 @@ class Modules:
 
         :return:
         """
-        # raise NotImplementedError('The method "setup()" was not found in the module {}'.format(type(self).__name__))
         pass
 
     def run(self):
@@ -177,7 +177,6 @@ class Modules:
                 dic.update({key: input_dictionary[key]})
         return dic
 
-
     @staticmethod
     def setComboBox(comboBox, keyValues):
         """
@@ -228,3 +227,20 @@ class Modules:
         :return:
         """
         obj.setCurrentIndex(obj.findText(str(item)))
+
+    @staticmethod
+    def list_amend(list_, count_, input_):
+        """
+        In some cases a list is never actually instantiated.
+        To fix this, we want to first try and see if we can access a particular count
+        If that doesn't work due to an IndexError then we'll just settle for appending
+
+        :param list_:
+        :param count_:
+        :param input_:
+        :return:
+        """
+        try:
+            list_[count_] = input_
+        except IndexError:
+            list_.append(input_)

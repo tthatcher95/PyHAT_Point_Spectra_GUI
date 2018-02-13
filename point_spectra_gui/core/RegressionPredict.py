@@ -5,6 +5,16 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionPredict(Ui_Form, Modules):
+    count = -1
+
+    def __init__(self):
+        RegressionPredict.count += 1
+        self.curr_count = RegressionPredict.count
+
+    def __del__(self):
+        del self.modelkeys[RegressionPredict.count]
+        RegressionPredict.count -= 1
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -22,7 +32,7 @@ class RegressionPredict(Ui_Form, Modules):
         predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
 
         data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
-        data_tmp.fillna(value=0,inplace=True)
+        data_tmp.fillna(value=0, inplace=True)
         try:
             prediction = self.models[modelkey].predict(data_tmp)
             self.data[datakey].df[predictname] = prediction

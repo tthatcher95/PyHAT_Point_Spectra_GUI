@@ -595,11 +595,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             try:
                 self.runModules()
             except Exception as e:
-                print("Your module broke: please fix.", e)
-                try:
-                    self.widgetList[self.leftOff].setDisabled(False)
-                except:
-                    pass
+                print("Your {} module broke with error: {}.".format(type(self.widgetList[self.leftOff]).__name__, e))
+                self.widgetList[self.leftOff].setDisabled(False)
         self.taskFinished.emit()
 
 

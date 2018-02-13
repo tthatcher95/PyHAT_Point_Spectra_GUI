@@ -7,6 +7,18 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class LoadData(Ui_loadData, Modules):
+    count = -1
+
+    def __init__(self):
+        LoadData.count += 1
+        self.curr_count = LoadData.count
+        print('Added LoadData with ID {}'.format(self.curr_count))
+
+    def __del__(self):
+        LoadData.count -= 1
+        del self.datakeys[-1] # delete last item on the list
+        pass
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -29,7 +41,7 @@ class LoadData(Ui_loadData, Modules):
             keyname = self.dataSetNameLineEdit.text()
             print('Loading data file: ' + str(filename))
             self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True, nrows=2))
-            self.datakeys.append(keyname)
+            self.list_amend(self.datakeys, self.curr_count, keyname)
         except:
             pass
 
@@ -41,7 +53,8 @@ class LoadData(Ui_loadData, Modules):
         #     raise Exception("That data set name is already in use. Try something else.")
         # else:
         self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
-        self.datakeys.append(keyname)
+        self.list_amend(self.datakeys, self.curr_count, keyname)
+
 
 if __name__ == "__main__":
     import sys

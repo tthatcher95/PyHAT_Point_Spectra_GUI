@@ -1,16 +1,25 @@
 import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
+from Qtickle import Qtickle
 from libpysat.regression import regression
 from libpysat.spectral.spectral_data import spectral_data
-
-from Qtickle import Qtickle
 from point_spectra_gui.core.regressionMethods import *
 from point_spectra_gui.ui.RegressionTrain import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionTrain(Ui_Form, Modules):
+    count = -1
+
+    def __init__(self):
+        RegressionTrain.count += 1
+        self.curr_count = RegressionTrain.count
+
+    def __del__(self):
+        del self.modelkeys[RegressionTrain.count]
+        RegressionTrain.count -= 1
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -55,7 +64,6 @@ class RegressionTrain(Ui_Form, Modules):
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
-
 
     def getGuiParams(self):
         """
@@ -107,12 +115,11 @@ class RegressionTrain(Ui_Form, Modules):
         params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
         try:
             modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
-            self.modelkeys.append(modelkey)
+            self.list_amend(self.modelkeys, self.curr_count, modelkey)
             print(params, modelkey)
             self.models[modelkey] = regression.regression([method], [yrange], [params])
         except:
             pass
-
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
@@ -124,7 +131,7 @@ class RegressionTrain(Ui_Form, Modules):
         params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
         # try:
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
-        self.modelkeys.append(modelkey)
+        self.list_amend(self.modelkeys, self.curr_count, modelkey)
         print(params, modelkey)
         self.models[modelkey] = regression.regression([method], [yrange], [params])
         x = self.data[datakey].df[xvars]
