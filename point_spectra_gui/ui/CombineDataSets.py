@@ -29,9 +29,9 @@ class Ui_Form(object):
         self.outputToDataSetLabel = QtWidgets.QLabel(self.formGroupBox)
         self.outputToDataSetLabel.setObjectName("outputToDataSetLabel")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.outputToDataSetLabel)
-        self.outputToDataSetComboBox = QtWidgets.QComboBox(self.formGroupBox)
-        self.outputToDataSetComboBox.setObjectName("outputToDataSetComboBox")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.outputToDataSetComboBox)
+        self.outputToDataSetLineEdit = QtWidgets.QLineEdit(self.formGroupBox)
+        self.outputToDataSetLineEdit.setObjectName("outputToDataSetLineEdit")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.outputToDataSetLineEdit)
         self.verticalLayout.addWidget(self.formGroupBox)
 
         self.retranslateUi(Form)
