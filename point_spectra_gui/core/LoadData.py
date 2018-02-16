@@ -1,3 +1,4 @@
+4
 import pandas as pd
 from PyQt5 import QtWidgets
 from libpysat.spectral.spectral_data import spectral_data
@@ -14,10 +15,13 @@ class LoadData(Ui_loadData, Modules):
         self.curr_count = LoadData.count
         print('Added LoadData with ID {}'.format(self.curr_count))
 
-    def __del__(self):
-        LoadData.count -= 1
-        del self.datakeys[-1] # delete last item on the list
-        pass
+    def delete(self):
+        try:
+            LoadData.count -= 1
+            del self.data[self.datakeys[-1]]
+            del self.datakeys[-1]
+        except IndexError:
+            pass
 
     def setupUi(self, Form):
         super().setupUi(Form)

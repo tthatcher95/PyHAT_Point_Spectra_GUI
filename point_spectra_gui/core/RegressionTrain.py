@@ -16,9 +16,16 @@ class RegressionTrain(Ui_Form, Modules):
         RegressionTrain.count += 1
         self.curr_count = RegressionTrain.count
 
-    def __del__(self):
-        del self.modelkeys[RegressionTrain.count]
+    def delete(self):
+        try:
+            RegressionTrain.count -= 1
+            del self.models[self.modelkeys[-1]]
+            del self.modelkeys[-1]
+        except:
+            pass
+
         RegressionTrain.count -= 1
+        self.modelkeys = self.modelkeys[:-1]
 
     def setupUi(self, Form):
         self.Form = Form
@@ -50,7 +57,7 @@ class RegressionTrain(Ui_Form, Modules):
                                # 'LASSO LARS', - This is having issues. Hide until we can debug
                                'SVR',
                                'KRR']
-        self.setComboBox(self.chooseDataComboBox, self.data)
+        self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.yMaxDoubleSpinBox.setMaximum(999999)
         self.yMinDoubleSpinBox.setMaximum(999999)

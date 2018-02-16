@@ -11,9 +11,12 @@ class RegressionPredict(Ui_Form, Modules):
         RegressionPredict.count += 1
         self.curr_count = RegressionPredict.count
 
-    def __del__(self):
-        del self.modelkeys[RegressionPredict.count]
-        RegressionPredict.count -= 1
+    def delete(self):
+        try:
+            RegressionPredict.count -= 1
+            del self.modelkeys[-1]
+        except IndexError:
+            pass
 
     def setupUi(self, Form):
         super().setupUi(Form)

@@ -198,11 +198,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.widgetLayout.setObjectName("widgetLayout")
         self.verticalLayout_3.addLayout(self.widgetLayout)
         self.widgetLayout.addWidget(self.widgetList[-1].get_widget())
-        # this should scroll the view all the way down after adding the new widget.
+        # this should (but it doesn't...) scroll the view all the way down after adding the new widget.
+        # it scrolls it down by just a little bit
         scrollbar = self.scrollArea.verticalScrollBar()
-        # this should scroll the view all the way down after adding the new widget.
         scrollbar.setValue(scrollbar.maximum())
-        pass
 
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
@@ -390,12 +389,13 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         """
         try:
             if self.widgetList[-1].isEnabled():
-                del self.widgetList[-1]
-                delete.del_layout(self.verticalLayout_3)
+                self.widgetList[-1].delete()
+                del self.widgetList[-1]  # remove the widget from the list
+                delete.del_layout(self.verticalLayout_3)  # delete the layout
             else:
                 print("Cannot delete")
-        except:
-            print("Cannot delete")
+        except Exception as e:
+            print("Cannot delete: ", e)
 
     def on_okButton_clicked(self):
         """

@@ -50,8 +50,7 @@ class Modules:
         """
         Right click event
         """
-        if event.buttons() == Qt.LeftButton:
-            print("Right Button Clicked {}".format(type(self).__name__))
+        print("Right Button Clicked {}".format(type(self).__name__))
 
     def get_widget(self):
         """
@@ -121,6 +120,15 @@ class Modules:
         :return:
         """
         raise NotImplementedError('The method "run()" was not found in the module {}'.format(type(self).__name__))
+
+    def delete(self):
+        """
+        In some particular cases, the UI needs to have some information dumped.
+        This is a chance to do that.
+
+        :return:
+        """
+        pass
 
     def isEnabled(self):
         """
