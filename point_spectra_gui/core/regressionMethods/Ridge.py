@@ -59,8 +59,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
                       'normalize': self.normalizeCheckBox_cv.isChecked(),
                       'scoring': {'None': None}.get(self.scoringComboBox_cv.currentText()),
                       'gcv_mode': {'None': None}.get(self.gCVModeComboBox_cv.currentText()),
-                      'store_cv_values': self.storeCVValuesCheckBox_cv.isChecked(),
-                      'CV': self.crossValidateCheckBox.isChecked()}
+                      'store_cv_values': self.storeCVValuesCheckBox_cv.isChecked()}
             return params, self.getChangedValues(params, RidgeCV())
 
         else:
@@ -71,8 +70,7 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
                       'normalize': self.normalizeCheckBox.isChecked(),
                       'solver': self.solverComboBox.currentText(),
                       'tol': self.toleranceDoubleSpinBox.value(),
-                      'random_state': r_state,
-                      'CV': self.crossValidateCheckBox.isChecked()}
+                      'random_state': r_state,}
             return params, self.getChangedValues(params, Ridge())
 
 

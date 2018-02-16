@@ -35,6 +35,11 @@ class ReadChemCamData(Ui_Form, Modules):
         if self.metadataFilesLineEdit.text() == "":
             self.metadataFilesLineEdit.setText("*/")
 
+    def setup(self):
+        # TODO this file needs to be redone to fit the similar setup to `LoadData`
+        pass
+
+
     def run(self):
         params = self.getGuiParams()
         searchdir = params['searchDirectoryLineEdit']
@@ -55,7 +60,6 @@ class ReadChemCamData(Ui_Form, Modules):
             print('Loading data file: ' + str(filename))
             self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1]))
             self.datakeys.append(keyname)
-            pass
         except Exception as e:
             print('Problem reading data: {}'.format(e))
 

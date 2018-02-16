@@ -23,6 +23,7 @@ class Qtickle(object):
     def guiSave(self):
         """
         Save all values in a particular UI
+
         :return:
         """
         dict = {}
@@ -180,7 +181,7 @@ class Qtickle(object):
             except Exception as e:
                 print(e)
 
-    def guiHasChanged(self, functionCall):
+    def guiChanged(self, functionCall):
         """
         when the UI changes run the parameter `functionCall`
 
@@ -192,22 +193,20 @@ class Qtickle(object):
                 if isinstance(obj, QLineEdit):
                     obj.editingFinished.connect(lambda: functionCall())
 
-                # Comment these out for now as they may be unnecessary for our current situation
-                #
-                # if isinstance(obj, QCheckBox):
-                #     obj.stateChanged.connect(lambda: functionCall())
-                #
-                # if isinstance(obj, QRadioButton):
-                #     obj.toggled.connect(lambda: functionCall())
-                #
-                # if isinstance(obj, QSpinBox):
-                #     obj.valueChanged.connect(lambda: functionCall())
-                #
-                # if isinstance(obj, QDoubleSpinBox):
-                #     obj.valueChanged.connect(lambda: functionCall())
-                #
-                # if isinstance(obj, QSlider):
-                #     obj.event.connect(lambda: functionCall())
+                if isinstance(obj, QCheckBox):
+                    obj.stateChanged.connect(lambda: functionCall())
+
+                if isinstance(obj, QRadioButton):
+                    obj.toggled.connect(lambda: functionCall())
+
+                if isinstance(obj, QSpinBox):
+                    obj.valueChanged.connect(lambda: functionCall())
+
+                if isinstance(obj, QDoubleSpinBox):
+                    obj.valueChanged.connect(lambda: functionCall())
+
+                if isinstance(obj, QSlider):
+                    obj.event.connect(lambda: functionCall())
 
                 if isinstance(obj, QComboBox):
                     obj.currentIndexChanged.connect(lambda: functionCall())

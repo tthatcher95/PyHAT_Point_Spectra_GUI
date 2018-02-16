@@ -61,7 +61,6 @@ class BaselineRemoval(Ui_Form, Modules):
             self.alg[i - 1].setGuiParams(dict[i])
 
     def run(self):
-        # return method parameters and parameters that changed
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         # return method parameters and parameters that changed

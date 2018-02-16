@@ -5,7 +5,6 @@ from point_spectra_gui.core import CrossValidation
 from point_spectra_gui.core import DataTable
 from point_spectra_gui.core import DimensionalityReduction
 from point_spectra_gui.core import Interpolation
-from point_spectra_gui.core import Interpolation
 from point_spectra_gui.core import LoadData
 from point_spectra_gui.core import MainWindow
 from point_spectra_gui.core import MaskData
@@ -29,4 +28,3 @@ from point_spectra_gui.core import SubmodelBlend
 from point_spectra_gui.core import SubmodelPredict
 from point_spectra_gui.core import WriteToCSV
 from point_spectra_gui.core.regressionMethods import *
-

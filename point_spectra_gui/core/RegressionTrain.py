@@ -11,6 +11,23 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionTrain(Ui_Form, Modules):
+    count = -1
+
+    def __init__(self):
+        RegressionTrain.count += 1
+        self.curr_count = RegressionTrain.count
+
+    def delete(self):
+        try:
+            RegressionTrain.count -= 1
+            del self.models[self.modelkeys[-1]]
+            del self.modelkeys[-1]
+        except:
+            pass
+
+        RegressionTrain.count -= 1
+        self.modelkeys = self.modelkeys[:-1]
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -99,7 +116,18 @@ class RegressionTrain(Ui_Form, Modules):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
     def setup(self):
-        pass
+        method = self.chooseAlgorithmComboBox.currentText()
+        yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
+        yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
+
+        params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
+        try:
+            modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
+            self.list_amend(self.modelkeys, self.curr_count, modelkey)
+            print(params, modelkey)
+            self.models[modelkey] = regression.regression([method], [yrange], [params])
+        except:
+            pass
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
@@ -110,7 +138,7 @@ class RegressionTrain(Ui_Form, Modules):
 
         params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
-        self.modelkeys.append(modelkey)
+        self.list_amend(self.modelkeys, self.curr_count, modelkey)
         print(params, modelkey)
         self.models[modelkey] = regression.regression([method], [yrange], [params])
         x = self.data[datakey].df[xvars]

@@ -15,10 +15,16 @@ class LoadData(Ui_loadData, Modules):
 
     def __init__(self):
         LoadData.count += 1
-        self.currentCount = LoadData.count
+        self.curr_count = LoadData.count
+        print('Added LoadData with ID {}'.format(self.curr_count))
 
-    def __del__(self):
-        LoadData.count -= 1
+    def delete(self):
+        try:
+            LoadData.count -= 1
+            del self.data[self.datakeys[-1]]
+            del self.datakeys[-1]
+        except IndexError:
+            pass
 
     def setupUi(self, Form):
         super().setupUi(Form)
@@ -38,22 +44,20 @@ class LoadData(Ui_loadData, Modules):
 
     def setup(self):
         try:
-            params = self.getGuiParams()
-            self.filename = params['fileNameLineEdit']
-            self.keyname = params['dataSetNameLineEdit']
-            if self.keyname not in self.datakeys:
-                self.datakeys.append(self.keyname)
-            else:
-                self.datakeys[self.currentCount] = self.keyname
-            self.data[self.keyname] = spectral_data(pd.read_csv(self.filename, header=[0, 1], verbose=True, nrows=2))
+            filename = self.fileNameLineEdit.text()
+            keyname = self.dataSetNameLineEdit.text()
+            print('Loading data file: ' + str(filename))
+            self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True, nrows=2))
+            self.list_amend(self.datakeys, self.curr_count, keyname)
         except:
             pass
 
     def run(self):
-        self.setup()
-        print('Loading data file: ' + str(self.filename))
-        # TODO: `header=[0,1]` will most likely make the code brittle, better alternative?
-        self.data[self.keyname] = spectral_data(pd.read_csv(self.filename, header=[0, 1], verbose=True))
+        filename = self.fileNameLineEdit.text()
+        keyname = self.dataSetNameLineEdit.text()
+        print('Loading data file: ' + str(filename))
+        self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
+        self.list_amend(self.datakeys, self.curr_count, keyname)
 
 
 if __name__ == "__main__":

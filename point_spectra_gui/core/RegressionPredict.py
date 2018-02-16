@@ -5,6 +5,19 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionPredict(Ui_Form, Modules):
+    count = -1
+
+    def __init__(self):
+        RegressionPredict.count += 1
+        self.curr_count = RegressionPredict.count
+
+    def delete(self):
+        try:
+            RegressionPredict.count -= 1
+            del self.modelkeys[-1]
+        except IndexError:
+            pass
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)

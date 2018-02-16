@@ -26,8 +26,7 @@ class OutputFolder(Ui_Form, Modules):
         self.pushButton.clicked.connect(lambda: self.on_outPutLocationButton_clicked())
 
     def run(self):
-        params = self.getGuiParams()
-        outpath = params['folderNameLineEdit']
+        outpath = self.folderNameLineEdit.text()
         try:
             Modules.outpath = outpath
             print("Output path folder has been set to " + outpath)

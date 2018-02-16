@@ -88,7 +88,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
     def __init__(self):
         super().__init__()
         self.widgetList = []
-        Modules.LOCK_OFF()
         self.leftOff = 0
         Modules.parent = [self]
 
@@ -210,7 +209,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.widgetLayout.addWidget(self.widgetList[-1].get_widget())
         # this should scroll the view all the way down after adding the new widget.
         scrollbar = self.scrollArea.verticalScrollBar()
-        # this should scroll the view all the way down after adding the new widget.
         scrollbar.setValue(scrollbar.maximum())
 
     def menu_item_shortcuts(self):
@@ -291,6 +289,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.deleteModulePushButton.clicked.connect(self.on_delete_module_clicked)
             self.okPushButton.clicked.connect(self.on_okButton_clicked)
             self.undoModulePushButton.clicked.connect(self.on_Rerun_Button_clicked)
+            self.refreshModulePushButton.clicked.connect(self.on_Refresh_Modules_clicked)
             self.stopPushButton.clicked.connect(self.on_stopButton_clicked)
             self.actionOn.triggered.connect(self.debug_mode)
             self.actionOff.triggered.connect(self.normal_mode)
@@ -311,7 +310,11 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         This function iterates through widgetList
         gets the name of all the Modules
         and then all of the parameters in the UI
-        and then writes it to a list to be returned
+        and write it to a list to be returned
+
+        Iterate through widgetList
+        get the names of core, add it to a temp l
+        add f list to be the first item in ui_items
         """
         f = []
         ui_items = []
@@ -381,9 +384,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                                                                                   '(*.wrf)')
             print(self.restorefilename)
             with open(self.restorefilename, 'rb') as fp:
-                Modules.LOCK_ON()  # lock down the UI so that it doesn't try to run setupModules()
                 self.setWidgetItems(pickle.load(fp))
-                Modules.LOCK_OFF()
             self.title.setFileName(self.restorefilename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
@@ -399,12 +400,13 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         """
         try:
             if self.widgetList[-1].isEnabled():
-                del self.widgetList[-1]
-                delete.del_layout(self.verticalLayout_3)
+                self.widgetList[-1].delete()
+                del self.widgetList[-1]  # remove the widget from the list
+                delete.del_layout(self.verticalLayout_3)  # delete the layout
             else:
                 print("Cannot delete")
-        except:
-            print("Cannot delete")
+        except Exception as e:
+            print("Cannot delete: ", e)
 
     def on_okButton_clicked(self):
         """
@@ -432,6 +434,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 print("Cannot Re-run modules")
         except:
             pass
+
+    def on_Refresh_Modules_clicked(self):
+        self.setupModules()
 
     def on_stopButton_clicked(self):
         """
@@ -540,19 +545,32 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         p = mp.Process(target=main, args=())
         p.start()
 
+    def setupModules(self):
+        """
+        This function iterates through a list of object addresses
+        which then run its dot notated setup()
+
+        iterate through our widgets, start from the last left off item
+        run our current module's setup()
+
+        :return:
+        """
+        dic = self.getWidgetItems()
+        for modules in range(self.leftOff, len(self.widgetList)):
+            self.widgetList[modules].setup()
+            self.widgetList[modules].connectWidgets()
+            self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
+
     def runModules(self):
         """
         This function iterates through a list of object addresses
-        which then run it's dot notated run()
-
-        Reset the entirety of our static variables, so we know for sure
-        we aren't going to error out on something stupid.
+        which then run its dot notated run()
 
         iterate through our widgets, start from the last left off item
         get the name of our current widget item
         start the timer
         print the name of the module running
-        run our current modules run()
+        run our current module's function()
         get our end time
         print how long it took our current module to execute based on start time and end time
         disable our current module
@@ -570,23 +588,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             print("Module {} executed in: {} seconds".format(name_, e - s))
             self.widgetList[modules].setDisabled(True)
             self.leftOff = modules + 1
-
-    def setupModules(self):
-        """
-        This function iterates through a list of widgets
-        which then update Modules static variables
-
-        :return:
-        """
-        # in certain cases, functions like setcombobox() will cause
-        # stackoverflow (recursion) we need to lock the UI so that
-        # doesn't happen
-        if Modules.getLOCK() is False:
-            for modules in range(self.leftOff, len(self.widgetList)):
-                # Have it run through exception logger, just so we don't mess anything up
-                Modules.LOCK_ON()
-                self._exceptionLogger(self.widgetList[modules].setup)
-                self.widgetList[modules].connectWidgets()
 
     def _exceptionLogger(self, function):
         """
@@ -624,13 +625,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         else:
             try:
                 self.runModules()
-            # @@TODO is this the type of error handling we want?
             except Exception as e:
-                print("Your module broke: ", e)
-                try:
-                    self.widgetList[self.leftOff].setDisabled(False)
-                except:
-                    pass
+                print("Your {} module broke with error: {}.".format(type(self.widgetList[self.leftOff]).__name__, e))
+                self.widgetList[self.leftOff].setDisabled(False)
         self.taskFinished.emit()
 
 

@@ -1,6 +1,7 @@
 import inspect
 
 from PyQt5.QtCore import QSettings
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
 from Qtickle import Qtickle
 
@@ -31,29 +32,16 @@ class Modules:
     models = {}  # For regression training
     model_xvars = {}
     model_yvars = {}
-    modCount = 0
     parent = []
-    LOCK = []
 
     def __init__(self):
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
-        Modules.modCount += 1
-        self.personalCount = Modules.modCount
-
-    def __del__(self):
-        """
-        Delete our current module, and decrement the number of modules that exist
-
-        :return:
-        """
-        Modules.modCount -= 1
 
     def setupUi(self, Form):
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
-        self.startPropagate()
 
     def mousePressEvent(self, QMouseEvent):
         """
@@ -63,6 +51,7 @@ class Modules:
         modules from the UI, or insert modules, or copy modules.
         """
         # TODO Add mouse Event
+        print("Right Button Clicked {}".format(type(self).__name__))
 
     def get_widget(self):
         """
@@ -82,6 +71,10 @@ class Modules:
         """
         raise NotImplementedError(
             'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
+
+    def guiChanged(self):
+        self.qt = Qtickle.Qtickle(self)
+        self.qt.guiChanged(self.parent[0].setupModules)
 
     def getGuiParams(self):
         """
@@ -103,15 +96,6 @@ class Modules:
         self.qt = Qtickle.Qtickle(self)
         self.qt.guiRestore(dict)
 
-    def getCurrentModuleCount(self):
-        """
-        Since each Module needs to have it's own number
-        Give the ability for Modules to retain that information about themselves
-
-        :return:
-        """
-        return self.personalCount
-
     def selectiveSetGuiParams(self, dict):
         """
         Selectively restore the UI.
@@ -121,15 +105,14 @@ class Modules:
         :param dict:
         :return:
         """
-        if Modules.getLOCK() is False:
-            self.qt = Qtickle.Qtickle(self)
-            self.qt.selectiveGuiRestore(dict)
+        self.qt = Qtickle.Qtickle(self)
+        self.qt.selectiveGuiRestore(dict)
 
     def setup(self):
         """
-        Collect all the parameters for the static variables
-        And do a setup() of the UI, this will allow us to collect
-        the data inside everything without having to dip into PySAT
+        This is a stripped down version of run()
+        Each Module's functionality will be quickly ran through, so we have
+        at least something in the UI to work with
 
         :return:
         """
@@ -142,6 +125,15 @@ class Modules:
         :return:
         """
         raise NotImplementedError('The method "run()" was not found in the module {}'.format(type(self).__name__))
+
+    def delete(self):
+        """
+        In some particular cases, the UI needs to have some information dumped.
+        This is a chance to do that.
+
+        :return:
+        """
+        pass
 
     def isEnabled(self):
         """
@@ -159,17 +151,6 @@ class Modules:
         :return:
         """
         self.get_widget().setDisabled(bool)
-
-    def startPropagate(self):
-        """
-        Get the current module's count
-        using this as the starting point for the propagation
-        we propagate our changes through the UI
-
-        :return:
-        """
-        self.qt = Qtickle.Qtickle(self)
-        self.qt.guiHasChanged(self.parent[0].setupModules)
 
     def setProgressBar(self, progressBar):
         """
@@ -223,7 +204,6 @@ class Modules:
         :param keyValues: []
         :return:
         """
-        Modules.LOCK_ON()
         comboBox.clear()
         comboBox.setMaximumWidth(200)
         comboBox.addItems(keyValues)
@@ -238,7 +218,6 @@ class Modules:
         :param newchoices:
         :return:
         """
-        Modules.LOCK_ON()
         obj.clear()
         for i in newchoices:
             if isinstance(i, tuple):
@@ -256,7 +235,6 @@ class Modules:
         :param choices:
         :return:
         """
-        Modules.LOCK_ON()
         for item in choices:
             obj.addItem(item)
 
@@ -269,17 +247,21 @@ class Modules:
         :param item:
         :return:
         """
-        Modules.LOCK_ON()
         obj.setCurrentIndex(obj.findText(str(item)))
 
     @staticmethod
-    def LOCK_ON():
-        Modules.LOCK = [True]
+    def list_amend(list_, count_, input_):
+        """
+        In some cases a list is never actually instantiated.
+        To fix this, we want to first try and see if we can access a particular count
+        If that doesn't work due to an IndexError then we'll just settle for appending
 
-    @staticmethod
-    def LOCK_OFF():
-        Modules.LOCK = [False]
-
-    @staticmethod
-    def getLOCK():
-        return Modules.LOCK[0]
+        :param list_:
+        :param count_:
+        :param input_:
+        :return:
+        """
+        try:
+            list_[count_] = input_
+        except IndexError:
+            list_.append(input_)
