@@ -40,6 +40,7 @@ class Ui_MainWindow(MainWindow):
         Connect all the widgets associated with the MainWindow UI
         :return:
         """
+        super().connectWidgets()
         self.addWidget(core.LoadData.LoadData)
         self.addWidget(core.RenameData.RenameData)
         self.addWidget(core.OutputFolder.OutputFolder)

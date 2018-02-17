@@ -21,57 +21,23 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
-        self.Ridge.setVisible(False)
-        ridgecv = RidgeCV()
-
-        self.alphasLineEdit_cv.setText(str(ridgecv.alphas))
-        self.fitInterceptCheckBox_cv.setChecked(ridgecv.fit_intercept)
-        self.normalizeCheckBox_cv.setChecked(ridgecv.normalize)
-        self.defaultComboItem(self.scoringComboBox_cv, ridgecv.scoring)
-        self.defaultComboItem(self.gCVModeComboBox_cv, ridgecv.gcv_mode)
-        self.storeCVValuesCheckBox_cv.setChecked(ridgecv.store_cv_values)
-
         ridge = Ridge()
 
         self.alphaDoubleSpinBox.setValue(ridge.alpha)
         self.fitInterceptCheckBox.setChecked(ridge.fit_intercept)
         self.normalizeCheckBox.setChecked(ridge.normalize)
-        self.copyXCheckBox.setChecked(ridge.copy_X)
-        self.defaultComboItem(self.solverComboBox, ridge.solver)
         self.toleranceDoubleSpinBox.setValue(ridge.tol)
-        self.randomStateLineEdit.setText(str(ridge.random_state))
 
     def run(self):
-        m_attrib = {'None': None}
-        r_attrib = {'None': None}
-        try:
-            m_state = int(self.maxNumOfIterationslineEdit.text())
-        except:
-            m_state = m_attrib[self.maxNumOfIterationslineEdit.text()]
-        try:
-            r_state = int(self.randomStateLineEdit.text())
-        except:
-            r_state = r_attrib[self.randomStateLineEdit.text()]
-
-        if self.crossValidateCheckBox.isChecked():
-            params = {'alphas': ast.literal_eval(self.alphasLineEdit_cv.text()),
-                      'fit_intercept': self.fitInterceptCheckBox_cv.isChecked(),
-                      'normalize': self.normalizeCheckBox_cv.isChecked(),
-                      'scoring': {'None': None}.get(self.scoringComboBox_cv.currentText()),
-                      'gcv_mode': {'None': None}.get(self.gCVModeComboBox_cv.currentText()),
-                      'store_cv_values': self.storeCVValuesCheckBox_cv.isChecked()}
-            return params, self.getChangedValues(params, RidgeCV())
-
-        else:
-            params = {'alpha': self.alphaDoubleSpinBox.value(),
-                      'copy_X': self.copyXCheckBox.isChecked(),
-                      'fit_intercept': self.fitInterceptCheckBox.isChecked(),
-                      'max_iter': m_state,
-                      'normalize': self.normalizeCheckBox.isChecked(),
-                      'solver': self.solverComboBox.currentText(),
-                      'tol': self.toleranceDoubleSpinBox.value(),
-                      'random_state': r_state,}
-            return params, self.getChangedValues(params, Ridge())
+        params = {'alpha': self.alphaDoubleSpinBox.value(),
+                  'copy_X': True,
+                  'fit_intercept': self.fitInterceptCheckBox.isChecked(),
+                  'normalize': self.normalizeCheckBox.isChecked(),
+                  'solver': 'auto',
+                  'tol': self.toleranceDoubleSpinBox.value(),
+                  'random_state': None
+                  }
+        return params, self.getChangedValues(params, Ridge())
 
 
 if __name__ == "__main__":
