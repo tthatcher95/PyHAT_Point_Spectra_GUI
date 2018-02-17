@@ -191,7 +191,6 @@ class Modules:
         for key in input_dictionary:
             if input_dictionary[key] != getattr(algorithm, key):  # key gives us a string
                 dic.update({key: input_dictionary[key]})
-
         return dic
 
     @staticmethod

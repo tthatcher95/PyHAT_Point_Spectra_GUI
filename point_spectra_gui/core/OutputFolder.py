@@ -25,6 +25,9 @@ class OutputFolder(Ui_Form, Modules):
     def connectWidgets(self):
         self.pushButton.clicked.connect(lambda: self.on_outPutLocationButton_clicked())
 
+    def setup(self):
+        pass
+
     def run(self):
         outpath = self.folderNameLineEdit.text()
         try:

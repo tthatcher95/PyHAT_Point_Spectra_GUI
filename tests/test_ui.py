@@ -40,28 +40,28 @@ class Ui_MainWindow(MainWindow):
         Connect all the widgets associated with the MainWindow UI
         :return:
         """
+        self.addWidget(core.LoadData.LoadData)
+        self.addWidget(core.RenameData.RenameData)
+        self.addWidget(core.OutputFolder.OutputFolder)
+        self.addWidget(core.WriteToCSV.WriteToCSV)
+        self.addWidget(core.MaskData.MaskData)
+        self.addWidget(core.Normalization.Normalization)
         self.addWidget(core.ReadChemCamData.ReadChemCamData)
         self.addWidget(core.BaselineRemoval.BaselineRemoval)
-        self.addWidget(core.CrossValidation.CrossValidation)
         self.addWidget(core.DimensionalityReduction.DimensionalityReduction)
         self.addWidget(core.Interpolation.Interpolation)
-        self.addWidget(core.LoadData.LoadData)
-        self.addWidget(core.WriteToCSV.WriteToCSV)
-        self.addWidget(core.RenameData.RenameData)
-        self.addWidget(core.MaskData.MaskData)
+        self.addWidget(core.StratifiedFolds.StratifiedFolds)
+        self.addWidget(core.CrossValidation.CrossValidation)
         self.addWidget(core.MultiplyByVector.MultiplyByVector)
-        self.addWidget(core.Normalization.Normalization)
-        self.addWidget(core.OutputFolder.OutputFolder)
         self.addWidget(core.PeakAreas.PeakAreas)
-        self.addWidget(core.Plot.Plot)
         self.addWidget(core.Plot_ICA_PCA.Plot_ICA_PCA)
         self.addWidget(core.PlotSpectra.PlotSpectra)
         self.addWidget(core.RegressionTrain.RegressionTrain)
         self.addWidget(core.RegressionPredict.RegressionPredict)
         self.addWidget(core.RemoveRows.RemoveRows)
         self.addWidget(core.SplitDataset.SplitDataset)
-        self.addWidget(core.StratifiedFolds.StratifiedFolds)
         self.addWidget(core.SubmodelPredict.SubmodelPredict)
+        self.addWidget(core.Plot.Plot)
 
 
 def main():

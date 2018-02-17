@@ -207,7 +207,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.widgetLayout.setObjectName("widgetLayout")
         self.verticalLayout_3.addLayout(self.widgetLayout)
         self.widgetLayout.addWidget(self.widgetList[-1].get_widget())
-        # this should scroll the view all the way down after adding the new widget.
+        # this should (but it doesn't...) scroll the view all the way down after adding the new widget.
+        # it scrolls it down by just a little bit
         scrollbar = self.scrollArea.verticalScrollBar()
         scrollbar.setValue(scrollbar.maximum())
 
