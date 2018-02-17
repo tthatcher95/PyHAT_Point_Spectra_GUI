@@ -150,7 +150,7 @@ class Normalization(Ui_Form, Modules):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices())
         self.varToNormalizeListWidget.itemSelectionChanged.connect(self.setDataLimits)
-        self.qt.guiHasChanged(self.updateVal)
+        self.qt.guiChanged(self.updateVal)
 
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices()))

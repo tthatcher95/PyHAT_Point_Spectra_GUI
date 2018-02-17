@@ -29,6 +29,19 @@ class RegressionPredict(Ui_Form, Modules):
         self.setListWidget(self.chooseDataListWidget, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
 
+    def setup(self):
+        datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
+        modelkey = self.chooseModelComboBox.currentText()
+        try:
+            for datakey in datakeys:
+                data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
+                data_tmp.fillna(value=0, inplace=True)
+                prediction = self.models[modelkey].predict(data_tmp)
+                predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
+                self.data[datakey].df[predictname] = prediction
+        except Exception as e:
+            print(e)
+
     def run(self):
         datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
         modelkey = self.chooseModelComboBox.currentText()
