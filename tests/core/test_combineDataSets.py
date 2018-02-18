@@ -23,7 +23,7 @@ def test_combine_datasets(qtbot, repeat_df_len10):
     gui.dataSet1ComboBox.setItemText(0, key1)
     gui.dataSet2ComboBox.addItem(key2)
     gui.dataSet2ComboBox.setItemText(0, key2)
-    gui.outputToDataSetTextBox.appendPlainText(outkey)
+    gui.outputToDataSetLineEdit.setText(outkey)
 
     gui.run()
 
