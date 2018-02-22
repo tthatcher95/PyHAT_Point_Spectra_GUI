@@ -1,6 +1,7 @@
-from PyQt5 import QtWidgets, QtCore
-from sklearn.linear_model.least_angle import LassoLars, LassoLarsCV, LassoLarsIC
 import numpy as np
+from PyQt5 import QtWidgets, QtCore
+from sklearn.linear_model.least_angle import LassoLars
+
 from point_spectra_gui.ui.cv_LassoLARS import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
@@ -23,11 +24,12 @@ class Ui_Form(Ui_Form, Modules):
         self.minalpha_spin.setValue(0.0000001)
         self.maxalpha_spin.setValue(0.01)
         self.nalpha_spin.setValue(100)
-        self.fit_intercept_list.setCurrentItem(self.fit_intercept_list.findItems(str(ll.fit_intercept),QtCore.Qt.MatchExactly)[0])
-        self.normalize_list.setCurrentItem(self.normalize_list.findItems(str(ll.normalize),QtCore.Qt.MatchExactly)[0])
+        self.fit_intercept_list.setCurrentItem(
+            self.fit_intercept_list.findItems(str(ll.fit_intercept), QtCore.Qt.MatchExactly)[0])
+        self.normalize_list.setCurrentItem(self.normalize_list.findItems(str(ll.normalize), QtCore.Qt.MatchExactly)[0])
         self.max_iterLineEdit.setText(str(ll.max_iter))
-        self.force_positive_list.setCurrentItem(self.force_positive_list.findItems(str(ll.positive),QtCore.Qt.MatchExactly)[0])
-
+        self.force_positive_list.setCurrentItem(
+            self.force_positive_list.findItems(str(ll.positive), QtCore.Qt.MatchExactly)[0])
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
@@ -47,8 +49,6 @@ class Ui_Form(Ui_Form, Modules):
             'positive': positive_items,
             'model': [0]
         }
-
-
         modelkey = str(params)
         return params, modelkey
 

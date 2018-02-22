@@ -1,10 +1,9 @@
 import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
+from Qtickle import Qtickle
 from libpysat.regression import cv
 from libpysat.spectral.spectral_data import spectral_data
-
-from Qtickle import Qtickle
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
@@ -37,7 +36,7 @@ class CrossValidation(Ui_Form, Modules):
                                # 'KRR',  This needs more work since it requires parameters for the kernel passed as an object
                                'LARS',
                                'LASSO',
-                              # 'LASSO LARS', - this also need to be debugged
+                               # 'LASSO LARS', - this also need to be debugged
                                'OLS',
                                'OMP',
                                'PLS',
@@ -78,23 +77,23 @@ class CrossValidation(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[keys[i - 1]].setGuiParams(dict[i])
 
-    # def selectiveSetGuiParams(self, dict):
-    #     """
-    #     Override Modules' selective Restore function
-    #
-    #     Setup Qtickle
-    #     selectively restore the UI, the data to do that will be in the 0th element of the dictionary
-    #     We will then iterate through the rest of the dictionary
-    #     Will now restore the parameters for the algorithms in the list, Each of the algs have their own selectiveSetGuiParams
-    #
-    #     :param dict:
-    #     :return:
-    #     """
-    #
-    #     self.qt = Qtickle.Qtickle(self)
-    #     self.qt.selectiveGuiRestore(dict[0])
-    #     for i in range(len(dict)):
-    #         self.alg[i - 1].selectiveSetGuiParams(dict[i])
+    def selectiveSetGuiParams(self, dict):
+        """
+        Override Modules' selective Restore function
+
+        Setup Qtickle
+        selectively restore the UI, the data to do that will be in the 0th element of the dictionary
+        We will then iterate through the rest of the dictionary
+        Will now restore the parameters for the algorithms in the list, Each of the algs have their own selectiveSetGuiParams
+
+        :param dict:
+        :return:
+        """
+        self.qt = Qtickle.Qtickle(self)
+        self.qt.guiRestore(dict[0])
+        keys = list(self.alg.keys())
+        for i in range(len(dict)):
+            self.alg[keys[i - 1]].selectiveSetGuiParams(dict[i])
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()

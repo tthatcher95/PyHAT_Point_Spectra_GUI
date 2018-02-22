@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>515</width>
+    <width>519</width>
     <height>596</height>
    </rect>
   </property>
@@ -40,8 +40,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>472</width>
-         <height>329</height>
+         <width>484</width>
+         <height>350</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -80,6 +80,16 @@
         </property>
         <property name="format">
          <string>%p%</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="refreshModulePushButton">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Re-run your last ran module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>Refresh Modules</string>
         </property>
        </widget>
       </item>
@@ -135,8 +145,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>515</width>
-     <height>26</height>
+     <width>519</width>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

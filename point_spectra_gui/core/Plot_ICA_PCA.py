@@ -1,8 +1,9 @@
 from PyQt5 import QtWidgets
-from point_spectra_gui.util.plots import pca_ica_plot
 
 from point_spectra_gui.ui.Plot_ICA_PCA import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+
+from point_spectra_gui.util.plots import pca_ica_plot
 
 
 class Plot_ICA_PCA(Ui_Form, Modules):
