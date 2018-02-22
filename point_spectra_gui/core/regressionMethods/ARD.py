@@ -11,7 +11,6 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
         self.checkMinAndMax()
         self.connectWidgets()
 
-
     def get_widget(self):
         return self.formGroupBox
 
@@ -25,12 +24,9 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
         self.alpha2DoubleSpinBox.setValue(self.alpha_2)
         self.lambdaDoubleSpinBox.setValue(self.lambda_1)
         self.lambdaDoubleSpinBox_2.setValue(self.lambda_2)
-        self.computerScoreCheckBox.setChecked(self.compute_score)
         self.thresholdLambdaSpinBox.setValue(self.threshold_lambda)
         self.fitInterceptCheckBox.setChecked(self.fit_intercept)
         self.normalizeCheckBox.setChecked(self.normalize)
-        self.copyXCheckBox.setChecked(self.copy_X)
-        self.verboseCheckBox.setChecked(self.verbose)
 
     def run(self):
         params = {
@@ -40,13 +36,10 @@ class Ui_Form(Ui_Form, ARDRegression, Modules):
             'alpha_2': self.alpha2DoubleSpinBox.value(),
             'lambda_1': self.lambdaDoubleSpinBox.value(),
             'lambda_2': self.lambdaDoubleSpinBox_2.value(),
-            'compute_score': self.computerScoreCheckBox.isChecked(),
             'threshold_lambda': self.thresholdLambdaSpinBox.value(),
             'fit_intercept': self.fitInterceptCheckBox.isChecked(),
             'normalize': self.normalizeCheckBox.isChecked(),
-            'copy_X': self.copyXCheckBox.isChecked(),
-            'verbose': self.verboseCheckBox.isChecked()}
-
+        }
         return params, self.getChangedValues(params, ARDRegression())
 
 

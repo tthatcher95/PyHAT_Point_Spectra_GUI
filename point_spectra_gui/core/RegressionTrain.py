@@ -1,16 +1,32 @@
 import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
+from Qtickle import Qtickle
 from libpysat.regression import regression
 from libpysat.spectral.spectral_data import spectral_data
-
-from Qtickle import Qtickle
 from point_spectra_gui.core.regressionMethods import *
 from point_spectra_gui.ui.RegressionTrain import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionTrain(Ui_Form, Modules):
+    count = -1
+
+    def __init__(self):
+        RegressionTrain.count += 1
+        self.curr_count = RegressionTrain.count
+
+    def delete(self):
+        try:
+            RegressionTrain.count -= 1
+            del self.models[self.modelkeys[-1]]
+            del self.modelkeys[-1]
+        except:
+            pass
+
+        RegressionTrain.count -= 1
+        self.modelkeys = self.modelkeys[:-1]
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -40,8 +56,7 @@ class RegressionTrain(Ui_Form, Modules):
                                'ARD',
                                'LARS',
                                # 'LASSO LARS', - This is having issues. Hide until we can debug
-                               'SVR']#,
-                     #          'KRR']
+                               'SVR']
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.yMaxDoubleSpinBox.setMaximum(999999)
@@ -56,7 +71,6 @@ class RegressionTrain(Ui_Form, Modules):
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
-
 
     def getGuiParams(self):
         """
@@ -84,24 +98,38 @@ class RegressionTrain(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[keys[i - 1]].setGuiParams(dict[i])
 
-    #
-    # def selectiveSetGuiParams(self, dict):
-    #     """
-    #     Override Modules' selective Restore function
-    #
-    #     Setup Qtickle
-    #     selectively restore the UI, the data to do that will be in the 0th element of the dictionary
-    #     We will then iterate through the rest of the dictionary
-    #     Will now restore the parameters for the algorithms in the list, Each of the algs have their own selectiveSetGuiParams
-    #
-    #     :param dict:
-    #     :return:
-    #     """
-    #
-    #     self.qt = Qtickle.Qtickle(self)
-    #     self.qt.selectiveGuiRestore(dict[0])
-    #     for i in range(len(dict)):
-    #         self.alg[i - 1].selectiveSetGuiParams(dict[i])
+    def selectiveSetGuiParams(self, dict):
+        """
+        Override Modules' selective Restore function
+
+        Setup Qtickle
+        selectively restore the UI, the data to do that will be in the 0th element of the dictionary
+        We will then iterate through the rest of the dictionary
+        Will now restore the parameters for the algorithms in the list, Each of the algs have their own selectiveSetGuiParams
+
+        :param dict:
+        :return:
+        """
+
+        self.qt = Qtickle.Qtickle(self)
+        self.qt.guiRestore(dict[0])
+        keys = list(self.alg.keys())
+        for i in range(len(dict)):
+            self.alg[keys[i - 1]].selectiveSetGuiParams(dict[i])
+
+    def setup(self):
+        method = self.chooseAlgorithmComboBox.currentText()
+        yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
+        yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
+
+        params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
+        try:
+            modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
+            self.list_amend(self.modelkeys, self.curr_count, modelkey)
+            print(params, modelkey)
+            self.models[modelkey] = regression.regression([method], [yrange], [params])
+        except:
+            pass
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
@@ -111,9 +139,8 @@ class RegressionTrain(Ui_Form, Modules):
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
 
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
-        # try:
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
-        self.modelkeys.append(modelkey)
+        self.list_amend(self.modelkeys, self.curr_count, modelkey)
         print(params, modelkey)
         self.models[modelkey] = regression.regression([method], [yrange], [params])
         x = self.data[datakey].df[xvars]
@@ -141,7 +168,6 @@ class RegressionTrain(Ui_Form, Modules):
         except:
             pass
 
-
     def yvar_choices(self):
         try:
             yvarchoices = self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values
@@ -158,18 +184,16 @@ class RegressionTrain(Ui_Form, Modules):
             xvarchoices = ['No valid choices!']
         return xvarchoices
 
-
     def hideAll(self):
         for a in self.alg:
             self.alg[a].setHidden(True)
-
 
     def regressionMethods(self):
         self.alg = {'ARD': ARD.Ui_Form(),
                     'BRR': BayesianRidge.Ui_Form(),
                     'Elastic Net': ElasticNet.Ui_Form(),
                     'GP': GP.Ui_Form(),
-                    #'KRR': KRR.Ui_Form(),
+                    # 'KRR': KRR.Ui_Form(),
                     'LARS': LARS.Ui_Form(),
                     'LASSO': Lasso.Ui_Form(),
                     # 'LASSO LARS': LassoLARS.Ui_Form(),

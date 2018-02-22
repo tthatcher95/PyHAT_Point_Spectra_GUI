@@ -43,7 +43,6 @@ class Modules:
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
 
-
     def mousePressEvent(self, QMouseEvent):
         """
         TODO: Add right click event
