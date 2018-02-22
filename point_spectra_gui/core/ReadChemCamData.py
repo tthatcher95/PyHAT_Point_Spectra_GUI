@@ -47,6 +47,10 @@ class ReadChemCamData(Ui_Form, Modules):
         to_csv = params['outputFileNameLineEdit']
         try:
             lookupfile = params['metadataFilesLineEdit']
+            lookupfile = lookupfile[2:-2].split(',')
+
+            if lookupfile[0] == '':
+                lookupfile = None
         except:
             lookupfile = None
         ave = bool(params['averagesradioButton'])
