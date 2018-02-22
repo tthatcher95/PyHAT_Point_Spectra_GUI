@@ -21,13 +21,11 @@ class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, M
     def connectWidgets(self):
         self.fitInterceptCheckBox.setChecked(self.fit_intercept)
         self.normalizeCheckBox.setChecked(self.normalize)
-        self.defaultComboItem(self.precomputeComboBox, self.precompute)
 
     def run(self):
         params = {'fit_intercept': self.fitInterceptCheckBox.isChecked(),
                   'normalize': self.normalizeCheckBox.isChecked(),
-                  'precompute': self.precomputeComboBox.currentText(),
-                  'CV': self.cVCheckBox.isChecked()}
+                  'precompute': True}
 
         return params, self.getChangedValues(params, OrthogonalMatchingPursuit())
 
