@@ -1,6 +1,4 @@
-import ast
-
-from PyQt5 import QtWidgets,QtCore
+from PyQt5 import QtWidgets, QtCore
 from sklearn.linear_model.ridge import Ridge
 from sklearn.linear_model.ridge import RidgeCV
 
@@ -22,13 +20,13 @@ class Ui_Form(Ui_Form, Ridge, RidgeCV, Modules):
 
     def connectWidgets(self):
         ridge = Ridge()
-
         self.alphaLineEdit.setText('0.01, 0.1, 1.0, 10, 100')
-        self.fit_intercept_list.setCurrentItem(self.fit_intercept_list.findItems(str(ridge.fit_intercept),QtCore.Qt.MatchExactly)[0])
-        self.normalize_list.setCurrentItem(self.normalize_list.findItems(str(ridge.normalize),QtCore.Qt.MatchExactly)[0])
+        self.fit_intercept_list.setCurrentItem(
+            self.fit_intercept_list.findItems(str(ridge.fit_intercept), QtCore.Qt.MatchExactly)[0])
+        self.normalize_list.setCurrentItem(
+            self.normalize_list.findItems(str(ridge.normalize), QtCore.Qt.MatchExactly)[0])
         self.toleranceLineEdit.setText(str(ridge.tol))
         self.maxNumOfIterationslineEdit.setText(str(ridge.max_iter))
-
 
     def run(self):
         fit_intercept_items = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]

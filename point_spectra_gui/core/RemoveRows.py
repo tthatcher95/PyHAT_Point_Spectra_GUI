@@ -1,7 +1,6 @@
 import numpy as np
 from PyQt5 import QtWidgets
 from libpysat.spectral.spectral_data import spectral_data
-
 from point_spectra_gui.ui.RemoveRows import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
@@ -52,13 +51,10 @@ class RemoveRows(Ui_Form, Modules):
         Modules.setupUi(self, Form)
 
     def setup_remove_operations(self):
-        self.operations = [remove_operation(self.colName_1, self.operator_1, self.value_1, logic=self.logic_1),
-                           remove_operation(self.colName_2, self.operator_2, self.value_2, logic=self.logic_2,
-                                            hidden=self.hidden_2),
-                           remove_operation(self.colName_3, self.operator_3, self.value_3, logic=self.logic_3,
-                                            hidden=self.hidden_3),
-                           remove_operation(self.colName_4, self.operator_4, self.value_4, logic=self.logic_4,
-                                            hidden=self.hidden_4),
+        self.operations = [remove_operation(self.colName_1, self.operator_1, self.value_1, logic = self.logic_1),
+                           remove_operation(self.colName_2, self.operator_2, self.value_2, logic=self.logic_2, hidden=self.hidden_2),
+                           remove_operation(self.colName_3, self.operator_3, self.value_3, logic=self.logic_3, hidden=self.hidden_3),
+                           remove_operation(self.colName_4, self.operator_4, self.value_4, logic=self.logic_4, hidden=self.hidden_4),
                            remove_operation(self.colName_5, self.operator_5, self.value_5, hidden=self.hidden_5)]
         for i in self.operations:
             try:
@@ -96,16 +92,17 @@ class RemoveRows(Ui_Form, Modules):
         for i in range(len(self.operations) - 1):
             try:
                 if self.operations[i].logic.currentText() == 'and':
-                    self.operations[i+1].hidden.setChecked(False)
+                    self.operations[i + 1].hidden.setChecked(False)
                 else:
-                    self.operations[i+1].hidden.setChecked(True)
+                    self.operations[i + 1].hidden.setChecked(True)
 
-                if self.operations[i+1].logic.currentText() == 'and':
+                if self.operations[i + 1].logic.currentText() == 'and':
                     self.operations[i].logic.setEnabled(False)
                 else:
                     self.operations[i].logic.setEnabled(True)
             except:
                 pass
+
     def run(self):
         match_vectors = []
         logic_list = []
@@ -123,10 +120,7 @@ class RemoveRows(Ui_Form, Modules):
         match_combined = np.all(match_vectors, axis=0)
         print(self.data[datakey].df.shape)
         self.data[datakey] = spectral_data(self.data[datakey].df.ix[~match_combined])
-
         print(self.data[datakey].df.shape)
-
-        pass
 
     def evaluate_operation(self, datakey, operation_values):
         colname = operation_values['column']

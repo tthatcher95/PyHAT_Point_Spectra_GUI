@@ -1,8 +1,7 @@
 from PyQt5 import QtWidgets
-from sklearn.linear_model import BayesianRidge
-
 from point_spectra_gui.ui.BayesianRidge import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from sklearn.linear_model import BayesianRidge
 
 
 class Ui_Form(Ui_Form, BayesianRidge, Modules):
@@ -27,8 +26,6 @@ class Ui_Form(Ui_Form, BayesianRidge, Modules):
         self.computerScoreCheckBox.setChecked(self.compute_score)
         self.fitInterceptCheckBox.setChecked(self.fit_intercept)
         self.normalizeCheckBox.setChecked(self.normalize)
-        self.copyXCheckBox.setChecked(self.copy_X)
-        self.verboseCheckBox.setChecked(self.verbose)
 
     def run(self):
         params = {'n_iter': self.numOfIterationsSpinBox.value(),
@@ -40,9 +37,7 @@ class Ui_Form(Ui_Form, BayesianRidge, Modules):
                   'compute_score': self.computerScoreCheckBox.isChecked(),
                   'fit_intercept': self.fitInterceptCheckBox.isChecked(),
                   'normalize': self.normalizeCheckBox.isChecked(),
-                  'copy_X': self.copyXCheckBox.isChecked(),
-                  'verbose': self.verboseCheckBox.isChecked()}
-
+                  }
         return params, self.getChangedValues(params, BayesianRidge())
 
 

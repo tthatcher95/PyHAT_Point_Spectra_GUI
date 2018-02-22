@@ -5,6 +5,19 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionPredict(Ui_Form, Modules):
+    count = -1
+
+    def __init__(self):
+        RegressionPredict.count += 1
+        self.curr_count = RegressionPredict.count
+
+    def delete(self):
+        try:
+            RegressionPredict.count -= 1
+            del self.modelkeys[-1]
+        except IndexError:
+            pass
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -13,20 +26,32 @@ class RegressionPredict(Ui_Form, Modules):
         return self.formGroupBox
 
     def connectWidgets(self):
-        self.setComboBox(self.chooseDataComboBox, self.data)
+        self.setListWidget(self.chooseDataListWidget, self.data)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
 
-    def run(self):
-        datakey = self.chooseDataComboBox.currentText()
+    def setup(self):
+        datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
         modelkey = self.chooseModelComboBox.currentText()
-        predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
-
-        data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
-        data_tmp.fillna(value=0,inplace=True)
         try:
-            prediction = self.models[modelkey].predict(data_tmp)
-            self.data[datakey].df[predictname] = prediction
-            pass
+            for datakey in datakeys:
+                data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
+                data_tmp.fillna(value=0, inplace=True)
+                prediction = self.models[modelkey].predict(data_tmp)
+                predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
+                self.data[datakey].df[predictname] = prediction
+        except Exception as e:
+            print(e)
+
+    def run(self):
+        datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
+        modelkey = self.chooseModelComboBox.currentText()
+        try:
+            for datakey in datakeys:
+                data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
+                data_tmp.fillna(value=0, inplace=True)
+                prediction = self.models[modelkey].predict(data_tmp)
+                predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
+                self.data[datakey].df[predictname] = prediction
         except Exception as e:
             print(e)
 

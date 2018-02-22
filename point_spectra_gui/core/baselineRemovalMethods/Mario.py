@@ -8,7 +8,6 @@ from point_spectra_gui.util.Modules import Modules
 class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-        self.connectWidgets()
         Modules.setupUi(self, Form)
 
     def get_widget(self):

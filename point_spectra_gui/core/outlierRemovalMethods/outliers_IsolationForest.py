@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets
 from sklearn.ensemble import IsolationForest
 
 from point_spectra_gui.ui.outliers_IsolationForest import Ui_Form
@@ -22,7 +22,6 @@ class Ui_Form(Ui_Form, IsolationForest, Modules):
         self.prop_outliers_spin.setValue(self.contamination)
 
     def run(self):
-
         params = {
             'n_estimators': self.n_est_spin.value(),
             'contamination': self.prop_outliers_spin.value(),
