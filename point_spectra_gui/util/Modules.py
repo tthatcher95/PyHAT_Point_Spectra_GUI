@@ -42,7 +42,7 @@ class Modules:
         self.Form = Form
         self.Form.mousePressEvent = self.mousePressEvent
         self.connectWidgets()
-        self.guiChanged()
+#        self.guiChanged()
 
     def mousePressEvent(self, QMouseEvent):
         """
