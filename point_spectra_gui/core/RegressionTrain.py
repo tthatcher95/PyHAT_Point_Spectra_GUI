@@ -56,8 +56,7 @@ class RegressionTrain(Ui_Form, Modules):
                                'ARD',
                                'LARS',
                                # 'LASSO LARS', - This is having issues. Hide until we can debug
-                               'SVR']#,
-                     #          'KRR']
+                               'SVR']
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.yMaxDoubleSpinBox.setMaximum(999999)
@@ -72,7 +71,6 @@ class RegressionTrain(Ui_Form, Modules):
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
-
 
     def getGuiParams(self):
         """
@@ -100,7 +98,6 @@ class RegressionTrain(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[keys[i - 1]].setGuiParams(dict[i])
 
-
     def selectiveSetGuiParams(self, dict):
         """
         Override Modules' selective Restore function
@@ -125,7 +122,7 @@ class RegressionTrain(Ui_Form, Modules):
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
 
-        params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
+        params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
         try:
             modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
             self.list_amend(self.modelkeys, self.curr_count, modelkey)
@@ -171,7 +168,6 @@ class RegressionTrain(Ui_Form, Modules):
         except:
             pass
 
-
     def yvar_choices(self):
         try:
             yvarchoices = self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values
@@ -188,18 +184,16 @@ class RegressionTrain(Ui_Form, Modules):
             xvarchoices = ['No valid choices!']
         return xvarchoices
 
-
     def hideAll(self):
         for a in self.alg:
             self.alg[a].setHidden(True)
-
 
     def regressionMethods(self):
         self.alg = {'ARD': ARD.Ui_Form(),
                     'BRR': BayesianRidge.Ui_Form(),
                     'Elastic Net': ElasticNet.Ui_Form(),
                     'GP': GP.Ui_Form(),
-                    #'KRR': KRR.Ui_Form(),
+                    # 'KRR': KRR.Ui_Form(),
                     'LARS': LARS.Ui_Form(),
                     'LASSO': Lasso.Ui_Form(),
                     # 'LASSO LARS': LassoLARS.Ui_Form(),
