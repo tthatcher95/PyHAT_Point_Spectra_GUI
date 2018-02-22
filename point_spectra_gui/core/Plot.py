@@ -1,9 +1,9 @@
 import numpy as np
 from PyQt5 import QtWidgets
-from point_spectra_gui.util.plots import make_plot
 
 from point_spectra_gui.ui.Plot import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.plots import make_plot
 
 
 class Plot(Ui_Form, Modules):
@@ -67,7 +67,6 @@ class Plot(Ui_Form, Modules):
                                     self.chooseYVariableComboBox.currentText()))
 
     def run(self):
-
         datakey = self.chooseDataComboBox.currentText()
         xvar = self.chooseXVariableComboBox.currentText()
         yvar = self.chooseYVariableComboBox.currentText()

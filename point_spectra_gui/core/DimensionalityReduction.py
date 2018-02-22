@@ -42,6 +42,10 @@ class DimensionalityReduction(Ui_Form, Modules):
         return s
 
     def setGuiParams(self, dict):
+        """
+        Overriding Modules' setGuiParams, because we are accessing a list of lists
+        And each submodule contains it's own `setGuiParams`
+        """
         self.qt = Qtickle.Qtickle(self)
         self.qt.guiRestore(dict[0])
         for i in range(len(dict)):
