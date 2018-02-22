@@ -181,10 +181,9 @@ class Qtickle(object):
             except Exception as e:
                 print(e)
 
-    def isGuiChanged(self, functionCall):
+    def guiChanged(self, functionCall):
         """
-        Check to see if the gui changed,
-        if it did run the parameter `functionCall`
+        when the UI changes run the parameter `functionCall`
 
         :param functionCall:
         :return:
@@ -192,7 +191,7 @@ class Qtickle(object):
         try:
             for name, obj in inspect.getmembers(self.ui):
                 if isinstance(obj, QLineEdit):
-                    obj.textChanged.connect(lambda: functionCall())
+                    obj.editingFinished.connect(lambda: functionCall())
 
                 if isinstance(obj, QCheckBox):
                     obj.stateChanged.connect(lambda: functionCall())

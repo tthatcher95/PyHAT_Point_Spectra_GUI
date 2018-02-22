@@ -5,6 +5,10 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class OutputFolder(Ui_Form, Modules):
+    """
+    This is the `outpath` module. It can designate where data goes after processing
+    """
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -19,13 +23,13 @@ class OutputFolder(Ui_Form, Modules):
             self.folderNameLineEdit.setText("*/")
 
     def connectWidgets(self):
-        pass
-
         self.pushButton.clicked.connect(lambda: self.on_outPutLocationButton_clicked())
 
+    def setup(self):
+        pass
+
     def run(self):
-        params = self.getGuiParams()
-        outpath = params['folderNameLineEdit']
+        outpath = self.folderNameLineEdit.text()
         try:
             Modules.outpath = outpath
             print("Output path folder has been set to " + outpath)

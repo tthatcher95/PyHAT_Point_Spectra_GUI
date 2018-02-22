@@ -1,17 +1,16 @@
-# -*- coding: utf-8 -*-
-
-# Automatically generated - don't edit.
-# Use `python setup.py build_ui` to update it.
-
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.DataTable import Ui_Form
-from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.PandasModel import PandasModel
+from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.Worker import Worker
 
 
 class DataTable(QtWidgets.QWidget, Ui_Form, Modules):
+    """
+    Displays the data stored inside the memory of this application
+    """
+
     def __init__(self, *args, **kwargs):
         QtWidgets.QWidget.__init__(self, *args, **kwargs)
         self.setupUi(self)
@@ -37,8 +36,8 @@ class DataTable(QtWidgets.QWidget, Ui_Form, Modules):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     Form = DataTable()
     Form.show()
     sys.exit(app.exec_())
+

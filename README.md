@@ -1,12 +1,14 @@
-[![Build Status](https://travis-ci.org/USGS-Astrogeology/PySAT_Point_Spectra_GUI.svg?branch=dev)](https://travis-ci.org/USGS-Astrogeology/PySAT_Point_Spectra_GUI) 
+[![Build Status](https://travis-ci.org/USGS-Astrogeology/PySAT_Point_Spectra_GUI.svg?branch=dev)](https://travis-ci.org/USGS-Astrogeology/PySAT_Point_Spectra_GUI)
+[![Coverage Status](https://coveralls.io/repos/github/Kelvinrr/PySAT_Point_Spectra_GUI/badge.svg?branch=master)](https://coveralls.io/github/Kelvinrr/PySAT_Point_Spectra_GUI?branch=master)
 [![Join the chat at https://gitter.im/USGS-Astrogeology/PySAT](https://badges.gitter.im/USGS-Astrogeology/PySAT.svg)](https://gitter.im/USGS-Astrogeology/PySAT?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 
 ## Installation
 
 
 ### 1. Fresh install of Miniconda (Skip to step 2 if you have Anaconda/Miniconda)
 
-\*Note for Windows: Please make sure you do not have any previous versions of Python on your system. If you do, it may make it difficult for Anaconda/Miniconda to use the command `conda` 
+\*Note for Windows: Please make sure you do not have any previous versions of Python on your system. If you do, it may make it difficult for Anaconda/Miniconda to use the command `conda`
 <br>If you're still having issues with uninstalling Python, I recommend using <a href ="https://www.iobit.com/en/advanceduninstaller.php?">IObit Uninstaller</a><br>
 Lastly, if all else fails, try turning your machine off and then on again.
 
