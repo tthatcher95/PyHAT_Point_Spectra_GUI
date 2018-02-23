@@ -1,9 +1,8 @@
 import inspect
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
-from Qtickle import Qtickle
+from point_spectra_gui.util import Qtickle
 
 
 class Modules:
