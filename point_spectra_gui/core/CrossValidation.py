@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
-from Qtickle import Qtickle
+from point_spectra_gui.util import Qtickle
 from libpysat.regression import cv
 from libpysat.spectral.spectral_data import spectral_data
 from point_spectra_gui.core.crossValidateMethods import *
@@ -90,7 +90,7 @@ class CrossValidation(Ui_Form, Modules):
         :return:
         """
         self.qt = Qtickle.Qtickle(self)
-        self.qt.guiRestore(dict[0])
+        self.qt.selectiveGuiRestore(dict[0])
         keys = list(self.alg.keys())
         for i in range(len(dict)):
             self.alg[keys[i - 1]].selectiveSetGuiParams(dict[i])

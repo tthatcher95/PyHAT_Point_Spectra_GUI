@@ -219,6 +219,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.actionRestore_Workflow.setShortcut("ctrl+O")
         self.actionSave_Current_Workflow.setShortcut("ctrl+S")
         self.okPushButton.setShortcut("Ctrl+Return")
+        self.refreshModulePushButton.setShortcut("Alt+Return")
 
     def connectWidgets(self):
         """
@@ -517,7 +518,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         When a given task is finished
         stop the bar pulsing green
         and display 100% for bar.
-        
+
         :return:
         """
         self.progressBar.setRange(0, 1)
@@ -558,7 +559,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         """
         dic = self.getWidgetItems()
         for modules in range(self.leftOff, len(self.widgetList)):
-            self.widgetList[modules].setup()
+            if self.debug:
+                self._logger(self.widgetList[modules].setup())
+            else:
+                self.widgetList[modules].setup()
             self.widgetList[modules].connectWidgets()
             self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
 
@@ -589,6 +593,13 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             print("Module {} executed in: {} seconds".format(name_, e - s))
             self.widgetList[modules].setDisabled(True)
             self.leftOff = modules + 1
+
+    def _logger(self, function):
+        try:
+            function()
+        except Exception as e:
+            print("Your {} module broke with error: {}.".format(type(self.widgetList[self.leftOff]).__name__, e))
+            self.widgetList[self.leftOff].setDisabled(False)
 
     def _exceptionLogger(self, function):
         """
@@ -624,11 +635,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         if self.debug:
             self._exceptionLogger(self.runModules)
         else:
-            try:
-                self.runModules()
-            except Exception as e:
-                print("Your {} module broke with error: {}.".format(type(self.widgetList[self.leftOff]).__name__, e))
-                self.widgetList[self.leftOff].setDisabled(False)
+            self._logger(self.runModules)
         self.taskFinished.emit()
 
 

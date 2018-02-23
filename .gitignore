@@ -94,6 +94,7 @@ auto_gitter.bat
 !images/*
 !inputs/*
 !pytest.ini
+!tests/core/dataset.csv
 
 *.stackdump
 .pypirc
