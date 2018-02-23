@@ -90,7 +90,7 @@ class CrossValidation(Ui_Form, Modules):
         :return:
         """
         self.qt = Qtickle.Qtickle(self)
-        self.qt.guiRestore(dict[0])
+        self.qt.selectiveGuiRestore(dict[0])
         keys = list(self.alg.keys())
         for i in range(len(dict)):
             self.alg[keys[i - 1]].selectiveSetGuiParams(dict[i])
