@@ -233,6 +233,7 @@ class Modules:
         :param choices:
         :return:
         """
+        obj.clear()
         for item in choices:
             obj.addItem(item)
 
