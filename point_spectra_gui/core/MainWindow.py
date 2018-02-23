@@ -593,6 +593,13 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.widgetList[modules].setDisabled(True)
             self.leftOff = modules + 1
 
+    def _logger(self, function):
+        try:
+            function()
+        except Exception as e:
+            print("Your {} module broke with error: {}.".format(type(self.widgetList[self.leftOff]).__name__, e))
+            self.widgetList[self.leftOff].setDisabled(False)
+
     def _exceptionLogger(self, function):
         """
         Logs an exception that occurs during the running of a function
@@ -627,11 +634,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         if self.debug:
             self._exceptionLogger(self.runModules)
         else:
-            try:
-                self.runModules()
-            except Exception as e:
-                print("Your {} module broke with error: {}.".format(type(self.widgetList[self.leftOff]).__name__, e))
-                self.widgetList[self.leftOff].setDisabled(False)
+            self._logger(self.runModules)
         self.taskFinished.emit()
 
 
