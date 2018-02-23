@@ -26,7 +26,7 @@ class RegressionPredict(Ui_Form, Modules):
         return self.formGroupBox
 
     def connectWidgets(self):
-        self.setListWidget(self.chooseDataListWidget, self.data)
+        self.setListWidget(self.chooseDataListWidget, self.datakeys)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
 
     def setup(self):
