@@ -517,7 +517,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         When a given task is finished
         stop the bar pulsing green
         and display 100% for bar.
-        
+
         :return:
         """
         self.progressBar.setRange(0, 1)
