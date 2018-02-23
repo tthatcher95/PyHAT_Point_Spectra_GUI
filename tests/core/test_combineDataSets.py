@@ -22,7 +22,7 @@ def test_combine_datasets(qtbot):
     outkey = 'data'
 
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    filename = os.path.join(__location__, 'dataset.py')
+    filename = os.path.join(__location__, 'dataset.csv')
 
     gui.data[key1] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
     gui.data[key2] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
