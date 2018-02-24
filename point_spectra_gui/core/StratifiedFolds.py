@@ -5,6 +5,21 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class StratifiedFolds(Ui_Form, Modules):
+    count = -1
+
+    def __init__(self):
+        StratifiedFolds.count += 1
+        self.curr_count = StratifiedFolds.count
+        print('Added StratifiedFolds with ID {}'.format(self.curr_count))
+
+    def delete(self):
+        try:
+            StratifiedFolds.count -= 1
+            del self.data[self.datakeys[-1]]
+            del self.datakeys[-1]
+        except IndexError:
+            pass
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
