@@ -70,8 +70,8 @@ class StratifiedFolds(Ui_Form, Modules):
 
         self.data[datakey + '-Train'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold], invert=True)
         self.data[datakey + '-Test'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold])
-        self.datakeys.append(datakey + '-Train')
-        self.datakeys.append(datakey + '-Test')
+        self.list_amend(self.datakeys, self.curr_count, datakey + '-Train')
+        self.list_amend(self.datakeys, self.curr_count, datakey + '-Test')
 
         print(self.data.keys())
         print(self.data[datakey + '-Test'].df.index.shape)
