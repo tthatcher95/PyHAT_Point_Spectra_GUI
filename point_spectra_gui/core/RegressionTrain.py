@@ -121,9 +121,8 @@ class RegressionTrain(Ui_Form, Modules):
         method = self.chooseAlgorithmComboBox.currentText()
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
-
-        params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
         try:
+            params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
             modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
             self.list_amend(self.modelkeys, self.curr_count, modelkey)
             print(params, modelkey)
