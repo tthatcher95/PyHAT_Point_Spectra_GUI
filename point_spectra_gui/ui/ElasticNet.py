@@ -68,14 +68,6 @@ class Ui_Form(object):
         self.enpositiveCheckBox = QtWidgets.QCheckBox(self.elasticNetGroupBox)
         self.enpositiveCheckBox.setObjectName("enpositiveCheckBox")
         self.ElasticNet.setWidget(6, QtWidgets.QFormLayout.FieldRole, self.enpositiveCheckBox)
-        self.enselectionLabel = QtWidgets.QLabel(self.elasticNetGroupBox)
-        self.enselectionLabel.setObjectName("enselectionLabel")
-        self.ElasticNet.setWidget(7, QtWidgets.QFormLayout.LabelRole, self.enselectionLabel)
-        self.enselectionComboBox = QtWidgets.QComboBox(self.elasticNetGroupBox)
-        self.enselectionComboBox.setObjectName("enselectionComboBox")
-        self.enselectionComboBox.addItem("")
-        self.enselectionComboBox.addItem("")
-        self.ElasticNet.setWidget(7, QtWidgets.QFormLayout.FieldRole, self.enselectionComboBox)
         self.horizontalLayout.addWidget(self.elasticNetGroupBox)
         self.ENLayout.addLayout(self.horizontalLayout)
         self.verticalLayout.addWidget(self.groupBox)
@@ -113,14 +105,6 @@ class Ui_Form(object):
         self.enpositiveLabel.setText(("Positive"))
         self.enpositiveCheckBox.setToolTip(("When set to True, forces the coefficients to be positive."))
         self.enpositiveCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html"))
-        self.enselectionLabel.setText(("Selection"))
-        self.enselectionComboBox.setToolTip(_translate("Form", "If set to \'random\', a random coefficient is updated every iteration\n"
-"rather than looping over features sequentially by default. This\n"
-"(setting to \'random\') often leads to significantly faster convergence\n"
-"especially when tol is higher than 1e-4."))
-        self.enselectionComboBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html"))
-        self.enselectionComboBox.setItemText(0, ("cyclic"))
-        self.enselectionComboBox.setItemText(1, ("random"))
 
 
 if __name__ == "__main__":

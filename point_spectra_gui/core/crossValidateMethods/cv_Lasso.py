@@ -19,6 +19,9 @@ class Ui_Form(Ui_Form, Lasso, Modules):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
+        self.minalpha_spin.setDecimals(20)
+        self.maxalpha_spin.setDecimals(20)
+
         self.minalpha_spin.setValue(0.0000001)
         self.maxalpha_spin.setValue(0.01)
         self.nalphas_spin.setValue(100)
