@@ -101,17 +101,33 @@ class CrossValidation(Ui_Form, Modules):
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
+        # Warning: Params passing through cv.cv(params) needs to be in lists
+        # Example: {'n_components': [4], 'scale': [False]}
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
 
+        #if the method supports it, separate out alpha from the other parameters and prepare for calculating path
+        path_methods =  ['Elastic Net', 'LARS', 'LASSO', 'LASSO LARS', 'OMP']#, 'Ridge']
+        if method in path_methods:
+            calc_path = True
+            alphas = params.pop('alpha')
+            try:
+                l1_ratios = params.pop('l1_ratio')
+            except:
+                l1_ratios = None
+
+        else:
+            alphas = None
+            l1_ratios = None
+            calc_path = False
         y = np.array(self.data[datakey].df[yvars])
         match = np.squeeze((y > yrange[0]) & (y < yrange[1]))
         data_for_cv = spectral_data(self.data[datakey].df.ix[match])
-        # Warning: Params passing through cv.cv(params) needs to be in lists
-        # Example: {'n_components': [4], 'scale': [False]}
         cv_obj = cv.cv(params)
         self.data[datakey].df, self.cv_results, cvmodels, cvmodelkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
                                                                                      ycol=yvars,
-                                                                                     yrange=yrange, method=method)
+                                                                                     yrange=yrange, method=method,
+                                                                                     alphas = alphas, calc_path = calc_path,
+                                                                                     l1_ratios=l1_ratios)
         for n, key in enumerate(cvmodelkeys):
             self.modelkeys.append(key)
             self.models[key] = cvmodels[n]
