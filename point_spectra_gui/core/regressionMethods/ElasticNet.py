@@ -28,8 +28,6 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
         self.enmax_iterSpinBox.setValue(en.max_iter)
         self.entolDoubleSpinBox.setValue(en.tol)
         self.enpositiveCheckBox.setChecked(en.positive)
-        self.setComboBox(self.enselectionComboBox, ['cyclic', 'random'])
-        self.defaultComboItem(self.enselectionComboBox, en.selection)
 
 
     def run(self):
