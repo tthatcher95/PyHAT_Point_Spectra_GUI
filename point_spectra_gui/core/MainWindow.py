@@ -1,3 +1,4 @@
+import json
 import multiprocessing as mp
 import os.path
 import pickle
@@ -362,10 +363,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None,
                                                                       "Choose where you want save your file",
                                                                       self.outpath,
-                                                                      '(*.wrf)')
+                                                                      '(*.json)')
             print(filename)
-            with open(filename, 'wb') as fp:
-                pickle.dump(self.getWidgetItems(), fp)
+            with open(filename, 'w') as fp:
+                json.dump(self.getWidgetItems(), fp)
             self.title.setFileName(filename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
@@ -383,10 +384,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.restorefilename, _filter = QtWidgets.QFileDialog.getOpenFileName(None,
                                                                                   "Open Workflow File",
                                                                                   self.outpath,
-                                                                                  '(*.wrf)')
+                                                                                  '(*.json)')
             print(self.restorefilename)
-            with open(self.restorefilename, 'rb') as fp:
-                self.setWidgetItems(pickle.load(fp))
+            with open(self.restorefilename, 'r') as fp:
+                self.setWidgetItems(json.load(fp))
             self.title.setFileName(self.restorefilename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
