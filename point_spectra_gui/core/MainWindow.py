@@ -366,7 +366,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                                                                       '(*.json)')
             print(filename)
             with open(filename, 'w') as fp:
-                json.dump(self.getWidgetItems(), fp)
+                json.dump(self.getWidgetItems(), fp, indent=4)
             self.title.setFileName(filename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
