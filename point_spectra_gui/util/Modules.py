@@ -203,7 +203,7 @@ class Modules:
         :return:
         """
         comboBox.clear()
-        comboBox.setMaximumWidth(200)
+        comboBox.setMaximumWidth(400)
         comboBox.addItems(keyValues)
 
     @staticmethod
