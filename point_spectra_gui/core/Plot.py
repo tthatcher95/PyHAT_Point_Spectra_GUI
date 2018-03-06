@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QStringListModel
-from PyQt5.QtWidgets import QApplication, QCompleter, QLineEdit
+from PyQt5.QtWidgets import QCompleter
 import numpy as np
 from PyQt5 import QtWidgets
 
