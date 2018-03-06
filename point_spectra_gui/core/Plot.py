@@ -1,3 +1,5 @@
+from PyQt5.QtCore import QStringListModel
+from PyQt5.QtWidgets import QApplication, QCompleter, QLineEdit
 import numpy as np
 from PyQt5 import QtWidgets
 
@@ -34,7 +36,15 @@ class Plot(Ui_Form, Modules):
                        "Triangle Left",
                        "Triangle Right",
                        "None"]
+        completer = QCompleter()
+        self.chooseXVariableComboBox.setMaximumWidth(200)
+        self.chooseYVariableComboBox.setMaximumWidth(200)
         self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices())
+        self.figureNameLineEdit.setCompleter(completer)
+        model = QStringListModel()
+        completer.setModel(model)
+        self.get_data(model)
+        self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.changeComboListVars(self.chooseYVariableComboBox, self.get_choices())
         self.setComboBox(self.colorComboBox, color_list)
         self.setComboBox(self.lineComboBox, line_list)
@@ -47,9 +57,6 @@ class Plot(Ui_Form, Modules):
         self.yMinDoubleSpinBox.setMaximum(110)
         self.yMaxDoubleSpinBox.setMaximum(110)
         self.plotFilenamePushButton.clicked.connect(self.on_plotFilenamePushButton_clicked)
-
-        self.figureNameComboBox.activated[int].connect(
-            lambda: self.figureNameLineEdit.setText(self.figureNameComboBox.currentText()))
         self.chooseDataComboBox.activated[int].connect(
             lambda: self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices()))
         self.chooseDataComboBox.activated[int].connect(
@@ -188,6 +195,9 @@ class Plot(Ui_Form, Modules):
             except:
                 choices = ['No valid choices']
         return choices
+
+    def get_data(self, model):
+        model.setStringList(self.figname)
 
     def get_minmax(self, objmin, objmax, var):
         try:
