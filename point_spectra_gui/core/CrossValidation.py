@@ -110,14 +110,8 @@ class CrossValidation(Ui_Form, Modules):
         if method in path_methods:
             calc_path = True
             alphas = params.pop('alpha')
-            try:
-                l1_ratios = params.pop('l1_ratio')
-            except:
-                l1_ratios = None
-
         else:
             alphas = None
-            l1_ratios = None
             calc_path = False
         y = np.array(self.data[datakey].df[yvars])
         match = np.squeeze((y > yrange[0]) & (y < yrange[1]))
@@ -126,8 +120,7 @@ class CrossValidation(Ui_Form, Modules):
         self.data[datakey].df, self.cv_results, cvmodels, cvmodelkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
                                                                                      ycol=yvars,
                                                                                      yrange=yrange, method=method,
-                                                                                     alphas = alphas, calc_path = calc_path,
-                                                                                     l1_ratios=l1_ratios)
+                                                                                     alphas = alphas, calc_path = calc_path)
         for n, key in enumerate(cvmodelkeys):
             self.modelkeys.append(key)
             self.models[key] = cvmodels[n]
