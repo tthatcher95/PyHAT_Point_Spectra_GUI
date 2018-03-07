@@ -44,7 +44,7 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
                 'tol': self.entolDoubleSpinBox.value(),
                 'warm_start': True,
                 'positive': self.enpositiveCheckBox.isChecked(),
-                'selection': 'random'
+                'selection': self.enselectionComboBox.currentText()
                 }
         return params, self.getChangedValues(params, ElasticNet())
 
