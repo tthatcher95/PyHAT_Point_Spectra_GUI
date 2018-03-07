@@ -40,23 +40,10 @@ class StratifiedFolds(Ui_Form, Modules):
         self.nFoldsSpinBox.valueChanged.connect(self.strat_fold_change_testfolds)
 
     def setup(self):
-        datakey = self.chooseDataToStratifyComboBox.currentText()
-        nfolds = self.nFoldsSpinBox.value()
         try:
-            testfold = int(self.testFoldsSpinBox.value())
+            self.run()
         except:
-            testfold = 1
-        colname = ('comp', self.chooseVarComboBox.currentText())
-        self.data[datakey].stratified_folds(nfolds=nfolds, sortby=colname)
-
-        self.data[datakey + '-Train'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold], invert=True)
-        self.data[datakey + '-Test'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold])
-        self.list_amend(self.datakeys, self.curr_count, datakey + '-Train')
-        self.list_amend(self.datakeys, self.curr_count, datakey + '-Test')
-
-        print(self.data.keys())
-        print(self.data[datakey + '-Test'].df.index.shape)
-        print(self.data[datakey + '-Train'].df.index.shape)
+            pass
 
     def run(self):
         datakey = self.chooseDataToStratifyComboBox.currentText()
@@ -70,8 +57,9 @@ class StratifiedFolds(Ui_Form, Modules):
 
         self.data[datakey + '-Train'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold], invert=True)
         self.data[datakey + '-Test'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold])
-        self.list_amend(self.datakeys, self.curr_count, datakey + '-Train')
-        self.list_amend(self.datakeys, self.curr_count, datakey + '-Test')
+        if datakey + '-Train' not in self.datakeys and datakey + '-Test' not in self.datakeys:
+            self.datakeys.append(datakey + '-Train')
+            self.datakeys.append(datakey + '-Test')
 
         print(self.data.keys())
         print(self.data[datakey + '-Test'].df.index.shape)
