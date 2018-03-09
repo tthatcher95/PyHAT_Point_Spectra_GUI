@@ -67,8 +67,8 @@ class SubmodelBlend(Ui_Form, Modules):
         self.index_spin.valueChanged.connect(self.set_index)
         self.index_spin.setHidden(True)
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.get_Predictions()
-        self.chooseDataComboBox.currentIndexChanged.connect(self.get_Predictions)
+        self.getPredictions()
+        self.chooseDataComboBox.currentIndexChanged.connect(self.getPredictions)
         self.setupWidgets()
         self.setHidden(self.subwidgets)
         try:
@@ -77,7 +77,6 @@ class SubmodelBlend(Ui_Form, Modules):
             self.setComboBox(self.highPredictionComboBox, self.predictnames)
             self.setComboBox(self.optimizeSubRangesComboBox,
                              self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values)
-
         except:
             pass
         self.addSubPushButton.clicked.connect(self.on_addSubmodel_pushed)
@@ -92,7 +91,7 @@ class SubmodelBlend(Ui_Form, Modules):
             else:
                 list[i].setHidden(True)
 
-    def get_Predictions(self):
+    def getPredictions(self):
         try:
             self.predictnames = self.data[self.chooseDataComboBox.currentText()].df['predict'].columns.values
             self.setComboBox(self.referencePredictionComboBox, self.predictnames)
@@ -107,7 +106,6 @@ class SubmodelBlend(Ui_Form, Modules):
                                      self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values)
                 except:
                     self.setComboBox(self.optimizeSubRangesComboBox, ['No Compositions'])
-
         except:
             pass
 
