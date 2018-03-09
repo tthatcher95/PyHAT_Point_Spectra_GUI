@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>loadData</class>
- <widget class="QWidget" name="loadData">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>648</width>
-    <height>393</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Form</string>
@@ -27,7 +21,7 @@
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="1">
-       <widget class="QPushButton" name="loadPushButton">
+       <widget class="QPushButton" name="retorePushButton">
         <property name="maximumSize">
          <size>
           <width>30</width>
@@ -40,10 +34,10 @@
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QLineEdit" name="loadLineEdit"/>
+       <widget class="QLineEdit" name="restoreLineEdit"/>
       </item>
       <item row="1" column="0">
-       <widget class="QTextBrowser" name="RestoreTextBrowser"/>
+       <widget class="QTextBrowser" name="restoreTextBrowser"/>
       </item>
      </layout>
     </widget>
