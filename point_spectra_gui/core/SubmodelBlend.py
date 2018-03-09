@@ -156,8 +156,11 @@ class SubmodelBlend(Ui_Form, Modules):
 
     def on_addSubmodel_pushed(self):
         if self.index < len(self.subwidgets):
+            try:
+                self.setComboBox(self.subwidgets[self.index].get_predictionComboBox(), self.predictnames)
+            except:
+                pass
             self.subwidgets[self.index].setHidden(False)
-            self.setComboBox(self.subwidgets[self.index].get_predictionComboBox(), self.predictnames)
             self.index += 1
             self.index_spin.setValue(self.index)
         else:
