@@ -4,9 +4,10 @@ Created on Thu Sep  1 13:09:21 2016
 
 @author: rbanderson
 """
-import libpysat.plotting.colormaps as colormaps
 import numpy as np
 from matplotlib import pyplot as plot
+
+from point_spectra_gui.util import colormaps
 
 
 def cmaps():
