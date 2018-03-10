@@ -34,7 +34,14 @@
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QLineEdit" name="restoreLineEdit"/>
+       <widget class="QLineEdit" name="restoreLineEdit">
+        <property name="frame">
+         <bool>true</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
        <widget class="QTextBrowser" name="restoreTextBrowser"/>
