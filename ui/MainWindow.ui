@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>519</width>
+    <width>529</width>
     <height>596</height>
    </rect>
   </property>
@@ -40,7 +40,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>484</width>
+         <width>494</width>
          <height>350</height>
         </rect>
        </property>
@@ -145,7 +145,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>519</width>
+     <width>529</width>
      <height>21</height>
     </rect>
    </property>
@@ -155,16 +155,21 @@
     </property>
     <addaction name="actionLoad_Data"/>
     <addaction name="actionRename_Data"/>
-    <addaction name="actionSave_Current_Data"/>
     <addaction name="separator"/>
-    <addaction name="actionSet_Output_Path"/>
     <addaction name="actionRead_ChemCam_Data"/>
     <addaction name="separator"/>
-    <addaction name="actionCreate_New_Workflow"/>
-    <addaction name="actionClear_Workflow"/>
-    <addaction name="actionRestore_Workflow"/>
-    <addaction name="actionSave_Current_Workflow"/>
+    <addaction name="actionSet_Output_Path"/>
     <addaction name="separator"/>
+    <addaction name="actionRestore_Workflow"/>
+    <addaction name="actionRestore_Trained_Model"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Current_Workflow"/>
+    <addaction name="actionSave_Trained_Model"/>
+    <addaction name="actionSave_Current_Data"/>
+    <addaction name="separator"/>
+    <addaction name="actionClear_Workflow"/>
+    <addaction name="separator"/>
+    <addaction name="actionCreate_New_Workflow"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuPreprocessing">
@@ -263,7 +268,7 @@
   </action>
   <action name="actionSave_Current_Data">
    <property name="text">
-    <string>Save Current Data</string>
+    <string>Save Current Data to CSV</string>
    </property>
   </action>
   <action name="actionCreate_New_Workflow">
@@ -449,6 +454,16 @@
   <action name="actionOutlier_Removal">
    <property name="text">
     <string>Outlier Removal</string>
+   </property>
+  </action>
+  <action name="actionSave_Trained_Model">
+   <property name="text">
+    <string>Save Trained Model</string>
+   </property>
+  </action>
+  <action name="actionRestore_Trained_Model">
+   <property name="text">
+    <string>Restore Trained Model</string>
    </property>
   </action>
  </widget>
