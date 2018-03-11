@@ -280,6 +280,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.SpecDeriv.SpecDeriv))
             self.actionCombine_Data_Sets.triggered.connect(
                 lambda: self.addWidget(core.CombineDataSets.CombineDataSets))
+            self.actionRestore_Trained_Model.triggered.connect(
+                lambda: self.addWidget(core.RestoreTrainedModel.RestoreTrainedModel))
+            self.actionSave_Trained_Model.triggered.connect(self.on_saveTrainedModel_clicked)
             self.actionData_Box.triggered.connect(self.on_DataTable_clicked)
             self.actionAbout.triggered.connect(self.on_About_clicked)
             self.actionQtmodern.triggered.connect(lambda: self.theme('qtmodern'))
@@ -392,6 +395,25 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
             print("Restore file not loaded: {}".format(e))
+
+    def on_saveTrainedModel_clicked(self):
+        # add the data into a list [0. 1]
+        # list[0] will hold the dictionary data of the UI
+        # list[1] will hole the self.models data
+        list = []
+        list.append(self.getWidgetItems())
+        list.append(self.models)
+        try:
+            filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None,
+                                                                      "Choose where you want save your file",
+                                                                      self.outpath,
+                                                                      '(*.tram)')
+            print(filename)
+            with open(filename, 'w') as fp:
+                pickle.dump(list, fp)
+        except:
+            pass
+
 
     def on_delete_module_clicked(self):
         """
