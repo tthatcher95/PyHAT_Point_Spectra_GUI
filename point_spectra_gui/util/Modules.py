@@ -71,9 +71,12 @@ class Modules:
         raise NotImplementedError(
             'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
 
+    def getMainWindowParent(self):
+        return self.parent[0]
+
     def guiChanged(self):
         self.qt = Qtickle.Qtickle(self)
-        self.qt.guiChanged(self.parent[0].setupModules)
+        self.qt.guiChanged(self.getMainWindowParent().setupModules)
 
     def getGuiParams(self):
         """
