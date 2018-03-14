@@ -43,8 +43,18 @@ class LoadData(Ui_loadData, Modules):
             lineEdit.setText("*.csv")
 
     def setup(self):
+        """
+        The setup here is only doing the first 2 rows of our dataset
+        This will cut down on time to load.
+
+        :return:
+        """
         try:
-            self.run()
+            filename = self.fileNameLineEdit.text()
+            keyname = self.dataSetNameLineEdit.text()
+            print('Loading data file: ' + str(filename))
+            self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True, nrows=2))
+            self.list_amend(self.datakeys, self.curr_count, keyname)
         except:
             pass
 
