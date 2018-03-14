@@ -583,9 +583,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         dic = self.getWidgetItems()
         for modules in range(self.leftOff, len(self.widgetList)):
             if self.debug:
-                self._logger(self.widgetList[modules].setup)
-            else:
                 self.widgetList[modules].setup()
+            else:
+                self._logger(self.widgetList[modules].setup)
             self.widgetList[modules].connectWidgets()
             self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
 
