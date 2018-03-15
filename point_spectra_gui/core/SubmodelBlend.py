@@ -107,7 +107,10 @@ class SubmodelBlend(Ui_Form, Modules):
                 except:
                     self.setComboBox(self.optimizeSubRangesComboBox, ['No Compositions'])
         except:
-            pass
+            self.predictnames = self.predictkeys
+            self.setComboBox(self.referencePredictionComboBox, self.predictnames)
+            self.setComboBox(self.lowPredictionComboBox, self.predictnames)
+            self.setComboBox(self.highPredictionComboBox, self.predictnames)
 
     def run(self):
         blendranges = []
