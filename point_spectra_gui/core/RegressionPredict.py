@@ -34,12 +34,7 @@ class RegressionPredict(Ui_Form, Modules):
         modelkey = self.chooseModelComboBox.currentText()
         try:
             for datakey in datakeys:
-                data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
-                data_tmp.fillna(value=0, inplace=True)
-                # prediction = self.models[modelkey].predict(data_tmp)
-                prediction = None
-                predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
-                self.data[datakey].df[predictname] = prediction
+                self.list_amend(self.predictkeys, self.curr_count, modelkey + ' - ' + datakey + ' - Predict')
         except Exception as e:
             print(e)
 
