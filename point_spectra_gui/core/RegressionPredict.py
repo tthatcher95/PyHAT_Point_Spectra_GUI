@@ -46,6 +46,7 @@ class RegressionPredict(Ui_Form, Modules):
                 data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
                 data_tmp.fillna(value=0, inplace=True)
                 prediction = self.models[modelkey].predict(data_tmp)
+                self.list_amend(self.predictkeys, self.curr_count, modelkey + ' - ' + datakey + ' - Predict')
                 predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
                 self.data[datakey].df[predictname] = prediction
         except Exception as e:
