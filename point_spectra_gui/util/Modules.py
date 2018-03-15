@@ -51,7 +51,7 @@ class Modules:
         modules from the UI, or insert modules, or copy modules.
         """
         # TODO Add mouse Event
-        print("Right Button Clicked {}".format(type(self).__name__))
+        # print("Right Button Clicked {}".format(type(self).__name__))
 
     def get_widget(self):
         """
