@@ -25,11 +25,11 @@ class Modules:
     data = {}  # initialize with an empty dict to hold data frames
     datakeys = []  # hold all the specific key for a specific data frame
     modelkeys = []
+    models = {}  # For regression training
     predictkeys = []
     outpath = './'  # Default outpath; can be changed with OutputFolder.py
     figs = {}
     figname = []
-    models = {}  # For regression training
     model_xvars = {}
     model_yvars = {}
     parent = []
