@@ -78,7 +78,6 @@ class StratifiedFolds(Ui_Form, Modules):
         self.chooseVarComboBox.addItems(choices)
 
     def strat_fold_change_testfolds(self):
-        self.testFoldsSpinBox.clear()
         self.testFoldsSpinBox.setMaximum(self.nFoldsSpinBox.value())
 
 
