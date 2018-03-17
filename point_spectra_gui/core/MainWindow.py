@@ -402,7 +402,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         # list[1] will hold the modelkeys
         # list[2] will hold the self.models data
         list = []
-        list.append(self.getWidgetItems())
+        list.append(json.dumps(self.getWidgetItems(), indent=4))
+        list.append(self.modelkeys)
         list.append(self.models)
         try:
             filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None,
@@ -410,11 +411,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                                                                       self.outpath,
                                                                       '(*.tram)')
             print(filename)
-            with open(filename, 'w') as fp:
+            with open(filename, 'wb') as fp:
                 pickle.dump(list, fp)
-        except:
-            pass
-
+        except Exception as e:
+            print("Could not restore your tram file: ", e)
 
     def on_delete_module_clicked(self):
         """

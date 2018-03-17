@@ -19,23 +19,27 @@ class RestoreTrainedModel(Ui_Form, Modules):
 
     def run(self):
         # load pickled data
-        self.modelkeys = pickle.load(self.filename)
-        pass
+        filename = self.restoreLineEdit.text()
+        with open(filename, 'rb') as fp:
+            load = pickle.load(fp)
+        Modules.modelkeys = load[1]
+        Modules.models = load[2]
 
     def on_restorePushButton_clicked(self, lineEdit):
         # list[0] will hold the dictionary data of the UI
-        # list[1] will hole the self.models data
+        # list[1] will hold the self.models data
         # load the json file into the restoreTextBrowser
-
-        self.filename, _filter = QtWidgets.QFileDialog.getOpenFileName(None, "Open Data File", self.outpath, "(*.tram)")
-        lineEdit.setText(self.filename)
+        filename, _filter = QtWidgets.QFileDialog.getOpenFileName(None, "Open Data File", self.outpath, "(*.tram)")
+        lineEdit.setText(filename)
         if lineEdit.text() == "":
             lineEdit.setText("*.tram")
-        try:
-            # Load the json file into the restoreTextBrowser to be viewed
-            pass
-        except:
-            pass
+        # Load the json file into the restoreTextBrowser to be viewed
+        with open(filename, 'rb') as fp:
+            output = pickle.load(fp)[0]
+            self.display(output)
+
+    def on_detailsPushButton_clicked(self):
+        pass
 
     def display(self, text):
         cursor = self.restoreTextBrowser.textCursor()

@@ -14,7 +14,6 @@ class RegressionPredict(Ui_Form, Modules):
     def delete(self):
         try:
             RegressionPredict.count -= 1
-            del self.modelkeys[-1]
         except IndexError:
             pass
 
@@ -41,16 +40,13 @@ class RegressionPredict(Ui_Form, Modules):
     def run(self):
         datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
         modelkey = self.chooseModelComboBox.currentText()
-        try:
-            for datakey in datakeys:
-                data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
-                data_tmp.fillna(value=0, inplace=True)
-                prediction = self.models[modelkey].predict(data_tmp)
-                self.list_amend(self.predictkeys, self.curr_count, modelkey + ' - ' + datakey + ' - Predict')
-                predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
-                self.data[datakey].df[predictname] = prediction
-        except Exception as e:
-            print(e)
+        for datakey in datakeys:
+            data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
+            data_tmp.fillna(value=0, inplace=True)
+            prediction = self.models[modelkey].predict(data_tmp)
+            self.list_amend(self.predictkeys, self.curr_count, modelkey + ' - ' + datakey + ' - Predict')
+            predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
+            self.data[datakey].df[predictname] = prediction
 
 
 if __name__ == "__main__":
