@@ -202,16 +202,25 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :param obj:
         :return:
         """
+        # add the new object to our widgetList
+        # run setupUi method
+        # creating a new layout
+        # giving that layout a name
+        # add the new layout to verticalLayout_3
+        # add our object's widget to the layout
+        # scroll down to the new module
+
         self.widgetList.append(obj())
         self.widgetList[-1].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")
         self.verticalLayout_3.addLayout(self.widgetLayout)
         self.widgetLayout.addWidget(self.widgetList[-1].get_widget())
-        # this should (but it doesn't...) scroll the view all the way down after adding the new widget.
-        # it scrolls it down by just a little bit
         scrollbar = self.scrollArea.verticalScrollBar()
         scrollbar.setValue(scrollbar.maximum())
+        # place items inside the deleteModuleCombox
+        self.setComboBox(self.deleteModuleComboBox,
+                         ["Delete Module"] + [type(item).__name__ for item in self.widgetList])
 
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
@@ -292,7 +301,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionClear_Workflow.triggered.connect(self.clear)
             self.actionSave_Current_Workflow.triggered.connect(self.on_save_clicked)
             self.actionRestore_Workflow.triggered.connect(self.on_restore_clicked)
-            self.deleteModulePushButton.clicked.connect(self.on_delete_module_clicked)
+            self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
             self.okPushButton.clicked.connect(self.on_okButton_clicked)
             self.undoModulePushButton.clicked.connect(self.on_Rerun_Button_clicked)
             self.refreshModulePushButton.clicked.connect(self.on_Refresh_Modules_clicked)
@@ -416,7 +425,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         except Exception as e:
             print("Could not restore your tram file: ", e)
 
-    def on_delete_module_clicked(self):
+    def delete_module(self):
         """
         Check to see if the last item is enabled
         If it is, delete the last item in the list
@@ -433,6 +442,13 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 print("Cannot delete")
         except Exception as e:
             print("Cannot delete: ", e)
+
+    def on_deleteModuleComboBox_changed(self):
+        # TODO there will need to be some logic to protect the user from deleting greyed out items.
+        for modules in range(self.leftOff, len(self.widgetList)):
+            _name = type(self.widgetList[modules]).__name__
+            if _name == self.deleteModuleComboBox.currentText():
+                print()
 
     def on_okButton_clicked(self):
         """
@@ -556,7 +572,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :return:
         """
         while len(self.widgetList) > 0 and self.widgetList[-1].isEnabled():
-            self.on_delete_module_clicked()
+            self.delete_module()
         self.title.setFileName('')
         self.MainWindow.setWindowTitle(self.title.display())
         self.textBrowser.clear()
