@@ -22,6 +22,7 @@ class RestoreTrainedModel(Ui_Form, Modules):
         filename = self.restoreLineEdit.text()
         with open(filename, 'rb') as fp:
             load = pickle.load(fp)
+        # TODO append to the modelkeys and models
         Modules.modelkeys = load[1]
         Modules.models = load[2]
 

@@ -408,6 +408,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
     def on_saveTrainedModel_clicked(self):
         # add the data into a list [0. 1]
         # list[0] will hold the dictionary data of the UI
+        # TODO Let the user decide what modelkey and model they want to save
         # list[1] will hold the modelkeys
         # list[2] will hold the self.models data
         list = []
