@@ -214,13 +214,16 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.widgetList[-1].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")
-        self.verticalLayout_3.addLayout(self.widgetLayout)
+        self.verticalLayout_2.addLayout(self.widgetLayout)
         self.widgetLayout.addWidget(self.widgetList[-1].get_widget())
         scrollbar = self.scrollArea.verticalScrollBar()
         scrollbar.setValue(scrollbar.maximum())
         # place items inside the deleteModuleCombox
+        # This populates the comboBox
+        self.deleteModuleComboBox.disconnect()
         self.setComboBox(self.deleteModuleComboBox,
                          ["Delete Module"] + [type(item).__name__ for item in self.widgetList])
+        self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
 
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
@@ -426,7 +429,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         except Exception as e:
             print("Could not restore your tram file: ", e)
 
-    def delete_module(self):
+    def delete_module(self, _idx=1):
         """
         Check to see if the last item is enabled
         If it is, delete the last item in the list
@@ -434,11 +437,14 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
+        def idx(total, position):
+            return total - position + 1
+
         try:
-            if self.widgetList[-1].isEnabled():
-                self.widgetList[-1].delete()
+            if self.widgetList[_idx - 1].isEnabled():
+                self.widgetList[_idx - 1].delete()  # Call internal module's delete method
                 del self.widgetList[-1]  # remove the widget from the list
-                delete.del_layout(self.verticalLayout_3)  # delete the layout
+                delete.del_layout(self.verticalLayout_2, idx(self.verticalLayout_2.count(), _idx))  # delete the layout
             else:
                 print("Cannot delete")
         except Exception as e:
@@ -446,10 +452,22 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
     def on_deleteModuleComboBox_changed(self):
         # TODO there will need to be some logic to protect the user from deleting greyed out items.
+
         for modules in range(self.leftOff, len(self.widgetList)):
             _name = type(self.widgetList[modules]).__name__
+            _idx = self.verticalLayout_2.count() - 1
             if _name == self.deleteModuleComboBox.currentText():
-                print()
+                print(_name, _idx)
+
+        """ This deletes the item from the Layout and the item in the comboBox
+        """
+        c_text = self.deleteModuleComboBox.currentText()
+        if c_text != 'Delete Module' and c_text != '':
+            self.delete_module(self.deleteModuleComboBox.currentIndex())
+            self.deleteModuleComboBox.disconnect()
+            self.deleteModuleComboBox.removeItem(self.deleteModuleComboBox.currentIndex())
+            self.deleteModuleComboBox.setCurrentIndex(0)
+            self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
 
     def on_okButton_clicked(self):
         """
