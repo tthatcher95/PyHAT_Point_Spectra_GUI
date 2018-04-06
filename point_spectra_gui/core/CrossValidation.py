@@ -122,6 +122,7 @@ class CrossValidation(Ui_Form, Modules):
                                                                                      yrange=yrange, method=method,
                                                                                      alphas = alphas, calc_path = calc_path)
         for n, key in enumerate(cvmodelkeys):
+            self.list_amend(self.modelkeys, self.curr_count, key)
             self.modelkeys.append(key)
             self.models[key] = cvmodels[n]
             self.model_xvars[key] = xvars

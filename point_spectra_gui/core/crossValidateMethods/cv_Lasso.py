@@ -42,8 +42,10 @@ class Ui_Form(Ui_Form, Lasso, Modules):
                   'fit_intercept': fit_intercept_items,
                   'max_iter': [int(i) for i in self.maxNumOfIterationsLineEdit.text().split(',')],
                   'tol': [float(i) for i in self.toleranceLineEdit.text().split(',')],
+                  'precompute': [True],
+                  'copy_X': [True],
                   'positive': positive_items,
-                  'selection': ['random']
+                  'selection': ['random'],
                   }
         keyparams = {}  # params.pop('alpha')
         keyparams['alpha_min'] = self.minalpha_spin.value()

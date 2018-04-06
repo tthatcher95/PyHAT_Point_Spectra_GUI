@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>427</width>
-    <height>425</height>
+    <height>359</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -97,88 +97,28 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="enfit_interceptLabel">
-        <property name="text">
-         <string>Fit Intercept</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QListWidget" name="enfit_intercept_list">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="selectionMode">
-         <enum>QAbstractItemView::MultiSelection</enum>
-        </property>
-        <item>
-         <property name="text">
-          <string>True</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>False</string>
-         </property>
-        </item>
-       </widget>
-      </item>
       <item row="5" column="0">
-       <widget class="QLabel" name="ennormalizeLabel">
-        <property name="text">
-         <string>Normalize</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QListWidget" name="ennormalize_list">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="selectionMode">
-         <enum>QAbstractItemView::MultiSelection</enum>
-        </property>
-        <item>
-         <property name="text">
-          <string>True</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>False</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="6" column="0">
        <widget class="QLabel" name="enmax_iterLabel">
         <property name="text">
          <string>Max. # of iterations</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="1">
+      <item row="5" column="1">
        <widget class="QLineEdit" name="enmax_iterLineEdit">
         <property name="text">
          <string>1000</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
+      <item row="6" column="0">
        <widget class="QLabel" name="entolLabel">
         <property name="text">
          <string>Tolerance</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
+      <item row="6" column="1">
        <widget class="QLineEdit" name="entolLineEdit">
         <property name="text">
          <string>0.0001</string>
@@ -194,6 +134,36 @@
       </item>
       <item row="8" column="1">
        <widget class="QListWidget" name="enpositive_list">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::MultiSelection</enum>
+        </property>
+        <item>
+         <property name="text">
+          <string>True</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>False</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="enfit_interceptLabel">
+        <property name="text">
+         <string>Fit Intercept</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QListWidget" name="enfit_intercept_list">
         <property name="maximumSize">
          <size>
           <width>16777215</width>

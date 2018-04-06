@@ -159,7 +159,10 @@ class RegressionTrain(Ui_Form, Modules):
             coef.index = pd.MultiIndex.from_tuples(self.data[datakey].df[xvars].columns.values)
             coef = coef.T
             coef[('meta', 'Model')] = modelkey
-
+            try:
+                coef[('meta', 'Intercept')] = self.models[modelkey].model.intercept_
+            except:
+                pass
             try:
                 self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coef]))
             except:

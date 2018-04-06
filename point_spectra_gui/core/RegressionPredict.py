@@ -47,6 +47,7 @@ class RegressionPredict(Ui_Form, Modules):
         modelkey = self.chooseModelComboBox.currentText()
         try:
             for datakey in datakeys:
+                print('Predicting '+datakey)
                 data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
                 data_tmp.fillna(value=0, inplace=True)
                 prediction = self.models[modelkey].predict(data_tmp)
