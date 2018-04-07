@@ -3,7 +3,6 @@ from libpysat.regression import sm
 
 from point_spectra_gui.ui.SubmodelBlend import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
 class subWidgets:
@@ -46,9 +45,9 @@ class subWidgets:
             return "Not a valid number"
 
 
-class SubmodelBlend(Ui_Form, SingleData):
-    def __init__(self, _):
-        super().__init__(None)
+class SubmodelBlend(Ui_Form, Modules):
+    def __init__(self):
+        super().__init__()
         self.subwidgets = []
         self.index = 0
 
@@ -85,7 +84,6 @@ class SubmodelBlend(Ui_Form, SingleData):
         self.deleteSubPushButton.clicked.connect(self.on_deleteSubmodel_pushed)
         self.optimizeSubRangesLabel.setHidden(True)
         self.optimizeSubRangesComboBox.setHidden(True)
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def setHidden(self, list):
         for i in range(0, len(list)):

@@ -31,7 +31,7 @@ class Ui_Form(Ui_Form, Lasso, Modules):
                   'tol': self.toleranceDoubleSpinBox.value(),
                   'positive': self.forcePositiveCoefficientsCheckBox.isChecked(),
                   'selection': 'random'}
-        #                  'CV': self.optimizeWCrossValidaitonCheckBox.isChecked()}
+
         return params, self.getChangedValues(params, Lasso())
 
 

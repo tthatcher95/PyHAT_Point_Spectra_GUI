@@ -1,17 +1,32 @@
 import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
+from point_spectra_gui.util import Qtickle
 from libpysat.regression import regression
 from libpysat.spectral.spectral_data import spectral_data
-
-from Qtickle import Qtickle
 from point_spectra_gui.core.regressionMethods import *
 from point_spectra_gui.ui.RegressionTrain import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
-class RegressionTrain(Ui_Form, SingleData):
+class RegressionTrain(Ui_Form, Modules):
+    count = -1
+
+    def __init__(self):
+        RegressionTrain.count += 1
+        self.curr_count = RegressionTrain.count
+
+    def delete(self):
+        try:
+            RegressionTrain.count -= 1
+            del self.models[self.modelkeys[-1]]
+            del self.modelkeys[-1]
+        except:
+            pass
+
+        RegressionTrain.count -= 1
+        self.modelkeys = self.modelkeys[:-1]
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -24,9 +39,10 @@ class RegressionTrain(Ui_Form, SingleData):
     def make_regression_widget(self, alg, params=None):
         self.hideAll()
         print(alg)
-        for i in range(len(self.algorithm_list) - 1):
-            if alg == self.algorithm_list[i] and i > 0:
-                self.alg[i - 1].setHidden(False)
+        try:
+            self.alg[alg].setHidden(False)
+        except:
+            pass
 
     def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
@@ -40,8 +56,7 @@ class RegressionTrain(Ui_Form, SingleData):
                                'ARD',
                                'LARS',
                                # 'LASSO LARS', - This is having issues. Hide until we can debug
-                               'SVR',
-                               'KRR']
+                               'SVR']
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.yMaxDoubleSpinBox.setMaximum(999999)
@@ -56,7 +71,6 @@ class RegressionTrain(Ui_Form, SingleData):
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def getGuiParams(self):
         """
@@ -67,7 +81,7 @@ class RegressionTrain(Ui_Form, SingleData):
         s = []
         s.append(self.qt.guiSave())
         for items in self.alg:
-            s.append(items.getGuiParams())
+            s.append(self.alg[items].getGuiParams())
         return s
 
     def setGuiParams(self, dict):
@@ -77,10 +91,12 @@ class RegressionTrain(Ui_Form, SingleData):
         :param dict:
         :return:
         """
+
         self.qt = Qtickle.Qtickle(self)
         self.qt.guiRestore(dict[0])
+        keys = list(self.alg.keys())
         for i in range(len(dict)):
-            self.alg[i - 1].setGuiParams(dict[i])
+            self.alg[keys[i - 1]].setGuiParams(dict[i])
 
     def selectiveSetGuiParams(self, dict):
         """
@@ -97,8 +113,23 @@ class RegressionTrain(Ui_Form, SingleData):
 
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict[0])
+        keys = list(self.alg.keys())
         for i in range(len(dict)):
-            self.alg[i - 1].selectiveSetGuiParams(dict[i])
+            self.alg[keys[i - 1]].selectiveSetGuiParams(dict[i])
+
+    def setup(self):
+        method = self.chooseAlgorithmComboBox.currentText()
+        yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
+        yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
+
+        params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
+        try:
+            modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
+            self.list_amend(self.modelkeys, self.curr_count, modelkey)
+            print(params, modelkey)
+            self.models[modelkey] = regression.regression([method], [yrange], [params])
+        except:
+            pass
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
@@ -107,9 +138,9 @@ class RegressionTrain(Ui_Form, SingleData):
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
 
-        params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
+        params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
-        self.modelkeys.append(modelkey)
+        self.list_amend(self.modelkeys, self.curr_count, modelkey)
         print(params, modelkey)
         self.models[modelkey] = regression.regression([method], [yrange], [params])
         x = self.data[datakey].df[xvars]
@@ -122,20 +153,23 @@ class RegressionTrain(Ui_Form, SingleData):
         self.models[modelkey].fit(x, y)
         self.model_xvars[modelkey] = xvars
         self.model_yvars[modelkey] = yvars
-        coef = np.squeeze(self.models[modelkey].model.coef_)
-        coef = pd.DataFrame(coef)
-        coef.index = pd.MultiIndex.from_tuples(self.data[datakey].df[xvars].columns.values)
-        coef = coef.T
-        coef[('meta', 'Model')] = modelkey
-
         try:
-            self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coef]))
+            coef = np.squeeze(self.models[modelkey].model.coef_)
+            coef = pd.DataFrame(coef)
+            coef.index = pd.MultiIndex.from_tuples(self.data[datakey].df[xvars].columns.values)
+            coef = coef.T
+            coef[('meta', 'Model')] = modelkey
+            try:
+                coef[('meta', 'Intercept')] = self.models[modelkey].model.intercept_
+            except:
+                pass
+            try:
+                self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coef]))
+            except:
+                self.data['Model Coefficients'] = spectral_data(coef)
+                self.datakeys.append('Model Coefficients')
         except:
-            self.data['Model Coefficients'] = spectral_data(coef)
-            self.datakeys.append('Model Coefficients')
-
-        self.current_model = modelkey
-        self.current_data = datakey
+            pass
 
     def yvar_choices(self):
         try:
@@ -155,30 +189,28 @@ class RegressionTrain(Ui_Form, SingleData):
 
     def hideAll(self):
         for a in self.alg:
-            a.setHidden(True)
-
-    def getMethodParams(self, index):
-        return self.alg[index - 1].run()
+            self.alg[a].setHidden(True)
 
     def regressionMethods(self):
-        self.alg = []
-        list_forms = [PLS,
-                      OLS,
-                      OMP,
-                      Lasso,
-                      ElasticNet,
-                      Ridge,
-                      BayesianRidge,
-                      ARD,
-                      LARS,
-                      LassoLARS,
-                      SVR,
-                      KRR]
-        for items in list_forms:
-            self.alg.append(items.Ui_Form())
-            self.alg[-1].setupUi(self.Form)
-            self.algorithmLayout.addWidget(self.alg[-1].get_widget())
-            self.alg[-1].setHidden(True)
+        self.alg = {'ARD': ARD.Ui_Form(),
+                    'BRR': BayesianRidge.Ui_Form(),
+                    'Elastic Net': ElasticNet.Ui_Form(),
+                    'GP': GP.Ui_Form(),
+                    # 'KRR': KRR.Ui_Form(),
+                    'LARS': LARS.Ui_Form(),
+                    'LASSO': Lasso.Ui_Form(),
+                    # 'LASSO LARS': LassoLARS.Ui_Form(),
+                    'OLS': OLS.Ui_Form(),
+                    'OMP': OMP.Ui_Form(),
+                    'PLS': PLS.Ui_Form(),
+                    'Ridge': Ridge.Ui_Form(),
+                    'SVR': SVR.Ui_Form()
+                    }
+
+        for item in self.alg:
+            self.alg[item].setupUi(self.Form)
+            self.algorithmLayout.addWidget(self.alg[item].get_widget())
+            self.alg[item].setHidden(True)
 
 
 if __name__ == "__main__":

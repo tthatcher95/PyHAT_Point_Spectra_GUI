@@ -5,6 +5,10 @@ from point_spectra_gui.ui.About import Ui_Form
 
 
 class About(QtWidgets.QWidget, Ui_Form):
+    """
+    Display the version for the User. Good for debugging purposes
+    """
+
     def __init__(self, *args, **kwargs):
         QtWidgets.QWidget.__init__(self, *args, **kwargs)
         self.setupUi(self)
@@ -13,8 +17,8 @@ class About(QtWidgets.QWidget, Ui_Form):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     form = About()
     form.show()
     sys.exit(app.exec_())
+

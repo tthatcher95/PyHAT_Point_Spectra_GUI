@@ -45,6 +45,12 @@ class EmittingStream(QtCore.QObject):
 
 
 class TitleWindow:
+    """
+    Top portion of the application needs a name.
+    Displays the name of our restored, or saved file
+    Displays whether we are debugging or not
+    """
+
     def __init__(self, mainName):
         self.mainName = mainName
         self.fileName = ''
@@ -74,12 +80,16 @@ class TitleWindow:
 
 
 class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
+    """
+    The Main part of the application where everything magical happens
+    """
     taskFinished = QtCore.pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.widgetList = []
         self.leftOff = 0
+        Modules.parent = [self]
 
     def setupUi(self, MainWindow):
         super().setupUi(MainWindow)  # Run the basic window UI
@@ -191,17 +201,16 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :param obj:
         :return:
         """
-        self.widgetList.append(obj(self))
+        self.widgetList.append(obj())
         self.widgetList[-1].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")
         self.verticalLayout_3.addLayout(self.widgetLayout)
         self.widgetLayout.addWidget(self.widgetList[-1].get_widget())
-        # this should scroll the view all the way down after adding the new widget.
+        # this should (but it doesn't...) scroll the view all the way down after adding the new widget.
+        # it scrolls it down by just a little bit
         scrollbar = self.scrollArea.verticalScrollBar()
-        # this should scroll the view all the way down after adding the new widget.
         scrollbar.setValue(scrollbar.maximum())
-        pass
 
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
@@ -210,6 +219,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.actionRestore_Workflow.setShortcut("ctrl+O")
         self.actionSave_Current_Workflow.setShortcut("ctrl+S")
         self.okPushButton.setShortcut("Ctrl+Return")
+        self.refreshModulePushButton.setShortcut("Alt+Return")
 
     def connectWidgets(self):
         """
@@ -281,6 +291,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.deleteModulePushButton.clicked.connect(self.on_delete_module_clicked)
             self.okPushButton.clicked.connect(self.on_okButton_clicked)
             self.undoModulePushButton.clicked.connect(self.on_Rerun_Button_clicked)
+            self.refreshModulePushButton.clicked.connect(self.on_Refresh_Modules_clicked)
             self.stopPushButton.clicked.connect(self.on_stopButton_clicked)
             self.actionOn.triggered.connect(self.debug_mode)
             self.actionOff.triggered.connect(self.normal_mode)
@@ -301,7 +312,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         This function iterates through widgetList
         gets the name of all the Modules
         and then all of the parameters in the UI
-        and then writes it to a list to be returned
+        and write it to a list to be returned
 
         Iterate through widgetList
         get the names of core, add it to a temp l
@@ -391,12 +402,13 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         """
         try:
             if self.widgetList[-1].isEnabled():
-                del self.widgetList[-1]
-                delete.del_layout(self.verticalLayout_3)
+                self.widgetList[-1].delete()
+                del self.widgetList[-1]  # remove the widget from the list
+                delete.del_layout(self.verticalLayout_3)  # delete the layout
             else:
                 print("Cannot delete")
-        except:
-            print("Cannot delete")
+        except Exception as e:
+            print("Cannot delete: ", e)
 
     def on_okButton_clicked(self):
         """
@@ -420,9 +432,13 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 if self.leftOff > 0:
                     self.leftOff -= 1
                 self.widgetList[self.leftOff].setDisabled(False)
-                self.propagate(self.leftOff)
+            else:
+                print("Cannot Re-run modules")
         except:
             pass
+
+    def on_Refresh_Modules_clicked(self):
+        self.setupModules()
 
     def on_stopButton_clicked(self):
         """
@@ -499,9 +515,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
     def onFinished(self):
         """
-        When a give task is finished
+        When a given task is finished
         stop the bar pulsing green
         and display 100% for bar.
+
         :return:
         """
         self.progressBar.setRange(0, 1)
@@ -530,20 +547,35 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         p = mp.Process(target=main, args=())
         p.start()
 
+    def setupModules(self):
+        """
+        This function iterates through a list of object addresses
+        which then run its dot notated setup()
+
+        iterate through our widgets, start from the last left off item
+        run our current module's setup()
+
+        :return:
+        """
+        dic = self.getWidgetItems()
+        for modules in range(self.leftOff, len(self.widgetList)):
+            if self.debug:
+                self._logger(self.widgetList[modules].setup())
+            else:
+                self.widgetList[modules].setup()
+            self.widgetList[modules].connectWidgets()
+            self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
+
     def runModules(self):
         """
         This function iterates through a list of object addresses
-        which then run it's dot notated run()
+        which then run its dot notated run()
 
         iterate through our widgets, start from the last left off item
         get the name of our current widget item
-        start the timers
+        start the timer
         print the name of the module running
-        if a restored file exists
-            run connectWidgets to update the current UI widget
-            run selectiveRestore to select the right items
-            Terminate running process, and let the user decide if they want to continue forward
-        run our current modules run()
+        run our current module's function()
         get our end time
         print how long it took our current module to execute based on start time and end time
         disable our current module
@@ -551,26 +583,23 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
-        dic = None
-        try:
-            with open(self.restorefilename, 'rb') as fp:
-                dic = pickle.load(fp)
-        except:
-            pass
 
         for modules in range(self.leftOff, len(self.widgetList)):
             name_ = type(self.widgetList[modules]).__name__
             s = time.time()
             print("{} Module is Running...".format(name_))
-            # if dic is not None:
-            #     self.widgetList[modules].connectWidgets()
-            #     self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
             self.widgetList[modules].run()
             e = time.time()
             print("Module {} executed in: {} seconds".format(name_, e - s))
             self.widgetList[modules].setDisabled(True)
             self.leftOff = modules + 1
-            self.propagate(self.leftOff)
+
+    def _logger(self, function):
+        try:
+            function()
+        except Exception as e:
+            print("Your {} module broke with error: {}.".format(type(self.widgetList[self.leftOff]).__name__, e))
+            self.widgetList[self.leftOff].setDisabled(False)
 
     def _exceptionLogger(self, function):
         """
@@ -597,24 +626,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             traceback.print_exc()
             print('\nException was logged to "%s"' % (os.path.join(logpath, logfilename)))
 
-    def propagate(self, start_idx=0):
-        """
-        Propagate changes to other widgets
-        
-        Parameters
-        ----------
-        start_idx : int
-            The index of the first widget after which changes will be propagated.
-            (e.g. if changes should be enacted to widgets 3 : -1, start_idx = 2)
-        
-        """
-
-        for widget in self.widgetList[start_idx:]:
-            try:
-                widget.refresh()
-            except NotImplementedError:
-                pass
-
     def run(self):
         """
         Start the thread for running all the modules
@@ -624,15 +635,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         if self.debug:
             self._exceptionLogger(self.runModules)
         else:
-            try:
-                self.runModules()
-            # @@TODO is this the type of error handling we want?
-            except Exception as e:
-                print("Your module broke: ", e)
-                try:
-                    self.widgetList[self.leftOff].setDisabled(False)
-                except:
-                    pass
+            self._logger(self.runModules)
         self.taskFinished.emit()
 
 
@@ -659,6 +662,9 @@ def get_splash(app):
 
 
 def setDarkmode(app):
+    """
+    Start the darkmode for the application
+    """
     settings = QSettings('USGS', 'PPSG')
     p = settings.value('theme') == 'qtmodern'
     if q and p:

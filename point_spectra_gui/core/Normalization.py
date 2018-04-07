@@ -3,7 +3,6 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Normalization import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
 class norm_range:
@@ -43,7 +42,7 @@ class norm_range:
         self.maxSpin.setValue(int_)
 
 
-class Normalization(Ui_Form, SingleData):
+class Normalization(Ui_Form, Modules):
     def setupUi(self, Form, restore=False):
         if restore:
             self.restored = True
@@ -117,8 +116,7 @@ class Normalization(Ui_Form, SingleData):
             pass
 
     def setDataRanges(self):
-        x = self.data[self.chooseDataComboBox.currentText()].df[
-            self.varToNormalizeListWidget.currentItem().text()].columns.values
+        x = self.data[self.chooseDataComboBox.currentText()].df[self.varToNormalizeListWidget.currentItem().text()].columns.values
         # borrowed this from baseline removal code, which in turn borrowed from matplotlib's boxplot outlier detection.
         d = np.diff(x)
         q1, q3 = np.percentile(d, (25, 75))
@@ -140,22 +138,25 @@ class Normalization(Ui_Form, SingleData):
                 self.spin_list[i].setValue(self.spin_list[i - 1].value())
 
     def connectWidgets(self):
-        # populate combobox with dataset names
+        """
+        populate combobox with dataset names
+        update list of variables to normalize when data set selection is changed
+        when the variable to normalize is changed, update the min max and default norm ranges
+        when anything in the gui is changed, run update val to make sure values are increasing
+        connect the add and delete ranges buttons
+        :param self:
+        :return:
+        """
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-
-        # update list of variables to normalize when data set selection is changed
         self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices())
-
-        # when the variable to normalize is changed, update the min max and default norm ranges
         self.varToNormalizeListWidget.itemSelectionChanged.connect(self.setDataLimits)
-
+        # when anything in the gui is changed, run update val to make sure values are increasing
+        self.qt.guiChanged(self.updateVal)
+        self.chooseDataComboBox.currentIndexChanged.connect(
+            lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices()))
         # connect the add and delete ranges buttons
         self.add_range_button.clicked.connect(lambda: self.on_addRange_pushed())
         self.delete_range_button.clicked.connect(lambda: self.on_deleteRange_pushed())
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx,
-                                                                          lambda: self.changeComboListVars(
-                                                                              self.varToNormalizeListWidget,
-                                                                              self.xvar_choices())]]
 
     def on_addRange_pushed(self):
         if self.index.value() < len(self.ranges):
@@ -187,7 +188,7 @@ class Normalization(Ui_Form, SingleData):
             print("Normalization has been applied to the ranges: " + str(range_vals))
             print("{}".format(range_vals))
         except Exception as e:
-            print(str(e) + "Did you remember to select a variable?")
+            print(str(e) + ": Did you remember to select a variable?")
 
     def xvar_choices(self):
         try:

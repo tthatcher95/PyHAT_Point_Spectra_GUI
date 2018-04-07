@@ -22,52 +22,23 @@ class Ui_Form(Ui_Form, Modules):
         # LARS/         # LARSCV
 
         lars = Lars()
-        larscv = LarsCV()
         self.fit_interceptCheckBox.setChecked(lars.fit_intercept)
-        self.verboseCheckBox.setChecked(lars.verbose)
         self.normalizeCheckBox.setChecked(lars.normalize)
-        self.setComboBox(self.precomputeComboBox, ['True', 'False', 'auto', 'array-like'])
-        self.defaultComboItem(self.precomputeComboBox, lars.precompute)
         self.n_nonzero_coefsSpinBox.setValue(lars.n_nonzero_coefs)
-        self.copy_XCheckBox.setChecked(lars.copy_X)
-        self.fit_pathCheckBox.setChecked(lars.fit_path)
         self.positiveCheckBox.setChecked(lars.positive)
-        self.max_iterSpinBox.setValue(larscv.max_iter)
-        self.max_n_alphasSpinBox.setValue(larscv.max_n_alphas)
-        self.n_jobsSpinBox.setValue(larscv.n_jobs)
 
     def run(self):
-        if self.cVCheckBox.isChecked():
-            params = {
-                'fit_intercept': self.fit_interceptCheckBox.isChecked(),
-                'positive': self.positiveCheckBox.isChecked(),
-                'max_iter': self.max_iterSpinBox.value(),
-                'verbose': self.verboseCheckBox.isChecked(),
-                'normalize': self.normalizeCheckBox.isChecked(),
-                'precompute': self.precomputeComboBox.currentText(),
-                'copy_X': self.copy_XCheckBox.isChecked(),
-                'cv': self.cvSpinBox.value(),
-                'max_n_alphas': self.max_n_alphasSpinBox.value(),
-                'n_jobs': self.n_jobsSpinBox.value(),
-                'CV': self.cVCheckBox.isChecked(),
+        params = {
+            'fit_intercept': self.fit_interceptCheckBox.isChecked(),
+            'verbose': False,
+            'normalize': self.normalizeCheckBox.isChecked(),
+            'precompute': 'auto',
+            'n_nonzero_coefs': self.n_nonzero_coefsSpinBox.value(),
+            'copy_X': True,
+            'fit_path': True,
+            'positive': self.positiveCheckBox.isChecked()
             }
-            return params, self.getChangedValues(params, LarsCV())
-
-        else:
-            params = {
-                'fit_intercept': self.fit_interceptCheckBox.isChecked(),
-                'verbose': self.verboseCheckBox.isChecked(),
-                'normalize': self.normalizeCheckBox.isChecked(),
-                'precompute': {'True': True, 'False': False, 'auto': 'auto', 'array-like': 'array-like'}.get(
-                    self.precomputeComboBox.currentText()),
-                'n_nonzero_coefs': self.n_nonzero_coefsSpinBox.value(),
-                'copy_X': self.copy_XCheckBox.isChecked(),
-                'fit_path': self.fit_pathCheckBox.isChecked(),
-                'positive': self.positiveCheckBox.isChecked(),
-                'CV': self.cVCheckBox.isChecked(),
-            }
-            return params, self.getChangedValues(params, Lars())
-
+        return params, self.getChangedValues(params, Lars())
 
 if __name__ == "__main__":
     import sys

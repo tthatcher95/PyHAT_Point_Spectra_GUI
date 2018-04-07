@@ -4,10 +4,9 @@ from libpysat.spectral.spectral_data import spectral_data
 
 from point_spectra_gui.ui.SplitDataset import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
-class SplitDataset(Ui_Form, SingleData):
+class SplitDataset(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -21,7 +20,6 @@ class SplitDataset(Ui_Form, SingleData):
             self.setComboBox(self.splitOnUniqueValuesOfComboBox, self.get_choices())
         except:
             pass
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def run(self):
         datakey = self.chooseDataComboBox.currentText()

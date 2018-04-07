@@ -93,6 +93,8 @@ auto_gitter.bat
 # Don't ignore these files
 !images/*
 !inputs/*
+!pytest.ini
+!tests/core/dataset.csv
 
 *.stackdump
 .pypirc
@@ -221,3 +223,6 @@ venv.bak/
 #
 
 # End of https://www.gitignore.io/api/jupyternotebook
+
+# UI files
+point_spectra_gui/ui/

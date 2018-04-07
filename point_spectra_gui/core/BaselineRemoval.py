@@ -1,14 +1,13 @@
 from PyQt5 import QtWidgets
 from libpysat.spectral.spectral_data import spectral_data
 
-from Qtickle import Qtickle
+from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.baselineRemovalMethods import *
 from point_spectra_gui.ui.BaselineRemoval import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
-class BaselineRemoval(Ui_Form, SingleData):
+class BaselineRemoval(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -42,7 +41,6 @@ class BaselineRemoval(Ui_Form, SingleData):
         self.setComboBox(self.chooseAlgorithmComboBox, self.chooseAlgorithmList)
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx]]
 
     def getGuiParams(self):
         """
@@ -63,7 +61,6 @@ class BaselineRemoval(Ui_Form, SingleData):
             self.alg[i - 1].setGuiParams(dict[i])
 
     def run(self):
-        # return method parameters and parameters that changed
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         # return method parameters and parameters that changed
@@ -76,8 +73,6 @@ class BaselineRemoval(Ui_Form, SingleData):
         self.data[datakey_new] = spectral_data(self.data[datakey].df.copy(deep=True))
         self.data[datakey_new].remove_baseline(method, segment=True, params=methodParameters)
         self.data[datakey_baseline] = spectral_data(self.data[datakey_new].df_baseline)
-        # @@TODO make sure that this is the data that we want to propagate.
-        self.setCurrentData(datakey_new)
 
     def hideAll(self):
         for a in self.alg:

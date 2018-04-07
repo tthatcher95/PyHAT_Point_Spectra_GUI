@@ -1,17 +1,15 @@
 import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
+from point_spectra_gui.util import Qtickle
 from libpysat.regression import cv
 from libpysat.spectral.spectral_data import spectral_data
-
-from Qtickle import Qtickle
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from point_spectra_gui.util.SingleData import SingleData
 
 
-class CrossValidation(Ui_Form, SingleData):
+class CrossValidation(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -24,9 +22,10 @@ class CrossValidation(Ui_Form, SingleData):
     def make_regression_widget(self, alg, params=None):
         self.hideAll()
         print(alg)
-        for i in range(len(self.algorithm_list) - 1):
-            if alg == self.algorithm_list[i] and i > 0:
-                self.alg[i - 1].setHidden(False)
+        try:
+            self.alg[alg].setHidden(False)
+        except:
+            pass
 
     def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
@@ -56,9 +55,8 @@ class CrossValidation(Ui_Form, SingleData):
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
-        [self.chooseDataComboBox.currentIndexChanged.connect(x) for x in [self.setCurrentData, self.set_data_idx,
-                                                                          lambda: self.changeComboListVars(
-                                                                              self.xVariableList, self.xvar_choices())]]
+        self.chooseDataComboBox.currentIndexChanged.connect(
+            lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
 
     def getGuiParams(self):
         """
@@ -69,14 +67,15 @@ class CrossValidation(Ui_Form, SingleData):
         s = []
         s.append(self.qt.guiSave())
         for items in self.alg:
-            s.append(items.getGuiParams())
+            s.append(self.alg[items].getGuiParams())
         return s
 
     def setGuiParams(self, dict):
         self.qt = Qtickle.Qtickle(self)
         self.qt.guiRestore(dict[0])
+        keys = list(self.alg.keys())
         for i in range(len(dict)):
-            self.alg[i - 1].setGuiParams(dict[i])
+            self.alg[keys[i - 1]].setGuiParams(dict[i])
 
     def selectiveSetGuiParams(self, dict):
         """
@@ -90,11 +89,11 @@ class CrossValidation(Ui_Form, SingleData):
         :param dict:
         :return:
         """
-
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict[0])
+        keys = list(self.alg.keys())
         for i in range(len(dict)):
-            self.alg[i - 1].selectiveSetGuiParams(dict[i])
+            self.alg[keys[i - 1]].selectiveSetGuiParams(dict[i])
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
@@ -102,18 +101,28 @@ class CrossValidation(Ui_Form, SingleData):
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
-        params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
+        # Warning: Params passing through cv.cv(params) needs to be in lists
+        # Example: {'n_components': [4], 'scale': [False]}
+        params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
 
+        #if the method supports it, separate out alpha from the other parameters and prepare for calculating path
+        path_methods =  ['Elastic Net', 'LARS', 'LASSO', 'LASSO LARS', 'OMP']#, 'Ridge']
+        if method in path_methods:
+            calc_path = True
+            alphas = params.pop('alpha')
+        else:
+            alphas = None
+            calc_path = False
         y = np.array(self.data[datakey].df[yvars])
         match = np.squeeze((y > yrange[0]) & (y < yrange[1]))
         data_for_cv = spectral_data(self.data[datakey].df.ix[match])
-        # Warning: Params passing through cv.cv(params) needs to be in lists
-        # Example: {'n_components': [4], 'scale': [False]}
         cv_obj = cv.cv(params)
         self.data[datakey].df, self.cv_results, cvmodels, cvmodelkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
                                                                                      ycol=yvars,
-                                                                                     yrange=yrange, method=method)
+                                                                                     yrange=yrange, method=method,
+                                                                                     alphas = alphas, calc_path = calc_path)
         for n, key in enumerate(cvmodelkeys):
+            self.list_amend(self.modelkeys, self.curr_count, key)
             self.modelkeys.append(key)
             self.models[key] = cvmodels[n]
             self.model_xvars[key] = xvars
@@ -156,32 +165,28 @@ class CrossValidation(Ui_Form, SingleData):
 
     def hideAll(self):
         for a in self.alg:
-            a.setHidden(True)
-
-    def getMethodParams(self, index):
-        return self.alg[index - 1].run()
+            self.alg[a].setHidden(True)
 
     def regressionMethods(self):
-        self.alg = []
-        list_forms = [cv_ARD,
-                      cv_BayesianRidge,
-                      cv_ElasticNet,
-                      cv_GP,
-                      #              cv_KRR,
-                      cv_LARS,
-                      cv_Lasso,
-                      cv_LassoLARS,
-                      cv_OLS,
-                      cv_OMP,
-                      cv_PLS,
-                      cv_Ridge,
-                      cv_SVR
-                      ]
-        for items in list_forms:
-            self.alg.append(items.Ui_Form())
-            self.alg[-1].setupUi(self.Form)
-            self.algorithmLayout.addWidget(self.alg[-1].get_widget())
-            self.alg[-1].setHidden(True)
+        self.alg = {'ARD': cv_ARD.Ui_Form(),
+                    'BRR': cv_BayesianRidge.Ui_Form(),
+                    'Elastic Net': cv_ElasticNet.Ui_Form(),
+                    'GP': cv_GP.Ui_Form(),
+                    #'KRR': cv_KRR.Ui_Form(),
+                    'LARS': cv_LARS.Ui_Form(),
+                    'LASSO': cv_Lasso.Ui_Form(),
+                    #'LASSO LARS': cv_LassoLARS.Ui_Form(),
+                    'OLS': cv_OLS.Ui_Form(),
+                    'OMP': cv_OMP.Ui_Form(),
+                    'PLS': cv_PLS.Ui_Form(),
+                    'Ridge': cv_Ridge.Ui_Form(),
+                    'SVR': cv_SVR.Ui_Form()
+                    }
+
+        for item in self.alg:
+            self.alg[item].setupUi(self.Form)
+            self.algorithmLayout.addWidget(self.alg[item].get_widget())
+            self.alg[item].setHidden(True)
 
 
 if __name__ == "__main__":

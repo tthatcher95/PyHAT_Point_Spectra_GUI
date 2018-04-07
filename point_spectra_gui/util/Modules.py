@@ -2,8 +2,7 @@ import inspect
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import *
-
-from Qtickle import Qtickle
+from point_spectra_gui.util import Qtickle
 
 
 class Modules:
@@ -32,31 +31,11 @@ class Modules:
     models = {}  # For regression training
     model_xvars = {}
     model_yvars = {}
+    parent = []
 
-    # Hacky way of making a static string.
-    _current_data = ['', '']
-
-    @property
-    def current_data(self):
-        return self._current_data[0]
-
-    @current_data.setter
-    def current_data(self, value):
-        self._current_data[0] = value
-
-    @property
-    def current_model(self):
-        return self._current_data[1]
-
-    @current_model.setter
-    def current_model(self, value):
-        self._current_data[1] = value
-
-    def __init__(self, parent=None):
+    def __init__(self):
         self.qt = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
-        self.flag = False
-        self.parent = parent
 
     def setupUi(self, Form):
         self.Form = Form
@@ -71,40 +50,36 @@ class Modules:
         modules from the UI, or insert modules, or copy modules.
         """
         # TODO Add mouse Event
-
-    # @@TODO Remove all references to guiChanged
-    def guiChanged(self):
         pass
+        # print("Right Button Clicked {}".format(type(self).__name__))
 
     def get_widget(self):
         """
         This function specifies the variable that holds the
         styling. Use this function to get the variable
+
         :return:
         """
         raise NotImplementedError(
             'The method "get_widget()" was not found in the module {}'.format(type(self).__name__))
 
-    def refresh(self):
-        """
-        This function is used to enable propagation, and is responsible for resetting widget properties
-        based on the static variables found in this class.
-        :return:
-        """
-        raise NotImplementedError(
-            'The method "refresh()" was not found in the module {}'.format(type(self).__name__))
-
     def connectWidgets(self):
         """
         Connect the necessary widgets.
+
         :return:
         """
         raise NotImplementedError(
             'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
 
+    def guiChanged(self):
+        self.qt = Qtickle.Qtickle(self)
+        self.qt.guiChanged(self.parent[0].setupModules)
+
     def getGuiParams(self):
         """
         Return the contents from lineEdits, comboBoxes, etc.
+
         :return:
         """
         self.qt = Qtickle.Qtickle(self)
@@ -114,6 +89,7 @@ class Modules:
     def setGuiParams(self, dict):
         """
         Using a dictionary, restore the UI
+
         :param dict:
         :return:
         """
@@ -132,6 +108,16 @@ class Modules:
         self.qt = Qtickle.Qtickle(self)
         self.qt.selectiveGuiRestore(dict)
 
+    def setup(self):
+        """
+        This is a stripped down version of run()
+        Each Module's functionality will be quickly ran through, so we have
+        at least something in the UI to work with
+
+        :return:
+        """
+        pass
+
     def run(self):
         """
         Each Module's functionality will be ran in this function.
@@ -139,6 +125,15 @@ class Modules:
         :return:
         """
         raise NotImplementedError('The method "run()" was not found in the module {}'.format(type(self).__name__))
+
+    def delete(self):
+        """
+        In some particular cases, the UI needs to have some information dumped.
+        This is a chance to do that.
+
+        :return:
+        """
+        pass
 
     def isEnabled(self):
         """
@@ -151,6 +146,7 @@ class Modules:
         """
         After every execution we want to prevent the user from changing something.
         So, disable the layout by greying it out
+
         :param bool:
         :return:
         """
@@ -160,6 +156,7 @@ class Modules:
         """
         This function makes it possible to reference the progress bar
         in MainWindow
+
         :param progressBar:
         :return:
         """
@@ -168,6 +165,7 @@ class Modules:
     def checkMinAndMax(self):
         """
         Go through the entire UI and set the maximums and minimums of each widget
+
         :return:
         """
         for name, obj in inspect.getmembers(self):
@@ -176,25 +174,6 @@ class Modules:
 
             if isinstance(obj, QDoubleSpinBox):
                 obj.setDecimals(7)
-
-    def setCurrentData(self, c):
-        if isinstance(c, int):
-            self.current_data = self.datakeys[c]
-        elif isinstance(c, str):
-            self.current_data = c
-        else:
-            raise TypeError("Current data must be assigned by a string value or integer index")
-
-    def rename_data(self, idx, value):
-        old = self.datakeys[idx]
-        self.datakeys[idx] = value
-        try:
-            self.data[value] = self.data.pop(old)
-        except KeyError:
-            pass
-
-    def get_open_idx(self):
-        return len(self.datakeys) - 1
 
     @staticmethod
     def getChangedValues(input_dictionary, algorithm):
@@ -212,7 +191,6 @@ class Modules:
         for key in input_dictionary:
             if input_dictionary[key] != getattr(algorithm, key):  # key gives us a string
                 dic.update({key: input_dictionary[key]})
-
         return dic
 
     @staticmethod
@@ -220,6 +198,7 @@ class Modules:
         """
         Sets up the information inside comboBox widgets
         This function does not need to be overridden.
+
         :param comboBox: QtWidgets.QComboBox
         :param keyValues: []
         :return:
@@ -233,6 +212,7 @@ class Modules:
         """
         Function changes combo boxes
         This function does not need to be overridden.
+
         :param obj:
         :param newchoices:
         :return:
@@ -249,10 +229,12 @@ class Modules:
         """
         Function changes lists
         This function does not need to be overridden
+
         :param obj:
         :param choices:
         :return:
         """
+        obj.clear()
         for item in choices:
             obj.addItem(item)
 
@@ -260,8 +242,26 @@ class Modules:
     def defaultComboItem(obj, item):
         """
         Set the default selected item in a box.
+
         :param obj:
         :param item:
         :return:
         """
         obj.setCurrentIndex(obj.findText(str(item)))
+
+    @staticmethod
+    def list_amend(list_, count_, input_):
+        """
+        In some cases a list is never actually instantiated.
+        To fix this, we want to first try and see if we can access a particular count
+        If that doesn't work due to an IndexError then we'll just settle for appending
+
+        :param list_:
+        :param count_:
+        :param input_:
+        :return:
+        """
+        try:
+            list_[count_] = input_
+        except IndexError:
+            list_.append(input_)

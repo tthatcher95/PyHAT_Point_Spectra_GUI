@@ -1,13 +1,17 @@
-# -*- coding: utf-8 -*-
-
 import pandas as pd
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.CombineDataSets import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-
+from libpysat.spectral.spectral_data import spectral_data
 
 class CombineDataSets(Ui_Form, Modules):
+    """
+    Combine the various datasets into one bigger dataset
+    This is still in Beta and needs to be improved.
+    This is in part due to the fact that we are using multidimensional columns to reference data
+    """
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -19,18 +23,13 @@ class CombineDataSets(Ui_Form, Modules):
     def connectWidgets(self):
         self.setComboBox(self.dataSet1ComboBox, self.datakeys)
         self.setComboBox(self.dataSet2ComboBox, self.datakeys)
-        # self.setComboBox(self.outputToDataSetTextBox, self.datakeys)
-
-    # @@TODO ask which values should be propagated
-    def refresh(self):
-        pass
 
     def run(self):
         dataSet1 = self.dataSet1ComboBox.currentText()
         dataSet2 = self.dataSet2ComboBox.currentText()
-        dataIn = self.outputToDataSetTextBox.toPlainText()
-
-        self.data[dataIn] = pd.concat([self.data[dataSet1], self.data[dataSet2]])
+        newkey = self.outputToDataSetLineEdit.text()
+        self.datakeys.append(newkey)
+        self.data[newkey] = spectral_data(pd.concat([self.data[dataSet1].df, self.data[dataSet2].df]))
 
 
 if __name__ == "__main__":

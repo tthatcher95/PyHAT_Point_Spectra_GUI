@@ -1,4 +1,4 @@
-name: psg
+name: ppsg
 dependencies:
  - python=3
  - pyqt
