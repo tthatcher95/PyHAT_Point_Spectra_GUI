@@ -18,10 +18,14 @@ class Clustering(Ui_Form, Modules):
 
     def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
-                               'K-Means'
+                               'K-Means',
+                               'Spectral'
                                ]
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
+        self.setListWidget(self.variables_list, self.xvar_choices())
+        self.chooseDataComboBox.currentIndexChanged.connect(
+            lambda: self.changeComboListVars(self.variables_list, self.xvar_choices()))
         self.setComboBox(self.chooseMethodComboBox, self.algorithm_list)
         self.chooseMethodComboBox.currentIndexChanged.connect(
             lambda: self.make_cluster_widget(self.chooseMethodComboBox.currentText()))
@@ -66,16 +70,24 @@ class Clustering(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
+
+    def setup(self):
+        method = self.chooseMethodComboBox.currentText()
+        datakey = self.chooseDataComboBox.currentText()
+        if method != 'Choose an algorithm':
+            self.data[datakey].df[(method, 'Cluster')] = 99999  #create the column to hold the clustering results,
+                                                            # fill with dummy data until clustering is actually run
+
     def run(self):
         method = self.chooseMethodComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
-        col = 'wvl'
+        col = self.variables_list.selectedItems()
         self.data[datakey].cluster(col, method, [], params)
 
     def make_cluster_widget(self, alg):
         self.hideAll()
-        print(alg)
+        #print(alg)
         for i in range(len(self.algorithm_list)):
             if alg == self.algorithm_list[i]:
                 self.alg[i - 1].setHidden(False)
@@ -86,7 +98,8 @@ class Clustering(Ui_Form, Modules):
 
     def clusteringMethods(self):
         self.alg = []
-        list_forms = [cluster_KMeans]
+        list_forms = [cluster_KMeans,
+                      cluster_Spectral]
         for items in list_forms:
             self.alg.append(items.Ui_Form())
             self.alg[-1].setupUi(self.Form)
@@ -96,6 +109,16 @@ class Clustering(Ui_Form, Modules):
     def getMethodParams(self, index):
         return self.alg[index - 1].run()
 
+    def xvar_choices(self):
+        try:
+            try:
+                xvarchoices = self.data[self.chooseDataComboBox.currentText()].df.columns.levels[0].values
+            except:
+                xvarchoices = self.data[self.chooseDataComboBox.currentText()].columns.values
+            xvarchoices = [i for i in xvarchoices if not 'Unnamed' in i]  # remove unnamed columns from choices
+        except:
+            xvarchoices = ['No valid choices!']
+        return xvarchoices
 
 if __name__ == "__main__":
     import sys
