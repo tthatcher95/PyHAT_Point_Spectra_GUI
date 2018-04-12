@@ -194,7 +194,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.textBrowser.setTextCursor(cursor)
         self.textBrowser.ensureCursorVisible()
 
-    def addWidget(self, obj):
+    def addWidget(self, obj, idx=2):
         """
         Organize our widgets using a list
         Each widget is addressed separately due to being in a list
@@ -209,14 +209,16 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         # add the new layout to verticalLayout_3
         # add our object's widget to the layout
         # scroll down to the new module
-
-        self.widgetList.append(obj())
-        self.widgetList[-1].setupUi(self.centralwidget)
+        self.widgetList.insert(idx, obj())
+        try:
+            self.widgetList[idx].setupUi(self.centralwidget)
+        except:
+            idx = -1
+            self.widgetList[idx].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")
-        self.verticalLayout_2.takeAt()
-        self.verticalLayout_2.addLayout(self.widgetLayout)
-        self.widgetLayout.addWidget(self.widgetList[-1].get_widget())
+        self.verticalLayout_2.insertLayout(idx, self.widgetLayout)
+        self.widgetLayout.addWidget(self.widgetList[idx].get_widget())
         scrollbar = self.scrollArea.verticalScrollBar()
         scrollbar.setValue(scrollbar.maximum())
         # place items inside the deleteModuleCombox
@@ -225,6 +227,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.setComboBox(self.deleteModuleComboBox,
                          ["Delete Module"] + [type(item).__name__ for item in self.widgetList])
         self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
+        # When the user selects an item in the insertion comboBox we want the UI to insert every time after that selected item
+        # When the user deletes a module, we also want to delete
 
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
@@ -438,6 +442,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
+
         def idx(total, position):
             return total - position + 1
 
@@ -459,14 +464,14 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :return:
         """
 
-        _index = self.deleteModuleComboBox.currentIndex()
+        _idx = self.deleteModuleComboBox.currentIndex()
         _text = self.deleteModuleComboBox.currentText()
 
         # If the currentText in the comboBox is not '', 'Delete Module', and the Module is Enabled
-        if _text != 'Delete Module' and _text != '' and self.widgetList[_index - 1].isEnabled():
-            self.delete_module(_index)
+        if _text != 'Delete Module' and _text != '' and self.widgetList[_idx - 1].isEnabled():
+            self.delete_module(_idx)
             self.deleteModuleComboBox.disconnect()
-            self.deleteModuleComboBox.removeItem(_index)
+            self.deleteModuleComboBox.removeItem(_idx)
             self.deleteModuleComboBox.setCurrentIndex(0)
             self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
         else:
