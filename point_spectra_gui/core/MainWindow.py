@@ -194,7 +194,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.textBrowser.setTextCursor(cursor)
         self.textBrowser.ensureCursorVisible()
 
-    def addWidget(self, obj, idx=2):
+    def addWidget(self, obj):
         """
         Organize our widgets using a list
         Each widget is addressed separately due to being in a list
@@ -209,12 +209,16 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         # add the new layout to verticalLayout_3
         # add our object's widget to the layout
         # scroll down to the new module
-        self.widgetList.insert(idx, obj())
+        # TODO this needs to be done a little bit better. The UI should know if we are on "Insert Module" or not and then decide from there.
         try:
-            self.widgetList[idx].setupUi(self.centralwidget)
+            idx = self.insert_idx
+            if idx == 0:
+                raise Exception
+            self.widgetList.insert(idx, obj())
         except:
             idx = -1
-            self.widgetList[idx].setupUi(self.centralwidget)
+            self.widgetList.append(obj())
+        self.widgetList[idx].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")
         self.verticalLayout_2.insertLayout(idx, self.widgetLayout)
@@ -227,8 +231,11 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.setComboBox(self.deleteModuleComboBox,
                          ["Delete Module"] + [type(item).__name__ for item in self.widgetList])
         self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
+        self.setComboBox(self.insertModuleComboBox,
+                         ["Insert Module"] + [type(item).__name__ for item in self.widgetList])
         # When the user selects an item in the insertion comboBox we want the UI to insert every time after that selected item
-        # When the user deletes a module, we also want to delete
+        # When the user deletes a module, we want to update insertion comboBox and deletion comboBox
+        # When we insert we want to always keep the index, but update insertion and deletion comboBoxes
 
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
@@ -245,7 +252,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
-
         try:
             self.actionRead_ChemCam_Data.triggered.connect(
                 lambda: self.addWidget(core.ReadChemCamData.ReadChemCamData))
@@ -310,6 +316,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionSave_Current_Workflow.triggered.connect(self.on_save_clicked)
             self.actionRestore_Workflow.triggered.connect(self.on_restore_clicked)
             self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
+            self.insertModuleComboBox.currentIndexChanged.connect(self.on_insertModuleComboBox_changed)
             self.okPushButton.clicked.connect(self.on_okButton_clicked)
             self.undoModulePushButton.clicked.connect(self.on_Rerun_Button_clicked)
             self.refreshModulePushButton.clicked.connect(self.on_Refresh_Modules_clicked)
@@ -456,6 +463,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         except Exception as e:
             print("Cannot delete: ", e)
 
+    def on_insertModuleComboBox_changed(self):
+        self.insert_idx = self.insertModuleComboBox.currentIndex()
+
     def on_deleteModuleComboBox_changed(self):
         """
         Using a comboBox, a user can delete a particular module
@@ -472,6 +482,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.delete_module(_idx)
             self.deleteModuleComboBox.disconnect()
             self.deleteModuleComboBox.removeItem(_idx)
+            self.insertModuleComboBox.removeItem(_idx)
             self.deleteModuleComboBox.setCurrentIndex(0)
             self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
         else:
