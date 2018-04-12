@@ -22,16 +22,24 @@ class Ui_Form(object):
         self.formLayout.setObjectName("formLayout")
         self.fitInterceptLabel = QtWidgets.QLabel(self.formGroupBox)
         self.fitInterceptLabel.setObjectName("fitInterceptLabel")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.fitInterceptLabel)
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.fitInterceptLabel)
         self.fitInterceptCheckBox = QtWidgets.QCheckBox(self.formGroupBox)
         self.fitInterceptCheckBox.setObjectName("fitInterceptCheckBox")
-        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.fitInterceptCheckBox)
+        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.fitInterceptCheckBox)
         self.normalizeLabel = QtWidgets.QLabel(self.formGroupBox)
         self.normalizeLabel.setObjectName("normalizeLabel")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.normalizeLabel)
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.normalizeLabel)
         self.normalizeCheckBox = QtWidgets.QCheckBox(self.formGroupBox)
         self.normalizeCheckBox.setObjectName("normalizeCheckBox")
-        self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.normalizeCheckBox)
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.normalizeCheckBox)
+        self.n_coef_label = QtWidgets.QLabel(self.formGroupBox)
+        self.n_coef_label.setObjectName("n_coef_label")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.n_coef_label)
+        self.n_coef_spin = QtWidgets.QSpinBox(self.formGroupBox)
+        self.n_coef_spin.setMaximum(999999999)
+        self.n_coef_spin.setProperty("value", 100)
+        self.n_coef_spin.setObjectName("n_coef_spin")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.n_coef_spin)
         self.verticalLayout.addWidget(self.formGroupBox)
 
         self.retranslateUi(Form)
@@ -53,6 +61,7 @@ class Ui_Form(object):
 "please use sklearn.preprocessing.StandardScaler before calling fit on\n"
 "an estimator with normalize=False."))
         self.normalizeCheckBox.setWhatsThis(("http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.OrthogonalMatchingPursuit.html"))
+        self.n_coef_label.setText(("# coefficients"))
 
 
 if __name__ == "__main__":

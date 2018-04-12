@@ -27,4 +27,5 @@ from point_spectra_gui.core import StratifiedFolds
 from point_spectra_gui.core import SubmodelBlend
 from point_spectra_gui.core import SubmodelPredict
 from point_spectra_gui.core import WriteToCSV
+from point_spectra_gui.core import Clustering
 from point_spectra_gui.core.regressionMethods import *

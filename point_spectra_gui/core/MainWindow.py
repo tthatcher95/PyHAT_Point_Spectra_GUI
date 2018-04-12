@@ -237,6 +237,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.CrossValidation.CrossValidation))
             self.actionDimensionality_Reduction.triggered.connect(
                 lambda: self.addWidget(core.DimensionalityReduction.DimensionalityReduction))
+            self.actionCluster.triggered.connect(
+                lambda: self.addWidget(core.Clustering.Clustering))
             self.actionInterpolate.triggered.connect(
                 lambda: self.addWidget(core.Interpolation.Interpolation))
             self.actionLoad_Data.triggered.connect(

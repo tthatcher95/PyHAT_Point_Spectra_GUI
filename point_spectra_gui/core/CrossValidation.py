@@ -10,6 +10,8 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class CrossValidation(Ui_Form, Modules):
+    count = -1
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -106,7 +108,7 @@ class CrossValidation(Ui_Form, Modules):
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
 
         #if the method supports it, separate out alpha from the other parameters and prepare for calculating path
-        path_methods =  ['Elastic Net', 'LARS', 'LASSO', 'LASSO LARS', 'OMP']#, 'Ridge']
+        path_methods =  ['Elastic Net', 'LASSO']#, 'Ridge']
         if method in path_methods:
             calc_path = True
             alphas = params.pop('alpha')
@@ -122,7 +124,7 @@ class CrossValidation(Ui_Form, Modules):
                                                                                      yrange=yrange, method=method,
                                                                                      alphas = alphas, calc_path = calc_path)
         for n, key in enumerate(cvmodelkeys):
-            self.list_amend(self.modelkeys, self.curr_count, key)
+            self.list_amend(self.modelkeys, len(self.modelkeys), key)
             self.modelkeys.append(key)
             self.models[key] = cvmodels[n]
             self.model_xvars[key] = xvars

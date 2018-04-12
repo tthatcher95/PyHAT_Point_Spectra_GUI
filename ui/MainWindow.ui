@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>519</width>
+    <width>671</width>
     <height>596</height>
    </rect>
   </property>
@@ -40,8 +40,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>484</width>
-         <height>350</height>
+         <width>628</width>
+         <height>329</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -145,8 +145,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>519</width>
-     <height>21</height>
+     <width>671</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -237,8 +237,16 @@
     </property>
     <addaction name="actionData_Box"/>
    </widget>
+   <widget class="QMenu" name="menuClassification">
+    <property name="title">
+     <string>Classification</string>
+    </property>
+    <addaction name="actionSupervised"/>
+    <addaction name="actionCluster"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuPreprocessing"/>
+   <addaction name="menuClassification"/>
    <addaction name="menuRegression"/>
    <addaction name="menuVisualization"/>
    <addaction name="menuOptions"/>
@@ -449,6 +457,21 @@
   <action name="actionOutlier_Removal">
    <property name="text">
     <string>Outlier Removal</string>
+   </property>
+  </action>
+  <action name="actionSupervised">
+   <property name="text">
+    <string>Supervised</string>
+   </property>
+  </action>
+  <action name="actionK_means">
+   <property name="text">
+    <string>K-means</string>
+   </property>
+  </action>
+  <action name="actionCluster">
+   <property name="text">
+    <string>Clustering</string>
    </property>
   </action>
  </widget>

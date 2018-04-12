@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>357</width>
+    <height>347</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <layout class="QFormLayout" name="formLayout">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+      </property>
+      <item row="0" column="0">
+       <widget class="QLabel" name="n_clust_label">
+        <property name="text">
+         <string># of clusters</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="n_clust_spin"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="n_runs_label">
+        <property name="text">
+         <string># of runs</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="n_runs_spin"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="affinity_label">
+        <property name="text">
+         <string>Affinity kernel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="affinity_comboBox">
+        <item>
+         <property name="text">
+          <string>Radial Basis Function</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Nearest Neighbors</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Sigmoid</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Polynomial</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Linear</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Cosine</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="gamma_label">
+        <property name="text">
+         <string>Gamma</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QDoubleSpinBox" name="gamma_dspin"/>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="n_neighbors_label">
+        <property name="text">
+         <string># neighbors</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QSpinBox" name="n_neighbors_spin"/>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="coef0_label">
+        <property name="text">
+         <string>Zero Coefficient</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QDoubleSpinBox" name="coef0_spin"/>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="degree_label">
+        <property name="text">
+         <string>Degree</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QSpinBox" name="degree_spin"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

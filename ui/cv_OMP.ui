@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>351</width>
-    <height>153</height>
+    <height>240</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -89,7 +89,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="n_coefs_label">
         <property name="text">
-         <string># coeffs</string>
+         <string># coefficients</string>
         </property>
        </widget>
       </item>
