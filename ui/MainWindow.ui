@@ -41,7 +41,7 @@
          <x>0</x>
          <y>0</y>
          <width>504</width>
-         <height>350</height>
+         <height>323</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2"/>
@@ -65,24 +65,27 @@
      </widget>
     </item>
     <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Your current progression.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+      <property name="format">
+       <string>%p%</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="progress_OK">
-      <item>
-       <widget class="QProgressBar" name="progressBar">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Your current progression.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="value">
-         <number>0</number>
-        </property>
-        <property name="format">
-         <string>%p%</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QPushButton" name="refreshModulePushButton">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Re-run your last ran module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;Refresh the modules&lt;/p&gt;
+&lt;p&gt;This will update all the modules so they contain relevant information from previous modules.
+&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Refresh Modules</string>
@@ -92,7 +95,7 @@
       <item>
        <widget class="QPushButton" name="undoModulePushButton">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Re-run your last ran module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Re-run your last run module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
          <string>Re-run Module</string>
@@ -107,6 +110,21 @@
         <property name="text">
          <string>Stop Module</string>
         </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="insertModuleComboBox">
+        <property name="minimumSize">
+         <size>
+          <width>86</width>
+          <height>0</height>
+         </size>
+        </property>
+        <item>
+         <property name="text">
+          <string>Insert Module</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
