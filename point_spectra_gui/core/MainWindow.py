@@ -214,6 +214,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.widgetList[-1].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")
+        self.verticalLayout_2.takeAt()
         self.verticalLayout_2.addLayout(self.widgetLayout)
         self.widgetLayout.addWidget(self.widgetList[-1].get_widget())
         scrollbar = self.scrollArea.verticalScrollBar()
@@ -443,7 +444,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         try:
             if self.widgetList[_idx - 1].isEnabled():
                 self.widgetList[_idx - 1].delete()  # Call internal module's delete method
-                del self.widgetList[-1]  # remove the widget from the list
+                del self.widgetList[_idx - 1]  # remove the widget from the list
                 delete.del_layout(self.verticalLayout_2, idx(self.verticalLayout_2.count(), _idx))  # delete the layout
             else:
                 print("Cannot delete")
@@ -451,23 +452,28 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             print("Cannot delete: ", e)
 
     def on_deleteModuleComboBox_changed(self):
-        # TODO there will need to be some logic to protect the user from deleting greyed out items.
-
-        for modules in range(self.leftOff, len(self.widgetList)):
-            _name = type(self.widgetList[modules]).__name__
-            _idx = self.verticalLayout_2.count() - 1
-            if _name == self.deleteModuleComboBox.currentText():
-                print(_name, _idx)
-
-        """ This deletes the item from the Layout and the item in the comboBox
         """
-        c_text = self.deleteModuleComboBox.currentText()
-        if c_text != 'Delete Module' and c_text != '':
-            self.delete_module(self.deleteModuleComboBox.currentIndex())
+        Using a comboBox, a user can delete a particular module
+        out of the UI
+
+        :return:
+        """
+
+        _index = self.deleteModuleComboBox.currentIndex()
+        _text = self.deleteModuleComboBox.currentText()
+
+        # If the currentText in the comboBox is not '', 'Delete Module', and the Module is Enabled
+        if _text != 'Delete Module' and _text != '' and self.widgetList[_index - 1].isEnabled():
+            self.delete_module(_index)
             self.deleteModuleComboBox.disconnect()
-            self.deleteModuleComboBox.removeItem(self.deleteModuleComboBox.currentIndex())
+            self.deleteModuleComboBox.removeItem(_index)
             self.deleteModuleComboBox.setCurrentIndex(0)
             self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
+        else:
+            self.deleteModuleComboBox.disconnect()
+            self.deleteModuleComboBox.setCurrentIndex(0)
+            self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
+            print("Cannot delete")
 
     def on_okButton_clicked(self):
         """
