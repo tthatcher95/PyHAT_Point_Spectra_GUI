@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.CombineDataSets import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from libpysat.spectral.spectral_data import spectral_data
+from point_spectra_gui.util.spectral_data import spectral_data
 
 class CombineDataSets(Ui_Form, Modules):
     """

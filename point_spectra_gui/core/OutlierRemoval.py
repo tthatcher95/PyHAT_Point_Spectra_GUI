@@ -4,7 +4,8 @@ from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.outlierRemovalMethods import *
 from point_spectra_gui.ui.OutlierRemoval import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-
+from libpysat.utils.outlier_removal import outlier_removal
+from point_spectra_gui.util.spectral_data import spectral_data
 
 class OutlierRemoval(Ui_Form, Modules):
     def setupUi(self, Form):
@@ -79,8 +80,8 @@ class OutlierRemoval(Ui_Form, Modules):
         datakey = self.chooseDataComboBox.currentText()
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
-        self.data[datakey].outlier_removal(xvars, method, params)
-
+        self.data[datakey], outlier_removal_obj = outlier_removal(self.data[datakey].df, xvars, method, params)
+        self.data[datakey] = spectral_data(self.data[datakey])
 
     def xvar_choices(self):
         try:

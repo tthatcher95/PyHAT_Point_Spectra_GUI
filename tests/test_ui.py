@@ -61,7 +61,7 @@ class Ui_MainWindow(MainWindow):
         self.addWidget(core.RegressionPredict.RegressionPredict)
         self.addWidget(core.RemoveRows.RemoveRows)
         self.addWidget(core.SplitDataset.SplitDataset)
-        self.addWidget(core.SubmodelPredict.SubmodelPredict)
+        self.addWidget(core.SubmodelPredict.SubmodelBlend)
         self.addWidget(core.Plot.Plot)
 
 

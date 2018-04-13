@@ -2,7 +2,9 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.StratifiedFolds import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-
+from point_spectra_gui.util.spectral_data import spectral_data
+from libpysat.utils.folds import stratified_folds
+from libpysat.utils.utils import rows_match
 
 class StratifiedFolds(Ui_Form, Modules):
     def setupUi(self, Form):
@@ -32,10 +34,10 @@ class StratifiedFolds(Ui_Form, Modules):
         except:
             testfold = 1
         colname = ('comp', self.chooseVarComboBox.currentText())
-        self.data[datakey].stratified_folds(nfolds=nfolds, sortby=colname)
+        self.data[datakey]=spectral_data(stratified_folds(self.data[datakey].df,nfolds=nfolds, sortby=colname))
 
-        self.data[datakey + '-Train'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold], invert=True)
-        self.data[datakey + '-Test'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold])
+        self.data[datakey + '-Train'] = spectral_data(rows_match(self.data[datakey].df,('meta', 'Folds'), [testfold], invert=True))
+        self.data[datakey + '-Test'] = spectral_data(rows_match(self.data[datakey].df,('meta', 'Folds'), [testfold]))
         self.datakeys.append(datakey + '-Train')
         self.datakeys.append(datakey + '-Test')
 

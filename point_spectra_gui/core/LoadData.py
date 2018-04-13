@@ -1,6 +1,6 @@
 import pandas as pd
 from PyQt5 import QtWidgets
-from libpysat.spectral.spectral_data import spectral_data
+from point_spectra_gui.util.spectral_data import spectral_data
 
 from point_spectra_gui.ui.LoadData import Ui_loadData
 from point_spectra_gui.util.Modules import Modules
