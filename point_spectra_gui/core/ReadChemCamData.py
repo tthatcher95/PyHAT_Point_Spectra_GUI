@@ -17,8 +17,27 @@ class ReadChemCamData(Ui_Form, Modules):
 
     def connectWidgets(self):
         self.searchStringLineEdit.setText("*ccs*.csv")
+        self.lookup_col.setText('Spacecraft Clock')
+        self.data_col.setText('sclock')
         self.searchDirectorypushButton.clicked.connect(self.on_searchpathButton_clicked)
         self.metadatapushButton.clicked.connect(self.on_metadataButton_clicked)
+        self.hide_col_options()
+        self.col_check.stateChanged.connect(self.hide_col_options)
+    def hide_col_options(self):
+        if self.col_check.isChecked():
+            self.column_explain.setHidden(False)
+            self.data_col.setHidden(False)
+            self.lookup_col.setHidden(False)
+            self.data_col_label.setHidden(False)
+            self.lookup_col_label.setHidden(False)
+            self.line.setHidden(False)
+        else:
+            self.column_explain.setHidden(True)
+            self.data_col.setHidden(True)
+            self.lookup_col.setHidden(True)
+            self.data_col_label.setHidden(True)
+            self.lookup_col_label.setHidden(True)
+            self.line.setHidden(True)
 
     def on_searchpathButton_clicked(self):
         dirname = QtWidgets.QFileDialog.getExistingDirectory(parent=None, caption="Select Search Directory",
@@ -42,21 +61,24 @@ class ReadChemCamData(Ui_Form, Modules):
 
     def run(self):
         params = self.getGuiParams()
-        searchdir = params['searchDirectoryLineEdit']
-        searchstring = params['searchStringLineEdit']
-        to_csv = params['outputFileNameLineEdit']
-        try:
-            lookupfile = params['metadataFilesLineEdit']
-            lookupfile = lookupfile[2:-2].split(',')
+        searchdir = self.searchDirectoryLineEdit.text()
+        searchstring = self.searchStringLineEdit.text()
+        to_csv = self.outputFileNameLineEdit.text()
+        left_on = self.data_col.text()
+        right_on = self.lookup_col.text()
 
+        try:
+            lookupfile = self.metadataFilesLineEdit.text()
+            lookupfile = lookupfile[2:-2].split(',')
+            lookupfile = [f.strip('\\\' "') for f in lookupfile]
             if lookupfile[0] == '':
                 lookupfile = None
         except:
             lookupfile = None
-        ave = bool(params['averagesradioButton'])
+        ave = self.averagesradioButton.isChecked()
         progressbar = QtWidgets.QProgressDialog()
         io_ccam_pds.ccam_batch(searchdir, searchstring=searchstring, to_csv=Modules.outpath + '/' + to_csv,
-                               lookupfile=lookupfile, ave=ave, progressbar=progressbar)
+                               lookupfile=lookupfile, ave=ave, progressbar=progressbar, left_on=left_on, right_on=right_on)
         self.do_get_data(Modules.outpath + '/' + to_csv, 'ChemCam')
 
     def do_get_data(self, filename, keyname):
