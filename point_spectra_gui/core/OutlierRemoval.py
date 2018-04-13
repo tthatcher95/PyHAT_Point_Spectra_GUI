@@ -19,15 +19,15 @@ class OutlierRemoval(Ui_Form, Modules):
     def make_outlier_widget(self, alg, params=None):
         self.hideAll()
         print(alg)
-        for i in range(len(self.algorithm_list) - 1):
-            print(i)
+        for i in range(len(self.algorithm_list)):
             if alg == self.algorithm_list[i]:
                 self.alg[i - 1].setHidden(False)
 
     def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
                                'Isolation Forest',
-                               'Other algorithms go here...']
+                               'Local Outlier Factor'
+                               ]
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
@@ -80,8 +80,7 @@ class OutlierRemoval(Ui_Form, Modules):
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
         self.data[datakey].outlier_removal(xvars, method, params)
-        # self.data[datakey].df, self.cv_results, cvmodels, cvmodelkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars, ycol=yvars,
-        #                                                      yrange=yrange, method=method)
+
 
     def xvar_choices(self):
         try:
@@ -100,8 +99,8 @@ class OutlierRemoval(Ui_Form, Modules):
 
     def outlierRemovalMethods(self):
         self.alg = []
-        list_forms = [outliers_IsolationForest
-                      ]
+        list_forms = [outliers_IsolationForest,
+                      outliers_LOF]
         for items in list_forms:
             self.alg.append(items.Ui_Form())
             self.alg[-1].setupUi(self.Form)
