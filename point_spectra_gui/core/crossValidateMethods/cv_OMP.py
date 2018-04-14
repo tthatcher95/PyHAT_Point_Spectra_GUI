@@ -31,8 +31,7 @@ class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, M
         params = {'n_nonzero_coefs': [int(i) for i in self.n_coefs_lineedit.text().split(',')],
                   'fit_intercept': fit_intercept_items,
                   'normalize': normalize_items,
-                  'precompute': ['auto'],
-                  'CV': [False]}
+                  'precompute': ['auto']}
         modelkey = str(params)
         return params, modelkey
 

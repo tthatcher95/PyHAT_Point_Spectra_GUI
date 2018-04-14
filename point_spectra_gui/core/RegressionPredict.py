@@ -40,13 +40,16 @@ class RegressionPredict(Ui_Form, Modules):
     def run(self):
         datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
         modelkey = self.chooseModelComboBox.currentText()
-        for datakey in datakeys:
-            data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
-            data_tmp.fillna(value=0, inplace=True)
-            prediction = self.models[modelkey].predict(data_tmp)
-            self.list_amend(self.predictkeys, self.curr_count, modelkey + ' - ' + datakey + ' - Predict')
-            predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
-            self.data[datakey].df[predictname] = prediction
+        try:
+            for datakey in datakeys:
+                print('Predicting '+datakey)
+                data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
+                data_tmp.fillna(value=0, inplace=True)
+                prediction = self.models[modelkey].predict(data_tmp)
+                predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
+                self.data[datakey].df[predictname] = prediction
+        except Exception as e:
+            print(e)
 
 
 if __name__ == "__main__":

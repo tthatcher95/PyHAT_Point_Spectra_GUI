@@ -19,6 +19,9 @@ class Ui_Form(Ui_Form, Lasso, Modules):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
+        self.minalpha_spin.setDecimals(20)
+        self.maxalpha_spin.setDecimals(20)
+
         self.minalpha_spin.setValue(0.0000001)
         self.maxalpha_spin.setValue(0.01)
         self.nalphas_spin.setValue(100)
@@ -39,8 +42,10 @@ class Ui_Form(Ui_Form, Lasso, Modules):
                   'fit_intercept': fit_intercept_items,
                   'max_iter': [int(i) for i in self.maxNumOfIterationsLineEdit.text().split(',')],
                   'tol': [float(i) for i in self.toleranceLineEdit.text().split(',')],
+                  'precompute': [True],
+                  'copy_X': [True],
                   'positive': positive_items,
-                  'selection': ['random']
+                  'selection': ['random'],
                   }
         keyparams = {}  # params.pop('alpha')
         keyparams['alpha_min'] = self.minalpha_spin.value()

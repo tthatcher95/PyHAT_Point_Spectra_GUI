@@ -261,8 +261,16 @@
     </property>
     <addaction name="actionData_Box"/>
    </widget>
+   <widget class="QMenu" name="menuClassification">
+    <property name="title">
+     <string>Classification</string>
+    </property>
+    <addaction name="actionSupervised"/>
+    <addaction name="actionCluster"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuPreprocessing"/>
+   <addaction name="menuClassification"/>
    <addaction name="menuRegression"/>
    <addaction name="menuVisualization"/>
    <addaction name="menuOptions"/>
@@ -483,6 +491,21 @@
   <action name="actionRestore_Trained_Model">
    <property name="text">
     <string>Restore Trained Model</string>
+  </property>
+  </action>
+  <action name="actionSupervised">
+   <property name="text">
+    <string>Supervised</string>
+   </property>
+  </action>
+  <action name="actionK_means">
+   <property name="text">
+    <string>K-means</string>
+   </property>
+  </action>
+  <action name="actionCluster">
+   <property name="text">
+    <string>Clustering</string>
    </property>
   </action>
  </widget>

@@ -21,6 +21,9 @@ class Ui_Form(Ui_Form, Modules):
     def connectWidgets(self):
         # LassoLARS
         ll = LassoLars()
+        self.minalpha_spin.setDecimals(20)
+        self.maxalpha_spin.setDecimals(20)
+
         self.minalpha_spin.setValue(0.0000001)
         self.maxalpha_spin.setValue(0.01)
         self.nalpha_spin.setValue(100)

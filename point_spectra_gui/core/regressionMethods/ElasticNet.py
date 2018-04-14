@@ -24,12 +24,9 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
         self.alpha_text.setText(str(en.alpha))
         self.enl1_ratioDoubleSpinBox.setValue(en.l1_ratio)
         self.enfit_interceptCheckBox.setChecked(en.fit_intercept)
-        self.ennormalizeCheckBox.setChecked(en.normalize)
         self.enmax_iterSpinBox.setValue(en.max_iter)
         self.entolDoubleSpinBox.setValue(en.tol)
         self.enpositiveCheckBox.setChecked(en.positive)
-        self.setComboBox(self.enselectionComboBox, ['cyclic', 'random'])
-        self.defaultComboItem(self.enselectionComboBox, en.selection)
 
 
     def run(self):
@@ -37,7 +34,6 @@ class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
                 'alpha': float(self.alpha_text.text()),
                 'l1_ratio': self.enl1_ratioDoubleSpinBox.value(),
                 'fit_intercept': self.enfit_interceptCheckBox.isChecked(),
-                'normalize': self.ennormalizeCheckBox.isChecked(),
                 'precompute': True,
                 'max_iter': self.enmax_iterSpinBox.value(),
                 'copy_X': True,

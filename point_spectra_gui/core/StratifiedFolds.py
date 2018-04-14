@@ -2,7 +2,9 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.StratifiedFolds import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-
+from point_spectra_gui.util.spectral_data import spectral_data
+from libpysat.utils.folds import stratified_folds
+from libpysat.utils.utils import rows_match
 
 class StratifiedFolds(Ui_Form, Modules):
     count = -1
@@ -59,13 +61,12 @@ class StratifiedFolds(Ui_Form, Modules):
         except:
             testfold = 1
         colname = ('comp', self.chooseVarComboBox.currentText())
-        self.data[datakey].stratified_folds(nfolds=nfolds, sortby=colname)
+        self.data[datakey]=spectral_data(stratified_folds(self.data[datakey].df,nfolds=nfolds, sortby=colname))
 
-        self.data[datakey + '-Train'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold], invert=True)
-        self.data[datakey + '-Test'] = self.data[datakey].rows_match(('meta', 'Folds'), [testfold])
-        if datakey + '-Train' not in self.datakeys and datakey + '-Test' not in self.datakeys:
-            self.datakeys.append(datakey + '-Train')
-            self.datakeys.append(datakey + '-Test')
+        self.data[datakey + '-Train'] = spectral_data(rows_match(self.data[datakey].df,('meta', 'Folds'), [testfold], invert=True))
+        self.data[datakey + '-Test'] = spectral_data(rows_match(self.data[datakey].df,('meta', 'Folds'), [testfold]))
+        self.datakeys.append(datakey + '-Train')
+        self.datakeys.append(datakey + '-Test')
 
         print(self.data.keys())
         print(self.data[datakey + '-Test'].df.index.shape)

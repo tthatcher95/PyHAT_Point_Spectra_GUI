@@ -1,34 +1,35 @@
 from PyQt5 import QtWidgets
 
 from point_spectra_gui.util import Qtickle
-from point_spectra_gui.core.dimensionalityReductionMethods import *
-from point_spectra_gui.ui.DimensionalityReduction import Ui_Form
+from point_spectra_gui.core.clusteringMethods import *
+from point_spectra_gui.ui.Clustering import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from libpysat.clustering.cluster import cluster
 from point_spectra_gui.util.spectral_data import spectral_data
-from libpysat.transform.dim_red import dim_red
 
-class DimensionalityReduction(Ui_Form, Modules):
+class Clustering(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
         Modules.setupUi(self, Form)
-        self.dimensionalityReductionMethods()
+        self.clusteringMethods()
 
     def get_widget(self):
         return self.formGroupBox
 
     def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
-                               'PCA',
-                               'FastICA',
-                               'JADE-ICA',
-                               't-SNE',
-                               'LLE']
+                               'K-Means',
+                               'Spectral'
+                               ]
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
+        self.setListWidget(self.variables_list, self.xvar_choices())
+        self.chooseDataComboBox.currentIndexChanged.connect(
+            lambda: self.changeComboListVars(self.variables_list, self.xvar_choices()))
         self.setComboBox(self.chooseMethodComboBox, self.algorithm_list)
         self.chooseMethodComboBox.currentIndexChanged.connect(
-            lambda: self.make_dimred_widget(self.chooseMethodComboBox.currentText()))
+            lambda: self.make_cluster_widget(self.chooseMethodComboBox.currentText()))
 
     def getGuiParams(self):
         """
@@ -70,29 +71,22 @@ class DimensionalityReduction(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
+
     def setup(self):
         method = self.chooseMethodComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
-        params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
         if method != 'Choose an algorithm':
-            try:
-                for i in list(range(1, params['n_components'])):  # will need to revisit this for other methods that don't use n_components to make sure column names still mamke sense
-                    self.data[datakey].df[(method, str(i))] = 99999 #fill with dummy data to be replaced when actually run
-            except:
-                pass
-
+            self.data[datakey].df[(method, 'Cluster')] = 99999  #create the column to hold the clustering results,
+                                                            # fill with dummy data until clustering is actually run
 
     def run(self):
         method = self.chooseMethodComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
-        # xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
-        load_fit = False
-        col = 'wvl'
-        df, do_dim_red=dim_red(self.data[datakey].df,col, method, [], params, load_fit=load_fit)
-        self.data[datakey] = spectral_data(df, dim_red = do_dim_red)
+        col = [str(i.text()) for i in self.variables_list.selectedItems()]
+        self.data[datakey]=spectral_data(cluster(self.data[datakey].df, col, method, [], params))
 
-    def make_dimred_widget(self, alg, params=None):
+    def make_cluster_widget(self, alg):
         self.hideAll()
         #print(alg)
         for i in range(len(self.algorithm_list)):
@@ -103,22 +97,29 @@ class DimensionalityReduction(Ui_Form, Modules):
         for a in self.alg:
             a.setHidden(True)
 
-    def dimensionalityReductionMethods(self):
+    def clusteringMethods(self):
         self.alg = []
-        list_forms = [dimred_PCA,
-                      dimred_FastICA,
-                      dimred_JADE,
-                      dimred_tSNE,
-                      dimred_LLE]
+        list_forms = [cluster_KMeans,
+                      cluster_Spectral]
         for items in list_forms:
             self.alg.append(items.Ui_Form())
             self.alg[-1].setupUi(self.Form)
-            self.dim_reduction_vlayout.addWidget(self.alg[-1].get_widget())
+            self.clustering_vlayout.addWidget(self.alg[-1].get_widget())
             self.alg[-1].setHidden(True)
 
     def getMethodParams(self, index):
         return self.alg[index - 1].run()
 
+    def xvar_choices(self):
+        try:
+            try:
+                xvarchoices = self.data[self.chooseDataComboBox.currentText()].df.columns.levels[0].values
+            except:
+                xvarchoices = self.data[self.chooseDataComboBox.currentText()].columns.values
+            xvarchoices = [i for i in xvarchoices if not 'Unnamed' in i]  # remove unnamed columns from choices
+        except:
+            xvarchoices = ['No valid choices!']
+        return xvarchoices
 
 if __name__ == "__main__":
     import sys
@@ -126,7 +127,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
 
     Form = QtWidgets.QWidget()
-    ui = DimensionalityReduction()
+    ui = Clustering()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

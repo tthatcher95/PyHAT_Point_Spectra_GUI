@@ -3,7 +3,7 @@ import pandas as pd
 from PyQt5 import QtWidgets
 from point_spectra_gui.util import Qtickle
 from libpysat.regression import regression
-from libpysat.spectral.spectral_data import spectral_data
+from point_spectra_gui.util.spectral_data import spectral_data
 from point_spectra_gui.core.regressionMethods import *
 from point_spectra_gui.ui.RegressionTrain import Ui_Form
 from point_spectra_gui.util.Modules import Modules
@@ -161,7 +161,10 @@ class RegressionTrain(Ui_Form, Modules):
             coef.index = pd.MultiIndex.from_tuples(self.data[datakey].df[xvars].columns.values)
             coef = coef.T
             coef[('meta', 'Model')] = modelkey
-
+            try:
+                coef[('meta', 'Intercept')] = self.models[modelkey].model.intercept_
+            except:
+                pass
             try:
                 self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coef]))
             except:

@@ -3,13 +3,15 @@ import pandas as pd
 from PyQt5 import QtWidgets
 from point_spectra_gui.util import Qtickle
 from libpysat.regression import cv
-from libpysat.spectral.spectral_data import spectral_data
+from point_spectra_gui.util.spectral_data import spectral_data
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
 
 class CrossValidation(Ui_Form, Modules):
+    count = -1
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -101,18 +103,28 @@ class CrossValidation(Ui_Form, Modules):
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
+        # Warning: Params passing through cv.cv(params) needs to be in lists
+        # Example: {'n_components': [4], 'scale': [False]}
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
 
+        #if the method supports it, separate out alpha from the other parameters and prepare for calculating path
+        path_methods =  ['Elastic Net', 'LASSO']#, 'Ridge']
+        if method in path_methods:
+            calc_path = True
+            alphas = params.pop('alpha')
+        else:
+            alphas = None
+            calc_path = False
         y = np.array(self.data[datakey].df[yvars])
         match = np.squeeze((y > yrange[0]) & (y < yrange[1]))
         data_for_cv = spectral_data(self.data[datakey].df.ix[match])
-        # Warning: Params passing through cv.cv(params) needs to be in lists
-        # Example: {'n_components': [4], 'scale': [False]}
         cv_obj = cv.cv(params)
         self.data[datakey].df, self.cv_results, cvmodels, cvmodelkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
                                                                                      ycol=yvars,
-                                                                                     yrange=yrange, method=method)
+                                                                                     yrange=yrange, method=method,
+                                                                                     alphas = alphas, calc_path = calc_path)
         for n, key in enumerate(cvmodelkeys):
+            self.list_amend(self.modelkeys, len(self.modelkeys), key)
             self.modelkeys.append(key)
             self.models[key] = cvmodels[n]
             self.model_xvars[key] = xvars

@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from libpysat.spectral.baseline_code.fabc import FABC
+from libpysat.transform.baseline_code.fabc import FABC
 
 from point_spectra_gui.ui.FABC import Ui_Form
 from point_spectra_gui.util.Modules import Modules
