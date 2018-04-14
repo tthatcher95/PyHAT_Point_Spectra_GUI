@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
-from libpysat.spectral.spectral_data import spectral_data
-
+from point_spectra_gui.util.spectral_data import spectral_data
+from libpysat.transform.remove_baseline import remove_baseline
 from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.baselineRemovalMethods import *
 from point_spectra_gui.ui.BaselineRemoval import Ui_Form
@@ -70,8 +70,8 @@ class BaselineRemoval(Ui_Form, Modules):
         datakey_baseline = datakey + '-Baseline-' + method + str(_changed)
         self.datakeys.append(datakey_new)
         self.datakeys.append(datakey_baseline)
-        self.data[datakey_new] = spectral_data(self.data[datakey].df.copy(deep=True))
-        self.data[datakey_new].remove_baseline(method, segment=True, params=methodParameters)
+        self.data[datakey_new] = self.data[datakey].df.copy(deep=True)
+        self.data[datakey_new] = remove_baseline(self.data[datakey_new],method, segment=True, params=methodParameters)
         self.data[datakey_baseline] = spectral_data(self.data[datakey_new].df_baseline)
 
     def hideAll(self):

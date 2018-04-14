@@ -3,7 +3,7 @@ from libpysat.regression import sm
 
 from point_spectra_gui.ui.SubmodelBlend import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-
+import numpy as np
 
 class subWidgets:
     def __init__(self, predictionComboBox, minLabel, minSpinBox, maxLabel, maxSpinBox):
@@ -66,9 +66,9 @@ class SubmodelBlend(Ui_Form, Modules):
     def connectWidgets(self):
         self.index_spin.valueChanged.connect(self.set_index)
         self.index_spin.setHidden(True)
-        self.setComboBox(self.chooseDataComboBox, self.datakeys)
+        self.setComboBox(self.chooseDatacomboBox, self.datakeys)
         self.get_Predictions()
-        self.chooseDataComboBox.currentIndexChanged.connect(self.get_Predictions)
+        self.chooseDatacomboBox.currentIndexChanged.connect(self.get_Predictions)
         self.setupWidgets()
         self.setHidden(self.subwidgets)
         try:
@@ -76,7 +76,7 @@ class SubmodelBlend(Ui_Form, Modules):
             self.setComboBox(self.lowPredictionComboBox, self.predictnames)
             self.setComboBox(self.highPredictionComboBox, self.predictnames)
             self.setComboBox(self.optimizeSubRangesComboBox,
-                             self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values)
+                             self.data[self.chooseDatacomboBox.currentText()].df['comp'].columns.values)
 
         except:
             pass
@@ -94,7 +94,7 @@ class SubmodelBlend(Ui_Form, Modules):
 
     def get_Predictions(self):
         try:
-            self.predictnames = self.data[self.chooseDataComboBox.currentText()].df['predict'].columns.values
+            self.predictnames = self.data[self.chooseDatacomboBox.currentText()].df['predict'].columns.values
             self.setComboBox(self.referencePredictionComboBox, self.predictnames)
             self.setComboBox(self.lowPredictionComboBox, self.predictnames)
             self.setComboBox(self.highPredictionComboBox, self.predictnames)
@@ -104,7 +104,7 @@ class SubmodelBlend(Ui_Form, Modules):
             if self.optimizeSubRangesCheckBox.isChecked():
                 try:
                     self.setComboBox(self.optimizeSubRangesComboBox,
-                                     self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values)
+                                     self.data[self.chooseDatacomboBox.currentText()].df['comp'].columns.values)
                 except:
                     self.setComboBox(self.optimizeSubRangesComboBox, ['No Compositions'])
 
@@ -115,7 +115,7 @@ class SubmodelBlend(Ui_Form, Modules):
         blendranges = []
         submodel_blend_names = []
         submodel_predictions = []
-        datakey = self.chooseDataComboBox.currentText()
+        datakey = self.chooseDatacomboBox.currentText()
         refcol = ('comp', self.optimizeSubRangesComboBox.currentText())
 
         # start with the low model
@@ -136,7 +136,6 @@ class SubmodelBlend(Ui_Form, Modules):
         submodel_predictions.append(self.data[datakey].df[('predict', self.highPredictionComboBox.currentText())])
 
         # append the reference model as a catch-all
-        blendranges.append([-9999, 9999])
         submodel_blend_names.append(self.referencePredictionComboBox.currentText())
         submodel_predictions.append(self.data[datakey].df[('predict', self.referencePredictionComboBox.currentText())])
 
@@ -148,10 +147,10 @@ class SubmodelBlend(Ui_Form, Modules):
         sm_obj = sm.sm(blendranges)
         # optimize blending if reference data is provided
         if truevals is not None:
-            predictions_blended = sm_obj.do_blend(submodel_predictions, truevals=truevals)
+            predictions_blended = sm_obj.do_blend(np.array(submodel_predictions), truevals=truevals)
         else:
             # otherwise just blend the predictions together
-            predictions_blended = sm_obj.do_blend(submodel_predictions)
+            predictions_blended = sm_obj.do_blend(np.array(submodel_predictions))
 
         # save the blended predictions
         self.data[datakey].df[('predict', 'Blended-Predict ' + str(sm_obj.blendranges))] = predictions_blended

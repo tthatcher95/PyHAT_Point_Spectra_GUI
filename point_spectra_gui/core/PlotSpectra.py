@@ -4,8 +4,8 @@ from PyQt5 import QtWidgets
 from point_spectra_gui.ui.PlotSpectra import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.plots import make_plot
-
-
+from libpysat.utils.utils import enumerate_duplicates
+from point_spectra_gui.util.spectral_data import spectral_data
 class PlotSpectra(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
@@ -118,7 +118,7 @@ class PlotSpectra(Ui_Form, Modules):
         xmin = self.minDoubleSpinBox.value()
         xmax = self.maxDoubleSpinBox.value()
         xrange = [xmin, xmax]
-        self.data[datakey].enumerate_duplicates(col)
+        self.data[datakey] = spectral_data(enumerate_duplicates(self.data[datakey].df,col))
         data = self.data[datakey].df
 
         y = np.squeeze(np.array(data.loc[data[('meta', col)].isin([row])][xcol].T))
@@ -180,8 +180,9 @@ class PlotSpectra(Ui_Form, Modules):
     def plot_spect_update_list(self, obj):
         try:
             obj.clear()
-            self.data[self.chooseDataComboBox.currentText()].enumerate_duplicates(
-                self.chooseColumnComboBox.currentText())
+            self.data[self.chooseDataComboBox.currentText()]=spectral_data(enumerate_duplicates(
+                self.data[self.chooseDataComboBox.currentText()].df,
+                self.chooseColumnComboBox.currentText()))
             rowchoices = self.data[self.chooseDataComboBox.currentText()].df[
                 ('meta', self.chooseColumnComboBox.currentText())]
             for i in rowchoices:
@@ -194,8 +195,8 @@ class PlotSpectra(Ui_Form, Modules):
             vars = self.data[self.chooseDataComboBox.currentText()].df[var].columns.values
             objmin.setValue(min(vars))
             objmax.setValue(max(vars))
-        except Exception as e:
-            print(e)
+        except:
+            pass
 
     def on_pushButton_clicked(self):
         filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None, "Save Plot", self.outpath, "(*.png)")
