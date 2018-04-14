@@ -90,7 +90,7 @@ class Clustering(Ui_Form, Modules):
         self.hideAll()
         # print(alg)
         for i in range(len(self.algorithm_list)):
-            if alg == self.algorithm_list[i]:
+            if alg == self.algorithm_list[i] and i > 0:
                 self.alg[i - 1].setHidden(False)
 
     def hideAll(self):
