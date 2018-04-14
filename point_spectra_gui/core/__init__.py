@@ -1,4 +1,5 @@
 from point_spectra_gui.core import About
+from point_spectra_gui.core import AboutQt
 from point_spectra_gui.core import BaselineRemoval
 from point_spectra_gui.core import CombineDataSets
 from point_spectra_gui.core import CrossValidation

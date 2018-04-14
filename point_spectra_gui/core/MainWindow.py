@@ -310,6 +310,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionSave_Trained_Model.triggered.connect(self.on_saveTrainedModel_clicked)
             self.actionData_Box.triggered.connect(self.on_DataTable_clicked)
             self.actionAbout.triggered.connect(self.on_About_clicked)
+            self.actionAbout_Qt.triggered.connect(self.on_AboutQt_clicked)
             self.actionQtmodern.triggered.connect(lambda: self.theme('qtmodern'))
             self.actionDefault.triggered.connect(lambda: self.theme('default'))
             self.actionBrace_yourself.triggered.connect(lambda: self.theme('braceyourself'))
@@ -539,6 +540,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.taskFinished.emit()
         else:
             print("There is nothing running right now")
+
+    def on_AboutQt_clicked(self):
+        self.aboutqt = core.AboutQt.AboutQT()
+        self.aboutqt.show()
 
     def on_About_clicked(self):
         """
