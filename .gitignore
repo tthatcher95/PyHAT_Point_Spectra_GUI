@@ -226,3 +226,4 @@ venv.bak/
 
 # UI files
 point_spectra_gui/ui/
+*.json
