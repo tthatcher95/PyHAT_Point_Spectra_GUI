@@ -88,7 +88,7 @@
 &lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Refresh Modules</string>
+         <string>Refresh</string>
         </property>
        </widget>
       </item>
@@ -98,7 +98,7 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Re-run your last run module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Re-run Module</string>
+         <string>Re-run</string>
         </property>
        </widget>
       </item>
@@ -108,7 +108,7 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Completely stop the currently running module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Stop Module</string>
+         <string>Stop</string>
         </property>
        </widget>
       </item>
@@ -122,7 +122,7 @@
         </property>
         <item>
          <property name="text">
-          <string>Insert Module</string>
+          <string>Insert After</string>
          </property>
         </item>
        </widget>
@@ -137,7 +137,7 @@
         </property>
         <item>
          <property name="text">
-          <string>Delete Module</string>
+          <string>Delete</string>
          </property>
         </item>
        </widget>
