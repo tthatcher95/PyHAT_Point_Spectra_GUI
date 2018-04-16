@@ -66,9 +66,9 @@ class SubmodelBlend(Ui_Form, Modules):
     def connectWidgets(self):
         self.index_spin.valueChanged.connect(self.set_index)
         self.index_spin.setHidden(True)
-        self.setComboBox(self.chooseDatacomboBox, self.datakeys)
-        self.get_Predictions()
-        self.chooseDatacomboBox.currentIndexChanged.connect(self.get_Predictions)
+        self.setComboBox(self.chooseDataComboBox, self.datakeys)
+        self.getPredictions()
+        self.chooseDataComboBox.currentIndexChanged.connect(self.getPredictions)
         self.setupWidgets()
         self.setHidden(self.subwidgets)
         try:
@@ -76,8 +76,7 @@ class SubmodelBlend(Ui_Form, Modules):
             self.setComboBox(self.lowPredictionComboBox, self.predictnames)
             self.setComboBox(self.highPredictionComboBox, self.predictnames)
             self.setComboBox(self.optimizeSubRangesComboBox,
-                             self.data[self.chooseDatacomboBox.currentText()].df['comp'].columns.values)
-
+                             self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values)
         except:
             pass
         self.addSubPushButton.clicked.connect(self.on_addSubmodel_pushed)
@@ -92,9 +91,9 @@ class SubmodelBlend(Ui_Form, Modules):
             else:
                 list[i].setHidden(True)
 
-    def get_Predictions(self):
+    def getPredictions(self):
         try:
-            self.predictnames = self.data[self.chooseDatacomboBox.currentText()].df['predict'].columns.values
+            self.predictnames = self.data[self.chooseDataComboBox.currentText()].df['predict'].columns.values
             self.setComboBox(self.referencePredictionComboBox, self.predictnames)
             self.setComboBox(self.lowPredictionComboBox, self.predictnames)
             self.setComboBox(self.highPredictionComboBox, self.predictnames)
@@ -104,18 +103,20 @@ class SubmodelBlend(Ui_Form, Modules):
             if self.optimizeSubRangesCheckBox.isChecked():
                 try:
                     self.setComboBox(self.optimizeSubRangesComboBox,
-                                     self.data[self.chooseDatacomboBox.currentText()].df['comp'].columns.values)
+                                     self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values)
                 except:
                     self.setComboBox(self.optimizeSubRangesComboBox, ['No Compositions'])
-
         except:
-            pass
+            self.predictnames = self.predictkeys
+            self.setComboBox(self.referencePredictionComboBox, self.predictnames)
+            self.setComboBox(self.lowPredictionComboBox, self.predictnames)
+            self.setComboBox(self.highPredictionComboBox, self.predictnames)
 
     def run(self):
         blendranges = []
         submodel_blend_names = []
         submodel_predictions = []
-        datakey = self.chooseDatacomboBox.currentText()
+        datakey = self.chooseDataComboBox.currentText()
         refcol = ('comp', self.optimizeSubRangesComboBox.currentText())
 
         # start with the low model

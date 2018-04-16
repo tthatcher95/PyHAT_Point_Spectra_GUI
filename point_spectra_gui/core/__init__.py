@@ -1,4 +1,5 @@
 from point_spectra_gui.core import About
+from point_spectra_gui.core import AboutQt
 from point_spectra_gui.core import BaselineRemoval
 from point_spectra_gui.core import CombineDataSets
 from point_spectra_gui.core import CrossValidation
@@ -21,6 +22,7 @@ from point_spectra_gui.core import RegressionPredict
 from point_spectra_gui.core import RegressionTrain
 from point_spectra_gui.core import RemoveRows
 from point_spectra_gui.core import RenameData
+from point_spectra_gui.core import RestoreTrainedModel
 from point_spectra_gui.core import SpecDeriv
 from point_spectra_gui.core import SplitDataset
 from point_spectra_gui.core import StratifiedFolds
