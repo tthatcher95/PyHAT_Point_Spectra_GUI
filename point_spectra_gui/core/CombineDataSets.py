@@ -29,7 +29,7 @@ class CombineDataSets(Ui_Form, Modules):
         dataSet2 = self.dataSet2ComboBox.currentText()
         newkey = self.outputToDataSetLineEdit.text()
         self.datakeys.append(newkey)
-        self.data[newkey] = spectral_data(pd.concat([self.data[dataSet1].df, self.data[dataSet2].df]))
+        self.data[newkey] = spectral_data(pd.concat([self.data[dataSet1].df, self.data[dataSet2].df], ignore_index=True))
 
 
 if __name__ == "__main__":

@@ -43,6 +43,12 @@ class LoadData(Ui_loadData, Modules):
             lineEdit.setText("*.csv")
 
     def setup(self):
+        """
+        The setup here is only doing the first 2 rows of our dataset
+        This will cut down on time to load.
+
+        :return:
+        """
         try:
             filename = self.fileNameLineEdit.text()
             keyname = self.dataSetNameLineEdit.text()

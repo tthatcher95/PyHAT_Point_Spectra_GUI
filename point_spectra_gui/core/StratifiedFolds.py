@@ -7,6 +7,21 @@ from libpysat.utils.folds import stratified_folds
 from libpysat.utils.utils import rows_match
 
 class StratifiedFolds(Ui_Form, Modules):
+    count = -1
+
+    def __init__(self):
+        StratifiedFolds.count += 1
+        self.curr_count = StratifiedFolds.count
+        print('Added StratifiedFolds with ID {}'.format(self.curr_count))
+
+    def delete(self):
+        try:
+            StratifiedFolds.count -= 1
+            del self.data[self.datakeys[-1]]
+            del self.datakeys[-1]
+        except IndexError:
+            pass
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -25,6 +40,18 @@ class StratifiedFolds(Ui_Form, Modules):
             pass
         self.chooseDataToStratifyComboBox.activated[int].connect(self.strat_fold_change_vars)
         self.nFoldsSpinBox.valueChanged.connect(self.strat_fold_change_testfolds)
+
+    def setup(self):
+        try:
+            datakey = self.chooseDataToStratifyComboBox.currentText()
+
+            self.data[datakey + '-Train'] = self.data[datakey]
+            self.data[datakey + '-Test'] = self.data[datakey]
+            if datakey + '-Train' not in self.datakeys and datakey + '-Test' not in self.datakeys:
+                self.datakeys.append(datakey + '-Train')
+                self.datakeys.append(datakey + '-Test')
+        except:
+            pass
 
     def run(self):
         datakey = self.chooseDataToStratifyComboBox.currentText()
@@ -55,7 +82,6 @@ class StratifiedFolds(Ui_Form, Modules):
         self.chooseVarComboBox.addItems(choices)
 
     def strat_fold_change_testfolds(self):
-        self.testFoldsSpinBox.clear()
         self.testFoldsSpinBox.setMaximum(self.nFoldsSpinBox.value())
 
 

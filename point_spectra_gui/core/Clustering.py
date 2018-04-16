@@ -7,6 +7,7 @@ from point_spectra_gui.util.Modules import Modules
 from libpysat.clustering.cluster import cluster
 from point_spectra_gui.util.spectral_data import spectral_data
 
+
 class Clustering(Ui_Form, Modules):
     def setupUi(self, Form):
         self.Form = Form
@@ -71,26 +72,25 @@ class Clustering(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
-
     def setup(self):
         method = self.chooseMethodComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         if method != 'Choose an algorithm':
-            self.data[datakey].df[(method, 'Cluster')] = 99999  #create the column to hold the clustering results,
-                                                            # fill with dummy data until clustering is actually run
+            self.data[datakey].df[(method, 'Cluster')] = 99999  # create the column to hold the clustering results,
+            # fill with dummy data until clustering is actually run
 
     def run(self):
         method = self.chooseMethodComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
         col = [str(i.text()) for i in self.variables_list.selectedItems()]
-        self.data[datakey]=spectral_data(cluster(self.data[datakey].df, col, method, [], params))
+        self.data[datakey] = spectral_data(cluster(self.data[datakey].df, col, method, [], params))
 
     def make_cluster_widget(self, alg):
         self.hideAll()
-        #print(alg)
+        # print(alg)
         for i in range(len(self.algorithm_list)):
-            if alg == self.algorithm_list[i]:
+            if alg == self.algorithm_list[i] and i > 0:
                 self.alg[i - 1].setHidden(False)
 
     def hideAll(self):
@@ -120,6 +120,7 @@ class Clustering(Ui_Form, Modules):
         except:
             xvarchoices = ['No valid choices!']
         return xvarchoices
+
 
 if __name__ == "__main__":
     import sys
