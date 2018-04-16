@@ -5,7 +5,7 @@ from pandas.util.testing import assert_frame_equal
 import pandas as pd
 
 from PyQt5 import QtCore, QtWidgets
-from libpysat.spectral.spectral_data import spectral_data
+from point_spectra_gui.util.spectral_data import spectral_data
 
 from point_spectra_gui import core
 from point_spectra_gui.core.CombineDataSets import CombineDataSets
