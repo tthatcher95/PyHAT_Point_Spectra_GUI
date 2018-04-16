@@ -229,10 +229,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         # This populates the comboBox
         self.deleteModuleComboBox.disconnect()
         self.setComboBox(self.deleteModuleComboBox,
-                         ["Delete Module"] + [type(item).__name__ for item in self.widgetList])
+                         ["Delete"] + [type(item).__name__ for item in self.widgetList])
         self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
         self.setComboBox(self.insertModuleComboBox,
-                         ["Insert Module"] + [type(item).__name__ for item in self.widgetList])
+                         ["Insert After"] + [type(item).__name__ for item in self.widgetList])
         # When the user selects an item in the insertion comboBox we want the UI to insert every time after that selected item
         # When the user deletes a module, we want to update insertion comboBox and deletion comboBox
         # When we insert we want to always keep the index, but update insertion and deletion comboBoxes
