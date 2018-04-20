@@ -322,7 +322,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.insertModuleComboBox.currentIndexChanged.connect(self.on_insertModuleComboBox_changed)
             self.okPushButton.clicked.connect(self.on_okButton_clicked)
             self.undoModulePushButton.clicked.connect(self.on_Rerun_Button_clicked)
-            self.refreshModulePushButton.clicked.connect(self.on_Refresh_Modules_clicked)
+            self.refreshModulePushButton.clicked.connect(self.Refresh_Modules_clicked)
             self.stopPushButton.clicked.connect(self.on_stopButton_clicked)
             self.actionOn.triggered.connect(self.debug_mode)
             self.actionOff.triggered.connect(self.normal_mode)
@@ -522,7 +522,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         except:
             pass
 
-    def on_Refresh_Modules_clicked(self):
+    def Refresh_Modules_clicked(self):
         self.setupModules()
 
     def on_stopButton_clicked(self):
@@ -652,7 +652,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 self.widgetList[modules].setup()
             else:
                 self._logger(self.widgetList[modules].setup)
-            self.widgetList[modules].connectWidgets()
+            #self.widgetList[modules].connectWidgets()
             self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
 
     def runModules(self):
