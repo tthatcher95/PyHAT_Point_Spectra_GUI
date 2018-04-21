@@ -56,7 +56,7 @@ class Plot(Ui_Form, Modules):
         self.xMaxDoubleSpinBox.setMaximum(110)
         self.yMinDoubleSpinBox.setMaximum(110)
         self.yMaxDoubleSpinBox.setMaximum(110)
-        self.plotFilenamePushButton.clicked.connect(self.on_plotFilenamePushButton_clicked)
+        self.plotFilenamePushButton.clicked.connect(self.plotFilenamePushButton_clicked)
         self.chooseDataComboBox.activated[int].connect(
             lambda: self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices()))
         self.chooseDataComboBox.activated[int].connect(
@@ -218,7 +218,7 @@ class Plot(Ui_Form, Modules):
             objmin.setValue(0)
             objmax.setValue(1)
 
-    def on_plotFilenamePushButton_clicked(self):
+    def plotFilenamePushButton_clicked(self):
         filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None, "Save Plot", self.outpath, "(*.png)")
         self.plotFilenameLineEdit.setText(filename)
         if self.plotFilenameLineEdit.text() == "":

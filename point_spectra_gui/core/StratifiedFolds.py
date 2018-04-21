@@ -5,6 +5,7 @@ from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.spectral_data import spectral_data
 from libpysat.utils.folds import stratified_folds
 from libpysat.utils.utils import rows_match
+import copy
 
 class StratifiedFolds(Ui_Form, Modules):
     count = -1
@@ -45,8 +46,8 @@ class StratifiedFolds(Ui_Form, Modules):
         try:
             datakey = self.chooseDataToStratifyComboBox.currentText()
 
-            self.data[datakey + '-Train'] = self.data[datakey]
-            self.data[datakey + '-Test'] = self.data[datakey]
+            self.data[datakey + '-Train'] = copy.deepcopy(self.data[datakey])
+            self.data[datakey + '-Test'] = copy.deepcopy(self.data[datakey])
             if datakey + '-Train' not in self.datakeys and datakey + '-Test' not in self.datakeys:
                 self.datakeys.append(datakey + '-Train')
                 self.datakeys.append(datakey + '-Test')
