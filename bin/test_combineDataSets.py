@@ -11,7 +11,6 @@ from point_spectra_gui import core
 from point_spectra_gui.core.CombineDataSets import CombineDataSets
 
 
-
 def test_combine_datasets(qtbot):
     form = QtWidgets.QWidget()
     gui = CombineDataSets()
@@ -35,7 +34,7 @@ def test_combine_datasets(qtbot):
 
     gui.run()
 
-    print(gui.dataSet1ComboBox.currentText(),gui.dataSet2ComboBox.currentText())
+    print(gui.dataSet1ComboBox.currentText(), gui.dataSet2ComboBox.currentText())
     print(gui.data)
 
     try:
