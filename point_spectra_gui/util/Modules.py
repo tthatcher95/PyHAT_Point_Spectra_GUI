@@ -80,7 +80,7 @@ class Modules:
 
         :return:
         """
-
+        self.qtickle = Qtickle.Qtickle(self)
         self.qtickle.guiDisonnect()
 
     def getMainWindowParent(self):
