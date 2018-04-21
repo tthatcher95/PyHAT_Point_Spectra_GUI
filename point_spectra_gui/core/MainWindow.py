@@ -481,7 +481,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         _idx = self.deleteModuleComboBox.currentIndex()
         _text = self.deleteModuleComboBox.currentText()
 
-        # If the currentText in the comboBox is not '', 'Delete Module', and the Module is Enabled
+        # If the currentText in the comboBox is not '', and 'Delete Module', and the Module is Enabled
         if _text != 'Delete Module' and _text != '' and self.widgetList[_idx - 1].isEnabled():
             self.delete_module(_idx)
             self.deleteModuleComboBox.disconnect()
