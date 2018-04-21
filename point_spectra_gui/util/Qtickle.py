@@ -219,8 +219,8 @@ class Qtickle(object):
 
     def guiDisonnect(self):
         """
-        This is mainly a problem with our buttons, but if there are other cases, please consider adding
-        those cases to this method.
+        This is mainly a problem with the buttons that were opening file dialogs, but if there are other cases,
+        please consider adding those cases to this method.
 
         https://stackoverflow.com/questions/3530590/qt-signals-and-slot-connected-twice-what-happens#_=_
         Just like in this stackoverflow question, there are some instances where the UI will call connects

@@ -81,6 +81,8 @@ class Modules:
         :return:
         """
 
+        self.qtickle.guiDisonnect()
+
     def getMainWindowParent(self):
         return self.parent[0]
 

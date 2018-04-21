@@ -652,6 +652,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 self.widgetList[modules].setup()
             else:
                 self._logger(self.widgetList[modules].setup)
+            self.widgetList[modules].disconnectWidgets()
             self.widgetList[modules].connectWidgets()
             self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
 
