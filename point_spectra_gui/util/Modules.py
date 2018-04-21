@@ -73,6 +73,14 @@ class Modules:
         raise NotImplementedError(
             'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
 
+    def disconnectWidgets(self):
+        """
+        Disconnect the widgets that way we don't run into this problem
+        https://stackoverflow.com/questions/3530590/qt-signals-and-slot-connected-twice-what-happens#_=_
+
+        :return:
+        """
+
     def getMainWindowParent(self):
         return self.parent[0]
 
