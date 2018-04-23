@@ -35,7 +35,7 @@ class Modules:
     parent = []
 
     def __init__(self):
-        self.qt = Qtickle.Qtickle(self)
+        self.qtickle = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')
 
     def setupUi(self, Form):
@@ -73,12 +73,22 @@ class Modules:
         raise NotImplementedError(
             'The method "connectWidgets()" was not found in the module {}'.format(type(self).__name__))
 
+    def disconnectWidgets(self):
+        """
+        Disconnect the widgets that way we don't run into this problem
+        https://stackoverflow.com/questions/3530590/qt-signals-and-slot-connected-twice-what-happens#_=_
+
+        :return:
+        """
+        self.qtickle = Qtickle.Qtickle(self)
+        self.qtickle.guiDisonnect()
+
     def getMainWindowParent(self):
         return self.parent[0]
 
     def guiChanged(self):
-        self.qt = Qtickle.Qtickle(self)
-        self.qt.guiChanged(self.getMainWindowParent().setupModules)
+        self.qtickle = Qtickle.Qtickle(self)
+        self.qtickle.guiChanged(self.getMainWindowParent().setupModules)
 
     def getGuiParams(self):
         """
@@ -86,8 +96,8 @@ class Modules:
 
         :return:
         """
-        self.qt = Qtickle.Qtickle(self)
-        s = self.qt.guiSave()
+        self.qtickle = Qtickle.Qtickle(self)
+        s = self.qtickle.guiSave()
         return s
 
     def setGuiParams(self, dict):
@@ -97,8 +107,8 @@ class Modules:
         :param dict:
         :return:
         """
-        self.qt = Qtickle.Qtickle(self)
-        self.qt.guiRestore(dict)
+        self.qtickle = Qtickle.Qtickle(self)
+        self.qtickle.guiRestore(dict)
 
     def selectiveSetGuiParams(self, dict):
         """
@@ -109,8 +119,8 @@ class Modules:
         :param dict:
         :return:
         """
-        self.qt = Qtickle.Qtickle(self)
-        self.qt.selectiveGuiRestore(dict)
+        self.qtickle = Qtickle.Qtickle(self)
+        self.qtickle.selectiveGuiRestore(dict)
 
     def setup(self):
         """

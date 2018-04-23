@@ -152,7 +152,7 @@ class Normalization(Ui_Form, Modules):
         self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices())
         self.varToNormalizeListWidget.itemSelectionChanged.connect(self.setDataLimits)
         # when anything in the gui is changed, run update val to make sure values are increasing
-        self.qt.guiChanged(self.updateVal)
+        self.qtickle.guiChanged(self.updateVal)
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices()))
         # connect the add and delete ranges buttons
