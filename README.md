@@ -21,7 +21,8 @@ Install <a href="https://conda.io/miniconda.html">Miniconda</a>
 ### 3. Open a terminal (on Windows, `cmd`, not Powershell) in the directory where you saved the file and type:
 
 ```bash
-conda install conda=3  # SKIP THIS LINE ON WINDOWS
+conda --v # this will give you your version, make sure it is 4 or greater, if not use the below command
+conda install conda=4  # SKIP THIS LINE ON WINDOWS
 conda env create -n point_spectra_gui -f environment.yml
 source activate point_spectra_gui  # omit the `source` on Windows
 ```

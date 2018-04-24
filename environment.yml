@@ -7,7 +7,7 @@ dependencies:
  - scipy
  - matplotlib
  - scikit-learn
- - pysat
  - pip:
+   - libpysat
    - qtmodern
    - point_spectra_gui

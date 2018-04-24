@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 
-from Qtickle import Qtickle
+from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.outlierRemovalMethods import *
 from point_spectra_gui.ui.OutlierRemoval import Ui_Form
 from point_spectra_gui.util.Modules import Modules
