@@ -3,7 +3,8 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.PeakAreas import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-
+from point_spectra_gui.util.spectral_data import spectral_data
+from libpysat.transform.peak_area import peak_area
 
 class PeakAreas(Ui_Form, Modules):
     def setupUi(self, Form):
@@ -18,6 +19,10 @@ class PeakAreas(Ui_Form, Modules):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.peakMinimaLineEdit))
 
+    def setup(self):
+        datakey = self.chooseDataComboBox.currentText()
+        self.data[datakey].df[('peak_area',99999)] = 99999  #create a dummy column so that "peak_Area" shows up as an option in later modules
+
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
         peaks_mins_file = self.peakMinimaLineEdit.text()
@@ -25,7 +30,8 @@ class PeakAreas(Ui_Form, Modules):
             peaks_mins_file = None
 
         try:
-            peaks, mins = self.data[datakey].peak_area(peaks_mins_file=peaks_mins_file)
+            df, peaks, mins = peak_area(self.data[datakey].df,peaks_mins_file=peaks_mins_file)
+            self.data[datakey] = spectral_data(df)
             print("Peak Areas Calculated")
 
             np.savetxt(self.outpath + '/peaks.csv', peaks, delimiter=',')

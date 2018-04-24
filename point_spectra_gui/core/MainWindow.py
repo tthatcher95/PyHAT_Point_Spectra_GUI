@@ -4,6 +4,7 @@ import pickle
 import sys
 import time
 import warnings
+import json
 
 from point_spectra_gui.util.themes import braceyourself, default
 
@@ -201,16 +202,40 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :param obj:
         :return:
         """
-        self.widgetList.append(obj())
-        self.widgetList[-1].setupUi(self.centralwidget)
+        # add the new object to our widgetList
+        # run setupUi method
+        # creating a new layout
+        # giving that layout a name
+        # add the new layout to verticalLayout_3
+        # add our object's widget to the layout
+        # scroll down to the new module
+        # TODO this needs to be done a little bit better. The UI should know if we are on "Insert Module" or not and then decide from there.
+        try:
+            idx = self.insert_idx
+            if idx == 0:
+                raise Exception
+            self.widgetList.insert(idx, obj())
+        except:
+            idx = -1
+            self.widgetList.append(obj())
+        self.widgetList[idx].setupUi(self.centralwidget)
         self.widgetLayout = QtWidgets.QVBoxLayout()
         self.widgetLayout.setObjectName("widgetLayout")
-        self.verticalLayout_3.addLayout(self.widgetLayout)
-        self.widgetLayout.addWidget(self.widgetList[-1].get_widget())
-        # this should (but it doesn't...) scroll the view all the way down after adding the new widget.
-        # it scrolls it down by just a little bit
+        self.verticalLayout_2.insertLayout(idx, self.widgetLayout)
+        self.widgetLayout.addWidget(self.widgetList[idx].get_widget())
         scrollbar = self.scrollArea.verticalScrollBar()
         scrollbar.setValue(scrollbar.maximum())
+        # place items inside the deleteModuleCombox
+        # This populates the comboBox
+        self.deleteModuleComboBox.disconnect()
+        self.setComboBox(self.deleteModuleComboBox,
+                         ["Delete"] + [type(item).__name__ for item in self.widgetList])
+        self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
+        self.setComboBox(self.insertModuleComboBox,
+                         ["Insert After"] + [type(item).__name__ for item in self.widgetList])
+        # When the user selects an item in the insertion comboBox we want the UI to insert every time after that selected item
+        # When the user deletes a module, we want to update insertion comboBox and deletion comboBox
+        # When we insert we want to always keep the index, but update insertion and deletion comboBoxes
 
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
@@ -227,7 +252,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
-
         try:
             self.actionRead_ChemCam_Data.triggered.connect(
                 lambda: self.addWidget(core.ReadChemCamData.ReadChemCamData))
@@ -237,6 +261,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.CrossValidation.CrossValidation))
             self.actionDimensionality_Reduction.triggered.connect(
                 lambda: self.addWidget(core.DimensionalityReduction.DimensionalityReduction))
+            self.actionCluster.triggered.connect(
+                lambda: self.addWidget(core.Clustering.Clustering))
             self.actionInterpolate.triggered.connect(
                 lambda: self.addWidget(core.Interpolation.Interpolation))
             self.actionLoad_Data.triggered.connect(
@@ -279,8 +305,13 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.SpecDeriv.SpecDeriv))
             self.actionCombine_Data_Sets.triggered.connect(
                 lambda: self.addWidget(core.CombineDataSets.CombineDataSets))
+            self.actionRestore_Trained_Model.triggered.connect(
+                lambda: self.addWidget(core.RestoreTrainedModel.RestoreTrainedModel))
+            self.actionSave_Trained_Model.triggered.connect(
+                lambda: self.addWidget(core.SaveTrainedModel.SaveTrainedModel))
             self.actionData_Box.triggered.connect(self.on_DataTable_clicked)
             self.actionAbout.triggered.connect(self.on_About_clicked)
+            self.actionAbout_Qt.triggered.connect(self.on_AboutQt_clicked)
             self.actionQtmodern.triggered.connect(lambda: self.theme('qtmodern'))
             self.actionDefault.triggered.connect(lambda: self.theme('default'))
             self.actionBrace_yourself.triggered.connect(lambda: self.theme('braceyourself'))
@@ -288,14 +319,16 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionClear_Workflow.triggered.connect(self.clear)
             self.actionSave_Current_Workflow.triggered.connect(self.on_save_clicked)
             self.actionRestore_Workflow.triggered.connect(self.on_restore_clicked)
-            self.deleteModulePushButton.clicked.connect(self.on_delete_module_clicked)
+            self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
+            self.insertModuleComboBox.currentIndexChanged.connect(self.on_insertModuleComboBox_changed)
             self.okPushButton.clicked.connect(self.on_okButton_clicked)
             self.undoModulePushButton.clicked.connect(self.on_Rerun_Button_clicked)
-            self.refreshModulePushButton.clicked.connect(self.on_Refresh_Modules_clicked)
+            self.refreshModulePushButton.clicked.connect(self.Refresh_Modules_clicked)
             self.stopPushButton.clicked.connect(self.on_stopButton_clicked)
             self.actionOn.triggered.connect(self.debug_mode)
             self.actionOff.triggered.connect(self.normal_mode)
             self.actionExit.triggered.connect(self.MainWindow.close)
+            self.actionSupervised.setEnabled(False)
 
         except Exception as e:
             print(e)
@@ -362,10 +395,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None,
                                                                       "Choose where you want save your file",
                                                                       self.outpath,
-                                                                      '(*.wrf)')
+                                                                      '(*.json)')
             print(filename)
-            with open(filename, 'wb') as fp:
-                pickle.dump(self.getWidgetItems(), fp)
+            with open(filename, 'w') as fp:
+                json.dump(self.getWidgetItems(), fp, indent=4)
             self.title.setFileName(filename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
@@ -383,16 +416,16 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.restorefilename, _filter = QtWidgets.QFileDialog.getOpenFileName(None,
                                                                                   "Open Workflow File",
                                                                                   self.outpath,
-                                                                                  '(*.wrf)')
+                                                                                  '(*.json)')
             print(self.restorefilename)
-            with open(self.restorefilename, 'rb') as fp:
-                self.setWidgetItems(pickle.load(fp))
+            with open(self.restorefilename, 'r') as fp:
+                self.setWidgetItems(json.load(fp))
             self.title.setFileName(self.restorefilename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
             print("Restore file not loaded: {}".format(e))
 
-    def on_delete_module_clicked(self):
+    def delete_module(self, _idx=1):
         """
         Check to see if the last item is enabled
         If it is, delete the last item in the list
@@ -400,15 +433,47 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
+
+        def idx(total, position):
+            return total - position + 1
+
         try:
-            if self.widgetList[-1].isEnabled():
-                self.widgetList[-1].delete()
-                del self.widgetList[-1]  # remove the widget from the list
-                delete.del_layout(self.verticalLayout_3)  # delete the layout
+            if self.widgetList[_idx - 1].isEnabled():
+                self.widgetList[_idx - 1].delete()  # Call internal module's delete method
+                del self.widgetList[_idx - 1]  # remove the widget from the list
+                delete.del_layout(self.verticalLayout_2, idx(self.verticalLayout_2.count(), _idx))  # delete the layout
             else:
                 print("Cannot delete")
         except Exception as e:
             print("Cannot delete: ", e)
+
+    def on_insertModuleComboBox_changed(self):
+        self.insert_idx = self.insertModuleComboBox.currentIndex()
+
+    def on_deleteModuleComboBox_changed(self):
+        """
+        Using a comboBox, a user can delete a particular module
+        out of the UI
+
+        :return:
+        """
+
+        _idx = self.deleteModuleComboBox.currentIndex()
+        _text = self.deleteModuleComboBox.currentText()
+
+        # If the currentText in the comboBox is not '', and 'Delete Module', and the Module is Enabled
+        if _text != 'Delete Module' and _text != '' and self.widgetList[_idx - 1].isEnabled():
+            self.delete_module(_idx)
+            self.deleteModuleComboBox.disconnect()
+            self.deleteModuleComboBox.removeItem(_idx)
+            self.insertModuleComboBox.removeItem(_idx)
+            self.deleteModuleComboBox.setCurrentIndex(0)
+            self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
+        else:
+            self.deleteModuleComboBox.disconnect()
+            self.deleteModuleComboBox.setCurrentIndex(0)
+            self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
+            print("Cannot delete")
 
     def on_okButton_clicked(self):
         """
@@ -437,7 +502,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         except:
             pass
 
-    def on_Refresh_Modules_clicked(self):
+    def Refresh_Modules_clicked(self):
         self.setupModules()
 
     def on_stopButton_clicked(self):
@@ -455,6 +520,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.taskFinished.emit()
         else:
             print("There is nothing running right now")
+
+    def on_AboutQt_clicked(self):
+        self.aboutqt = core.AboutQt.AboutQT()
+        self.aboutqt.show()
 
     def on_About_clicked(self):
         """
@@ -532,7 +601,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         :return:
         """
         while len(self.widgetList) > 0 and self.widgetList[-1].isEnabled():
-            self.on_delete_module_clicked()
+            self.delete_module()
         self.title.setFileName('')
         self.MainWindow.setWindowTitle(self.title.display())
         self.textBrowser.clear()
@@ -560,9 +629,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         dic = self.getWidgetItems()
         for modules in range(self.leftOff, len(self.widgetList)):
             if self.debug:
-                self._logger(self.widgetList[modules].setup())
-            else:
                 self.widgetList[modules].setup()
+            else:
+                self._logger(self.widgetList[modules].setup)
+            self.widgetList[modules].disconnectWidgets()
             self.widgetList[modules].connectWidgets()
             self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
 

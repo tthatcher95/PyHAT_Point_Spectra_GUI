@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>518</width>
-    <height>284</height>
+    <height>265</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -63,14 +63,14 @@ For 0 &lt; l1_ratio &lt; 1, the penalty is a combination of L1 and L2.</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="4" column="0">
             <widget class="QLabel" name="enfit_interceptLabel">
              <property name="text">
               <string>Fit Intercept</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="4" column="1">
             <widget class="QCheckBox" name="enfit_interceptCheckBox">
              <property name="toolTip">
               <string>Whether the intercept should be estimated or not. If False, the data
@@ -81,35 +81,14 @@ is assumed to be already centered.</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="ennormalizeLabel">
-             <property name="text">
-              <string>Normalize</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QCheckBox" name="ennormalizeCheckBox">
-             <property name="toolTip">
-              <string>This parameter is ignored when fit_intercept is set to False. If True,
-the regressors X will be normalized before regression by subtracting
-the mean and dividing by the l2-norm. If you wish to standardize,
-please use sklearn.preprocessing. StandardScaler before calling fit on
-an estimator with normalize=False.</string>
-             </property>
-             <property name="whatsThis">
-              <string>http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.ElasticNet.html</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
+           <item row="2" column="0">
             <widget class="QLabel" name="enmax_iterLabel">
              <property name="text">
               <string>Max # of iterations</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="1">
+           <item row="2" column="1">
             <widget class="QSpinBox" name="enmax_iterSpinBox">
              <property name="toolTip">
               <string>The maximum number of iterations</string>
@@ -119,14 +98,14 @@ an estimator with normalize=False.</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="0">
+           <item row="3" column="0">
             <widget class="QLabel" name="entolLabel">
              <property name="text">
               <string>Tolerance</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="1">
+           <item row="3" column="1">
             <widget class="QDoubleSpinBox" name="entolDoubleSpinBox">
              <property name="toolTip">
               <string>The tolerance for the optimization:</string>
@@ -136,14 +115,14 @@ an estimator with normalize=False.</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="0">
+           <item row="5" column="0">
             <widget class="QLabel" name="enpositiveLabel">
              <property name="text">
               <string>Positive</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="1">
+           <item row="5" column="1">
             <widget class="QCheckBox" name="enpositiveCheckBox">
              <property name="toolTip">
               <string>When set to True, forces the coefficients to be positive.</string>

@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.CombineDataSets import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from libpysat.spectral.spectral_data import spectral_data
+from point_spectra_gui.util.spectral_data import spectral_data
 
 class CombineDataSets(Ui_Form, Modules):
     """
@@ -29,7 +29,7 @@ class CombineDataSets(Ui_Form, Modules):
         dataSet2 = self.dataSet2ComboBox.currentText()
         newkey = self.outputToDataSetLineEdit.text()
         self.datakeys.append(newkey)
-        self.data[newkey] = spectral_data(pd.concat([self.data[dataSet1].df, self.data[dataSet2].df]))
+        self.data[newkey] = spectral_data(pd.concat([self.data[dataSet1].df, self.data[dataSet2].df], ignore_index=True))
 
 
 if __name__ == "__main__":

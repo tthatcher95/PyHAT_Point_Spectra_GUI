@@ -44,13 +44,11 @@ class Ui_Form(Ui_Form, Modules):
         self.maxIterationsSpinBox.setValue(svr.max_iter)
 
     def run(self):
-        gamma_index = self.gammaComboBox.currentIndex()
-        kernel_index = self.kernelComboBox.currentIndex()
         params = {'C': self.cDoubleSpinBox.value(),
                   'epsilon': self.epsilonDoubleSpinBox.value(),
-                  'kernel': self.kernelComboBox.itemText(kernel_index),
+                  'kernel': self.kernelComboBox.currentText(),
                   'degree': self.degreeSpinBox.value(),
-                  'gamma': self.gammaComboBox.itemText(gamma_index),
+                  'gamma': self.gammaComboBox.currentText(),
                   'coef0': self.coeff0DoubleSpinBox.value(),
                   'shrinking': self.shrinkingCheckBox.isChecked(),
                   'tol': self.toleranceDoubleSpinBox.value(),

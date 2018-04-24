@@ -3,7 +3,7 @@ import pandas as pd
 from PyQt5 import QtWidgets
 from point_spectra_gui.util import Qtickle
 from libpysat.regression import regression
-from libpysat.spectral.spectral_data import spectral_data
+from point_spectra_gui.util.spectral_data import spectral_data
 from point_spectra_gui.core.regressionMethods import *
 from point_spectra_gui.ui.RegressionTrain import Ui_Form
 from point_spectra_gui.util.Modules import Modules
@@ -119,15 +119,17 @@ class RegressionTrain(Ui_Form, Modules):
 
     def setup(self):
         method = self.chooseAlgorithmComboBox.currentText()
+        xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
-
-        params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
         try:
+            params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
             modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
             self.list_amend(self.modelkeys, self.curr_count, modelkey)
             print(params, modelkey)
             self.models[modelkey] = regression.regression([method], [yrange], [params])
+            self.model_xvars[modelkey] = xvars
+            self.model_yvars[modelkey] = yvars
         except:
             pass
 
@@ -159,7 +161,10 @@ class RegressionTrain(Ui_Form, Modules):
             coef.index = pd.MultiIndex.from_tuples(self.data[datakey].df[xvars].columns.values)
             coef = coef.T
             coef[('meta', 'Model')] = modelkey
-
+            try:
+                coef[('meta', 'Intercept')] = self.models[modelkey].model.intercept_
+            except:
+                pass
             try:
                 self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coef]))
             except:

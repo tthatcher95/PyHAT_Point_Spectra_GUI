@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>519</width>
+    <width>603</width>
     <height>596</height>
    </rect>
   </property>
@@ -40,15 +40,11 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>484</width>
-         <height>350</height>
+         <width>560</width>
+         <height>298</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_3">
-        <item>
-         <layout class="QVBoxLayout" name="widgetLayout"/>
-        </item>
-       </layout>
+       <layout class="QVBoxLayout" name="verticalLayout_2"/>
       </widget>
      </widget>
     </item>
@@ -69,37 +65,40 @@
      </widget>
     </item>
     <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Your current progression.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+      <property name="format">
+       <string>%p%</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="progress_OK">
-      <item>
-       <widget class="QProgressBar" name="progressBar">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Your current progression.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="value">
-         <number>0</number>
-        </property>
-        <property name="format">
-         <string>%p%</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QPushButton" name="refreshModulePushButton">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Re-run your last ran module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;
+&lt;p&gt;Refresh the modules&lt;/p&gt;
+&lt;p&gt;This will update all the modules so they contain relevant information from previous modules.
+&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Refresh Modules</string>
+         <string>Refresh</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="undoModulePushButton">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Re-run your last ran module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Re-run your last run module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Re-run Module</string>
+         <string>Re-run</string>
         </property>
        </widget>
       </item>
@@ -109,18 +108,38 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Completely stop the currently running module&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Stop Module</string>
+         <string>Stop</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="deleteModulePushButton">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Delete a module that has not been ran&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <widget class="QComboBox" name="insertModuleComboBox">
+        <property name="minimumSize">
+         <size>
+          <width>86</width>
+          <height>0</height>
+         </size>
         </property>
-        <property name="text">
-         <string>Delete Module</string>
+        <item>
+         <property name="text">
+          <string>Insert After</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="deleteModuleComboBox">
+        <property name="minimumSize">
+         <size>
+          <width>86</width>
+          <height>0</height>
+         </size>
         </property>
+        <item>
+         <property name="text">
+          <string>Delete</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item>
@@ -145,26 +164,26 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>519</width>
-     <height>21</height>
+     <width>603</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>File</string>
     </property>
+    <addaction name="actionSet_Output_Path"/>
+    <addaction name="separator"/>
     <addaction name="actionLoad_Data"/>
+    <addaction name="actionRead_ChemCam_Data"/>
     <addaction name="actionRename_Data"/>
     <addaction name="actionSave_Current_Data"/>
     <addaction name="separator"/>
-    <addaction name="actionSet_Output_Path"/>
-    <addaction name="actionRead_ChemCam_Data"/>
-    <addaction name="separator"/>
-    <addaction name="actionCreate_New_Workflow"/>
-    <addaction name="actionClear_Workflow"/>
     <addaction name="actionRestore_Workflow"/>
     <addaction name="actionSave_Current_Workflow"/>
+    <addaction name="actionClear_Workflow"/>
     <addaction name="separator"/>
+    <addaction name="actionCreate_New_Workflow"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuPreprocessing">
@@ -193,6 +212,8 @@
     <addaction name="actionTrain"/>
     <addaction name="actionPredict"/>
     <addaction name="actionSubmodel_Blend"/>
+    <addaction name="actionSave_Trained_Model"/>
+    <addaction name="actionRestore_Trained_Model"/>
    </widget>
    <widget class="QMenu" name="menuVisualization">
     <property name="title">
@@ -237,8 +258,16 @@
     </property>
     <addaction name="actionData_Box"/>
    </widget>
+   <widget class="QMenu" name="menuClassification">
+    <property name="title">
+     <string>Classification</string>
+    </property>
+    <addaction name="actionSupervised"/>
+    <addaction name="actionCluster"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuPreprocessing"/>
+   <addaction name="menuClassification"/>
    <addaction name="menuRegression"/>
    <addaction name="menuVisualization"/>
    <addaction name="menuOptions"/>
@@ -248,12 +277,12 @@
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionRead_ChemCam_Data">
    <property name="text">
-    <string>Read ChemCam Data</string>
+    <string>Load ChemCam Data</string>
    </property>
   </action>
   <action name="actionLoad_Data">
    <property name="text">
-    <string>Load Data</string>
+    <string>Load CSV Data</string>
    </property>
   </action>
   <action name="actionSet_Output_Path">
@@ -263,12 +292,12 @@
   </action>
   <action name="actionSave_Current_Data">
    <property name="text">
-    <string>Save Current Data</string>
+    <string>Save Data to CSV</string>
    </property>
   </action>
   <action name="actionCreate_New_Workflow">
    <property name="text">
-    <string>Create New Workflow</string>
+    <string>New Window</string>
    </property>
   </action>
   <action name="actionRestore_Workflow">
@@ -278,7 +307,7 @@
   </action>
   <action name="actionSave_Current_Workflow">
    <property name="text">
-    <string>Save Current Workflow</string>
+    <string>Save Workflow</string>
    </property>
   </action>
   <action name="actionExit">
@@ -449,6 +478,31 @@
   <action name="actionOutlier_Removal">
    <property name="text">
     <string>Outlier Removal</string>
+   </property>
+  </action>
+  <action name="actionSave_Trained_Model">
+   <property name="text">
+    <string>Save Trained Model</string>
+   </property>
+  </action>
+  <action name="actionRestore_Trained_Model">
+   <property name="text">
+    <string>Restore Trained Model</string>
+   </property>
+  </action>
+  <action name="actionSupervised">
+   <property name="text">
+    <string>Supervised</string>
+   </property>
+  </action>
+  <action name="actionK_means">
+   <property name="text">
+    <string>K-means</string>
+   </property>
+  </action>
+  <action name="actionCluster">
+   <property name="text">
+    <string>Clustering</string>
    </property>
   </action>
  </widget>

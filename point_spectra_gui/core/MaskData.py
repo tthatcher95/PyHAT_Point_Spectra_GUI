@@ -2,6 +2,8 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.MaskData import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.spectral_data import spectral_data
+from libpysat.transform.mask import mask
 
 
 class MaskData(Ui_Form, Modules):
@@ -12,7 +14,7 @@ class MaskData(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def on_getDataButton_clicked(self, lineEdit):
+    def getDataButton_clicked(self, lineEdit):
         filename, _filter = QtWidgets.QFileDialog.getOpenFileName(None, "Open Mask Data File", '.', "(*.csv)")
         lineEdit.setText(filename)
         if lineEdit.text() == "":
@@ -20,12 +22,18 @@ class MaskData(Ui_Form, Modules):
 
     def connectWidgets(self):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.pushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.maskFileLineEdit))
+        self.pushButton.clicked.connect(lambda: self.getDataButton_clicked(self.maskFileLineEdit))
+
+    def setup(self):
+        try:
+            self.run() #mask is pretty quick to run, so just call it when running setup
+        except:
+            pass
 
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
         maskfile = self.maskFileLineEdit.text()
-        self.data[datakey].mask(maskfile, maskvar='wvl')
+        self.data[datakey] = spectral_data(mask(self.data[datakey].df, maskfile, maskvar='wvl'))
         print("Mask applied")
 
 
