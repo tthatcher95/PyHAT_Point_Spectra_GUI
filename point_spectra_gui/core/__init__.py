@@ -25,6 +25,7 @@ from point_spectra_gui.core import RenameData
 from point_spectra_gui.core import RestoreTrainedModel
 from point_spectra_gui.core import SpecDeriv
 from point_spectra_gui.core import SplitDataset
+from point_spectra_gui.core import SaveTrainedModel
 from point_spectra_gui.core import StratifiedFolds
 from point_spectra_gui.core import SubmodelBlend
 from point_spectra_gui.core import WriteToCSV
