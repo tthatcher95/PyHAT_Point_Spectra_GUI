@@ -1,10 +1,10 @@
-import json
 import multiprocessing as mp
 import os.path
 import pickle
 import sys
 import time
 import warnings
+import json
 
 from point_spectra_gui.util.themes import braceyourself, default
 
@@ -307,7 +307,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.CombineDataSets.CombineDataSets))
             self.actionRestore_Trained_Model.triggered.connect(
                 lambda: self.addWidget(core.RestoreTrainedModel.RestoreTrainedModel))
-            self.actionSave_Trained_Model.triggered.connect(self.on_saveTrainedModel_clicked)
+            self.actionSave_Trained_Model.triggered.connect(
+                lambda: self.addWidget(core.SaveTrainedModel.SaveTrainedModel))
             self.actionData_Box.triggered.connect(self.on_DataTable_clicked)
             self.actionAbout.triggered.connect(self.on_About_clicked)
             self.actionAbout_Qt.triggered.connect(self.on_AboutQt_clicked)
@@ -423,27 +424,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.MainWindow.setWindowTitle(self.title.display())
         except Exception as e:
             print("Restore file not loaded: {}".format(e))
-
-    def on_saveTrainedModel_clicked(self):
-        # add the data into a list [0. 1]
-        # list[0] will hold the dictionary data of the UI
-        # TODO Let the user decide what modelkey and model they want to save
-        # list[1] will hold the modelkeys
-        # list[2] will hold the self.models data
-        list = []
-        list.append(json.dumps(self.getWidgetItems(), indent=4))
-        list.append(self.modelkeys)
-        list.append(self.models)
-        try:
-            filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None,
-                                                                      "Choose where you want save your file",
-                                                                      self.outpath,
-                                                                      '(*.tram)')
-            print(filename)
-            with open(filename, 'wb') as fp:
-                pickle.dump(list, fp)
-        except Exception as e:
-            print("Could not restore your tram file: ", e)
 
     def delete_module(self, _idx=1):
         """

@@ -22,9 +22,9 @@ class RestoreTrainedModel(Ui_Form, Modules):
         filename = self.restoreLineEdit.text()
         with open(filename, 'rb') as fp:
             load = pickle.load(fp)
-        # TODO append to the modelkeys and models
-        Modules.modelkeys = load[1]
-        Modules.models = load[2]
+        self.modelkeys.append(load[0])
+        self.models[load[0]] = load[1]
+        pass
 
     def on_restorePushButton_clicked(self, lineEdit):
         # list[0] will hold the dictionary data of the UI
