@@ -3,13 +3,16 @@ import pandas as pd
 from PyQt5 import QtWidgets
 from point_spectra_gui.util import Qtickle
 from libpysat.regression import cv
-from libpysat.spectral.spectral_data import spectral_data
+from point_spectra_gui.util.spectral_data import spectral_data
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from sklearn.model_selection import ParameterGrid, LeaveOneGroupOut
 
 
 class CrossValidation(Ui_Form, Modules):
+    count = -1
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -95,24 +98,120 @@ class CrossValidation(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[keys[i - 1]].selectiveSetGuiParams(dict[i])
 
+    def setup(self):
+        try:
+            method = self.chooseAlgorithmComboBox.currentText()
+            datakey = self.chooseDataComboBox.currentText()
+            xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
+            yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
+            yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
+            # Warning: Params passing through cv.cv(params) needs to be in lists
+            # Example: {'n_components': [4], 'scale': [False]}
+            params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
+
+            #if the method supports it, separate out alpha from the other parameters and prepare for calculating path
+            path_methods =  ['Elastic Net', 'LASSO']#, 'Ridge']
+            if method in path_methods:
+                alphas = params.pop('alpha')
+            else:
+                alphas = None
+
+            paramgrid = list(ParameterGrid(params))  # create a grid of parameter permutations
+            cv_obj = cv.cv(paramgrid)
+            cvpredictkeys = []
+            cvmodelkeys = []
+            for i in range(len(paramgrid)):
+                if alphas is not None:
+                    for j in range(len(alphas)):
+                        keytemp = '"' + method + ' - ' + yvars[0][-1] + ' - CV - Alpha:' + str(alphas[j]) + ' - ' + str(paramgrid[i]) + '"'
+                        cvpredictkeys.append(keytemp)
+                        keytemp = '"' + method + ' - ' + yvars[0][-1] + ' - Cal - Alpha:' + str(
+                            alphas[j]) + ' - ' + str(paramgrid[i]) + '"'
+                        cvpredictkeys.append(keytemp)
+
+                        modelkeytemp = "{} - {} - ({}, {}) Alpha: {}, {}".format(method, yvars[0][-1], yrange[0], yrange[1],
+                                                                             alphas[j], paramgrid[i])
+                        cvmodelkeys.append(modelkeytemp)
+
+                else:
+                    keytemp = '"'+method+'- Cal -' + str(paramgrid[i]) + '"'
+                    cvpredictkeys.append(keytemp)
+                    keytemp = '"' + method + '- Cal -' + str(paramgrid[i]) + '"'
+                    cvpredictkeys.append(keytemp)
+
+                    modelkeytemp = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], paramgrid[i])
+                    cvmodelkeys.append(modelkeytemp)
+
+            for key in cvpredictkeys:
+                self.list_amend(self.predictkeys, len(self.predictkeys), key)
+                self.data[datakey].df[('predict',key)] = 9999  #Need to fill the data frame with dummy values until CV is actually run
+
+            for n, key in enumerate(cvmodelkeys):
+                self.list_amend(self.modelkeys, len(self.modelkeys), key)
+                self.modelkeys.append(key)
+                self.model_xvars[key] = xvars
+                self.model_yvars[key] = yvars
+                if method != 'GP':
+                    coef = self.data[datakey].df[xvars[0]].columns.values*0.0+9999  #Fill with dummy coeffs before model is run
+                    coef = pd.DataFrame(coef)
+                    coef.index = pd.MultiIndex.from_tuples(self.data[datakey].df[xvars].columns.values)
+                    coef = coef.T
+                    coef[('meta', 'Model')] = key
+                    try:
+                        coef[('meta', 'Intercept')] = 0 #Fill intercept with zeros prior to model run
+                    except:
+                        pass
+                    try:
+                        self.data['Model Coefficients'] = spectral_data(
+                            pd.concat([self.data['Model Coefficients'].df, coef]))
+                    except:
+                        self.data['Model Coefficients'] = spectral_data(coef)
+                        self.datakeys.append('Model Coefficients')
+
+            self.list_amend(self.datakeys, len(self.datakeys), 'CV Results ' + modelkey)
+        except:
+            pass
+
+
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
+        # Warning: Params passing through cv.cv(params) needs to be in lists
+        # Example: {'n_components': [4], 'scale': [False]}
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
 
+        #if the method supports it, separate out alpha from the other parameters and prepare for calculating path
+        path_methods =  ['Elastic Net', 'LASSO']#, 'Ridge']
+        if method in path_methods:
+            calc_path = True
+            alphas = params.pop('alpha')
+        else:
+            alphas = None
+            calc_path = False
         y = np.array(self.data[datakey].df[yvars])
         match = np.squeeze((y > yrange[0]) & (y < yrange[1]))
         data_for_cv = spectral_data(self.data[datakey].df.ix[match])
-        # Warning: Params passing through cv.cv(params) needs to be in lists
-        # Example: {'n_components': [4], 'scale': [False]}
-        cv_obj = cv.cv(params)
-        self.data[datakey].df, self.cv_results, cvmodels, cvmodelkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
-                                                                                     ycol=yvars,
-                                                                                     yrange=yrange, method=method)
+        paramgrid = list(ParameterGrid(params))  # create a grid of parameter permutations
+        cv_obj = cv.cv(paramgrid)
+        try:
+            cv_iterator = LeaveOneGroupOut().split(data_for_cv.df[xvars], data_for_cv.df[yvars], data_for_cv.df[
+                ('meta', 'Folds')])  # create an iterator for cross validation based on the predefined folds
+            n_folds = LeaveOneGroupOut().get_n_splits(groups=data_for_cv.df[('meta', 'Folds')])
+
+        except:
+            print('***No folds found! Did you remember to define folds before running cross validation?***')
+
+        self.data[datakey].df, self.cv_results, cvmodels, cvmodelkeys, cvpredictkeys = cv_obj.do_cv(data_for_cv.df, cv_iterator, xcols=xvars,
+                                                                                     ycol=yvars, yrange=yrange, method=method,
+                                                                                     alphas = alphas, calc_path = calc_path, n_folds = n_folds)
+        for key in cvpredictkeys:
+            self.list_amend(self.predictkeys, len(self.predictkeys), key)
+
         for n, key in enumerate(cvmodelkeys):
+            self.list_amend(self.modelkeys, len(self.modelkeys), key)
             self.modelkeys.append(key)
             self.models[key] = cvmodels[n]
             self.model_xvars[key] = xvars

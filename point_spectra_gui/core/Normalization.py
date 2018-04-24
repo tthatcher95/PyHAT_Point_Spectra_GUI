@@ -3,7 +3,8 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Normalization import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-
+from point_spectra_gui.util.spectral_data import spectral_data
+from libpysat.transform.norm import norm
 
 class norm_range:
     def __init__(self, minLabel, minSpin, maxLabel, maxSpin, hidden):
@@ -151,7 +152,7 @@ class Normalization(Ui_Form, Modules):
         self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices())
         self.varToNormalizeListWidget.itemSelectionChanged.connect(self.setDataLimits)
         # when anything in the gui is changed, run update val to make sure values are increasing
-        self.qt.guiChanged(self.updateVal)
+        self.qtickle.guiChanged(self.updateVal)
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.varToNormalizeListWidget, self.xvar_choices()))
         # connect the add and delete ranges buttons
@@ -184,7 +185,7 @@ class Normalization(Ui_Form, Modules):
                 pass
         try:
             col_var = self.varToNormalizeListWidget.currentItem().text()
-            self.data[datakey].norm(range_vals, col_var)
+            self.data[datakey]=spectral_data(norm(self.data[datakey].df,range_vals, col_var))
             print("Normalization has been applied to the ranges: " + str(range_vals))
             print("{}".format(range_vals))
         except Exception as e:

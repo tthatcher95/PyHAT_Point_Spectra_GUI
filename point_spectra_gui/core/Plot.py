@@ -1,3 +1,5 @@
+from PyQt5.QtCore import QStringListModel
+from PyQt5.QtWidgets import QCompleter
 import numpy as np
 from PyQt5 import QtWidgets
 
@@ -15,29 +17,38 @@ class Plot(Ui_Form, Modules):
         return self.groupBox
 
     def connectWidgets(self):
-        self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.setComboBox(self.figureNameComboBox, self.figname)
+        color_list = ["Red",
+                      "Green",
+                      "Blue",
+                      "Cyan",
+                      "Yellow",
+                      "Magenta",
+                      "Black"]
+        line_list = ["No Line",
+                     "Line",
+                     "Dashed Line",
+                     "Dotted Line"]
+        marker_list = ["Circles",
+                       "Squares",
+                       "Diamonds",
+                       "Triangle Up",
+                       "Triangle Down",
+                       "Triangle Left",
+                       "Triangle Right",
+                       "None"]
+        completer = QCompleter()
+        self.chooseXVariableComboBox.setMaximumWidth(200)
+        self.chooseYVariableComboBox.setMaximumWidth(200)
         self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices())
+        self.figureNameLineEdit.setCompleter(completer)
+        model = QStringListModel()
+        completer.setModel(model)
+        self.get_data(model)
+        self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.changeComboListVars(self.chooseYVariableComboBox, self.get_choices())
-        self.colorComboBox.addItem("Red")
-        self.colorComboBox.addItem("Green")
-        self.colorComboBox.addItem("Blue")
-        self.colorComboBox.addItem("Cyan")
-        self.colorComboBox.addItem("Yellow")
-        self.colorComboBox.addItem("Magenta")
-        self.colorComboBox.addItem("Black")
-        self.lineComboBox.addItem("No Line")
-        self.lineComboBox.addItem("Line")
-        self.lineComboBox.addItem("Dashed Line")
-        self.lineComboBox.addItem("Dotted Line")
-        self.markerComboBox.addItem("Circles")
-        self.markerComboBox.addItem("Squares")
-        self.markerComboBox.addItem("Diamonds")
-        self.markerComboBox.addItem("Triangle Up")
-        self.markerComboBox.addItem("Triangle Down")
-        self.markerComboBox.addItem("Triangle Left")
-        self.markerComboBox.addItem("Triangle Right")
-        self.markerComboBox.addItem("None")
+        self.setComboBox(self.colorComboBox, color_list)
+        self.setComboBox(self.lineComboBox, line_list)
+        self.setComboBox(self.markerComboBox, marker_list)
         self.alphaDoubleSpinBox.setValue(0.25)
         self.alphaDoubleSpinBox.setSingleStep(0.25)
         self.alphaDoubleSpinBox.setMaximum(1)
@@ -45,10 +56,7 @@ class Plot(Ui_Form, Modules):
         self.xMaxDoubleSpinBox.setMaximum(110)
         self.yMinDoubleSpinBox.setMaximum(110)
         self.yMaxDoubleSpinBox.setMaximum(110)
-        self.plotFilenamePushButton.clicked.connect(self.on_plotFilenamePushButton_clicked)
-
-        self.figureNameComboBox.activated[int].connect(
-            lambda: self.figureNameLineEdit.setText(self.figureNameComboBox.currentText()))
+        self.plotFilenamePushButton.clicked.connect(self.plotFilenamePushButton_clicked)
         self.chooseDataComboBox.activated[int].connect(
             lambda: self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices()))
         self.chooseDataComboBox.activated[int].connect(
@@ -188,6 +196,9 @@ class Plot(Ui_Form, Modules):
                 choices = ['No valid choices']
         return choices
 
+    def get_data(self, model):
+        model.setStringList(self.figname)
+
     def get_minmax(self, objmin, objmax, var):
         try:
             varind = self.vars_level1.index(var)
@@ -207,7 +218,7 @@ class Plot(Ui_Form, Modules):
             objmin.setValue(0)
             objmax.setValue(1)
 
-    def on_plotFilenamePushButton_clicked(self):
+    def plotFilenamePushButton_clicked(self):
         filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None, "Save Plot", self.outpath, "(*.png)")
         self.plotFilenameLineEdit.setText(filename)
         if self.plotFilenameLineEdit.text() == "":

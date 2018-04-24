@@ -4,7 +4,8 @@ from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.dimensionalityReductionMethods import *
 from point_spectra_gui.ui.DimensionalityReduction import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-
+from point_spectra_gui.util.spectral_data import spectral_data
+from libpysat.transform.dim_red import dim_red
 
 class DimensionalityReduction(Ui_Form, Modules):
     def setupUi(self, Form):
@@ -69,6 +70,18 @@ class DimensionalityReduction(Ui_Form, Modules):
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
 
+    def setup(self):
+        method = self.chooseMethodComboBox.currentText()
+        datakey = self.chooseDataComboBox.currentText()
+        params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
+        if method != 'Choose an algorithm':
+            try:
+                for i in list(range(1, params['n_components'])):  # will need to revisit this for other methods that don't use n_components to make sure column names still mamke sense
+                    self.data[datakey].df[(method, str(i))] = 99999 #fill with dummy data to be replaced when actually run
+            except:
+                pass
+
+
     def run(self):
         method = self.chooseMethodComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
@@ -76,11 +89,12 @@ class DimensionalityReduction(Ui_Form, Modules):
         params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
         load_fit = False
         col = 'wvl'
-        self.data[datakey].dim_red(col, method, [], params, load_fit=load_fit)
+        df, do_dim_red=dim_red(self.data[datakey].df,col, method, [], params, load_fit=load_fit)
+        self.data[datakey] = spectral_data(df, dim_red = do_dim_red)
 
     def make_dimred_widget(self, alg, params=None):
         self.hideAll()
-        print(alg)
+        #print(alg)
         for i in range(len(self.algorithm_list)):
             if alg == self.algorithm_list[i]:
                 self.alg[i - 1].setHidden(False)

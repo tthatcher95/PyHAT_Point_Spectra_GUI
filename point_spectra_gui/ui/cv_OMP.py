@@ -74,7 +74,7 @@ class Ui_Form(object):
         item = self.normalize_list.item(1)
         item.setText(("False"))
         self.normalize_list.setSortingEnabled(__sortingEnabled)
-        self.n_coefs_label.setText(("# coeffs"))
+        self.n_coefs_label.setText(("# coefficients"))
         self.n_coefs_lineedit.setText(("100"))
 
 

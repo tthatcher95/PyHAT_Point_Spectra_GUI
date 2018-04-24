@@ -176,7 +176,7 @@ class Qtickle(object):
                         for i in index:
                             matching_items = obj.findItems(i, QtCore.Qt.MatchExactly)
                             for item in matching_items:
-                                obj.setCurrentItem(item)
+                                item.setSelected(True)
 
             except Exception as e:
                 print(e)
@@ -213,6 +213,26 @@ class Qtickle(object):
 
                     # if isinstance(obj, QListWidget): This needs to be added at somepoint
                     #     obj.
+
+        except Exception as e:
+            print(e)
+
+    def guiDisonnect(self):
+        """
+        This is mainly a problem with the buttons that were opening file dialogs, but if there are other cases,
+        please consider adding those cases to this method.
+
+        https://stackoverflow.com/questions/3530590/qt-signals-and-slot-connected-twice-what-happens#_=_
+        Just like in this stackoverflow question, there are some instances where the UI will call connects
+        more than once... this is dangerous as it causes dialog boxes to display also more than once.
+        This method is an attempt to cull this problem.
+
+        :return:
+        """
+        try:
+            for name, obj in inspect.getmembers(self.ui):
+                if isinstance(obj, QPushButton):
+                    obj.disconnect()
 
         except Exception as e:
             print(e)
@@ -275,7 +295,7 @@ class Qtickle(object):
                     for i in index:
                         matching_items = obj.findItems(i, QtCore.Qt.MatchExactly)
                         for item in matching_items:
-                            obj.setCurrentItem(item)
+                            item.setSelected(True)
 
             except Exception as e:
                 print(e)

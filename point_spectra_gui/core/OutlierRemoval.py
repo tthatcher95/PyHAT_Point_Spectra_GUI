@@ -4,7 +4,8 @@ from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.outlierRemovalMethods import *
 from point_spectra_gui.ui.OutlierRemoval import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-
+from libpysat.utils.outlier_removal import outlier_removal
+from point_spectra_gui.util.spectral_data import spectral_data
 
 class OutlierRemoval(Ui_Form, Modules):
     def setupUi(self, Form):
@@ -19,15 +20,15 @@ class OutlierRemoval(Ui_Form, Modules):
     def make_outlier_widget(self, alg, params=None):
         self.hideAll()
         print(alg)
-        for i in range(len(self.algorithm_list) - 1):
-            print(i)
+        for i in range(len(self.algorithm_list)):
             if alg == self.algorithm_list[i]:
                 self.alg[i - 1].setHidden(False)
 
     def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
                                'Isolation Forest',
-                               'Other algorithms go here...']
+                               'Local Outlier Factor'
+                               ]
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
@@ -79,9 +80,8 @@ class OutlierRemoval(Ui_Form, Modules):
         datakey = self.chooseDataComboBox.currentText()
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
-        self.data[datakey].outlier_removal(xvars, method, params)
-        # self.data[datakey].df, self.cv_results, cvmodels, cvmodelkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars, ycol=yvars,
-        #                                                      yrange=yrange, method=method)
+        self.data[datakey], outlier_removal_obj = outlier_removal(self.data[datakey].df, xvars, method, params)
+        self.data[datakey] = spectral_data(self.data[datakey])
 
     def xvar_choices(self):
         try:
@@ -100,8 +100,8 @@ class OutlierRemoval(Ui_Form, Modules):
 
     def outlierRemovalMethods(self):
         self.alg = []
-        list_forms = [outliers_IsolationForest
-                      ]
+        list_forms = [outliers_IsolationForest,
+                      outliers_LOF]
         for items in list_forms:
             self.alg.append(items.Ui_Form())
             self.alg[-1].setupUi(self.Form)

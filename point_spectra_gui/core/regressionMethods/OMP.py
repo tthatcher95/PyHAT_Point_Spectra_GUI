@@ -23,7 +23,8 @@ class Ui_Form(Ui_Form, OrthogonalMatchingPursuit, OrthogonalMatchingPursuitCV, M
         self.normalizeCheckBox.setChecked(self.normalize)
 
     def run(self):
-        params = {'fit_intercept': self.fitInterceptCheckBox.isChecked(),
+        params = {'n_nonzero_coefs': self.n_coef_spin.value(),
+                  'fit_intercept': self.fitInterceptCheckBox.isChecked(),
                   'normalize': self.normalizeCheckBox.isChecked(),
                   'precompute': True}
 

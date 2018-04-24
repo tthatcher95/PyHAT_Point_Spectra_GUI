@@ -1,6 +1,6 @@
 import pandas as pd
 from PyQt5 import QtWidgets
-from libpysat.spectral.spectral_data import spectral_data
+from point_spectra_gui.util.spectral_data import spectral_data
 
 from point_spectra_gui.ui.LoadData import Ui_loadData
 from point_spectra_gui.util.Modules import Modules
@@ -34,19 +34,24 @@ class LoadData(Ui_loadData, Modules):
         return self.groupBox
 
     def connectWidgets(self):
-        self.newFilePushButton.clicked.connect(lambda: self.on_getDataButton_clicked(self.fileNameLineEdit))
+        self.newFilePushButton.clicked.connect(lambda: self.getDataButton_clicked(self.fileNameLineEdit))
 
-    def on_getDataButton_clicked(self, lineEdit):
+    def getDataButton_clicked(self, lineEdit):
         filename, _filter = QtWidgets.QFileDialog.getOpenFileName(None, "Open Data File", self.outpath, "(*.csv)")
         lineEdit.setText(filename)
         if lineEdit.text() == "":
             lineEdit.setText("*.csv")
 
     def setup(self):
+        """
+        The setup here is only doing the first 2 rows of our dataset
+        This will cut down on time to load.
+
+        :return:
+        """
         try:
             filename = self.fileNameLineEdit.text()
             keyname = self.dataSetNameLineEdit.text()
-            print('Loading data file: ' + str(filename))
             self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True, nrows=2))
             self.list_amend(self.datakeys, self.curr_count, keyname)
         except:
