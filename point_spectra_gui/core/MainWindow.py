@@ -425,27 +425,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         except Exception as e:
             print("Restore file not loaded: {}".format(e))
 
-    # def on_saveTrainedModel_clicked(self):
-    #     # add the data into a list [0. 1]
-    #     # list[0] will hold the dictionary data of the UI
-    #     # TODO Let the user decide what modelkey and model they want to save
-    #     # list[1] will hold the modelkeys
-    #     # list[2] will hold the self.models data
-    #     list = []
-    #     list.append(json.dumps(self.getWidgetItems(), indent=4))
-    #     list.append(self.modelkeys)
-    #     list.append(self.models)
-    #     try:
-    #         filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None,
-    #                                                                   "Choose where you want save your file",
-    #                                                                   self.outpath,
-    #                                                                   '(*.tram)')
-    #         print(filename)
-    #         with open(filename, 'wb') as fp:
-    #             pickle.dump(list, fp)
-    #     except Exception as e:
-    #         print("Could not restore your tram file: ", e)
-
     def delete_module(self, _idx=1):
         """
         Check to see if the last item is enabled
