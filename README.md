@@ -10,7 +10,7 @@
 
 \*Note for Windows: Please make sure you do not have any previous versions of Python on your system. If you do, it may make it difficult for Anaconda/Miniconda to use the command `conda`
 <br>If you're still having issues with uninstalling Python, I recommend using <a href ="https://www.iobit.com/en/advanceduninstaller.php?">IObit Uninstaller</a><br>
-Lastly, if all else fails, try turning your machine off and then on again.
+If uninstalling previous version of Python is not an option, you may have to do a full Anaconda install and then use the Anaconda Prompt that gets installed with it to execute the following commands.
 
 Install <a href="https://conda.io/miniconda.html">Miniconda</a>
 
