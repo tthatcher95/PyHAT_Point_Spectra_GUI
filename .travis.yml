@@ -57,6 +57,10 @@ after_success:
 #   - conda install conda-build anaconda-client
 #   - conda config --set anaconda_upload yes
 #   - conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION .
+before_deploy:
+  - conda env create -n ppsg -f environment.yml
+  - source activate ppsg
+  - point_spectra_gui
 deploy:
   provider: pypi
   user: tisaconundrum
