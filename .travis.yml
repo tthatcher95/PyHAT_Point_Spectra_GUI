@@ -52,7 +52,7 @@ script:
   - python setup.py build_ui
   - python setup.py install
   - pytest
-  - python point_spectra_gui
+  - python point_spectra_gui/__debug__.py
 
 after_success:
   - coveralls
