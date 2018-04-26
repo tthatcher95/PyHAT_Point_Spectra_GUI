@@ -51,9 +51,9 @@ script:
   - source activate ppsg
   - python setup.py build_ui
   - python setup.py install
+  - python setup.py test_ui
   - pytest
-  - python point_spectra_gui/__debug__.py
-
+  
 after_success:
   - coveralls
 #   - source deactivate
