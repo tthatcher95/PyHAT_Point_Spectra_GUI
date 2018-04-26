@@ -181,7 +181,7 @@ setup(
         'test_ui': point_spectra_gui_test_ui
     },
     classifiers=[
-        'License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)',
+        #'License :: Unlicense',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Operating System :: Microsoft :: Windows',

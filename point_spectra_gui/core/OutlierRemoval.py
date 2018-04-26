@@ -80,8 +80,8 @@ class OutlierRemoval(Ui_Form, Modules):
         datakey = self.chooseDataComboBox.currentText()
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         params, modelkey = self.getMethodParams(self.chooseAlgorithmComboBox.currentIndex())
-        self.data[datakey], outlier_removal_obj = outlier_removal(self.data[datakey].df, xvars, method, params)
-        self.data[datakey] = spectral_data(self.data[datakey])
+        data_tmp, outlier_removal_obj = outlier_removal(self.data[datakey].df, xvars, method, params)
+        self.data[datakey] = spectral_data(data_tmp, dim_red=self.data[datakey].dim_red)
 
     def xvar_choices(self):
         try:

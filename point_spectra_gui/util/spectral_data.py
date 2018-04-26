@@ -5,9 +5,10 @@ Created on Fri Dec  4 14:53:23 2015
 @author: rbanderson
 """
 import pandas as pd
+import libpysat.transform.remove_baseline as remove_baseline
 
 class spectral_data(object):
-    def __init__(self, df, dim_red = None):
+    def __init__(self, df, dim_red = None, df_baseline = None):
 
         try:
             uppercols = df.columns.levels[0]
@@ -26,9 +27,12 @@ class spectral_data(object):
         levels = [uppercols, lowercols]
         df.columns.set_levels(levels, inplace=True)
         self.df = df
-        if dim_red is not None:
-            self.dim_red = dim_red  #this is a temporary fix to keep track of dimensionality reduction loadings for plotting purposes.
+        self.dim_red = dim_red
+        self.df_baseline = df_baseline
+        #this is a temporary fix to keep track of dimensionality reduction loadings for plotting purposes.
                                     #TODO: Make this robust to other transforms being applied to the data. Currently, many transforms will strip this off when they re-define the spectral data object
+
+
 
 
 
