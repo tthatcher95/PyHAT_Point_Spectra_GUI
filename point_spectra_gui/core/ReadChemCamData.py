@@ -1,10 +1,8 @@
 import pandas as pd
 from PyQt5 import QtWidgets
-from point_spectra_gui.util.io import io_ccam_pds
-from point_spectra_gui.util.spectral_data import spectral_data
-
 from point_spectra_gui.ui.ReadChemCamData import Ui_Form
 from point_spectra_gui.util.Modules import Modules
+from point_spectra_gui.util.spectral_data import spectral_data
 
 
 class ReadChemCamData(Ui_Form, Modules):
@@ -23,6 +21,7 @@ class ReadChemCamData(Ui_Form, Modules):
         self.metadatapushButton.clicked.connect(self.on_metadataButton_clicked)
         self.hide_col_options()
         self.col_check.stateChanged.connect(self.hide_col_options)
+
     def hide_col_options(self):
         if self.col_check.isChecked():
             self.column_explain.setHidden(False)
@@ -58,7 +57,6 @@ class ReadChemCamData(Ui_Form, Modules):
         # TODO this file needs to be redone to fit the similar setup to `LoadData`
         pass
 
-
     def run(self):
         params = self.getGuiParams()
         searchdir = self.searchDirectoryLineEdit.text()
@@ -78,7 +76,8 @@ class ReadChemCamData(Ui_Form, Modules):
         ave = self.averagesradioButton.isChecked()
         progressbar = QtWidgets.QProgressDialog()
         io_ccam_pds.ccam_batch(searchdir, searchstring=searchstring, to_csv=Modules.outpath + '/' + to_csv,
-                               lookupfile=lookupfile, ave=ave, progressbar=progressbar, left_on=left_on, right_on=right_on)
+                               lookupfile=lookupfile, ave=ave, progressbar=progressbar, left_on=left_on,
+                               right_on=right_on)
         self.do_get_data(Modules.outpath + '/' + to_csv, 'ChemCam')
 
     def do_get_data(self, filename, keyname):
@@ -94,7 +93,7 @@ if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    
+
     Form = QtWidgets.QWidget()
     ui = ReadChemCamData()
     ui.setupUi(Form)
