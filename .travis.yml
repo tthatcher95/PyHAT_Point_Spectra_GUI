@@ -47,12 +47,12 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 script:
-  - python setup.py build_ui
-  - python setup.py develop
-  - pytest
   - conda env create -n ppsg -f environment.yml
   - source activate ppsg
+  - python setup.py build_ui
+  - python setup.py develop
   - point_spectra_gui
+  - pytest
 
 after_success:
   - coveralls
