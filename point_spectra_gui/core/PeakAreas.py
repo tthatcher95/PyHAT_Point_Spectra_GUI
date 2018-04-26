@@ -31,7 +31,7 @@ class PeakAreas(Ui_Form, Modules):
 
         try:
             df, peaks, mins = peak_area(self.data[datakey].df,peaks_mins_file=peaks_mins_file)
-            self.data[datakey] = spectral_data(df)
+            self.data[datakey] = spectral_data(df, dim_red=self.data[datakey].dim_red)
             print("Peak Areas Calculated")
 
             np.savetxt(self.outpath + '/peaks.csv', peaks, delimiter=',')

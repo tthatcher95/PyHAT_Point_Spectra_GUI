@@ -84,7 +84,7 @@ class Clustering(Ui_Form, Modules):
         datakey = self.chooseDataComboBox.currentText()
         params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
         col = [str(i.text()) for i in self.variables_list.selectedItems()]
-        self.data[datakey] = spectral_data(cluster(self.data[datakey].df, col, method, [], params))
+        self.data[datakey] = spectral_data(cluster(self.data[datakey].df, col, method, [], params), dim_red=self.data[datakey].dim_red)
 
     def make_cluster_widget(self, alg):
         self.hideAll()
