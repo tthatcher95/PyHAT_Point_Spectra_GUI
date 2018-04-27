@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets
 from libpysat.transform.baseline_code.ccam_remove_continuum import ccam_br
 
-from point_spectra_gui.ui.CCAM import Ui_Form
+from point_spectra_gui.ui.SWT import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
 
@@ -12,15 +12,15 @@ class Ui_Form(Ui_Form, Modules):
         Modules.setupUi(self, Form)
 
     def get_widget(self):
-        return self.groupbox
+        return self.groupBox
 
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
-        CCAM = ccam_br()
-        self.lowestWaveletScaleSpinBox.setValue(CCAM.lvmin_)
-        self.largestWaveletScaleSpinBox.setValue(CCAM.lv_)
+        SWT = ccam_br()
+        self.lowestWaveletScaleSpinBox.setValue(SWT.lvmin_)
+        self.largestWaveletScaleSpinBox.setValue(SWT.lv_)
 
     def run(self):
         methodParameters = {'lv_': self.largestWaveletScaleSpinBox.value(),

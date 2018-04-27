@@ -1,6 +1,6 @@
 from point_spectra_gui.core.baselineRemovalMethods import ALS
 from point_spectra_gui.core.baselineRemovalMethods import AirPLS
-from point_spectra_gui.core.baselineRemovalMethods import CCAM
+from point_spectra_gui.core.baselineRemovalMethods import SWT
 from point_spectra_gui.core.baselineRemovalMethods import Dietrich
 from point_spectra_gui.core.baselineRemovalMethods import FABC
 from point_spectra_gui.core.baselineRemovalMethods import KK
