@@ -72,7 +72,9 @@ class BaselineRemoval(Ui_Form, Modules):
         self.datakeys.append(datakey_baseline)
         self.data[datakey_new] = self.data[datakey].df.copy(deep=True)
         self.data[datakey_new] = remove_baseline(self.data[datakey_new],method, segment=True, params=methodParameters)
-        self.data[datakey_baseline] = spectral_data(self.data[datakey_new].df_baseline)
+        df_baseline = self.data[datakey].df['wvl'] - self.data[datakey_new]['wvl']
+        self.data[datakey_new] = spectral_data(self.data[datakey_new], df_baseline=df_baseline)
+        self.data[datakey_baseline] = spectral_data(df_baseline)
 
     def hideAll(self):
         for a in self.alg:
