@@ -47,16 +47,20 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 script:
+  - conda env create -n ppsg -f travis_env.yml
+  - source activate ppsg
   - python setup.py build_ui
-  - python setup.py develop
+  - python setup.py install
+  - python setup.py test_ui
   - pytest
-
+  
 after_success:
   - coveralls
 #   - source deactivate
 #   - conda install conda-build anaconda-client
 #   - conda config --set anaconda_upload yes
 #   - conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION .
+
 deploy:
   provider: pypi
   user: tisaconundrum
