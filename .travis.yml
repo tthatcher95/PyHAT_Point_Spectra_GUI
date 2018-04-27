@@ -52,8 +52,8 @@ script:
   - python setup.py build_ui
   - python setup.py install
   - python setup.py test_ui
-  - pytest
-  
+
+
 after_success:
   - coveralls
 #   - source deactivate
