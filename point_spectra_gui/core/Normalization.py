@@ -185,7 +185,7 @@ class Normalization(Ui_Form, Modules):
                 pass
         try:
             col_var = self.varToNormalizeListWidget.currentItem().text()
-            self.data[datakey]=spectral_data(norm(self.data[datakey].df,range_vals, col_var), dim_red=self.data[datakey].dim_red)
+            self.data[datakey].norm(range_vals, col_var)
             print("Normalization has been applied to the ranges: " + str(range_vals))
             print("{}".format(range_vals))
         except Exception as e:

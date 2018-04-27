@@ -329,7 +329,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionOff.triggered.connect(self.normal_mode)
             self.actionExit.triggered.connect(self.MainWindow.close)
             self.actionSupervised.setEnabled(False)
-            self.actionRemove_Baseline.setEnabled(False)
 
         except Exception as e:
             print(e)

@@ -1,6 +1,6 @@
 import numpy as np
 from PyQt5 import QtWidgets
-
+import pandas as pd
 from point_spectra_gui.ui.PeakAreas import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.spectral_data import spectral_data
@@ -30,12 +30,13 @@ class PeakAreas(Ui_Form, Modules):
             peaks_mins_file = None
 
         try:
-            df, peaks, mins = peak_area(self.data[datakey].df,peaks_mins_file=peaks_mins_file)
-            self.data[datakey] = spectral_data(df, dim_red=self.data[datakey].dim_red)
+            self.data[datakey].peak_area(peaks_mins_file)
             print("Peak Areas Calculated")
-
-            np.savetxt(self.outpath + '/peaks.csv', peaks, delimiter=',')
-            np.savetxt(self.outpath + '/mins.csv', mins, delimiter=',')
+            output = pd.DataFrame(columns = ['peaks','mins'])
+            output['peaks'] = self.data[datakey].peaks
+            output['mins'] = np.append(self.data[datakey].mins,np.nan)
+            output.to_csv(self.outpath+'/peaks_mins.csv')
+            print('Peaks and mins saved to '+self.outpath+'/peaks_mins.csv')
 
         except Exception as e:
             print(e)

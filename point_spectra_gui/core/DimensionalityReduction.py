@@ -89,8 +89,7 @@ class DimensionalityReduction(Ui_Form, Modules):
         params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
         load_fit = False
         col = 'wvl'
-        df, do_dim_red=dim_red(self.data[datakey].df,col, method, [], params, load_fit=load_fit)
-        self.data[datakey] = spectral_data(df, dim_red = do_dim_red)
+        self.data[datakey].dim_red(col, method, [], params, load_fit)
 
     def make_dimred_widget(self, alg, params=None):
         self.hideAll()
