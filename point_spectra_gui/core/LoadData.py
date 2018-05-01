@@ -16,7 +16,7 @@ class LoadData(Ui_loadData, Modules):
     def __init__(self):
         LoadData.count += 1
         self.curr_count = LoadData.count
-        print('Added LoadData with ID {}'.format(self.curr_count))
+        #print('Added LoadData with ID {}'.format(self.curr_count))
 
     def delete(self):
         try:
@@ -52,7 +52,7 @@ class LoadData(Ui_loadData, Modules):
         try:
             filename = self.fileNameLineEdit.text()
             keyname = self.dataSetNameLineEdit.text()
-            self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True, nrows=2))
+            self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=False, nrows=2))
             self.list_amend(self.datakeys, self.curr_count, keyname)
         except:
             pass
@@ -61,7 +61,7 @@ class LoadData(Ui_loadData, Modules):
         filename = self.fileNameLineEdit.text()
         keyname = self.dataSetNameLineEdit.text()
         print('Loading data file: ' + str(filename))
-        self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=True))
+        self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=False))
         self.list_amend(self.datakeys, self.curr_count, keyname)
 
 

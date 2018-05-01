@@ -179,7 +179,8 @@ class Qtickle(object):
                                 item.setSelected(True)
 
             except Exception as e:
-                print(e)
+                pass
+                #print(e)
 
     def guiChanged(self, functionCall):
         """
@@ -298,4 +299,5 @@ class Qtickle(object):
                             item.setSelected(True)
 
             except Exception as e:
-                print(e)
+                pass
+                #print(e)
