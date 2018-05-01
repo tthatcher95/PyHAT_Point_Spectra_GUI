@@ -16,6 +16,7 @@ import libpysat.transform.deriv as deriv
 import libpysat.transform.dim_red as dim_red
 import libpysat.clustering.cluster as cluster
 import libpysat.utils.outlier_removal as outlier_removal
+from libpysat.utils.utils import enumerate_duplicates
 
 class spectral_data(object):
     def __init__(self, df):
@@ -37,9 +38,6 @@ class spectral_data(object):
         levels = [uppercols, lowercols]
         df.columns.set_levels(levels, inplace=True)
         self.df = df
-        #this is a temporary fix to keep track of dimensionality reduction loadings for plotting purposes.
-                                    #TODO: Make this robust to other transforms being applied to the data. Currently, many transforms will strip this off when they re-define the spectral data object
-
 
     def cal_tran(self):
         pass #Not yet implemented
@@ -80,7 +78,8 @@ class spectral_data(object):
     def stratified_folds(self):
         self.df, self.df_baseline = folds.stratified_folds(self.df, nfolds = 5, sortby = None)
 
-
+    def enumerate_duplicates(self, col):
+        self.df = enumerate_duplicates(self.df, col=col)
 
 
 
