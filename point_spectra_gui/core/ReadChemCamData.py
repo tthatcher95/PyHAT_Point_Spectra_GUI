@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 from point_spectra_gui.ui.ReadChemCamData import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.spectral_data import spectral_data
-
+from point_spectra_gui.util.io import io_ccam_pds
 
 class ReadChemCamData(Ui_Form, Modules):
     def setupUi(self, Form):
