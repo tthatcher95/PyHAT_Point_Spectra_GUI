@@ -52,6 +52,16 @@
       <item row="0" column="2">
        <widget class="QComboBox" name="left_on"/>
       </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="skiprows_label">
+        <property name="text">
+         <string># of rows to skip</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QSpinBox" name="skiprows_spin"/>
+      </item>
      </layout>
     </widget>
    </item>

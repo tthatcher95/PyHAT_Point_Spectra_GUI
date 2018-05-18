@@ -32,6 +32,12 @@ class Ui_Form(object):
         self.left_on = QtWidgets.QComboBox(self.groupBox)
         self.left_on.setObjectName("left_on")
         self.gridLayout.addWidget(self.left_on, 0, 2, 1, 1)
+        self.skiprows_label = QtWidgets.QLabel(self.groupBox)
+        self.skiprows_label.setObjectName("skiprows_label")
+        self.gridLayout.addWidget(self.skiprows_label, 3, 0, 1, 1)
+        self.skiprows_spin = QtWidgets.QSpinBox(self.groupBox)
+        self.skiprows_spin.setObjectName("skiprows_spin")
+        self.gridLayout.addWidget(self.skiprows_spin, 3, 1, 1, 1)
         self.verticalLayout.addWidget(self.groupBox)
 
         self.retranslateUi(Form)
@@ -42,6 +48,7 @@ class Ui_Form(object):
         Form.setWindowTitle(("Form"))
         self.groupBox.setTitle(("Look Up Metadata"))
         self.filebrowse.setText(("..."))
+        self.skiprows_label.setText(("# of rows to skip"))
 
 
 if __name__ == "__main__":

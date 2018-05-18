@@ -190,6 +190,7 @@
     <property name="title">
      <string>Preprocessing</string>
     </property>
+    <addaction name="actionLook_Up_Metadata"/>
     <addaction name="actionRemove_Rows"/>
     <addaction name="actionCombine_Data_Sets"/>
     <addaction name="actionOutlier_Removal"/>
@@ -503,6 +504,11 @@
   <action name="actionCluster">
    <property name="text">
     <string>Clustering</string>
+   </property>
+  </action>
+  <action name="actionLook_Up_Metadata">
+   <property name="text">
+    <string>Look Up Metadata</string>
    </property>
   </action>
  </widget>

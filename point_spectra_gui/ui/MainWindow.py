@@ -182,6 +182,8 @@ class Ui_MainWindow(object):
         self.actionK_means.setObjectName("actionK_means")
         self.actionCluster = QtWidgets.QAction(MainWindow)
         self.actionCluster.setObjectName("actionCluster")
+        self.actionLook_Up_Metadata = QtWidgets.QAction(MainWindow)
+        self.actionLook_Up_Metadata.setObjectName("actionLook_Up_Metadata")
         self.menuFile.addAction(self.actionSet_Output_Path)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionLoad_Data)
@@ -195,6 +197,7 @@ class Ui_MainWindow(object):
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionCreate_New_Workflow)
         self.menuFile.addAction(self.actionExit)
+        self.menuPreprocessing.addAction(self.actionLook_Up_Metadata)
         self.menuPreprocessing.addAction(self.actionRemove_Rows)
         self.menuPreprocessing.addAction(self.actionCombine_Data_Sets)
         self.menuPreprocessing.addAction(self.actionOutlier_Removal)
@@ -317,6 +320,7 @@ class Ui_MainWindow(object):
         self.actionSupervised.setText(("Supervised"))
         self.actionK_means.setText(("K-means"))
         self.actionCluster.setText(("Clustering"))
+        self.actionLook_Up_Metadata.setText(("Look Up Metadata"))
 
 
 if __name__ == "__main__":
