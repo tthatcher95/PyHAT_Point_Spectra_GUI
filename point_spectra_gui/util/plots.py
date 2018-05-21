@@ -115,8 +115,20 @@ def pca_ica_plot(data, x_component, y_component, colorvar=None, cmap='viridis', 
         try:
             mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('comp', colorvar)], cmap=cmap, linewidth=0.2, edgecolor='Black')
         except:
-            mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('meta', colorvar)], cmap=cmap, linewidth=0.2, edgecolor='Black')
-            # TODO: handle any top-level label for colorval, not just comp or meta
+            try:
+                mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('meta', colorvar)], cmap=cmap, linewidth=0.2, edgecolor='Black')
+            except:
+                try:
+                    mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('K-Means', colorvar)], cmap=cmap,
+                                       linewidth=0.2, edgecolor='Black')
+                except:
+                    try:
+                        mappable = ax1.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('Spectral', colorvar)],
+                                               cmap=cmap,
+                                               linewidth=0.2, edgecolor='Black')
+                    except:
+                        pass
+            # TODO: handle any top-level label for colorval and clean up these nested try/excepts
         fig.colorbar(mappable, label=colorvar, ax=ax1)
     else:
         ax1.scatter(x, y, linewidth=0.2, edgecolor='Black')

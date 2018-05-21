@@ -34,8 +34,7 @@ class BaselineRemoval(Ui_Form, Modules):
                                     'Median',
                                     'Polyfit',
                                     'Rubberband',
-                                    'CCAM',
-                                    'Mario (Coming soon)',
+                                    'Stationary Wavelets'
                                     ]
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.chooseAlgorithmList)
@@ -71,8 +70,9 @@ class BaselineRemoval(Ui_Form, Modules):
         self.datakeys.append(datakey_new)
         self.datakeys.append(datakey_baseline)
         self.data[datakey_new] = self.data[datakey].df.copy(deep=True)
-        self.data[datakey_new] = remove_baseline(self.data[datakey_new],method, segment=True, params=methodParameters)
-        self.data[datakey_baseline] = spectral_data(self.data[datakey_new].df_baseline)
+        df, df_baseline = remove_baseline(self.data[datakey_new],method, segment=True, params=methodParameters)
+        self.data[datakey_new] = spectral_data(df)
+        self.data[datakey_baseline] = spectral_data(df_baseline)
 
     def hideAll(self):
         for a in self.alg:
@@ -92,7 +92,7 @@ class BaselineRemoval(Ui_Form, Modules):
             Median,
             Polyfit,
             Rubberband,
-            CCAM,
+            SWT,
             Mario,
         ]
         for items in list_forms:

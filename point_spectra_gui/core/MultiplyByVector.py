@@ -22,7 +22,7 @@ class MultiplyByVector(Ui_Form, Modules):
         vectorfile = self.vectorFileLineEdit.text()
 
         try:
-            self.data[datakey] = spectral_data(multiply_vector(self.data[datakey],vectorfile))
+            self.data[datakey].multiply_vector(vectorfile)
         except Exception as e:
             print(e)
 

@@ -20,7 +20,7 @@ class SpecDeriv(Ui_Form, Modules):
         datakey = self.chooseDataToDerivComboBox.currentText()
         new_datakey = datakey + ' - Derivative'
         self.datakeys.append(new_datakey)
-        self.data[new_datakey] = spectral_data(deriv(self.data[datakey].df))
+        self.data[new_datakey].deriv()
         print("Derivative Applied")
 
 

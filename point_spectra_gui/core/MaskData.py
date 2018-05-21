@@ -33,7 +33,7 @@ class MaskData(Ui_Form, Modules):
     def run(self):
         datakey = self.chooseDataComboBox.currentText()
         maskfile = self.maskFileLineEdit.text()
-        self.data[datakey] = spectral_data(mask(self.data[datakey].df, maskfile, maskvar='wvl'))
+        self.data[datakey].mask(maskfile, maskvar='wvl')
         print("Mask applied")
 
 

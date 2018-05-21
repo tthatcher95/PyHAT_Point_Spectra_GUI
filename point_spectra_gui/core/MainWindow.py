@@ -265,6 +265,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.Clustering.Clustering))
             self.actionInterpolate.triggered.connect(
                 lambda: self.addWidget(core.Interpolation.Interpolation))
+            self.actionLook_Up_Metadata.triggered.connect(
+                lambda: self.addWidget(core.Lookup.Lookup))
             self.actionLoad_Data.triggered.connect(
                 lambda: self.addWidget(core.LoadData.LoadData))
             self.actionSave_Current_Data.triggered.connect(
@@ -289,6 +291,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.PlotSpectra.PlotSpectra))
             self.actionTrain.triggered.connect(
                 lambda: self.addWidget(core.RegressionTrain.RegressionTrain))
+            self.actionLocal_Regression.triggered.connect(
+                lambda: self.addWidget(core.LocalRegression.LocalRegression))
             self.actionPredict.triggered.connect(
                 lambda: self.addWidget(core.RegressionPredict.RegressionPredict))
             self.actionRemove_Rows.triggered.connect(
@@ -412,18 +416,15 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
         :return:
         """
-        try:
-            self.restorefilename, _filter = QtWidgets.QFileDialog.getOpenFileName(None,
-                                                                                  "Open Workflow File",
-                                                                                  self.outpath,
-                                                                                  '(*.json)')
-            print(self.restorefilename)
-            with open(self.restorefilename, 'r') as fp:
-                self.setWidgetItems(json.load(fp))
-            self.title.setFileName(self.restorefilename.split('/')[-1])
-            self.MainWindow.setWindowTitle(self.title.display())
-        except Exception as e:
-            print("Restore file not loaded: {}".format(e))
+        self.restorefilename, _filter = QtWidgets.QFileDialog.getOpenFileName(None,
+                                                                              "Open Workflow File",
+                                                                              self.outpath,
+                                                                              '(*.json)')
+        print(self.restorefilename)
+        with open(self.restorefilename, 'r') as fp:
+            self.setWidgetItems(json.load(fp))
+        self.title.setFileName(self.restorefilename.split('/')[-1])
+        self.MainWindow.setWindowTitle(self.title.display())
 
     def delete_module(self, _idx=1):
         """

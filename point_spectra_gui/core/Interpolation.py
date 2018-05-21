@@ -2,8 +2,6 @@ from PyQt5 import QtWidgets
 
 from point_spectra_gui.ui.Interpolation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from libpysat.transform.interp import interp
-from point_spectra_gui.util.spectral_data import spectral_data
 
 class Interpolation(Ui_Form, Modules):
     """
@@ -25,11 +23,7 @@ class Interpolation(Ui_Form, Modules):
         datakey_to_interp = self.interpolateDataComboBox.currentText()
         datakey_ref = self.referenceDataComboBox.currentText()
         print(self.data[datakey_ref].df.columns.levels[0])
-        try:
-            self.data[datakey_to_interp] = spectral_data(interp(self.data[datakey_to_interp], self.data[datakey_ref].df['wvl'].columns))
-        except Exception as e:
-            print(e)
-
+        self.data[datakey_to_interp].interp(self.data[datakey_ref].df['wvl'].columns)
 
 if __name__ == "__main__":
     import sys
