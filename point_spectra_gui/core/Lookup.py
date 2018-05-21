@@ -4,6 +4,8 @@ from point_spectra_gui.ui.Lookup import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.io import lookup
 from point_spectra_gui.util.spectral_data import spectral_data
+import PyQt5.QtCore as QtCore
+import numpy as np
 
 class Lookup(Ui_Form, Modules):
     def setupUi(self, Form):
@@ -35,8 +37,14 @@ class Lookup(Ui_Form, Modules):
 
     def read_lookupdata(self):
         try:
-            self.lookupdata = pd.read_csv(self.lookupfilename[0],skiprows=self.skiprows_spin.value())
-            self.setComboBox(self.right_on, self.lookupdata.columns.values)
+            self.lookupdata = pd.read_csv(self.lookupfilename,skiprows=self.skiprows_spin.value())
+            right_on_options = [self.right_on.itemText(i) for i in range(self.right_on.count())]
+            new_options = self.lookupdata.columns.values
+            #only reset the combobox if the choices are different
+            if np.array_equal(right_on_options,new_options):
+                pass #if they're the same (e.g. during restore) do nothing. This way we don't lose the selection
+            else:
+                self.setComboBox(self.right_on, new_options)
         except:
             pass
 
@@ -45,7 +53,8 @@ class Lookup(Ui_Form, Modules):
         self.lookupfilename, null = QtWidgets.QFileDialog.getOpenFileNames(parent=None,
                                                                           caption="Select metadata file",
                                                                           directory='.')
-        self.lookupfile.setText(str(self.lookupfilename[0]))
+        self.lookupfilename = self.lookupfilename[0]
+        self.lookupfile.setText(str(self.lookupfilename))
 
 
     def setup(self):
@@ -55,9 +64,11 @@ class Lookup(Ui_Form, Modules):
     def run(self):
         self.lookupfilename = self.lookupfile.text()
         self.read_lookupdata()
+        left_on = self.left_on.currentText()
+        right_on = self.right_on.currentText()
         data =self.data[self.choosedata.currentText()]
         data = spectral_data(
-            lookup.lookup(data.df, lookupdf=self.lookupdata, left_on=self.left_on.currentText(), right_on=self.right_on.currentText()))
+            lookup.lookup(data.df, lookupdf=self.lookupdata, left_on=left_on, right_on=right_on))
         self.data[self.choosedata.currentText()] = data
 
 
