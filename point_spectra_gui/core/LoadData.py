@@ -57,9 +57,11 @@ class LoadData(Ui_loadData, Modules):
         except:
             pass
 
-    def run(self):
-        filename = self.fileNameLineEdit.text()
-        keyname = self.dataSetNameLineEdit.text()
+    def run(self, filename = None, keyname = None):
+        if filename == None:
+            filename = self.fileNameLineEdit.text()
+        if keyname == None:
+            keyname = self.dataSetNameLineEdit.text()
         print('Loading data file: ' + str(filename))
         self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=False))
         self.list_amend(self.datakeys, self.curr_count, keyname)
