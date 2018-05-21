@@ -10,6 +10,7 @@ from point_spectra_gui.util.Modules import Modules
 from sklearn.neighbors import NearestNeighbors
 from sklearn.linear_model import LassoCV
 from sklearn.model_selection import GroupKFold
+from libpysat.regression import local_regression
 
 class LocalRegression(Ui_Form, Modules):
     count = -1
@@ -60,54 +61,33 @@ class LocalRegression(Ui_Form, Modules):
         pass
 
     def run(self):
-        method = 'Local '+self.chooseAlgorithmComboBox.currentText()
+        method = self.chooseAlgorithmComboBox.currentText()
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
         yvars = [('comp', str(y.text())) for y in self.yVariableList.selectedItems()]
         fit_intercept = self.fit_intercept.isChecked()
         force_positive = self.forcepositive.isChecked()
-
+        params = {'fit_intercept': self.fit_intercept.isChecked(),
+                  'max_iter': 10000,
+                  'positive': self.forcepositive.isChecked(),
+                  'selection': 'random'}
+        localmodel = local_regression.local_regression([method], [params], n_neighbors = self.n_neighbors_spin.value())
         traindata = self.data[self.choosedata_train.currentText()]
         predictdata = self.data[self.choosedata_predict.currentText()]
-
-        x_predict = predictdata.df[xvars]
-        neighbors = NearestNeighbors(n_neighbors=self.n_neighbors_spin.value())
-        neighbors.fit(traindata.df[xvars])
-        predictions = []
-        coeffs = []
-        for i in range(x_predict.shape[0]):
-            print('Predicting spectrum ' + str(i+1))
-            x_temp = np.array(x_predict.iloc[i])
-            foo, ind = neighbors.kneighbors([x_temp])
-            local_training_data = traindata.df.iloc[np.squeeze(ind)]
-            cv = GroupKFold(n_splits=3)
-            cv = cv.split(local_training_data[xvars], local_training_data[yvars],
-                          groups=local_training_data[yvars])
-            local_lasso = LassoCV(fit_intercept=fit_intercept, n_jobs=-1, max_iter=10000, cv=cv, positive=force_positive)
-            local_lasso.fit(local_training_data[xvars], local_training_data[yvars])
-            predictions.append(local_lasso.predict([x_temp])[0])
-            coeffs.append(local_lasso.coef_)
-
-            try:
-                coef = np.squeeze(local_lasso.coef_)
-                coef = pd.DataFrame(coef)
-                coef.index = pd.MultiIndex.from_tuples(self.data[self.choosedata_predict.currentText()].df[xvars].columns.values)
-                coef = coef.T
-                coef[('meta', 'Local LASSO')] = str(i+1)
-                try:
-                    coef[('meta', 'Intercept')] = local_lasso.intercept_
-                except:
-                    pass
-                try:
-                    self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coef]))
-                except:
-                    self.data['Model Coefficients'] = spectral_data(coef)
-                    self.datakeys.append('Model Coefficients')
-            except:
-                pass
-
-
+        x_train = np.array(traindata.df[xvars])
+        y_train = np.array(traindata.df[yvars])
+        x_predict = np.array(predictdata.df[xvars])
+        predictions, coefs, intercepts = localmodel.fit_predict(x_train, y_train, x_predict)
         predictname = ('predict', 'Local LASSO - ' + self.choosedata_predict.currentText() + ' - Predict')
         self.data[self.choosedata_predict.currentText()].df[predictname] = predictions
+
+
+        coefs = pd.DataFrame(coefs, columns = pd.MultiIndex.from_tuples(self.data[self.choosedata_predict.currentText()].df[xvars].columns.values))
+        coefs[('meta', 'Intercept')] = intercepts
+        try:
+            self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coefs]))
+        except:
+            self.data['Model Coefficients'] = spectral_data(coefs)
+            self.datakeys.append('Model Coefficients')
 
     def yvar_choices(self):
         try:
