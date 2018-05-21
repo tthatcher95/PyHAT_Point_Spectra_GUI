@@ -184,6 +184,8 @@ class Ui_MainWindow(object):
         self.actionCluster.setObjectName("actionCluster")
         self.actionLook_Up_Metadata = QtWidgets.QAction(MainWindow)
         self.actionLook_Up_Metadata.setObjectName("actionLook_Up_Metadata")
+        self.actionLocal_Regression = QtWidgets.QAction(MainWindow)
+        self.actionLocal_Regression.setObjectName("actionLocal_Regression")
         self.menuFile.addAction(self.actionSet_Output_Path)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionLoad_Data)
@@ -214,6 +216,7 @@ class Ui_MainWindow(object):
         self.menuRegression.addAction(self.actionCross_Validation)
         self.menuRegression.addAction(self.actionTrain)
         self.menuRegression.addAction(self.actionPredict)
+        self.menuRegression.addAction(self.actionLocal_Regression)
         self.menuRegression.addAction(self.actionSubmodel_Blend)
         self.menuRegression.addAction(self.actionSave_Trained_Model)
         self.menuRegression.addAction(self.actionRestore_Trained_Model)
@@ -321,6 +324,7 @@ class Ui_MainWindow(object):
         self.actionK_means.setText(("K-means"))
         self.actionCluster.setText(("Clustering"))
         self.actionLook_Up_Metadata.setText(("Look Up Metadata"))
+        self.actionLocal_Regression.setText(("Local Regression"))
 
 
 if __name__ == "__main__":

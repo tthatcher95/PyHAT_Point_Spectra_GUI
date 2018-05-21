@@ -291,6 +291,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.PlotSpectra.PlotSpectra))
             self.actionTrain.triggered.connect(
                 lambda: self.addWidget(core.RegressionTrain.RegressionTrain))
+            self.actionLocal_Regression.triggered.connect(
+                lambda: self.addWidget(core.LocalRegression.LocalRegression))
             self.actionPredict.triggered.connect(
                 lambda: self.addWidget(core.RegressionPredict.RegressionPredict))
             self.actionRemove_Rows.triggered.connect(

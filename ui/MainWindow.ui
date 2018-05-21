@@ -212,6 +212,7 @@
     <addaction name="actionCross_Validation"/>
     <addaction name="actionTrain"/>
     <addaction name="actionPredict"/>
+    <addaction name="actionLocal_Regression"/>
     <addaction name="actionSubmodel_Blend"/>
     <addaction name="actionSave_Trained_Model"/>
     <addaction name="actionRestore_Trained_Model"/>
@@ -509,6 +510,11 @@
   <action name="actionLook_Up_Metadata">
    <property name="text">
     <string>Look Up Metadata</string>
+   </property>
+  </action>
+  <action name="actionLocal_Regression">
+   <property name="text">
+    <string>Local Regression</string>
    </property>
   </action>
  </widget>
