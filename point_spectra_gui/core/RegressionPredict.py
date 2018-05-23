@@ -34,7 +34,7 @@ class RegressionPredict(Ui_Form, Modules):
         try:
             for datakey in datakeys:
                 self.list_amend(self.predictkeys, self.curr_count, modelkey + ' - ' + datakey + ' - Predict')
-                self.data[datakey].df[modelkey + ' - ' + datakey + ' - Predict'] = 99999
+                self.data[datakey].df['predict',modelkey + ' - ' + datakey + ' - Predict'] = 99999
         except Exception as e:
             print(e)
 
