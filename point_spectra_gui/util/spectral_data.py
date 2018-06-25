@@ -10,6 +10,7 @@ import libpysat.transform.interp as interp
 import libpysat.transform.mask as mask
 import libpysat.transform.multiply_vector as multiply_vector
 import libpysat.transform.peak_area as peak_area
+import libpysat.transform.shift_spect as shift_spect
 import libpysat.utils.folds as folds
 import libpysat.transform.norm as norm
 import libpysat.transform.deriv as deriv
@@ -53,6 +54,9 @@ class spectral_data(object):
 
     def interp(self, xnew):
         self.df = interp.interp(self.df, xnew)
+
+    def shift(self, shift):
+        self.df = shift_spect.shift_spect(self.df, shift)
 
     def mask(self, maskfile, maskvar):
         self.df = mask.mask(self.df,maskfile,maskvar=maskvar)

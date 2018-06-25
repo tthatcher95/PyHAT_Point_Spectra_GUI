@@ -204,6 +204,7 @@
     <addaction name="actionDimensionality_Reduction"/>
     <addaction name="actionStratified_Folds"/>
     <addaction name="actionSpectral_Derivative"/>
+    <addaction name="actionWavelength_Shift"/>
    </widget>
    <widget class="QMenu" name="menuRegression">
     <property name="title">
@@ -515,6 +516,11 @@
   <action name="actionLocal_Regression">
    <property name="text">
     <string>Local Regression</string>
+   </property>
+  </action>
+  <action name="actionWavelength_Shift">
+   <property name="text">
+    <string>Wavelength Shift</string>
    </property>
   </action>
  </widget>

@@ -186,6 +186,8 @@ class Ui_MainWindow(object):
         self.actionLook_Up_Metadata.setObjectName("actionLook_Up_Metadata")
         self.actionLocal_Regression = QtWidgets.QAction(MainWindow)
         self.actionLocal_Regression.setObjectName("actionLocal_Regression")
+        self.actionWavelength_Shift = QtWidgets.QAction(MainWindow)
+        self.actionWavelength_Shift.setObjectName("actionWavelength_Shift")
         self.menuFile.addAction(self.actionSet_Output_Path)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.actionLoad_Data)
@@ -213,6 +215,7 @@ class Ui_MainWindow(object):
         self.menuPreprocessing.addAction(self.actionDimensionality_Reduction)
         self.menuPreprocessing.addAction(self.actionStratified_Folds)
         self.menuPreprocessing.addAction(self.actionSpectral_Derivative)
+        self.menuPreprocessing.addAction(self.actionWavelength_Shift)
         self.menuRegression.addAction(self.actionCross_Validation)
         self.menuRegression.addAction(self.actionTrain)
         self.menuRegression.addAction(self.actionPredict)
@@ -325,6 +328,7 @@ class Ui_MainWindow(object):
         self.actionCluster.setText(("Clustering"))
         self.actionLook_Up_Metadata.setText(("Look Up Metadata"))
         self.actionLocal_Regression.setText(("Local Regression"))
+        self.actionWavelength_Shift.setText(("Wavelength Shift"))
 
 
 if __name__ == "__main__":
