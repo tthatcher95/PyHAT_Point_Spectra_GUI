@@ -13,15 +13,6 @@ class subWidgets:
         self.maxLabel = maxLabel
         self.maxSpinBox = maxSpinBox
 
-    def get_predictionComboBox(self):
-        return self.predictionComboBox
-
-    def get_minSpinBox(self):
-        return self.minSpinBox
-
-    def get_maxSpinBox(self):
-        return self.maxSpinBox
-
     def setHidden(self, bool):
         self.predictionComboBox.setHidden(bool)
         self.minLabel.setHidden(bool)
@@ -49,7 +40,7 @@ class SubmodelBlend(Ui_Form, Modules):
     def __init__(self):
         super().__init__()
         self.subwidgets = []
-
+        self.predictnames = ['']
 
     def setupUi(self, Form):
         super().setupUi(Form)
@@ -61,26 +52,51 @@ class SubmodelBlend(Ui_Form, Modules):
 
 
     def connectWidgets(self):
-        self.index_spin.setHidden(True)
-        self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.getPredictions()
-        self.chooseDataComboBox.currentIndexChanged.connect(self.getPredictions)
-        self.setupWidgets()
-        self.setHidden(self.subwidgets)
-
-
-        try:
-            self.setComboBox(self.referencePredictionComboBox, self.predictnames)
-            self.setComboBox(self.lowPredictionComboBox, self.predictnames)
-            self.setComboBox(self.highPredictionComboBox, self.predictnames)
+        self.index_spin.setHidden(True)  #hide the spinbox counting the number of visible submodels
+        self.setComboBox(self.chooseDataComboBox, self.datakeys)  #populate the combobox with teh availalbe datasets to choose from
+        self.setupWidgets()  #create the widgets to hold the various submodels
+        try:  #if optimize is checked, populate the combobox with composition column labels
             self.setComboBox(self.optimizeSubRangesComboBox,
                              self.data[self.chooseDataComboBox.currentText()].df['comp'].columns.values)
         except:
             pass
+        #connect the add and delete submodel buttons
         self.addSubPushButton.clicked.connect(self.addSubmodel_pushed)
         self.deleteSubPushButton.clicked.connect(self.deleteSubmodel_pushed)
+
+        #start off with optimize combobox hidden
         self.optimizeSubRangesLabel.setHidden(True)
         self.optimizeSubRangesComboBox.setHidden(True)
+
+        self.chooseDataComboBox.currentIndexChanged.connect(self.data_changed)  #connect the data combobox to data_changed
+                                                                                #to fill in the submodel boxes with predictions
+
+        self.chooseDataComboBox.currentIndexChanged.connect(self.getPredictions)
+        self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.setComboBox(self.lowPredictionComboBox, self.predictnames))
+        self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.setComboBox(self.highPredictionComboBox, self.predictnames))
+        self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.setComboBox(self.referencePredictionComboBox, self.predictnames))
+        self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.setHidden(self.subwidgets))
+        for i in self.subwidgets:
+            self.chooseDataComboBox.currentIndexChanged.connect(lambda: self.setComboBox(i.predictionComboBox, self.predictnames))
+            i.setHidden(False)
+        self.setHidden(self.subwidgets)
+        self.index_spin.valueChanged.connect(lambda: self.setHidden(self.subwidgets))
+
+    def data_changed(self):
+        if len(self.datakeys)>0:  #if there is data available
+            self.getPredictions()  #get the prediction column names from the currently selected dataset
+            #populate the permanent comboboxes with the availalbe predictions
+            self.setComboBox(self.lowPredictionComboBox, self.predictnames)
+            self.setComboBox(self.highPredictionComboBox, self.predictnames)
+            self.setComboBox(self.referencePredictionComboBox, self.predictnames)
+
+            #populate all of the intermediate submodel comboboxes with the predictions
+            for i in self.subwidgets:
+                self.setComboBox(i.predictionComboBox, self.predictnames)
+
+    def subwidgets_refresh(self):
+        for i in self.subwidgets:
+            self.setComboBox(i.predictionComboBox, self.predictnames)
 
     def setHidden(self, list):
         for i in range(0, len(list)):
@@ -89,26 +105,11 @@ class SubmodelBlend(Ui_Form, Modules):
             else:
                 list[i].setHidden(True)
 
-    def clearPredictions(self):
-        self.setComboBox(self.referencePredictionComboBox, [''])
-        self.setComboBox(self.lowPredictionComboBox, [''])
-        self.setComboBox(self.highPredictionComboBox, [''])
-        for i in self.subwidgets:
-            self.setComboBox(i.get_predictionComboBox(), [''])
-
     def getPredictions(self):
-        #self.clearPredictions()
         try:
             self.predictnames = self.data[self.chooseDataComboBox.currentText()].df['predict'].columns.values
         except:
-            self.predictnames = ['']
-        self.setComboBox(self.referencePredictionComboBox, self.predictnames)
-        self.setComboBox(self.lowPredictionComboBox, self.predictnames)
-        self.setComboBox(self.highPredictionComboBox, self.predictnames)
-        for i in self.subwidgets:
-            self.setComboBox(i.get_predictionComboBox(), self.predictnames)
-
-
+            self.predictnames = ['No Predictions']
 
         if self.optimizeSubRangesCheckBox.isChecked():
             try:
@@ -119,10 +120,7 @@ class SubmodelBlend(Ui_Form, Modules):
 
     def setup(self):
         blendranges = []
-        submodel_blend_names = []
-        submodel_predictions = []
         datakey = self.chooseDataComboBox.currentText()
-        refcol = ('comp', self.optimizeSubRangesComboBox.currentText())
 
         # start with the low model
         blendranges.append([-9999, float(self.lowPredictionMaxSpinBox.value())])
@@ -135,9 +133,7 @@ class SubmodelBlend(Ui_Form, Modules):
         # append the high model
         blendranges.append([float(self.highPredictionMinSpinBox.value()), 9999])
 
-
         sm_obj = sm.sm(blendranges)
-
         # save the blended predictions
         try:
             self.data[datakey].df[('predict', 'Blended-Predict ' + str(sm_obj.blendranges))] = 99999
@@ -191,8 +187,6 @@ class SubmodelBlend(Ui_Form, Modules):
 
     def addSubmodel_pushed(self):
         if self.index_spin.value() < len(self.subwidgets):
-            self.subwidgets[self.index_spin.value()].setHidden(False)
-            self.setComboBox(self.subwidgets[self.index_spin.value()].get_predictionComboBox(), self.predictnames)
             self.index_spin.setValue(self.index_spin.value()+1)
         else:
             print("Cannot add more submodels")
@@ -200,9 +194,7 @@ class SubmodelBlend(Ui_Form, Modules):
     def deleteSubmodel_pushed(self):
         if self.index_spin.value() > 0:
             self.index_spin.setValue(self.index_spin.value() - 1)
-            self.subwidgets[self.index_spin.value()].setHidden(True)
             self.subwidgets[self.index_spin.value()].setValue(0)
-
         else:
             print("Cannot delete any more submodels")
 
@@ -251,7 +243,6 @@ class SubmodelBlend(Ui_Form, Modules):
         self.subwidgets.append(
             subWidgets(self.PredictionComboBox_15, self.minLabel_15, self.minSpinBox_15, self.maxLabel_15,
                        self.maxSpinBox_15))
-
 
 if __name__ == "__main__":
     import sys

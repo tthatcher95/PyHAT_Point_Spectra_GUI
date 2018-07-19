@@ -38,7 +38,7 @@ class RegressionTrain(Ui_Form, Modules):
 
     def make_regression_widget(self, alg, params=None):
         self.hideAll()
-        print(alg)
+        #print(alg)
         try:
             self.alg[alg].setHidden(False)
         except:
@@ -126,10 +126,17 @@ class RegressionTrain(Ui_Form, Modules):
             params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
             modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
             self.list_amend(self.modelkeys, self.curr_count, modelkey)
-            print(params, modelkey)
+            #print(params, modelkey)
             self.models[modelkey] = regression.regression([method], [yrange], [params])
             self.model_xvars[modelkey] = xvars
             self.model_yvars[modelkey] = yvars
+
+            if 'Model Coefficients' not in self.datakeys:
+                self.datakeys.append('Model Coefficients')
+
+            else:
+                pass
+
         except:
             pass
 
@@ -143,7 +150,7 @@ class RegressionTrain(Ui_Form, Modules):
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
         self.list_amend(self.modelkeys, self.curr_count, modelkey)
-        print(params, modelkey)
+        #print(params, modelkey)
         self.models[modelkey] = regression.regression([method], [yrange], [params])
         x = self.data[datakey].df[xvars]
         y = self.data[datakey].df[yvars]

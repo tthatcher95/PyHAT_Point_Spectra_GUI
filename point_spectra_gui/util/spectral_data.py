@@ -10,20 +10,33 @@ import libpysat.transform.interp as interp
 import libpysat.transform.mask as mask
 import libpysat.transform.multiply_vector as multiply_vector
 import libpysat.transform.peak_area as peak_area
+import libpysat.transform.shift_spect as shift_spect
 import libpysat.utils.folds as folds
 import libpysat.transform.norm as norm
 import libpysat.transform.deriv as deriv
 import libpysat.transform.dim_red as dim_red
 import libpysat.clustering.cluster as cluster
 import libpysat.utils.outlier_removal as outlier_removal
+from libpysat.utils.utils import enumerate_duplicates
 
 class spectral_data(object):
     def __init__(self, df):
 
+        #get the two levels of column names
         try:
             uppercols = df.columns.levels[0]
             lowercols = list(df.columns.levels[1].values)
+        #if the columns are not multiindexes, then they should be tuples, so convert them
         except:
+            # check for columns that are not tuples and remove them.
+            # This can happen if two columns have identical labels on both levels:
+            # the second one will be recorded as a string
+            to_drop = []
+            for i in range(len(df.columns)):
+                if not isinstance(df.columns[i],tuple):
+                    print('WARNING: '+str(df.columns[i])+' is not a tuple (this can be caused by duplicate column names). Removing this column.')
+                    to_drop.append(df.columns[i])
+            df.drop(columns=to_drop,inplace=True)
             df.columns = pd.MultiIndex.from_tuples(list(df.columns))
             uppercols = df.columns.levels[0]
             lowercols = list(df.columns.levels[1].values)
@@ -37,9 +50,6 @@ class spectral_data(object):
         levels = [uppercols, lowercols]
         df.columns.set_levels(levels, inplace=True)
         self.df = df
-        #this is a temporary fix to keep track of dimensionality reduction loadings for plotting purposes.
-                                    #TODO: Make this robust to other transforms being applied to the data. Currently, many transforms will strip this off when they re-define the spectral data object
-
 
     def cal_tran(self):
         pass #Not yet implemented
@@ -55,6 +65,9 @@ class spectral_data(object):
 
     def interp(self, xnew):
         self.df = interp.interp(self.df, xnew)
+
+    def shift(self, shift):
+        self.df = shift_spect.shift_spect(self.df, shift)
 
     def mask(self, maskfile, maskvar):
         self.df = mask.mask(self.df,maskfile,maskvar=maskvar)
@@ -80,7 +93,8 @@ class spectral_data(object):
     def stratified_folds(self):
         self.df, self.df_baseline = folds.stratified_folds(self.df, nfolds = 5, sortby = None)
 
-
+    def enumerate_duplicates(self, col):
+        self.df = enumerate_duplicates(self.df, col=col)
 
 
 

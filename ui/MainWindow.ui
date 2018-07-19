@@ -190,6 +190,7 @@
     <property name="title">
      <string>Preprocessing</string>
     </property>
+    <addaction name="actionLook_Up_Metadata"/>
     <addaction name="actionRemove_Rows"/>
     <addaction name="actionCombine_Data_Sets"/>
     <addaction name="actionOutlier_Removal"/>
@@ -203,6 +204,7 @@
     <addaction name="actionDimensionality_Reduction"/>
     <addaction name="actionStratified_Folds"/>
     <addaction name="actionSpectral_Derivative"/>
+    <addaction name="actionWavelength_Shift"/>
    </widget>
    <widget class="QMenu" name="menuRegression">
     <property name="title">
@@ -211,6 +213,7 @@
     <addaction name="actionCross_Validation"/>
     <addaction name="actionTrain"/>
     <addaction name="actionPredict"/>
+    <addaction name="actionLocal_Regression"/>
     <addaction name="actionSubmodel_Blend"/>
     <addaction name="actionSave_Trained_Model"/>
     <addaction name="actionRestore_Trained_Model"/>
@@ -503,6 +506,21 @@
   <action name="actionCluster">
    <property name="text">
     <string>Clustering</string>
+   </property>
+  </action>
+  <action name="actionLook_Up_Metadata">
+   <property name="text">
+    <string>Look Up Metadata</string>
+   </property>
+  </action>
+  <action name="actionLocal_Regression">
+   <property name="text">
+    <string>Local Regression</string>
+   </property>
+  </action>
+  <action name="actionWavelength_Shift">
+   <property name="text">
+    <string>Wavelength Shift</string>
    </property>
   </action>
  </widget>

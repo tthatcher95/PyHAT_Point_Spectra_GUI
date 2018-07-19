@@ -3,9 +3,16 @@ from PyQt5 import QtWidgets
 from point_spectra_gui.ui.ReadChemCamData import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.spectral_data import spectral_data
-
+from point_spectra_gui.util.io import io_ccam_pds
+from point_spectra_gui.core.LoadData import LoadData
 
 class ReadChemCamData(Ui_Form, Modules):
+    def __init__(self):
+        self.Loader = LoadData()
+
+    def delete(self):
+        self.Loader.delete()
+
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -78,15 +85,7 @@ class ReadChemCamData(Ui_Form, Modules):
         io_ccam_pds.ccam_batch(searchdir, searchstring=searchstring, to_csv=Modules.outpath + '/' + to_csv,
                                lookupfile=lookupfile, ave=ave, progressbar=progressbar, left_on=left_on,
                                right_on=right_on)
-        self.do_get_data(Modules.outpath + '/' + to_csv, 'ChemCam')
-
-    def do_get_data(self, filename, keyname):
-        try:
-            print('Loading data file: ' + str(filename))
-            self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1]))
-            self.datakeys.append(keyname)
-        except Exception as e:
-            print('Problem reading data: {}'.format(e))
+        self.Loader.run(filename=Modules.outpath + '/' + to_csv, keyname='ChemCam')
 
 
 if __name__ == "__main__":

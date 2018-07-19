@@ -94,7 +94,7 @@ def CCAM_SAV(input_data, ave=True):
     df.index = [['wvl'] * len(df.index), df.index.values.round(4)]
     # transpose so that spectra are rows rather than columns
     df = df.T
-
+    df[('meta','Shot Number')] = df.index
     # extract metadata from the file name and add it to the data frame
     # use the multiindex label "meta" for all metadata
 

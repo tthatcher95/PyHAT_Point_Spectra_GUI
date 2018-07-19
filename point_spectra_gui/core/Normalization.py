@@ -112,7 +112,7 @@ class Normalization(Ui_Form, Modules):
             self.ranges[i].setLimits(datamin, datamax)
         try:
             if type(tempmin) is not str:
-                self.setDataRanges()
+                pass #self.setDataRanges()   #this was buggy, removing for now
         except:
             pass
 

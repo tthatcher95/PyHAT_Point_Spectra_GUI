@@ -34,12 +34,15 @@ class PeakAreas(Ui_Form, Modules):
             print("Peak Areas Calculated")
             output = pd.DataFrame(columns = ['peaks','mins'])
             output['peaks'] = self.data[datakey].peaks
-            output['mins'] = np.append(self.data[datakey].mins,np.nan)
+            try:
+                output['mins'] = np.append(self.data[datakey].mins,np.nan)
+            except:
+                output['mins'] = self.data[datakey].mins
             output.to_csv(self.outpath+'/peaks_mins.csv')
             print('Peaks and mins saved to '+self.outpath+'/peaks_mins.csv')
 
         except Exception as e:
-            print(e)
+             print(e)
 
     def on_getDataButton_clicked(self, lineEdit):
         filename, _filter = QtWidgets.QFileDialog.getOpenFileName(None, "Open peaks and minima File", '.', "(*.csv)")
