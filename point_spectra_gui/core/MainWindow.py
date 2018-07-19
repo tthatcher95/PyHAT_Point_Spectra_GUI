@@ -313,6 +313,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.RestoreTrainedModel.RestoreTrainedModel))
             self.actionSave_Trained_Model.triggered.connect(
                 lambda: self.addWidget(core.SaveTrainedModel.SaveTrainedModel))
+            self.actionWavelength_Shift.triggered.connect(
+                lambda: self.addWidget(core.ShiftWvl.ShiftWvl))
             self.actionData_Box.triggered.connect(self.on_DataTable_clicked)
             self.actionAbout.triggered.connect(self.on_About_clicked)
             self.actionAbout_Qt.triggered.connect(self.on_AboutQt_clicked)
@@ -420,11 +422,14 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                                                                               "Open Workflow File",
                                                                               self.outpath,
                                                                               '(*.json)')
-        print(self.restorefilename)
-        with open(self.restorefilename, 'r') as fp:
-            self.setWidgetItems(json.load(fp))
-        self.title.setFileName(self.restorefilename.split('/')[-1])
-        self.MainWindow.setWindowTitle(self.title.display())
+        try:
+            print(self.restorefilename)
+            with open(self.restorefilename, 'r') as fp:
+                self.setWidgetItems(json.load(fp))
+            self.title.setFileName(self.restorefilename.split('/')[-1])
+            self.MainWindow.setWindowTitle(self.title.display())
+        except:
+            pass
 
     def delete_module(self, _idx=1):
         """
@@ -633,8 +638,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 self.widgetList[modules].setup()
             else:
                 self._logger(self.widgetList[modules].setup)
-            self.widgetList[modules].disconnectWidgets()
-            self.widgetList[modules].connectWidgets()
+            #self.widgetList[modules].disconnectWidgets()
+            #self.widgetList[modules].connectWidgets()
             self.widgetList[modules].selectiveSetGuiParams(dic[modules + 1])
 
     def runModules(self):

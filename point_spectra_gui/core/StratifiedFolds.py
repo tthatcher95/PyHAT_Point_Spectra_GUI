@@ -31,8 +31,8 @@ class StratifiedFolds(Ui_Form, Modules):
         return self.formGroupBox
 
     def connectWidgets(self):
-        self.nFoldsSpinBox.setValue(2)
-        self.testFoldsSpinBox.setValue(2)
+        self.nFoldsSpinBox.setValue(5)
+        self.testFoldsSpinBox.setValue(3)
         self.setComboBox(self.chooseDataToStratifyComboBox, self.datakeys)
         try:  # Some instances where perhaps there is no data to load
             data = self.data[self.chooseDataToStratifyComboBox.currentText()].df['comp'].columns.values
