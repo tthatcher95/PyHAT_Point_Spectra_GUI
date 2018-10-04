@@ -224,6 +224,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.verticalLayout_2.insertLayout(idx, self.widgetLayout)
         self.widgetLayout.addWidget(self.widgetList[idx].get_widget())
         scrollbar = self.scrollArea.verticalScrollBar()
+        scrollbar.setMaximum(500000) #by default, maximum is set to 99, which doesn't seem to be enough to keep scrolling down
         scrollbar.setValue(scrollbar.maximum())
         # place items inside the deleteModuleCombox
         # This populates the comboBox
