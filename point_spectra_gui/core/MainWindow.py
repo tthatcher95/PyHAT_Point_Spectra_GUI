@@ -224,6 +224,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.verticalLayout_2.insertLayout(idx, self.widgetLayout)
         self.widgetLayout.addWidget(self.widgetList[idx].get_widget())
         scrollbar = self.scrollArea.verticalScrollBar()
+        scrollbar.setMaximum(500000)
         scrollbar.setValue(scrollbar.maximum())
         # place items inside the deleteModuleCombox
         # This populates the comboBox
@@ -428,6 +429,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 self.setWidgetItems(json.load(fp))
             self.title.setFileName(self.restorefilename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
+            self.actionRestore_Workflow.setDisabled(True)
         except:
             pass
 
