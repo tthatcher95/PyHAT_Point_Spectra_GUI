@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets
 from point_spectra_gui.ui.Normalization import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.spectral_data import spectral_data
-from libpysat.transform.norm import norm
+from libpyhat.transform.norm import norm
 
 class norm_range:
     def __init__(self, minLabel, minSpin, maxLabel, maxSpin, hidden):

@@ -4,7 +4,7 @@ from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.outlierRemovalMethods import *
 from point_spectra_gui.ui.OutlierRemoval import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from libpysat.utils.outlier_removal import outlier_removal
+from libpyhat.utils.outlier_removal import outlier_removal
 from point_spectra_gui.util.spectral_data import spectral_data
 
 class OutlierRemoval(Ui_Form, Modules):

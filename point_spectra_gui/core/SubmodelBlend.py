@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore
-from libpysat.regression import sm
+from libpyhat.regression import sm
 
 from point_spectra_gui.ui.SubmodelBlend import Ui_Form
 from point_spectra_gui.util.Modules import Modules
@@ -53,7 +53,7 @@ class SubmodelBlend(Ui_Form, Modules):
 
     def connectWidgets(self):
         self.index_spin.setHidden(True)  #hide the spinbox counting the number of visible submodels
-        self.setComboBox(self.chooseDataComboBox, self.datakeys)  #populate the combobox with teh availalbe datasets to choose from
+        self.setComboBox(self.chooseDataComboBox, ['Choose a data set']+self.datakeys)  #populate the combobox with teh availalbe datasets to choose from
         self.setupWidgets()  #create the widgets to hold the various submodels
         try:  #if optimize is checked, populate the combobox with composition column labels
             self.setComboBox(self.optimizeSubRangesComboBox,

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
 from point_spectra_gui.util import Qtickle
-from libpysat.regression import regression
+from libpyhat.regression import regression
 from point_spectra_gui.util.spectral_data import spectral_data
 from point_spectra_gui.core.regressionMethods import *
 from point_spectra_gui.ui.RegressionTrain import Ui_Form
@@ -56,7 +56,8 @@ class RegressionTrain(Ui_Form, Modules):
                                'ARD',
                                'LARS',
                                # 'LASSO LARS', - This is having issues. Hide until we can debug
-                               'SVR']
+                               'SVR',
+                               'GBR']
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.yMaxDoubleSpinBox.setMaximum(999999)
@@ -213,7 +214,8 @@ class RegressionTrain(Ui_Form, Modules):
                     'OMP': OMP.Ui_Form(),
                     'PLS': PLS.Ui_Form(),
                     'Ridge': Ridge.Ui_Form(),
-                    'SVR': SVR.Ui_Form()
+                    'SVR': SVR.Ui_Form(),
+                    'GBR': GBR.Ui_Form()
                     }
 
         for item in self.alg:

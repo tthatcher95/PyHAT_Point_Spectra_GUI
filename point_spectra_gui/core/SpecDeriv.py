@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 from point_spectra_gui.ui.SpecDeriv import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.spectral_data import spectral_data
-from libpysat.transform.deriv import deriv
+from libpyhat.transform.deriv import deriv
 
 class SpecDeriv(Ui_Form, Modules):
     def setupUi(self, Form):

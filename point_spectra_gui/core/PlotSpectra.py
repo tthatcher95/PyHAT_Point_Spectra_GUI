@@ -4,7 +4,7 @@ from PyQt5 import QtWidgets
 from point_spectra_gui.ui.PlotSpectra import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.plots import make_plot
-from libpysat.utils.utils import enumerate_duplicates
+from libpyhat.utils.utils import enumerate_duplicates
 from point_spectra_gui.util.spectral_data import spectral_data
 
 class PlotSpectra(Ui_Form, Modules):

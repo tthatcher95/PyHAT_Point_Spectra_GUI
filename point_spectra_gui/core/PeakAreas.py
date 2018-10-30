@@ -4,7 +4,7 @@ import pandas as pd
 from point_spectra_gui.ui.PeakAreas import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.spectral_data import spectral_data
-from libpysat.transform.peak_area import peak_area
+from libpyhat.transform.peak_area import peak_area
 
 class PeakAreas(Ui_Form, Modules):
     def setupUi(self, Form):
@@ -33,11 +33,11 @@ class PeakAreas(Ui_Form, Modules):
             self.data[datakey].peak_area(peaks_mins_file)
             print("Peak Areas Calculated")
             output = pd.DataFrame(columns = ['peaks','mins'])
-            output['peaks'] = self.data[datakey].peaks
+            output['mins'] = self.data[datakey].mins
             try:
-                output['mins'] = np.append(self.data[datakey].mins,np.nan)
+                output['peaks'] = np.append(self.data[datakey].peaks,np.nan)
             except:
-                output['mins'] = self.data[datakey].mins
+                output['peaks'] = self.data[datakey].peaks
             output.to_csv(self.outpath+'/peaks_mins.csv')
             print('Peaks and mins saved to '+self.outpath+'/peaks_mins.csv')
 

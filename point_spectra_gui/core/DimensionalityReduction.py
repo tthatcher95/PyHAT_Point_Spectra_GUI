@@ -5,7 +5,7 @@ from point_spectra_gui.core.dimensionalityReductionMethods import *
 from point_spectra_gui.ui.DimensionalityReduction import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.spectral_data import spectral_data
-from libpysat.transform.dim_red import dim_red
+from libpyhat.transform.dim_red import dim_red
 
 class DimensionalityReduction(Ui_Form, Modules):
     def setupUi(self, Form):
