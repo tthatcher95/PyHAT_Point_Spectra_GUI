@@ -252,7 +252,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(("PYSAT Point Spectra GUI"))
+        MainWindow.setWindowTitle(("PyHAT Point Spectra GUI"))
         self.textBrowser.setToolTip(("<html><head/><body><p>Console window<br/>This window gives you information about your running module<br/>Errors will also show up here, if they occur</p></body></html>"))
         self.progressBar.setToolTip(("<html><head/><body><p>Your current progression.</p></body></html>"))
         self.progressBar.setFormat(("%p%"))
