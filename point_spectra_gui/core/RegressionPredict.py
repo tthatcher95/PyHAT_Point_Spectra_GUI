@@ -24,11 +24,13 @@ class RegressionPredict(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
-    def connectWidgets(self):
-        self.setListWidget(self.chooseDataListWidget, self.datakeys)
+    def connectWidgets(self, setup=False):
+        self.changeComboListVars(self.chooseDataListWidget, self.datakeys)
         self.setComboBox(self.chooseModelComboBox, self.modelkeys)
+        self.chooseDataListWidget.itemSelectionChanged.connect(lambda: self.setComboBox(self.chooseModelComboBox, self.modelkeys))
 
     def setup(self):
+        self.connectWidgets(setup=True)
         datakeys = [str(i.text()) for i in self.chooseDataListWidget.selectedItems()]
         modelkey = self.chooseModelComboBox.currentText()
         try:
