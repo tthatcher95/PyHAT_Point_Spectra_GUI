@@ -4,7 +4,7 @@ from point_spectra_gui.util.spectral_data import spectral_data
 
 from point_spectra_gui.ui.ShiftWvl import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from libpysat.transform.shift_spect import shift_spect
+from libpyhat.transform.shift_spect import shift_spect
 
 class ShiftWvl(Ui_Form, Modules):
     """

@@ -4,7 +4,7 @@ from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.clusteringMethods import *
 from point_spectra_gui.ui.Clustering import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from libpysat.clustering.cluster import cluster
+from libpyhat.clustering.cluster import cluster
 from point_spectra_gui.util.spectral_data import spectral_data
 
 

@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
 from point_spectra_gui.util import Qtickle
-from libpysat.regression import cv
+from libpyhat.regression import cv
 from point_spectra_gui.util.spectral_data import spectral_data
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
