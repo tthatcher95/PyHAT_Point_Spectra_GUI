@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
 from point_spectra_gui.util import Qtickle
-from libpysat.regression import cv
+from libpyhat.regression import cv
 from point_spectra_gui.util.spectral_data import spectral_data
 from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
@@ -233,8 +233,14 @@ class CrossValidation(Ui_Form, Modules):
                     self.data['Model Coefficients'] = spectral_data(coef)
                     self.datakeys.append('Model Coefficients')
 
-        self.datakeys.append('CV Results ' + modelkey)
-        self.data['CV Results ' + modelkey] = self.cv_results
+        number = 1
+        cvid = str('CV Results ' + modelkey + ' - ' + yvars[0][1])
+        while cvid in self.datakeys:
+            number += 1
+            cvid = str('CV Results ' + modelkey + ' - ' + yvars[0][1]) + ' - ' + str(number)
+
+        self.datakeys.append(cvid)
+        self.data[cvid] = self.cv_results
 
     def yvar_choices(self):
         try:

@@ -4,7 +4,7 @@ from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.outlierRemovalMethods import *
 from point_spectra_gui.ui.OutlierRemoval import Ui_Form
 from point_spectra_gui.util.Modules import Modules
-from libpysat.utils.outlier_removal import outlier_removal
+from libpyhat.utils.outlier_removal import outlier_removal
 from point_spectra_gui.util.spectral_data import spectral_data
 
 class OutlierRemoval(Ui_Form, Modules):
@@ -20,11 +20,11 @@ class OutlierRemoval(Ui_Form, Modules):
     def make_outlier_widget(self, alg, params=None):
         self.hideAll()
         print(alg)
-        for i in range(len(self.algorithm_list)):
+        for i in range(1,len(self.algorithm_list)):
             if alg == self.algorithm_list[i]:
                 self.alg[i - 1].setHidden(False)
 
-    def connectWidgets(self):
+    def connectWidgets(self, setup=False):
         self.algorithm_list = ['Choose an algorithm',
                                'Isolation Forest',
                                'Local Outlier Factor'
@@ -33,11 +33,11 @@ class OutlierRemoval(Ui_Form, Modules):
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.changeComboListVars(self.xVariableList, self.xvar_choices())
-        self.xvar_choices()
-        self.chooseAlgorithmComboBox.currentIndexChanged.connect(
-            lambda: self.make_outlier_widget(self.chooseAlgorithmComboBox.currentText()))
-        self.chooseDataComboBox.currentIndexChanged.connect(
-            lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
+        if setup==False:
+            self.chooseAlgorithmComboBox.currentIndexChanged.connect(
+                lambda: self.make_outlier_widget(self.chooseAlgorithmComboBox.currentText()))
+            self.chooseDataComboBox.currentIndexChanged.connect(
+                lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
 
     def getGuiParams(self):
         """
@@ -74,6 +74,9 @@ class OutlierRemoval(Ui_Form, Modules):
         self.qt.selectiveGuiRestore(dict[0])
         for i in range(len(dict)):
             self.alg[i - 1].selectiveSetGuiParams(dict[i])
+
+    def setup(self):
+        self.connectWidgets(setup=True)
 
     def run(self):
         method = self.chooseAlgorithmComboBox.currentText()

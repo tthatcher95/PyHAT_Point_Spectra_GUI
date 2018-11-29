@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 from point_spectra_gui.util.spectral_data import spectral_data
-from libpysat.transform.remove_baseline import remove_baseline
+from libpyhat.transform.remove_baseline import remove_baseline
 from point_spectra_gui.util import Qtickle
 from point_spectra_gui.core.baselineRemovalMethods import *
 from point_spectra_gui.ui.BaselineRemoval import Ui_Form

@@ -17,7 +17,8 @@ def cmaps():
     plot.register_cmap(name='plasma', cmap=colormaps.plasma)
 
 
-def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Reference (wt.%)',
+def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Reference (wt.%)', colorvar = None,
+              colorval = None,
               ytitle='Prediction (wt.%)', title=None,
               lbl='', one_to_one=False, rmse=True, dpi=1000, color=None, annot_mask=None, cmap=None, colortitle='',
               loadfig=None, masklabel='', marker='o', linestyle='None', hline=None, hlinelabel=None, hlinestyle='--',
@@ -54,21 +55,45 @@ def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Ref
             rmse_val = np.sqrt(np.mean((y - x) ** 2))
             lbl = lbl + ' (RMSE=' + str(round(rmse_val, 2)) + ')'
 
-    if cmap is not None:
-        axes.plot(x, y, c=color, cmap=cmap, marker=marker, markeredgecolor='Black', markeredgewidth=0.25)
-        axes.colorbar(label=colortitle)
-    else:
-        axes.plot(x, y, color=color, label=lbl, marker=marker, ls=linestyle, linewidth=linewidth,
-                  markeredgecolor='Black', markeredgewidth=0.25)
+    # if cmap is not None:
+    #     axes.plot(x, y, c=color, cmap=cmap, marker=marker, markeredgecolor='Black', markeredgewidth=0.25)
+    #     axes.colorbar(label=colortitle)
+    # else:
+    #     axes.plot(x, y, color=color, label=lbl, marker=marker, ls=linestyle, linewidth=linewidth,
+    #               markeredgecolor='Black', markeredgewidth=0.25)
+    #
+    #     if annot_mask is not None:
+    #         axes.plot(x[annot_mask], y[annot_mask], facecolors='none', linewidth=linewidth, label=masklabel,
+    #                   marker=marker, markeredgecolor='Black', markeredgewidth=2)
 
-        if annot_mask is not None:
-            axes.plot(x[annot_mask], y[annot_mask], facecolors='none', linewidth=linewidth, label=masklabel,
-                      marker=marker, markeredgecolor='Black', markeredgewidth=2)
+    if colorvar is not 'None':
+        try:
+            mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=colorval, cmap=cmap, linewidth=0.2, edgecolor='Black')
+        except:
+            try:
+                mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=colorval, cmap=cmap, linewidth=0.2, edgecolor='Black')
+            except:
+                pass
+            # except:
+            #     try:
+            #         mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('K-Means', colorvar)], cmap=cmap,
+            #                            linewidth=0.2, edgecolor='Black')
+            #     except:
+            #         try:
+            #             mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('Spectral', colorvar)],
+            #                                    cmap=cmap,
+            #                                    linewidth=0.2, edgecolor='Black')
+            #         except:
+            # TODO: handle any top-level label for colorval and clean up these nested try/excepts
+        fig.colorbar(mappable, label=colorvar, ax=axes)
+    else:
+        axes.scatter(x, y, linewidth=0.2, edgecolor='Black', label=lbl)
+        axes.legend(loc='best', fontsize=8, scatterpoints=1, numpoints=1)
 
     if yzero:
         axes.set_ylim(bottom=0)
 
-    axes.legend(loc='best', fontsize=8, scatterpoints=1, numpoints=1)
+
     if figpath and figfile:
         fig.savefig(figpath + '/' + figfile, dpi=dpi)
     return fig
