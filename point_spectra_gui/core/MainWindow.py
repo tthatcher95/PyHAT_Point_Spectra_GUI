@@ -245,7 +245,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.actionRestore_Workflow.setShortcut("ctrl+O")
         self.actionSave_Current_Workflow.setShortcut("ctrl+S")
         self.okPushButton.setShortcut("Ctrl+Return")
-        self.refreshModulePushButton.setShortcut("Alt+Return")
+        self.refreshModulePushButton.setShortcut("Ctrl+R")
 
     def connectWidgets(self):
         """
@@ -336,6 +336,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionOff.triggered.connect(self.normal_mode)
             self.actionExit.triggered.connect(self.MainWindow.close)
             self.actionSupervised.setEnabled(False)
+            self.refreshModulePushButton.setHidden(True) #Hide the refresh button until we can find a less buggy way of implementing
 
         except Exception as e:
             print(e)
