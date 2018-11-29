@@ -46,13 +46,17 @@ class RegressionPredict(Ui_Form, Modules):
         try:
             for datakey in datakeys:
                 print('Predicting '+datakey)
-                data_tmp = self.data[datakey].df[self.model_xvars[modelkey]]
+                x_var_tmp = self.model_xvars[modelkey]
+                data_tmp = self.data[datakey].df[x_var_tmp]
                 data_tmp.fillna(value=0, inplace=True)
+                if self.data[datakey].df[x_var_tmp].shape[1] != self.models[modelkey].model.coef_.shape[0]:
+                    print("Warning: Size of input dataframe does not match size of validation dataset.")
                 prediction = self.models[modelkey].predict(data_tmp)
                 predictname = ('predict', modelkey + ' - ' + datakey + ' - Predict')
                 self.data[datakey].df[predictname] = prediction
         except Exception as e:
             print(e)
+
 
 
 if __name__ == "__main__":

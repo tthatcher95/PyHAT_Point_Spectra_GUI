@@ -233,8 +233,14 @@ class CrossValidation(Ui_Form, Modules):
                     self.data['Model Coefficients'] = spectral_data(coef)
                     self.datakeys.append('Model Coefficients')
 
-        self.datakeys.append('CV Results ' + modelkey)
-        self.data['CV Results ' + modelkey] = self.cv_results
+        number = 1
+        cvid = str('CV Results ' + modelkey + ' - ' + yvars[0][1])
+        while cvid in self.datakeys:
+            number += 1
+            cvid = str('CV Results ' + modelkey + ' - ' + yvars[0][1]) + ' - ' + str(number)
+
+        self.datakeys.append(cvid)
+        self.data[cvid] = self.cv_results
 
     def yvar_choices(self):
         try:

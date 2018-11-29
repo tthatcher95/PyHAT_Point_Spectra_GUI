@@ -40,8 +40,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>560</width>
-         <height>298</height>
+         <width>568</width>
+         <height>323</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2"/>
@@ -165,7 +165,7 @@
      <x>0</x>
      <y>0</y>
      <width>603</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -225,6 +225,7 @@
     <addaction name="actionPlot"/>
     <addaction name="actionPlot_Spectra"/>
     <addaction name="actionPlot_ICA_PCA"/>
+    <addaction name="actionPlot_testmodule"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -521,6 +522,11 @@
   <action name="actionWavelength_Shift">
    <property name="text">
     <string>Wavelength Shift</string>
+   </property>
+  </action>
+  <action name="actionPlot_testmodule">
+   <property name="text">
+    <string>plot_testmodule</string>
    </property>
   </action>
  </widget>

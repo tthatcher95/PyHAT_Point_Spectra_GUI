@@ -46,7 +46,14 @@ class Plot(Ui_Form, Modules):
         self.get_data(model)
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.changeComboListVars(self.chooseYVariableComboBox, self.get_choices())
-        self.setComboBox(self.colorComboBox, color_list)
+#        self.setComboBox(self.colorComboBox, color_list)
+        choices = self.get_choices()
+
+#        nochoice = ['None']
+#        choices = nochoice.append(choices)
+        self.setComboBox(self.comboBoxcolorvar, choices)
+        self.comboBoxcolorvar.addItem('None')
+#        self.comboBoxcolorvar.Items.Insert(0, 'None')
         self.setComboBox(self.lineComboBox, line_list)
         self.setComboBox(self.markerComboBox, marker_list)
         self.alphaDoubleSpinBox.setValue(0.25)
@@ -75,9 +82,14 @@ class Plot(Ui_Form, Modules):
                                     self.chooseYVariableComboBox.currentText()))
 
     def run(self):
+        cmap = 'viridis'
         datakey = self.chooseDataComboBox.currentText()
         xvar = self.chooseXVariableComboBox.currentText()
         yvar = self.chooseYVariableComboBox.currentText()
+        colvar = self.comboBoxcolorvar.currentText()
+#        colvar = 'None'
+        colval = self.data[datakey].df[('comp', colvar)]
+#        colval = None
 
         figname = self.figureNameLineEdit.text()
         title = self.plotTitleLineEdit.text()
@@ -89,9 +101,11 @@ class Plot(Ui_Form, Modules):
         one_to_one = self.oneToOneCheckBox.isChecked()
 
         color = self.colorComboBox.currentText()
+        #  if user chosen color var, color based on that
+#        else, use combobox
+
         alpha = self.alphaDoubleSpinBox.value()
         annot_mask = None
-        cmap = None
         colortitle = ''
         dpi = 1000
 
@@ -165,7 +179,7 @@ class Plot(Ui_Form, Modules):
             figpath, figfile = self.outpath, figname
         self.figs[figname] = make_plot(x, y, figpath, figfile, xrange=xrange, yrange=yrange, xtitle=xtitle,
                                        ytitle=ytitle, title=title,
-                                       lbl=lbl, one_to_one=one_to_one, dpi=dpi, color=color,
+                                       lbl=lbl, one_to_one=one_to_one, dpi=dpi, colorvar=colvar, colorval=colval,
                                        annot_mask=annot_mask, cmap=cmap,
                                        colortitle=colortitle, loadfig=loadfig, marker=marker, linestyle=linestyle)
 
