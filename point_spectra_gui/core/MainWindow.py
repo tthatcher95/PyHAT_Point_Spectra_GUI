@@ -400,7 +400,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         """
         try:
             filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None,
-                                                                      "Choose where you want save your file",
+                                                                      "Choose where you want to save your file",
                                                                       self.outpath,
                                                                       '(*.json)')
             print(filename)
