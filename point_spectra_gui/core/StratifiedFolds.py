@@ -6,6 +6,10 @@ from point_spectra_gui.util.spectral_data import spectral_data
 from libpyhat.utils.folds import stratified_folds
 from libpyhat.utils.utils import rows_match
 import copy
+from point_spectra_gui.core.Plot import Plot
+# from point_spectra_gui.util import plots
+import numpy as np
+import matplotlib.pyplot as plt
 
 class StratifiedFolds(Ui_Form, Modules):
     count = -1
@@ -72,6 +76,21 @@ class StratifiedFolds(Ui_Form, Modules):
         print(self.data.keys())
         print(self.data[datakey + '-Test'].df.index.shape)
         print(self.data[datakey + '-Train'].df.index.shape)
+
+        #self.stratifiedfoldshist()
+        folds = self.data[datakey].df[('meta', 'Folds')]
+        folds_unique = folds.unique()[np.isfinite(folds.unique())]
+        for fold in folds_unique:
+            dat_col_folds = self.data[datakey].df[colname][folds == fold]
+            plt.hist(dat_col_folds, bins=20)
+            plt.xlabel(colname[1])
+            plt.ylabel('Frequency')
+            plt.title('Histogram of Fold ' + str(int(fold)))
+            #plt.axis([0, 100, 0, 100])
+            #plt.grid(True)
+           # plt.show()
+            plt.savefig(self.outpath + '//' + colname[1] + '_fold' + str(int(fold)) + '_hist.png')
+            plt.clf()
 
     def strat_fold_change_vars(self):
         self.chooseVarComboBox.clear()
