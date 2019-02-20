@@ -224,7 +224,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.verticalLayout_2.insertLayout(idx, self.widgetLayout)
         self.widgetLayout.addWidget(self.widgetList[idx].get_widget())
         scrollbar = self.scrollArea.verticalScrollBar()
-        scrollbar.setMaximum(500000) #by default, maximum is set to 99, which doesn't seem to be enough to keep scrolling down
+
+        scrollbar.setMaximum(500000)
+
         scrollbar.setValue(scrollbar.maximum())
         # place items inside the deleteModuleCombox
         # This populates the comboBox
@@ -244,7 +246,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.actionRestore_Workflow.setShortcut("ctrl+O")
         self.actionSave_Current_Workflow.setShortcut("ctrl+S")
         self.okPushButton.setShortcut("Ctrl+Return")
-        self.refreshModulePushButton.setShortcut("Alt+Return")
+        self.refreshModulePushButton.setShortcut("Ctrl+R")
 
     def connectWidgets(self):
         """
@@ -335,6 +337,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionExit.triggered.connect(self.MainWindow.close)
             self.actionSupervised.setEnabled(False)
             self.pushButton.clicked.connect(self.on_outPutLocationButton_clicked)
+            self.refreshModulePushButton.setHidden(True) #Hide the refresh button until we can find a less buggy way of implementing
 
         except Exception as e:
             print(e)
@@ -428,6 +431,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 self.setWidgetItems(json.load(fp))
             self.title.setFileName(self.restorefilename.split('/')[-1])
             self.MainWindow.setWindowTitle(self.title.display())
+            self.actionRestore_Workflow.setDisabled(True)
         except:
             pass
 
@@ -745,7 +749,7 @@ def get_splash(app):
             splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
             splash.setMask(splash_pix.mask())
             splash.show()
-            time.sleep(0.5)
+            time.sleep(1.5)
             app.processEvents()
             return 0
 

@@ -268,7 +268,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(("PYSAT Point Spectra GUI"))
+        MainWindow.setWindowTitle(("PYHAT Point Spectra GUI"))
         self.groupBox.setTitle(("Output Folder"))
         self.folderNameLabel.setText(("Folder name"))
         self.folderNameLineEdit.setText(("*/"))

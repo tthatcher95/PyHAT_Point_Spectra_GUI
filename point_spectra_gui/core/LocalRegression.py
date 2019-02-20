@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
 from point_spectra_gui.util import Qtickle
-from libpysat.regression import regression
+from libpyhat.regression import regression
 from point_spectra_gui.util.spectral_data import spectral_data
 from point_spectra_gui.core.regressionMethods import *
 from point_spectra_gui.ui.LocalRegression import Ui_Form
@@ -10,7 +10,7 @@ from point_spectra_gui.util.Modules import Modules
 from sklearn.neighbors import NearestNeighbors
 from sklearn.linear_model import LassoCV
 from sklearn.model_selection import GroupKFold
-from libpysat.regression import local_regression
+from libpyhat.regression import local_regression
 
 class LocalRegression(Ui_Form, Modules):
     count = -1
@@ -70,7 +70,7 @@ class LocalRegression(Ui_Form, Modules):
                   'max_iter': 10000,
                   'positive': self.forcepositive.isChecked(),
                   'selection': 'random'}
-        localmodel = local_regression.local_regression([method], [params], n_neighbors = self.n_neighbors_spin.value())
+        localmodel = local_regression.LocalRegression(method, params, n_neighbors = self.n_neighbors_spin.value())
         traindata = self.data[self.choosedata_train.currentText()]
         predictdata = self.data[self.choosedata_predict.currentText()]
         x_train = np.array(traindata.df[xvars])

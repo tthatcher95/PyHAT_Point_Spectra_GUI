@@ -221,6 +221,7 @@ class Modules:
         comboBox.setMaximumWidth(400)
         comboBox.addItems(keyValues)
 
+
     @staticmethod
     def changeComboListVars(obj, newchoices):
         """
@@ -231,13 +232,15 @@ class Modules:
         :param newchoices:
         :return:
         """
+        obj_sel = [x for x in obj.selectedIndexes()]
         obj.clear()
         for i in newchoices:
             if isinstance(i, tuple):
                 obj.addItem(i[1])
             elif isinstance(i, str):
                 obj.addItem(i)
-
+        for indx in obj_sel:
+            obj.setCurrentItem(obj.itemFromIndex(indx))
     @staticmethod
     def setListWidget(obj, choices):
         """
@@ -248,9 +251,15 @@ class Modules:
         :param choices:
         :return:
         """
-        obj.clear()
-        for item in choices:
+
+        # obj_sel = [x for x in obj.selectedIndexes()] #save the currently selected items
+        obj.clear() #clear the list
+
+        for item in choices: #repopulate the list with the new choices
             obj.addItem(item)
+        # for indx in obj_sel: #re-select the items
+        #     obj.setCurrentItem(obj.itemFromIndex(indx))
+
 
     @staticmethod
     def defaultComboItem(obj, item):

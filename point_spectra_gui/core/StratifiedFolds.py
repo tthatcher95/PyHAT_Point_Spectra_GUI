@@ -3,8 +3,8 @@ from PyQt5 import QtWidgets
 from point_spectra_gui.ui.StratifiedFolds import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from point_spectra_gui.util.spectral_data import spectral_data
-from libpysat.utils.folds import stratified_folds
-from libpysat.utils.utils import rows_match
+from libpyhat.utils.folds import stratified_folds
+from libpyhat.utils.utils import rows_match
 import copy
 from point_spectra_gui.core.Plot import Plot
 # from point_spectra_gui.util import plots
