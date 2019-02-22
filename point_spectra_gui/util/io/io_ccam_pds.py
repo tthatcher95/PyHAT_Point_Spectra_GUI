@@ -105,37 +105,28 @@ def CCAM_SAV(input_data, ave=True):
     try:
         data['darkname']
     except:
-        data['darkname'] = data['darkspec']
+        try:
+            data['darkname'] = data['darkspec']
+        except:
+            data['darkname'] = ''
 
-    metadata = [fname,
-                fname[4:13],
-                fname[25:34].upper(),
-                fname[34:36],
-                data['continuumvismin'],
-                data['continuumvnirmin'],
-                data['continuumuvmin'],
-                data['continuumvnirend'],
-                data['distt'],
-                data['darkname'],
-                data['nshots'],
-                data['dnoiseiter'],
-                data['dnoisesig'],
-                data['matchedfilter']]
+
+    metadata = [fname,fname[4:13],fname[25:34].upper(),fname[34:36]]
+    metalist = ['continuumvismin','continuumvnirmin','continuumuvmin','continuumvnirend','distt','darkname','nshots',
+                'dnoiseiter','dnoisesig','matchedfilter']
+    metalist_keep = []
+    for name in metalist:
+        try:
+            metadata.append(data[name])
+            metalist_keep.append(name)
+        except:
+            pass
+
     metadata = np.tile(metadata, (len(df.index), 1))
     metadata_cols = list(zip(['meta'] * len(df.index), ['file',
                                                         'sclock',
                                                         'seqid',
-                                                        'Pversion',
-                                                        'continuumvismin',
-                                                        'continuumvnirmin',
-                                                        'continuumuvmin',
-                                                        'continuumvnirend',
-                                                        'distt',
-                                                        'dark',
-                                                        'nshots',
-                                                        'dnoiseiter',
-                                                        'dnoisesig',
-                                                        'matchedfilter']))
+                                                        'Pversion']+metalist_keep))
     try:
        metadata = pd.DataFrame(metadata, columns=pd.MultiIndex.from_tuples(metadata_cols), index=df.index)
     except:
