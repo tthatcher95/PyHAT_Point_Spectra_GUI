@@ -336,7 +336,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionOff.triggered.connect(self.normal_mode)
             self.actionExit.triggered.connect(self.MainWindow.close)
             self.actionSupervised.setEnabled(False)
-            self.pushButton.clicked.connect(self.on_outPutLocationButton_clicked)
+            #self.pushButton.clicked.connect(self.on_outPutLocationButton_clicked)
             self.refreshModulePushButton.setHidden(True) #Hide the refresh button until we can find a less buggy way of implementing
 
         except Exception as e:
@@ -718,18 +718,18 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self._logger(self.runModules)
         self.taskFinished.emit()
 
-    def on_outPutLocationButton_clicked(self):
-        filename = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Output Directory", '.')
-        self.folderNameLineEdit.setText(filename)
-        if self.folderNameLineEdit.text() == "":
-            self.folderNameLineEdit.setText("*/")
-
-        outpath = self.folderNameLineEdit.text()
-        try:
-            Modules.outpath = outpath
-            print("Output path folder has been set to " + outpath)
-        except Exception as e:
-            print("Error: {}; using default outpath: {}".format(e, Modules.outpath))
+    # def on_outPutLocationButton_clicked(self):
+    #     filename = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Output Directory", '.')
+    #     self.folderNameLineEdit.setText(filename)
+    #     if self.folderNameLineEdit.text() == "":
+    #         self.folderNameLineEdit.setText("*/")
+    #
+    #     outpath = self.folderNameLineEdit.text()
+    #     try:
+    #         Modules.outpath = outpath
+    #         print("Output path folder has been set to " + outpath)
+    #     except Exception as e:
+    #         print("Error: {}; using default outpath: {}".format(e, Modules.outpath))
 
 
 def get_splash(app):
