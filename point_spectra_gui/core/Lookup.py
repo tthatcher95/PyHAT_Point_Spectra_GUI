@@ -24,7 +24,7 @@ class Lookup(Ui_Form, Modules):
         #self.lookupfilename = self.lookupfile.text()
         self.choosedata.currentIndexChanged.connect(self.set_left_on)
         self.filebrowse.clicked.connect(self.on_filebrowse_clicked)
-        self.lookupfile.textChanged.connect(self.read_lookupdata)
+        #self.lookupfile.textChanged.connect(self.read_lookupdata)
         self.skiprows_spin.valueChanged.connect(self.read_lookupdata)
 
     def set_left_on(self):
@@ -37,7 +37,9 @@ class Lookup(Ui_Form, Modules):
 
     def read_lookupdata(self):
         try:
-            self.lookupdata = pd.read_csv(self.lookupfilename,skiprows=self.skiprows_spin.value())
+            print('Reading lookup data...')
+            self.lookupdata = pd.read_csv(self.lookupfilename,skiprows=self.skiprows_spin.value(),encoding='latin')
+            print('Done reading.')
             right_on_options = [self.right_on.itemText(i) for i in range(self.right_on.count())]
             new_options = self.lookupdata.columns.values
             #only reset the combobox if the choices are different
@@ -55,6 +57,7 @@ class Lookup(Ui_Form, Modules):
                                                                           directory='.')
         self.lookupfilename = self.lookupfilename[0]
         self.lookupfile.setText(str(self.lookupfilename))
+        self.read_lookupdata()
 
 
     def setup(self):
