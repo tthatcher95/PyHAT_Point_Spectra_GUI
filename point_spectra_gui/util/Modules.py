@@ -1,5 +1,4 @@
 import inspect
-
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import *
 from point_spectra_gui.util import Qtickle
@@ -219,6 +218,10 @@ class Modules:
         """
         comboBox.clear()
         comboBox.setMaximumWidth(400)
+        try:
+            keyValues = [str(i) for i in keyValues] #force all elements of the list to be strings
+        except:
+            pass
         comboBox.addItems(keyValues)
 
 

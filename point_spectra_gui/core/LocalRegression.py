@@ -70,7 +70,7 @@ class LocalRegression(Ui_Form, Modules):
                   'max_iter': 10000,
                   'positive': self.forcepositive.isChecked(),
                   'selection': 'random'}
-        localmodel = local_regression.LocalRegression(method, params, n_neighbors = self.n_neighbors_spin.value())
+        localmodel = local_regression.LocalRegression(params, n_neighbors = self.n_neighbors_spin.value())
         traindata = self.data[self.choosedata_train.currentText()]
         predictdata = self.data[self.choosedata_predict.currentText()]
         x_train = np.array(traindata.df[xvars])
