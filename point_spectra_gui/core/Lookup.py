@@ -20,7 +20,10 @@ class Lookup(Ui_Form, Modules):
         try:
             self.setComboBox(self.left_on,self.data[self.choosedata.currentText()].df['meta'].columns.values)
         except:
-            self.setComboBox(self.left_on, [''])
+            try:
+                self.setComboBox(self.left_on, [''])
+            except:
+                pass
         #self.lookupfilename = self.lookupfile.text()
         self.choosedata.currentIndexChanged.connect(self.set_left_on)
         self.filebrowse.clicked.connect(self.on_filebrowse_clicked)
@@ -52,12 +55,19 @@ class Lookup(Ui_Form, Modules):
 
 
     def on_filebrowse_clicked(self):
-        self.lookupfilename, null = QtWidgets.QFileDialog.getOpenFileNames(parent=None,
+        try:
+            self.lookupfilename, null = QtWidgets.QFileDialog.getOpenFileNames(parent=None,
                                                                           caption="Select metadata file",
                                                                           directory='.')
-        self.lookupfilename = self.lookupfilename[0]
-        self.lookupfile.setText(str(self.lookupfilename))
-        self.read_lookupdata()
+
+            self.lookupfilename = self.lookupfilename[0]
+            self.lookupfile.setText(str(self.lookupfilename))
+            self.read_lookupdata()
+
+        except:
+            print('There was a problem with the lookup file.')
+            pass
+
 
 
     def setup(self):
