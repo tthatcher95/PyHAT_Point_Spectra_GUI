@@ -44,7 +44,8 @@ class CrossValidation(Ui_Form, Modules):
                                'OMP',
                                'PLS',
                                'Ridge',
-                               'SVR']
+                               'SVR',
+                               'Local Regression']
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
@@ -240,7 +241,7 @@ class CrossValidation(Ui_Form, Modules):
             cvid = str('CV Results ' + modelkey + ' - ' + yvars[0][1]) + ' - ' + str(number)
 
         self.datakeys.append(cvid)
-        self.data[cvid] = self.cv_results
+        self.data[cvid] = spectral_data(self.cv_results)
 
     def yvar_choices(self):
         try:
@@ -275,7 +276,8 @@ class CrossValidation(Ui_Form, Modules):
                     'OMP': cv_OMP.Ui_Form(),
                     'PLS': cv_PLS.Ui_Form(),
                     'Ridge': cv_Ridge.Ui_Form(),
-                    'SVR': cv_SVR.Ui_Form()
+                    'SVR': cv_SVR.Ui_Form(),
+                    'Local Regression': cv_Local.Ui_Form()
                     }
 
         for item in self.alg:
