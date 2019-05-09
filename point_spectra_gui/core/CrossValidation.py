@@ -8,7 +8,7 @@ from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from sklearn.model_selection import ParameterGrid, LeaveOneGroupOut
-
+import point_spectra_gui.ui.CVProgressBar as CVProgressBar
 
 class CrossValidation(Ui_Form, Modules):
     count = -1
@@ -196,7 +196,11 @@ class CrossValidation(Ui_Form, Modules):
         match = np.squeeze((y > yrange[0]) & (y < yrange[1]))
         data_for_cv = spectral_data(self.data[datakey].df.ix[match])
         paramgrid = list(ParameterGrid(params))  # create a grid of parameter permutations
-        cv_obj = cv.cv(paramgrid)
+
+
+        progbar = QtWidgets.QProgressBar()
+        cv_obj = cv.cv(paramgrid,progressbar=progbar)
+
         try:
             cv_iterator = LeaveOneGroupOut().split(data_for_cv.df[xvars], data_for_cv.df[yvars], data_for_cv.df[
                 ('meta', 'Folds')])  # create an iterator for cross validation based on the predefined folds
