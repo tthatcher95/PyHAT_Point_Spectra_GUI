@@ -228,22 +228,28 @@ class Modules:
     @staticmethod
     def changeComboListVars(obj, newchoices):
         """
-        Function changes combo boxes
+        Function changes combo boxes or list widgets
         This function does not need to be overridden.
 
         :param obj:
         :param newchoices:
         :return:
         """
-        obj_sel = [x for x in obj.selectedIndexes()]
+        if isinstance(obj, QComboBox):
+            obj_sel = obj.currentIndex()
+        elif isinstance(obj, QListWidget):
+            obj_sel = [x for x in obj.selectedIndexes()]
         obj.clear()
         for i in newchoices:
             if isinstance(i, tuple):
                 obj.addItem(i[1])
             elif isinstance(i, str):
                 obj.addItem(i)
-        for indx in obj_sel:
-            obj.setCurrentItem(obj.itemFromIndex(indx))
+        if isinstance(obj,QComboBox):
+            obj.setCurrentIndex(obj_sel)
+        elif isinstance(obj, QListWidget):
+            for indx in obj_sel:
+                obj.setCurrentItem(obj.itemFromIndex(indx))
     @staticmethod
     def setListWidget(obj, choices):
         """
