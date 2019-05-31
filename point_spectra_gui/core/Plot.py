@@ -104,20 +104,27 @@ class Plot(Ui_Form, Modules):
         #    colorval = self.data[datakey].df[('comp', colorvar)]
         # elif colorvar == 'None':
         #    colorval = None
+        colorval = None
         if colorvar != 'None':
-            try:
-                colorval = self.data[datakey].df[('comp', colorvar)]
-            except:
+            for top_col_val in list(self.data[datakey].df.columns.levels[0]):
                 try:
-                    colorval = self.data[datakey].df[('meta', colorvar)]
+                    colorval = self.data[datakey].df[(top_col_val,colorvar)]
                 except:
-                    try:
-                        colorval = self.data[datakey].df[('K-means', colorvar)]
-                    except:
-                        try:
-                            colorval = self.data[datakey].df[('Spectral', colorvar)]
-                        except:
-                            pass
+                    pass
+
+            # try:
+            #     colorval = self.data[datakey].df[('comp', colorvar)]
+            # except:
+            #     try:
+            #         colorval = self.data[datakey].df[('meta', colorvar)]
+            #     except:
+            #         try:
+            #             colorval = self.data[datakey].df[('K-means', colorvar)]
+            #         except:
+            #             try:
+            #                 colorval = self.data[datakey].df[('Spectral', colorvar)]
+            #             except:
+            #                 pass
         elif colorvar == 'None':
             colorval = None
 
