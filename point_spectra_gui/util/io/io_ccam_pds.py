@@ -8,8 +8,7 @@ import numpy as np
 import pandas as pd
 import scipy.io as io
 
-from libpysat.fileio.lookup import lookup
-from libpysat.fileio.utils import file_search
+from libpyhat.data.io import lookup, file_search
 from point_spectra_gui.util.spectral_data import spectral_data
 
 
@@ -98,7 +97,7 @@ def CCAM_SAV(input_data, ave=True):
     # extract metadata from the file name and add it to the data frame
     # use the multiindex label "meta" for all metadata
 
-    fname = os.path.basename(input_data)
+    pathname,fname = os.path.split(input_data)
 
     # for some reason, some ChemCam files have the 'darkname' key, others call it 'darkspect'
     # this try-except pair converts to 'darkname' when needed
@@ -111,7 +110,7 @@ def CCAM_SAV(input_data, ave=True):
             data['darkname'] = ''
 
 
-    metadata = [fname,fname[4:13],fname[25:34].upper(),fname[34:36]]
+    metadata = [fname,pathname,fname[4:13],fname[25:34].upper(),fname[34:36]]
     metalist = ['continuumvismin','continuumvnirmin','continuumuvmin','continuumvnirend','distt','darkname','nshots',
                 'dnoiseiter','dnoisesig','matchedfilter']
     metalist_keep = []
@@ -123,7 +122,7 @@ def CCAM_SAV(input_data, ave=True):
             pass
 
     metadata = np.tile(metadata, (len(df.index), 1))
-    metadata_cols = list(zip(['meta'] * len(df.index), ['file',
+    metadata_cols = list(zip(['meta'] * len(df.index), ['file','filepath',
                                                         'sclock',
                                                         'seqid',
                                                         'Pversion']+metalist_keep))
@@ -141,32 +140,36 @@ def CCAM_SAV(input_data, ave=True):
     return df
 
 
-def ccam_batch(directory, searchstring='*.csv', to_csv=None, lookupfile=None, ave=True, progressbar=None, left_on = 'sclock', right_on='Spacecraft Clock'):
+def ccam_batch(directory, searchstring='*.csv', to_csv=None, lookupfile=None, ave=True, progressbar=None, left_on = 'sclock', right_on='Spacecraft Clock',versioncheck=True):
     # Determine if the file is a .csv or .SAV
     if 'sav' in searchstring.lower():
         is_sav = True
     else:
         is_sav = False
     filelist = file_search(directory, searchstring)
+    if len(filelist)==0:
+        print('No files found in '+directory+' using search string '+searchstring)
+        return
     basenames = np.zeros_like(filelist)
     sclocks = np.zeros_like(filelist)
     P_version = np.zeros_like(filelist, dtype='int')
 
-    # Extract the sclock and version for each file and ensure that only one
-    # file per sclock is being read, and that it is the one with the highest version number
-    for i, name in enumerate(filelist):
-        basenames[i] = os.path.basename(name)
-        sclocks[i] = basenames[i][4:13]  # extract the sclock
-        P_version[i] = basenames[i][-5:-4]  # extract the version
+    if versioncheck==True:
+        # Extract the sclock and version for each file and ensure that only one
+        # file per sclock is being read, and that it is the one with the highest version number
+        for i, name in enumerate(filelist):
+            basenames[i] = os.path.basename(name)
+            sclocks[i] = basenames[i][4:13]  # extract the sclock
+            P_version[i] = basenames[i][-5:-4]  # extract the version
 
-    sclocks_unique = np.unique(sclocks)  # find unique sclocks
-    filelist_new = np.array([], dtype='str')
-    for i in sclocks_unique:
-        match = (sclocks == i)  # find all instances with matching sclocks
-        maxP = P_version[match] == max(P_version[match])  # find the highest version among these files
-        filelist_new = np.append(filelist_new, filelist[match][maxP])  # keep only the file with thei highest version
+        sclocks_unique = np.unique(sclocks)  # find unique sclocks
+        filelist_new = np.array([], dtype='str')
+        for i in sclocks_unique:
+            match = (sclocks == i)  # find all instances with matching sclocks
+            maxP = P_version[match] == max(P_version[match])  # find the highest version among these files
+            filelist_new = np.append(filelist_new, filelist[match][maxP])  # keep only the file with thei highest version
 
-    filelist = filelist_new
+        filelist = filelist_new
     # Should add a progress bar for importing large numbers of files
     dt = []
     if progressbar:
@@ -213,7 +216,10 @@ def ccam_batch(directory, searchstring='*.csv', to_csv=None, lookupfile=None, av
             pass
         
 
-    combined.loc[:, ('meta', 'sclock')] = pd.to_numeric(combined.loc[:, ('meta', 'sclock')])
+    try:
+        combined.loc[:, ('meta', 'sclock')] = pd.to_numeric(combined.loc[:, ('meta', 'sclock')])
+    except:
+        pass
 
     if lookupfile is not None:
         try:
