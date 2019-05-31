@@ -46,7 +46,7 @@ class Ui_MainWindow(MainWindow):
         self.addWidget(core.CrossValidation.CrossValidation)
         self.addWidget(core.DimensionalityReduction.DimensionalityReduction)
         self.addWidget(core.Clustering.Clustering)
-        self.addWidget(core.Interpolation.Interpolation)
+        self.addWidget(core.Resample.Interpolation)
         self.addWidget(core.LoadData.LoadData)
         self.addWidget(core.WriteToCSV.WriteToCSV)
         self.addWidget(core.RenameData.RenameData)

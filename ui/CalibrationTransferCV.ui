@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>475</width>
-    <height>216</height>
+    <width>659</width>
+    <height>516</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,13 +17,13 @@
    <item>
     <widget class="QGroupBox" name="formGroupBox">
      <property name="title">
-      <string>Calibration Transfer</string>
+      <string>Calibration Transfer Cross Validation</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="infolabel">
         <property name="text">
-         <string>Transfer will be for A to B.</string>
+         <string>Evaluates multiple methods and parameters to optimize calibration transfer. Transfer will be for A to B.</string>
         </property>
        </widget>
       </item>
@@ -78,57 +78,68 @@
          </layout>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="Transform_HLayout">
-          <item>
-           <widget class="QLabel" name="DatatoTransform_label">
-            <property name="text">
-             <string>Data set to transform:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="chooseDatatoTransform"/>
-          </item>
-         </layout>
+         <widget class="QCheckBox" name="keep_spectra_checkBox">
+          <property name="text">
+           <string>Keep transformed spectra (uncheck for faster performance)</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="Method_HLayout">
-          <item>
-           <widget class="QLabel" name="Method_label">
-            <property name="text">
-             <string>Method:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="chooseMethod">
-            <property name="minimumSize">
-             <size>
-              <width>300</width>
-              <height>0</height>
-             </size>
-            </property>
-            <item>
-             <property name="text">
-              <string>Choose a method</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>PDS - Piecewise Direct Standardization</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Ratio</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QLabel" name="choosemethodstext">
+          <property name="text">
+           <string>Choose which methods to evaluate:</string>
+          </property>
+         </widget>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="methodlayout"/>
+         <widget class="QCheckBox" name="DScheckbox">
+          <property name="text">
+           <string>DS - Direct Standardization</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="DSlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="PDScheckbox">
+          <property name="text">
+           <string>PDS - Piecewise Direct Standardization</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="PDSlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="PDSPLScheckBox">
+          <property name="text">
+           <string>PDS-PLS - PDS using Partial Least Squares</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="PDSPLSlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="Ratiocheckbox">
+          <property name="text">
+           <string>Ratio</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="LASSODScheckbox">
+          <property name="text">
+           <string>LASSO DS</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="LASSODSlayout"/>
         </item>
        </layout>
       </item>
