@@ -8,7 +8,6 @@ from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from sklearn.model_selection import ParameterGrid, LeaveOneGroupOut
-import point_spectra_gui.ui.CVProgressBar as CVProgressBar
 
 class CrossValidation(Ui_Form, Modules):
     count = -1
