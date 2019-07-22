@@ -38,7 +38,7 @@ install:
   - conda config --add channels conda-forge
   - conda install qt pyqt
   - conda install -c conda-forge numpy scipy pandas gdal scikit-learn matplotlib
-  - conda install -c usgs-astrogeology plio
+  - conda install -c usgs-astrogeology plio pyhat
 
   # Development installation
   - conda install pytest pytest-cov pytest-qt
