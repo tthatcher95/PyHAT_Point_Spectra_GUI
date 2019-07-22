@@ -69,6 +69,7 @@ class Ui_MainWindow(MainWindow):
         self.addWidget(core.CombineDataSets.CombineDataSets)
         self.addWidget(core.RestoreTrainedModel.RestoreTrainedModel)
         self.addWidget(core.SaveTrainedModel.SaveTrainedModel)
+        self.addWidget(core.SaveRegressionModel.SaveRegressionModel)
 
 
 def main():
