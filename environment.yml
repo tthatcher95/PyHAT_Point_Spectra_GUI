@@ -7,6 +7,9 @@ dependencies:
  - scipy
  - matplotlib
  - scikit-learn
+ - docutils
+ - PyYAML=3.12
+ - cython
  - pip:
    - libpysat
    - qtmodern
