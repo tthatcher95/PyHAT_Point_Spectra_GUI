@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from libpyhat.transform.baseline_code.ccam_remove_continuum import ccam_br
+from libpyhat.transform.baseline_code.swt import swt
 
 from point_spectra_gui.ui.SWT import Ui_Form
 from point_spectra_gui.util.Modules import Modules
@@ -18,7 +18,7 @@ class Ui_Form(Ui_Form, Modules):
         self.get_widget().setHidden(bool)
 
     def connectWidgets(self):
-        SWT = ccam_br()
+        SWT = swt()
         self.lowestWaveletScaleSpinBox.setValue(SWT.lvmin_)
         self.largestWaveletScaleSpinBox.setValue(SWT.lv_)
 
@@ -34,7 +34,7 @@ class Ui_Form(Ui_Form, Modules):
         elif int_flag == 'Spline':
             methodParameters.update({'int_flag_': 2})
 
-        return methodParameters, self.getChangedValues(methodParameters, ccam_br())
+        return methodParameters, self.getChangedValues(methodParameters, swt())
 
 
 if __name__ == "__main__":

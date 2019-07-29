@@ -33,8 +33,7 @@ class BaselineRemoval(Ui_Form, Modules):
                                     'KK',
                                     'Median',
                                     'Polyfit',
-                                    'Rubberband',
-                                    'Stationary Wavelets'
+                                    'Rubberband'
                                     ]
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.chooseAlgorithmList)
@@ -92,7 +91,6 @@ class BaselineRemoval(Ui_Form, Modules):
             Median,
             Polyfit,
             Rubberband,
-            SWT,
             Mario,
         ]
         for items in list_forms:
