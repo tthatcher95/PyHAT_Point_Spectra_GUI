@@ -7,4 +7,4 @@ dependencies:
  - scipy
  - matplotlib
  - scikit-learn
- - libpysat
+ - libpyhat
