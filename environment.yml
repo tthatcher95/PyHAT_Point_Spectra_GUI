@@ -11,3 +11,4 @@ dependencies:
  - PyYAML=3.12
  - cython
  - libpyhat
+ - pywt
