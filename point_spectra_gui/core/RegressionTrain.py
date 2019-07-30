@@ -212,7 +212,7 @@ class RegressionTrain(Ui_Form, Modules):
         self.alg = {'ARD': ARD.Ui_Form(),
                     'BRR': BayesianRidge.Ui_Form(),
                     'Elastic Net': ElasticNet.Ui_Form(),
-                    'GP': GP.Ui_Form(),
+               #     'GP': GP.Ui_Form(),
                     # 'KRR': KRR.Ui_Form(),
                     'LARS': LARS.Ui_Form(),
                     'LASSO': Lasso.Ui_Form(),

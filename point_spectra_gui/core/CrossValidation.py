@@ -34,7 +34,7 @@ class CrossValidation(Ui_Form, Modules):
                                'ARD',
                                'BRR',
                                'Elastic Net',
-                               'GP',
+                               #'GP',
                                # 'KRR',  This needs more work since it requires parameters for the kernel passed as an object
                                'LARS',
                                'LASSO',
@@ -270,7 +270,7 @@ class CrossValidation(Ui_Form, Modules):
         self.alg = {'ARD': cv_ARD.Ui_Form(),
                     'BRR': cv_BayesianRidge.Ui_Form(),
                     'Elastic Net': cv_ElasticNet.Ui_Form(),
-                    'GP': cv_GP.Ui_Form(),
+                    #'GP': cv_GP.Ui_Form(),
                     #'KRR': cv_KRR.Ui_Form(),
                     'LARS': cv_LARS.Ui_Form(),
                     'LASSO': cv_Lasso.Ui_Form(),
