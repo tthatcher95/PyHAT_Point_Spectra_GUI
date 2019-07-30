@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets, QtCore
-from sklearn.gaussian_process.gaussian_process import GaussianProcess
+#from sklearn.gaussian_process.gaussian_process import GaussianProcess
 
 from point_spectra_gui.ui.cv_GP import Ui_Form
 from point_spectra_gui.util.Modules import Modules
