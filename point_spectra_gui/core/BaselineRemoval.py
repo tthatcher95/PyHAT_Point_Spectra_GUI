@@ -33,7 +33,9 @@ class BaselineRemoval(Ui_Form, Modules):
                                     'KK',
                                     'Median',
                                     'Polyfit',
-                                    'Rubberband'
+                                    'Rubberband',
+                                    'Mario',
+                                    'Wavelet a Trous + Spline'
                                     ]
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.chooseAlgorithmList)
@@ -92,6 +94,7 @@ class BaselineRemoval(Ui_Form, Modules):
             Polyfit,
             Rubberband,
             Mario,
+            WaveletSpline
         ]
         for items in list_forms:
             self.alg.append(items.Ui_Form())
