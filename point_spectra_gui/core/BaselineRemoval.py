@@ -36,7 +36,7 @@ class BaselineRemoval(Ui_Form, Modules):
                                     'Rubberband',
                                     'Mario',
                                     'Wavelet a Trous + Spline',
-                                    'Min + Spline'
+                                    'Min + Interpolate'
                                     ]
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.setComboBox(self.chooseAlgorithmComboBox, self.chooseAlgorithmList)
@@ -96,7 +96,7 @@ class BaselineRemoval(Ui_Form, Modules):
             Rubberband,
             Mario,
             WaveletSpline,
-            MinSpline
+            MinInterp
         ]
         for items in list_forms:
             self.alg.append(items.Ui_Form())

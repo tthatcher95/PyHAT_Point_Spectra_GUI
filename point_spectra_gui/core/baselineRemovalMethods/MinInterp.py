@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
-from libpyhat.transform.baseline_code.min_spline import minimum_spline
-from point_spectra_gui.ui.MinSpline import Ui_Form
+from libpyhat.transform.baseline_code.min_spline import minimum_interp
+from point_spectra_gui.ui.MinInterp import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
 
@@ -21,9 +21,18 @@ class Ui_Form(Ui_Form, Modules):
 
 
     def run(self):
-        methodParameters = {'window': self.winsizeSpin.value()}
+        interpkind = self.interpcomboBox.currentText()
 
-        return methodParameters, self.getChangedValues(methodParameters, minimum_spline())
+        if interpkind == 'Quadratic Spline':
+            kind = 'quadratic'
+        if interpkind == 'Cubic Spline':
+            kind = 'cubic'
+        if interpkind == 'Linear':
+            kind = 'linear'
+        methodParameters = {'window': self.winsizeSpin.value(),
+                            'kind': kind}
+
+        return methodParameters, self.getChangedValues(methodParameters, minimum_interp())
 
 
 if __name__ == "__main__":

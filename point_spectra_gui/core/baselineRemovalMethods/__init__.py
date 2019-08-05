@@ -9,5 +9,5 @@ from point_spectra_gui.core.baselineRemovalMethods import Mario
 from point_spectra_gui.core.baselineRemovalMethods import Median
 from point_spectra_gui.core.baselineRemovalMethods import Polyfit
 from point_spectra_gui.core.baselineRemovalMethods import Rubberband
-from point_spectra_gui.core.baselineRemovalMethods import MinSpline
+from point_spectra_gui.core.baselineRemovalMethods import MinInterp
 
