@@ -1,7 +1,7 @@
 import numpy as np
 from PyQt5 import QtWidgets, QtCore
 
-from point_spectra_gui.ui.caltran_cv_LASSODS import Ui_Form
+from point_spectra_gui.ui.caltran_cv_RidgeDS import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
 class Ui_Form(Ui_Form, Modules):
@@ -20,8 +20,8 @@ class Ui_Form(Ui_Form, Modules):
 
     def run(self):
 
-        params = {'method':['LASSO DS'],
-                  'reg':['lasso'],
+        params = {'method':['Ridge DS'],
+                  'reg':['ridge'],
                   'rho': [float(i) for i in self.rho_lineEdit.text().split(',')],
                   'beta': [float(i) for i in self.beta_lineEdit.text().split(',')],
                   'max_iter': [self.niter_spinBox.value()]}

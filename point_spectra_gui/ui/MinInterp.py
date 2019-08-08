@@ -30,8 +30,6 @@ class Ui_Form(object):
         self.interpcomboBox.addItem("")
         self.interpcomboBox.addItem("")
         self.interpcomboBox.addItem("")
-        self.interpcomboBox.addItem("")
-        self.interpcomboBox.addItem("")
         self.formLayout_2.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.interpcomboBox)
         self.verticalLayout.addWidget(self.groupBox)
 
@@ -45,9 +43,7 @@ class Ui_Form(object):
         self.interpLabel.setText(("Interpolation type"))
         self.interpcomboBox.setItemText(0, ("Cubic Spline"))
         self.interpcomboBox.setItemText(1, ("Quadratic Spline"))
-        self.interpcomboBox.setItemText(2, ("Linear Spline"))
-        self.interpcomboBox.setItemText(3, ("0th order Spline"))
-        self.interpcomboBox.setItemText(4, ("Linear"))
+        self.interpcomboBox.setItemText(2, ("Linear"))
 
 
 if __name__ == "__main__":

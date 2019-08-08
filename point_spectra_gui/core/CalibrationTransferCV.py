@@ -44,6 +44,18 @@ class CalibrationTransferCV(Ui_Form, Modules):
             lambda: self.toggle_caltran_widget('LASSO DS',self.LASSODScheckbox.isChecked()))
         self.PDSPLScheckBox.stateChanged.connect(
             lambda: self.toggle_caltran_widget('PDS-PLS - PDS using Partial Least Squares',self.PDSPLScheckBox.isChecked()))
+        self.RidgeDScheckBox.stateChanged.connect(
+            lambda: self.toggle_caltran_widget('Ridge DS',self.RidgeDScheckBox.isChecked()))
+        self.CCAcheckBox.stateChanged.connect(
+            lambda: self.toggle_caltran_widget('CCA - Canonical Correlation Analysis',self.CCAcheckBox.isChecked()))
+        self.IPDDScheckBox.stateChanged.connect(
+            lambda: self.toggle_caltran_widget('Incremental Proximal Descent DS',self.IPDDScheckBox.isChecked()))
+        self.NewCCAcheckBox.stateChanged.connect(
+            lambda: self.toggle_caltran_widget('New CCA',self.NewCCAcheckBox.isChecked()))
+        self.ForwardBackwardcheckBox.stateChanged.connect(
+            lambda: self.toggle_caltran_widget('Forward Backward DS',self.ForwardBackwardcheckBox.isChecked()))
+        self.SparseDScheckBox.stateChanged.connect(
+            lambda: self.toggle_caltran_widget('Sparse Low Rank DS', self.SparseDScheckBox.isChecked()))
 
     def getGuiParams(self):
         """
@@ -96,7 +108,13 @@ class CalibrationTransferCV(Ui_Form, Modules):
         self.alg = {'PDS - Piecewise Direct Standardization': [caltran_cv_PDS.Ui_Form(), self.PDSlayout],
                     'PDS-PLS - PDS using Partial Least Squares': [caltran_cv_PDS_PLS.Ui_Form(), self.PDSPLSlayout],
                     'DS - Direct Standardization': [caltran_cv_DS.Ui_Form(),self.DSlayout],
-                    'LASSO DS': [caltran_cv_LASSODS.Ui_Form(), self.LASSODSlayout]}
+                    'LASSO DS': [caltran_cv_LASSODS.Ui_Form(), self.LASSODSlayout],
+                    'Ridge DS': [caltran_cv_RidgeDS.Ui_Form(), self.RidgeDSlayout],
+                    'CCA - Canonical Correlation Analysis': [caltran_cv_CCA.Ui_Form(),self.CCAlayout],
+                    'New CCA': [caltran_cv_NewCCA.Ui_Form(),self.NewCCALayout],
+                    'Incremental Proximal Descent DS': [caltran_cv_IPDDS.Ui_Form(), self.IPDDSlayout],
+                    'Forward Backward DS': [caltran_cv_FBDS.Ui_Form(), self.FBDSlayout],
+                    'Sparse Low Rank DS': [caltran_cv_SparseDS.Ui_Form(),self.SparseLayout]}
 
         for key in self.alg.keys():
             self.alg[key][0].setupUi(self.Form)
@@ -129,7 +147,19 @@ class CalibrationTransferCV(Ui_Form, Modules):
         if self.LASSODScheckbox.isChecked():
             paramgrid.extend(list(ParameterGrid(self.alg['LASSO DS'][0].run())))
         if self.Ratiocheckbox.isChecked():
-            paramgrid.extend({'method':'Ratio'})
+            paramgrid.extend([{'method':'Ratio'}])
+        if self.SparseDScheckBox.isChecked():
+            paramgrid.extend([{'method':'Sparse Low Rank DS'}])
+        if self.RidgeDScheckBox.isChecked():
+            paramgrid.extend(list(ParameterGrid(self.alg['Ridge DS'][0].run())))
+        if self.CCAcheckBox.isChecked():
+            paramgrid.extend(list(ParameterGrid(self.alg['CCA - Canonical Correlation Analysis'][0].run())))
+        if self.NewCCAcheckBox.isChecked():
+            paramgrid.extend(list(ParameterGrid(self.alg['New CCA'][0].run())))
+        if self.ForwardBackwardcheckBox.isChecked():
+            paramgrid.extend(list(ParameterGrid(self.alg['Forward Backward DS'][0].run())))
+        if self.IPDDScheckBox.isChecked():
+            paramgrid.extend(list(ParameterGrid(self.alg['Incremental Proximal Descent DS'][0].run())))
 
         #get the data sets
         A = self.data[datakeyA].df

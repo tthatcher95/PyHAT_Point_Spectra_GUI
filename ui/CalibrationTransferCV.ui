@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>659</width>
-    <height>516</height>
+    <height>579</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="infolabel">
         <property name="text">
-         <string>Evaluates multiple methods and parameters to optimize calibration transfer. Transfer will be for A to B.</string>
+         <string>Evaluates multiple methods and parameters to optimize calibration transfer. Transfer is A to B.</string>
         </property>
        </widget>
       </item>
@@ -95,6 +95,16 @@
          </widget>
         </item>
         <item>
+         <widget class="QCheckBox" name="Ratiocheckbox">
+          <property name="text">
+           <string>Ratio</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="RatioLayout"/>
+        </item>
+        <item>
          <widget class="QCheckBox" name="DScheckbox">
           <property name="text">
            <string>DS - Direct Standardization</string>
@@ -125,13 +135,6 @@
          <layout class="QVBoxLayout" name="PDSPLSlayout"/>
         </item>
         <item>
-         <widget class="QCheckBox" name="Ratiocheckbox">
-          <property name="text">
-           <string>Ratio</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QCheckBox" name="LASSODScheckbox">
           <property name="text">
            <string>LASSO DS</string>
@@ -140,6 +143,66 @@
         </item>
         <item>
          <layout class="QVBoxLayout" name="LASSODSlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="RidgeDScheckBox">
+          <property name="text">
+           <string>Ridge DS</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="RidgeDSlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="SparseDScheckBox">
+          <property name="text">
+           <string>Sparse Low-Rank DS</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="SparseLayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="CCAcheckBox">
+          <property name="text">
+           <string>CCA - Canonical Correlation Analysis</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="CCAlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="NewCCAcheckBox">
+          <property name="text">
+           <string>New CCA</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="NewCCALayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="IPDDScheckBox">
+          <property name="text">
+           <string>Incremental Proximal Descent DS</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="IPDDSlayout"/>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="ForwardBackwardcheckBox">
+          <property name="text">
+           <string>Forward Backward DS</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="FBDSlayout"/>
         </item>
        </layout>
       </item>
