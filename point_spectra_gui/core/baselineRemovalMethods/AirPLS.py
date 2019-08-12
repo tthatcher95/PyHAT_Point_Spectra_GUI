@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from libpysat.transform.baseline_code.airpls import AirPLS
+from libpyhat.transform.baseline_code.airpls import AirPLS
 
 from point_spectra_gui.ui.AirPLS import Ui_Form
 from point_spectra_gui.util.Modules import Modules

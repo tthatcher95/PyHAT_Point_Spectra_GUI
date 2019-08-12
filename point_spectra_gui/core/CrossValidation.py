@@ -8,7 +8,6 @@ from point_spectra_gui.core.crossValidateMethods import *
 from point_spectra_gui.ui.CrossValidation import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 from sklearn.model_selection import ParameterGrid, LeaveOneGroupOut
-import point_spectra_gui.ui.CVProgressBar as CVProgressBar
 
 class CrossValidation(Ui_Form, Modules):
     count = -1
@@ -35,7 +34,7 @@ class CrossValidation(Ui_Form, Modules):
                                'ARD',
                                'BRR',
                                'Elastic Net',
-                               'GP',
+                               #'GP',
                                # 'KRR',  This needs more work since it requires parameters for the kernel passed as an object
                                'LARS',
                                'LASSO',
@@ -271,7 +270,7 @@ class CrossValidation(Ui_Form, Modules):
         self.alg = {'ARD': cv_ARD.Ui_Form(),
                     'BRR': cv_BayesianRidge.Ui_Form(),
                     'Elastic Net': cv_ElasticNet.Ui_Form(),
-                    'GP': cv_GP.Ui_Form(),
+                    #'GP': cv_GP.Ui_Form(),
                     #'KRR': cv_KRR.Ui_Form(),
                     'LARS': cv_LARS.Ui_Form(),
                     'LASSO': cv_Lasso.Ui_Form(),
