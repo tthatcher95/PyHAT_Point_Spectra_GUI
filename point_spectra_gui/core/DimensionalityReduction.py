@@ -17,6 +17,7 @@ class DimensionalityReduction(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
+
     def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
                                'PCA',
