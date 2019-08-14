@@ -12,11 +12,8 @@ class RenameData(Ui_Form, Modules):
     def get_widget(self):
         return self.groupBox
 
-    def connectWidgets(self):
-        self.setComboBox(self.renameDataComboBox, self.datakeys)
-        self.toDataLineEdit.editingFinished(lambda: self.rename_data())
-
     def rename_data(self):
+        print('Called data')
         new_data_name = self.toDataLineEdit.text()
         old_data_name = self.renameDataComboBox.currentText()
         if new_data_name != '':
@@ -26,7 +23,12 @@ class RenameData(Ui_Form, Modules):
                 if self.datakeys[i] == old_data_name:
                     del self.datakeys[i]
 
+    def connectWidgets(self):
+        self.setComboBox(self.renameDataComboBox, self.datakeys)
+        self.toDataLineEdit.editingFinished.connect(lambda: self.rename_data())
+
     def run(self):
+        print('Called run')
         self.rename_data()
 
 if __name__ == "__main__":
