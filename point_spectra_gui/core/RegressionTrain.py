@@ -57,7 +57,8 @@ class RegressionTrain(Ui_Form, Modules):
                                'LARS',
                                # 'LASSO LARS', - This is having issues. Hide until we can debug
                                'SVR',
-                               'GBR']
+                               'GBR',
+                               'GP']
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
         self.yMaxDoubleSpinBox.setMaximum(999999)
@@ -159,7 +160,11 @@ class RegressionTrain(Ui_Form, Modules):
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
         self.list_amend(self.modelkeys, self.curr_count, modelkey)
         #print(params, modelkey)
+        print('SQUEEEEEEEZE')
+
         self.models[modelkey] = regression.regression([method], [yrange], [params])
+        print('SQUEEEEEEEZE')
+
         x = self.data[datakey].df[xvars]
         y = self.data[datakey].df[yvars]
         x = np.array(x)
@@ -212,7 +217,7 @@ class RegressionTrain(Ui_Form, Modules):
         self.alg = {'ARD': ARD.Ui_Form(),
                     'BRR': BayesianRidge.Ui_Form(),
                     'Elastic Net': ElasticNet.Ui_Form(),
-               #     'GP': GP.Ui_Form(),
+                    'GP': GP.Ui_Form(),
                     # 'KRR': KRR.Ui_Form(),
                     'LARS': LARS.Ui_Form(),
                     'LASSO': Lasso.Ui_Form(),

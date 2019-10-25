@@ -56,6 +56,9 @@ class Ui_Form(object):
         self.yVariableLabel = QtWidgets.QLabel(self.groupLayout)
         self.yVariableLabel.setObjectName("yVariableLabel")
         self.gridLayout.addWidget(self.yVariableLabel, 1, 1, 1, 1)
+        self.progbar = QtWidgets.QProgressBar()
+        self.progbar.setObjectName("progbar")
+        self.gridLayout.addWidget(self.progbar, 5, 0, 1, 0)
         self.xVariableLabel = QtWidgets.QLabel(self.groupLayout)
         self.xVariableLabel.setObjectName("xVariableLabel")
         self.gridLayout.addWidget(self.xVariableLabel, 1, 0, 1, 1)
@@ -113,4 +116,3 @@ if __name__ == "__main__":
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())
-

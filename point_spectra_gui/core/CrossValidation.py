@@ -34,7 +34,7 @@ class CrossValidation(Ui_Form, Modules):
                                'ARD',
                                'BRR',
                                'Elastic Net',
-                               #'GP',
+                               'GP',
                                # 'KRR',  This needs more work since it requires parameters for the kernel passed as an object
                                'LARS',
                                'LASSO',
@@ -54,6 +54,7 @@ class CrossValidation(Ui_Form, Modules):
         self.changeComboListVars(self.yVariableList, self.yvar_choices())
         self.changeComboListVars(self.xVariableList, self.xvar_choices())
         self.xvar_choices()
+        self.progbar.setValue(0)
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(
@@ -197,8 +198,8 @@ class CrossValidation(Ui_Form, Modules):
         paramgrid = list(ParameterGrid(params))  # create a grid of parameter permutations
 
 
-        progbar = QtWidgets.QProgressBar()
-        cv_obj = cv.cv(paramgrid,progressbar=progbar)
+        # progbar = QtWidgets.QProgressBar()
+        cv_obj = cv.cv(paramgrid,progressbar=self.progbar)
 
         try:
             cv_iterator = LeaveOneGroupOut().split(data_for_cv.df[xvars], data_for_cv.df[yvars], data_for_cv.df[
@@ -270,7 +271,7 @@ class CrossValidation(Ui_Form, Modules):
         self.alg = {'ARD': cv_ARD.Ui_Form(),
                     'BRR': cv_BayesianRidge.Ui_Form(),
                     'Elastic Net': cv_ElasticNet.Ui_Form(),
-                    #'GP': cv_GP.Ui_Form(),
+                    'GP': cv_GP.Ui_Form(),
                     #'KRR': cv_KRR.Ui_Form(),
                     'LARS': cv_LARS.Ui_Form(),
                     'LASSO': cv_Lasso.Ui_Form(),
