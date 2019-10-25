@@ -24,7 +24,8 @@ class Ui_Form(Ui_Form, Modules):
                   'reg':['sp_lr'],
                   'rho': [float(i) for i in self.rho_lineEdit.text().split(',')],
                   'beta': [float(i) for i in self.beta_lineEdit.text().split(',')],
-                  'max_iter': [self.niter_spinBox.value()]}
+                  'max_iter': [self.niter_spinBox.value()],
+                  'epsilon':[self.epsilon_doubleSpinBox.value()]}
 
         return params
 
