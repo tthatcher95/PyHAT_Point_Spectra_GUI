@@ -13,34 +13,50 @@ from point_spectra_gui.util.spectral_data import spectral_data
 
 
 def CCAM_CSV(input_data, ave=True):
-    #These try/excepts are clunky but get the job done
-    try:
-        df = pd.read_csv(input_data, header=14, engine='c')
-        cols = list(df.columns.values)
-        df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
-        df.set_index(['wave'], inplace=True)  # use wavelengths as indices
-        # read the file header and put information into the dataframe as new columns
-        metadata = pd.read_csv(input_data, sep='=', nrows=14, comment=',', engine='c', index_col=0, header=None)
-    except:
-        try:  # handle files with an extra header row containing temperature
-            df = pd.read_csv(input_data, header=15, engine='c')
-            cols = list(df.columns.values)
-            df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
-            df.set_index(['wave'], inplace=True)  # use wavelengths as indices
-            # read the file header and put information into the dataframe as new columns
-            metadata = pd.read_csv(input_data, sep='=', nrows=15, comment=',', engine='c', index_col=0, header=None)
-        except:  # handle files with an extra header row containing temperature and target name
-            df = pd.read_csv(input_data, header=16, engine='c')
-            cols = list(df.columns.values)
-            df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
-            df.set_index(['wave'], inplace=True)  # use wavelengths as indices
-            # read the file header and put information into the dataframe as new columns
-            metadata = pd.read_csv(input_data, sep='=', nrows=16, comment=',', engine='c', index_col=0, header=None)
+    #read the beginning of the file
+    header = pd.read_csv(input_data, nrows = 20, engine='c',header=None)
+
+    #count how many rows are commented
+    header_rows = header[0].str.contains('#').sum()-1
+    df = pd.read_csv(input_data,header=header_rows,engine='c',delimiter=',',index_col=False)
+    cols = list(df.columns.values)
+    df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
+    df.set_index(['wave'], inplace=True)  # use wavelengths as indices
+    metadata = pd.read_csv(input_data, sep='=', nrows=header_rows, comment=',', engine='c', index_col=0, header=None)
+    #
+    # #These try/excepts are clunky but get the job done
+    # try:
+    #     df = pd.read_csv(input_data, header=14, engine='c')
+    #     cols = list(df.columns.values)
+    #     df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
+    #     df.set_index(['wave'], inplace=True)  # use wavelengths as indices
+    #     # read the file header and put information into the dataframe as new columns
+    #     metadata = pd.read_csv(input_data, sep='=', nrows=14, comment=',', engine='c', index_col=0, header=None)
+    # except:
+    #     try:  # handle files with an extra header row containing temperature
+    #         df = pd.read_csv(input_data, header=15, engine='c')
+    #         cols = list(df.columns.values)
+    #         df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
+    #         df.set_index(['wave'], inplace=True)  # use wavelengths as indices
+    #         # read the file header and put information into the dataframe as new columns
+    #         metadata = pd.read_csv(input_data, sep='=', nrows=15, comment=',', engine='c', index_col=0, header=None)
+    #     except:  # handle files with an extra header row containing temperature and target name
+    #         df = pd.read_csv(input_data, header=16, engine='c')
+    #         cols = list(df.columns.values)
+    #         df.columns = [i.strip().replace('# ', '') for i in cols]  # strip whitespace from column names
+    #         df.set_index(['wave'], inplace=True)  # use wavelengths as indices
+    #         # read the file header and put information into the dataframe as new columns
+    #         metadata = pd.read_csv(input_data, sep='=', nrows=16, comment=',', engine='c', index_col=0, header=None)
 
     if ave:
         df = pd.DataFrame(df['mean'])
     else:
-        df = df.drop(['mean', 'median'], axis=1)
+        try:
+            df = df.drop(['mean'], axis=1)
+            df = df.drop(['median'], axis=1)
+
+        except:
+            pass
     df.index = [['wvl'] * len(df.index),
                 df.index.values.round(4)]  # create multiindex so spectra can be easily extracted with a single key
     df = df.T  # transpose so that each spectrum is a row
@@ -138,7 +154,6 @@ def CCAM_SAV(input_data, ave=True):
         pass
 
     return df
-
 
 def ccam_batch(directory, searchstring='*.csv', to_csv=None, lookupfile=None, ave=True, progressbar=None, left_on = 'sclock', right_on='Spacecraft Clock',versioncheck=True):
     # Determine if the file is a .csv or .SAV
