@@ -17,6 +17,7 @@ class DimensionalityReduction(Ui_Form, Modules):
     def get_widget(self):
         return self.formGroupBox
 
+
     def connectWidgets(self):
         self.algorithm_list = ['Choose an algorithm',
                                'PCA',
@@ -89,7 +90,7 @@ class DimensionalityReduction(Ui_Form, Modules):
         params, modelkey = self.getMethodParams(self.chooseMethodComboBox.currentIndex())
         load_fit = False
         col = 'wvl'
-        self.data[datakey].dim_red(col, method, [], params, load_fit)
+        df, PCA_obj = dim_red(self.data[datakey].df, col, method, [], params, load_fit)
 
     def make_dimred_widget(self, alg, params=None):
         self.hideAll()

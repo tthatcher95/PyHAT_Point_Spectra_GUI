@@ -11,6 +11,9 @@ only:
   - dev
   - master
 
+services:
+  - xvfb
+
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
       wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
@@ -33,18 +36,14 @@ install:
   # Install dependencies
   - conda config --add channels usgs-astrogeology
   - conda config --add channels conda-forge
-  - conda install qt==5.6 pyqt==5.6
+  - conda install qt pyqt
   - conda install -c conda-forge numpy scipy pandas gdal scikit-learn matplotlib
-  - conda install -c usgs-astrogeology plio
+  - conda install -c usgs-astrogeology plio pyhat
 
   # Development installation
   - conda install pytest pytest-cov pytest-qt
   - pip install coveralls
 
-before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
 
 script:
   - conda env create -n ppsg -f travis_env.yml

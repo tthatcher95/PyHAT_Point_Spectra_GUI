@@ -242,7 +242,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
 
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
-        self.actionClear_Workflow.setShortcut("ctrl+K")
         self.actionCreate_New_Workflow.setShortcut("ctrl+N")
         self.actionRestore_Workflow.setShortcut("ctrl+O")
         self.actionSave_Current_Workflow.setShortcut("ctrl+S")
@@ -266,14 +265,22 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.DimensionalityReduction.DimensionalityReduction))
             self.actionCluster.triggered.connect(
                 lambda: self.addWidget(core.Clustering.Clustering))
-            self.actionInterpolate.triggered.connect(
-                lambda: self.addWidget(core.Interpolation.Interpolation))
+            self.actionResample.triggered.connect(
+                lambda: self.addWidget(core.Resample.Resample))
+            self.actionCalibration_Transfer.triggered.connect(
+                lambda: self.addWidget(core.CalibrationTransfer.CalibrationTransfer))
+            self.actionCalibration_Transfer_CV.triggered.connect(
+                lambda: self.addWidget(core.CalibrationTransferCV.CalibrationTransferCV))
             self.actionLook_Up_Metadata.triggered.connect(
                 lambda: self.addWidget(core.Lookup.Lookup))
             self.actionLoad_Data.triggered.connect(
                 lambda: self.addWidget(core.LoadData.LoadData))
             self.actionSave_Current_Data.triggered.connect(
                 lambda: self.addWidget(core.WriteToCSV.WriteToCSV))
+            self.actionSave_Regression_Model.triggered.connect(
+                lambda: self.addWidget(core.SaveRegressionModel.SaveRegressionModel))
+            self.actionRestore_Regression_Model.triggered.connect(
+                lambda: self.addWidget(core.RestoreRegressionModel.RestoreRegressionModel))
             self.actionRename_Data.triggered.connect(
                 lambda: self.addWidget(core.RenameData.RenameData))
             self.actionApply_Mask.triggered.connect(
@@ -282,8 +289,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.MultiplyByVector.MultiplyByVector))
             self.actionNormalization.triggered.connect(
                 lambda: self.addWidget(core.Normalization.Normalization))
-            self.actionSet_Output_Path.triggered.connect(
-                lambda: self.addWidget(core.OutputFolder.OutputFolder))
+            #self.actionSet_Output_Path.triggered.connect(
+            #     lambda: self.addWidget(core.OutputFolder.OutputFolder))
             self.actionPeak_Areas.triggered.connect(
                 lambda: self.addWidget(core.PeakAreas.PeakAreas))
             self.actionPlot.triggered.connect(
@@ -325,7 +332,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionDefault.triggered.connect(lambda: self.theme('default'))
             self.actionBrace_yourself.triggered.connect(lambda: self.theme('braceyourself'))
             self.actionCreate_New_Workflow.triggered.connect(self.new)
-            self.actionClear_Workflow.triggered.connect(self.clear)
             self.actionSave_Current_Workflow.triggered.connect(self.on_save_clicked)
             self.actionRestore_Workflow.triggered.connect(self.on_restore_clicked)
             self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
@@ -338,6 +344,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.actionOff.triggered.connect(self.normal_mode)
             self.actionExit.triggered.connect(self.MainWindow.close)
             self.actionSupervised.setEnabled(False)
+            #self.pushButton.clicked.connect(self.on_outPutLocationButton_clicked)
             self.refreshModulePushButton.setHidden(True) #Hide the refresh button until we can find a less buggy way of implementing
 
         except Exception as e:
@@ -403,7 +410,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         """
         try:
             filename, _filter = QtWidgets.QFileDialog.getSaveFileName(None,
-                                                                      "Choose where you want save your file",
+                                                                      "Choose where you want to save your file",
                                                                       self.outpath,
                                                                       '(*.json)')
             print(filename)
@@ -671,7 +678,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             print("{} Module is Running...".format(name_))
             self.widgetList[modules].run()
             e = time.time()
-            print("Module {} executed in: {} seconds".format(name_, e - s))
+            print("Module {} executed in: {} seconds".format(name_, round(e - s,2)))
             self.widgetList[modules].setDisabled(True)
             self.leftOff = modules + 1
 
@@ -718,6 +725,19 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         else:
             self._logger(self.runModules)
         self.taskFinished.emit()
+
+    # def on_outPutLocationButton_clicked(self):
+    #     filename = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Output Directory", '.')
+    #     self.folderNameLineEdit.setText(filename)
+    #     if self.folderNameLineEdit.text() == "":
+    #         self.folderNameLineEdit.setText("*/")
+    #
+    #     outpath = self.folderNameLineEdit.text()
+    #     try:
+    #         Modules.outpath = outpath
+    #         print("Output path folder has been set to " + outpath)
+    #     except Exception as e:
+    #         print("Error: {}; using default outpath: {}".format(e, Modules.outpath))
 
 
 def get_splash(app):

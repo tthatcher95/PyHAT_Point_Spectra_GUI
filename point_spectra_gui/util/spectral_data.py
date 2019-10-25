@@ -5,19 +5,19 @@ Created on Fri Dec  4 14:53:23 2015
 @author: rbanderson
 """
 import pandas as pd
-import libpysat.transform.remove_baseline as remove_baseline
-import libpysat.transform.interp as interp
-import libpysat.transform.mask as mask
-import libpysat.transform.multiply_vector as multiply_vector
-import libpysat.transform.peak_area as peak_area
-import libpysat.transform.shift_spect as shift_spect
-import libpysat.utils.folds as folds
-import libpysat.transform.norm as norm
-import libpysat.transform.deriv as deriv
-import libpysat.transform.dim_red as dim_red
-import libpysat.clustering.cluster as cluster
-import libpysat.utils.outlier_removal as outlier_removal
-from libpysat.utils.utils import enumerate_duplicates
+import libpyhat.transform.remove_baseline as remove_baseline
+import libpyhat.transform.interp as interp
+import libpyhat.transform.mask as mask
+import libpyhat.transform.multiply_vector as multiply_vector
+import libpyhat.transform.peak_area as peak_area
+import libpyhat.transform.shift_spect as shift_spect
+import libpyhat.utils.folds as folds
+import libpyhat.transform.norm as norm
+import libpyhat.transform.deriv as deriv
+import libpyhat.transform.dim_red as dim_red
+import libpyhat.clustering.cluster as cluster
+import libpyhat.utils.outlier_removal as outlier_removal
+from libpyhat.utils.utils import enumerate_duplicates
 
 class spectral_data(object):
     def __init__(self, df):

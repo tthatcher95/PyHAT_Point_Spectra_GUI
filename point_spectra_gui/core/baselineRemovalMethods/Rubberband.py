@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from libpysat.transform.baseline_code.rubberband import Rubberband
+from libpyhat.transform.baseline_code.rubberband import Rubberband
 
 from point_spectra_gui.ui.Rubberband import Ui_Form
 from point_spectra_gui.util.Modules import Modules

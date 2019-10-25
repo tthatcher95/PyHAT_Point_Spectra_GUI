@@ -17,9 +17,8 @@ def cmaps():
     plot.register_cmap(name='plasma', cmap=colormaps.plasma)
 
 
-def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Reference (wt.%)', colorvar = None,
-              colorval = None,
-              ytitle='Prediction (wt.%)', title=None,
+def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Reference (wt.%)', colorvar = 'None',
+              colorval = None, ytitle='Prediction (wt.%)', title=None,
               lbl='', one_to_one=False, rmse=True, dpi=1000, color=None, annot_mask=None, cmap=None, colortitle='',
               loadfig=None, masklabel='', marker='o', linestyle='None', hline=None, hlinelabel=None, hlinestyle='--',
               yzero=False, linewidth=1.0, vlines=None):
@@ -66,14 +65,15 @@ def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Ref
     #         axes.plot(x[annot_mask], y[annot_mask], facecolors='none', linewidth=linewidth, label=masklabel,
     #                   marker=marker, markeredgecolor='Black', markeredgewidth=2)
 
-    if colorvar is not 'None':
+    if colorvar != 'None':
         try:
             mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=colorval, cmap=cmap, linewidth=0.2, edgecolor='Black')
         except:
-            try:
-                mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=colorval, cmap=cmap, linewidth=0.2, edgecolor='Black')
-            except:
-                pass
+            pass
+            # try:
+            #     mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=colorval, cmap=cmap, linewidth=0.2, edgecolor='Black')
+            # except:
+            #     pass
             # except:
             #     try:
             #         mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=data.df[('K-Means', colorvar)], cmap=cmap,
@@ -86,9 +86,10 @@ def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Ref
             #         except:
             # TODO: handle any top-level label for colorval and clean up these nested try/excepts
         fig.colorbar(mappable, label=colorvar, ax=axes)
-    else:
-        axes.scatter(x, y, linewidth=0.2, edgecolor='Black', label=lbl)
-        axes.legend(loc='best', fontsize=8, scatterpoints=1, numpoints=1)
+    elif colorvar == 'None':
+        axes.plot(x, y, linewidth=0.2, markeredgecolor='Black', markeredgewidth=0.25, label=lbl, color = color, linestyle=linestyle, marker=marker)
+        if lbl != '':
+            axes.legend(loc='best', fontsize=8, scatterpoints=1, numpoints=1)
 
     if yzero:
         axes.set_ylim(bottom=0)
@@ -178,3 +179,20 @@ def pca_ica_plot(data, x_component, y_component, colorvar=None, cmap='viridis', 
 
     if figpath and figfile:
         fig.savefig(figpath + '\\' + figfile, dpi=1000)
+
+# def stratifiedfoldshist(data, datakey, colname, folds):
+#     #datakey = self.chooseDataToStratifyComboBox.currentText()
+#     #colname = ('comp', self.chooseVarComboBox.currentText())
+#     #folds = data[datakey].df[('meta', 'Folds')]
+#     folds_unique = folds.unique()[np.isfinite(folds.unique())]
+#     for fold in folds_unique:
+#         dat_col_folds = data[datakey].df[colname][folds == fold]
+#         plot.hist(dat_col_folds, bins=20)
+#         plot.xlabel(colname[1])
+#         plot.ylabel('Frequency')
+#         plot.title('Histogram of Fold ' + str(int(fold)))
+#         #plt.axis([0, 100, 0, 100])
+#         #plt.grid(True)
+#         plot.show()
+#         plot.savefig(outpath + '//' + colname[1] + '_fold' + str(int(fold)) + '_hist.png')
+#         plot.clf()
