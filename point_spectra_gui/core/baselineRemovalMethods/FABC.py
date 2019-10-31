@@ -12,7 +12,7 @@ class Ui_Form(Ui_Form, Modules):
         Modules.setupUi(self, Form)
 
     def get_widget(self):
-        return self.groupbox
+        return self.groupBox
 
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
