@@ -25,7 +25,7 @@ class Ui_Form(Ui_Form, Modules):
 
     def run(self):
         methodParameters = {'smoothness_': float(self.smoothnessSpinBox.value()),
-                            'conv_thresh_': int(self.convergenceThresholdDoubleSpinBox.value()),
+                            'conv_thresh_': float(self.convergenceThresholdDoubleSpinBox.value()),
                             'max_iters_': float(self.maxNumOfIterationsSpinBox.value())}
 
         return methodParameters, self.getChangedValues(methodParameters, AirPLS())
