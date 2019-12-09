@@ -17,9 +17,8 @@ def cmaps():
     plot.register_cmap(name='plasma', cmap=colormaps.plasma)
 
 
-def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Reference (wt.%)', colorvar = None,
-              colorval = None,
-              ytitle='Prediction (wt.%)', title=None,
+def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Reference (wt.%)', colorvar = 'None',
+              colorval = None, ytitle='Prediction (wt.%)', title=None,
               lbl='', one_to_one=False, rmse=True, dpi=1000, color=None, annot_mask=None, cmap=None, colortitle='',
               loadfig=None, masklabel='', marker='o', linestyle='None', hline=None, hlinelabel=None, hlinestyle='--',
               yzero=False, linewidth=1.0, vlines=None):
@@ -88,7 +87,7 @@ def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Ref
             # TODO: handle any top-level label for colorval and clean up these nested try/excepts
         fig.colorbar(mappable, label=colorvar, ax=axes)
     elif colorvar == 'None':
-        axes.scatter(x, y, linewidth=0.2, edgecolor='Black', label=lbl, color = color)
+        axes.plot(x, y, linewidth=0.2, markeredgecolor='Black', markeredgewidth=0.25, label=lbl, color = color, linestyle=linestyle, marker=marker)
         if lbl != '':
             axes.legend(loc='best', fontsize=8, scatterpoints=1, numpoints=1)
 

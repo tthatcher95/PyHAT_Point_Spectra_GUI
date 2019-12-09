@@ -265,14 +265,22 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.DimensionalityReduction.DimensionalityReduction))
             self.actionCluster.triggered.connect(
                 lambda: self.addWidget(core.Clustering.Clustering))
-            self.actionInterpolate.triggered.connect(
-                lambda: self.addWidget(core.Interpolation.Interpolation))
+            self.actionResample.triggered.connect(
+                lambda: self.addWidget(core.Resample.Resample))
+            self.actionCalibration_Transfer.triggered.connect(
+                lambda: self.addWidget(core.CalibrationTransfer.CalibrationTransfer))
+            self.actionCalibration_Transfer_CV.triggered.connect(
+                lambda: self.addWidget(core.CalibrationTransferCV.CalibrationTransferCV))
             self.actionLook_Up_Metadata.triggered.connect(
                 lambda: self.addWidget(core.Lookup.Lookup))
             self.actionLoad_Data.triggered.connect(
                 lambda: self.addWidget(core.LoadData.LoadData))
             self.actionSave_Current_Data.triggered.connect(
                 lambda: self.addWidget(core.WriteToCSV.WriteToCSV))
+            self.actionSave_Regression_Model.triggered.connect(
+                lambda: self.addWidget(core.SaveRegressionModel.SaveRegressionModel))
+            self.actionRestore_Regression_Model.triggered.connect(
+                lambda: self.addWidget(core.RestoreRegressionModel.RestoreRegressionModel))
             self.actionRename_Data.triggered.connect(
                 lambda: self.addWidget(core.RenameData.RenameData))
             self.actionApply_Mask.triggered.connect(
@@ -670,7 +678,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             print("{} Module is Running...".format(name_))
             self.widgetList[modules].run()
             e = time.time()
-            print("Module {} executed in: {} seconds".format(name_, e - s))
+            print("Module {} executed in: {} seconds".format(name_, round(e - s,2)))
             self.widgetList[modules].setDisabled(True)
             self.leftOff = modules + 1
 

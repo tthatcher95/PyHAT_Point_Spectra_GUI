@@ -6,7 +6,7 @@ from point_spectra_gui.ui.ElasticNet import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
 
-class Ui_Form(Ui_Form, ElasticNet, ElasticNetCV, Modules):
+class Ui_Form(Ui_Form, ElasticNet, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
         self.checkMinAndMax()
