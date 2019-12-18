@@ -18,7 +18,16 @@ class CalibrationTransfer(Ui_Form, Modules):
         return self.formGroupBox
 
     def connectWidgets(self):
-        self.methodlist = ['PDS - Piecewise Direct Standardization']
+        self.methodlist = ['PDS - Piecewise DS',
+         'DS - Direct Standardization',
+         'LASSO DS',
+         'Ridge DS',
+         'CCA - Canonical Correlation Analysis',
+         'New CCA',
+         'Incremental Proximal Descent DS',
+         'Forward Backward DS',
+         'Sparse Low Rank DS']
+
         self.setComboBox(self.chooseDataA, self.datakeys)
         self.setComboBox(self.chooseDataB, self.datakeys)
         self.setComboBox(self.chooseDatatoTransform,self.datakeys)
@@ -46,7 +55,16 @@ class CalibrationTransfer(Ui_Form, Modules):
             self.alg[a].setHidden(True)
 
     def caltranMethods(self):
-        self.alg = {'PDS - Piecewise Direct Standardization': caltran_PDS.Ui_Form(),
+        self.alg = {'PDS - Piecewise DS': caltran_PDS.Ui_Form(),
+                    'DS - Direct Standardization': caltran_DS.Ui_Form(),
+                    'LASSO DS': caltran_LASSODS.Ui_Form(),
+                    'Ridge DS': caltran_RidgeDS.Ui_Form(),
+                    'CCA - Canonical Correlation Analysis': caltran_CCA.Ui_Form(),
+                    'New CCA': caltran_NewCCA.Ui_Form(),
+                    'Incremental Proximal Descent DS': caltran_IPDDS.Ui_Form(),
+                    'Forward Backward DS': caltran_FBDS.Ui_Form(),
+                    'Sparse Low Rank DS': caltran_SparseDS.Ui_Form(),
+                    'Ratio': caltran_Ratio.Ui_Form()
                     }
 
         for item in self.alg:
@@ -83,18 +101,16 @@ class CalibrationTransfer(Ui_Form, Modules):
 
         method = self.chooseMethod.currentText()
         params = self.alg[method].run()
-
-        ct_obj = cal_tran.cal_tran(method,params)
+        params['method']=method
+        ct_obj = cal_tran.cal_tran(params)
+        print('Deriving transform from '+datakeyA+' to '+datakeyB+' using '+method)
         ct_obj.derive_transform(A_mean['wvl'],B_mean['wvl'])
 
+        print('Applying transform to '+datakeyC)
+        C_transform = ct_obj.apply_transform(C['wvl'])
+        self.data[datakeyC].df['wvl'] = C_transform
 
-        pass
 
-        # datakey_to_transform = self.CalTran_dataSetTransform.currentText()
-        # datakey_ref = self.CalTran_dataSetRef.currentText()
-        # match_on = self
-        # print(self.data[datakey_ref].df.columns.levels[0])
-        # self.data[datakey_to_interp].interp(self.data[datakey_ref].df['wvl'].columns)
 
 if __name__ == "__main__":
     import sys

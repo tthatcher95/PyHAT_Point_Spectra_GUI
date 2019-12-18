@@ -1,29 +1,31 @@
 import numpy as np
 from PyQt5 import QtWidgets, QtCore
 
-from point_spectra_gui.ui.caltran_cv_DS import Ui_Form
+from point_spectra_gui.ui.caltran_RidgeDS import Ui_Form
 from point_spectra_gui.util.Modules import Modules
 
 class Ui_Form(Ui_Form, Modules):
     def setupUi(self, Form):
         super().setupUi(Form)
-     #   self.connectWidgets()
+        self.connectWidgets()
 
     def get_widget(self):
-        return self.groupBox
+        return self.formGroupBox
 
     def setHidden(self, bool):
         self.get_widget().setHidden(bool)
 
-    # def connectWidgets(self):
-    #     self.fit_intercept_list.setCurrentItem(
-    #         self.fit_intercept_list.findItems(str(self.fit_intercept), QtCore.Qt.MatchExactly)[0])
+    def connectWidgets(self):
+        pass
 
     def run(self):
-        self.fit_intercept = [i.text() == 'True' for i in self.fit_intercept_list.selectedItems()]
-        params = {'method':['DS - Direct Standardization'],
-                  'fit_intercept': self.fit_intercept
-                  }
+
+        params = {
+                  'reg':'ridge',
+                  'rho': self.rho_spin.value(),
+                  'beta': self.beta_spin.value(),
+                  'max_iter': self.niter_spinBox.value(),
+                  'epsilon': self.epsilon_doubleSpinBox.value()}
 
         return params
 

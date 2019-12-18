@@ -149,7 +149,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
         if self.Ratiocheckbox.isChecked():
             paramgrid.extend([{'method':'Ratio'}])
         if self.SparseDScheckBox.isChecked():
-            paramgrid.extend([{'method':'Sparse Low Rank DS'}])
+            paramgrid.extend(list(ParameterGrid(self.alg['Sparse Low Rank DS'][0].run())))
         if self.RidgeDScheckBox.isChecked():
             paramgrid.extend(list(ParameterGrid(self.alg['Ridge DS'][0].run())))
         if self.CCAcheckBox.isChecked():
