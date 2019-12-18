@@ -37,8 +37,8 @@ class Plot(Ui_Form, Modules):
                        "Triangle Right",
                        "None"]
         completer = QCompleter()
-        self.chooseXVariableComboBox.setMaximumWidth(200)
-        self.chooseYVariableComboBox.setMaximumWidth(200)
+        self.chooseXVariableComboBox.setMaximumWidth(400)
+        self.chooseYVariableComboBox.setMaximumWidth(400)
         self.changeComboListVars(self.chooseXVariableComboBox, self.get_choices())
         self.figureNameLineEdit.setCompleter(completer)
         model = QStringListModel()

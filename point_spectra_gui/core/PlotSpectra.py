@@ -61,7 +61,6 @@ class PlotSpectra(Ui_Form, Modules):
         yrange = None
         xtitle = 'Wavelength (nm)'
         ytitle = None
-        lbl = None
         one_to_one = False
         dpi = 1000
         annot_mask = None
@@ -79,6 +78,8 @@ class PlotSpectra(Ui_Form, Modules):
             row = self.chooseRowsListWidget.selectedItems()[0].text()
         except:
             row = 'None Selected'
+
+
         figname = self.figureNameLineEdit.text()
         title = self.plotTitleLineEdit.text()
         figfile = self.plotFilenameLineEdit.text()
@@ -133,8 +134,7 @@ class PlotSpectra(Ui_Form, Modules):
 
         self.figs[figname] = make_plot(x, y, figpath=figpath, figfile=figfile, xrange=xrange, yrange=yrange,
                                        xtitle=xtitle,
-                                       ytitle=ytitle, title=title,
-                                       lbl=lbl, one_to_one=one_to_one, dpi=dpi, color=color,
+                                       ytitle=ytitle, title=title, one_to_one=one_to_one, dpi=dpi, color=color,
                                        annot_mask=annot_mask, cmap=cmap,
                                        colortitle=colortitle, loadfig=loadfig, marker=marker, linestyle=linestyle,
                                        linewidth=linewidth)
