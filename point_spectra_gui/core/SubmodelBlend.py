@@ -66,7 +66,7 @@ class SubmodelBlend(Ui_Form, Modules):
         if not self.optimizeSubRangesCheckBox.isChecked():
             self.optimizeSubRangesLabel.setHidden(True)
             self.optimizeSubRangesComboBox.setHidden(True)
-        #self.setHidden(self.subwidgets)
+        self.setHidden(self.subwidgets)
 
 
         self.addSubPushButton.clicked.connect(self.addSubmodel_pushed)
