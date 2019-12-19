@@ -42,8 +42,6 @@ class RestoreTrainedModel(Ui_Form, Modules):
             output = pickle.load(fp)[0]
             self.display(output)
 
-    def on_detailsPushButton_clicked(self):
-        pass
 
     def display(self, text):
         cursor = self.restoreTextBrowser.textCursor()

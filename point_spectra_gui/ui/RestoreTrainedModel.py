@@ -14,6 +14,9 @@ class Ui_Form(object):
         self.groupBox.setObjectName("groupBox")
         self.gridLayout = QtWidgets.QGridLayout(self.groupBox)
         self.gridLayout.setObjectName("gridLayout")
+        self.restoreTextBrowser = QtWidgets.QTextBrowser(self.groupBox)
+        self.restoreTextBrowser.setObjectName("restoreTextBrowser")
+        self.gridLayout.addWidget(self.restoreTextBrowser, 1, 0, 1, 1)
         self.retorePushButton = QtWidgets.QPushButton(self.groupBox)
         self.retorePushButton.setMaximumSize(QtCore.QSize(30, 16777215))
         self.retorePushButton.setObjectName("retorePushButton")
@@ -23,12 +26,6 @@ class Ui_Form(object):
         self.restoreLineEdit.setReadOnly(True)
         self.restoreLineEdit.setObjectName("restoreLineEdit")
         self.gridLayout.addWidget(self.restoreLineEdit, 0, 0, 1, 1)
-        self.restoreTextBrowser = QtWidgets.QTextBrowser(self.groupBox)
-        self.restoreTextBrowser.setObjectName("restoreTextBrowser")
-        self.gridLayout.addWidget(self.restoreTextBrowser, 2, 0, 1, 1)
-        self.detailsPushButton = QtWidgets.QPushButton(self.groupBox)
-        self.detailsPushButton.setObjectName("detailsPushButton")
-        self.gridLayout.addWidget(self.detailsPushButton, 1, 0, 1, 1)
         self.verticalLayout.addWidget(self.groupBox)
 
         self.retranslateUi(Form)
@@ -39,7 +36,6 @@ class Ui_Form(object):
         Form.setWindowTitle(("Form"))
         self.groupBox.setTitle(("Restore a Trained Model"))
         self.retorePushButton.setText(("..."))
-        self.detailsPushButton.setText(("Details"))
 
 
 if __name__ == "__main__":
