@@ -24,6 +24,9 @@ class RestoreTrainedModel(Ui_Form, Modules):
             load = pickle.load(fp)
         self.modelkeys.append(load[0])
         self.models[load[0]] = load[1]
+        self.model_xvars[load[0]]=load[2]
+        self.model_yvars[load[0]] = load[3]
+
         pass
 
     def on_restorePushButton_clicked(self, lineEdit):
