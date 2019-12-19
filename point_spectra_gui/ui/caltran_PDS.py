@@ -23,6 +23,7 @@ class Ui_Form(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.formLayout.setLayout(0, QtWidgets.QFormLayout.LabelRole, self.horizontalLayout)
         self.pls_spin = QtWidgets.QSpinBox(self.formGroupBox)
+        self.pls_spin.setMaximum(4)
         self.pls_spin.setProperty("value", 1)
         self.pls_spin.setObjectName("pls_spin")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.pls_spin)
