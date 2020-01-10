@@ -11,3 +11,6 @@ dependencies:
  - PyYAML=3.12
  - cython
  - plio
+ - pyhat
+ - gdal
+ - qt
