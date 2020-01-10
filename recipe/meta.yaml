@@ -24,7 +24,7 @@ requirements:
     - docutils
     - PyYAML=3.12
     - cython
-    - libpyhat
+    - pyhat
     - setuptools
   run:
     - python=3
@@ -37,7 +37,7 @@ requirements:
     - docutils
     - PyYAML=3.12
     - cython
-    - libpyhat
+    - pyhat
 
 test:
   imports:
