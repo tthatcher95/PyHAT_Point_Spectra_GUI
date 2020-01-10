@@ -5,14 +5,12 @@ env:
   - PYTHON_VERSION=3.6
 os:
   - linux
+  - osx
 
 branches:
 only:
   - dev
   - master
-
-services:
-  - xvfb
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
@@ -29,41 +27,49 @@ before_install:
   - conda update -q conda
   - conda info -a   # Useful for debugging any issues with conda
   # Create the env
-  - conda create -q -n test python=$PYTHON_VERSION
-  - source activate test
+  - conda env create -q -f environment.yml -n test_env python=$PYTHON_VERSION
+  - source activate test_env
+
 
 install:
   # Install dependencies
   - conda config --add channels usgs-astrogeology
   - conda config --add channels conda-forge
-  - conda install qt pyqt
-  - conda install -c conda-forge numpy scipy pandas gdal scikit-learn matplotlib
-  - conda install -c usgs-astrogeology plio pyhat
+  # https://github.com/GoogleCloudPlatform/google-cloud-python/issues/2990
+  - conda install pip setuptools
 
   # Development installation
-  - conda install pytest pytest-cov pytest-qt
-  - pip install coveralls
+  - conda install --quiet pytest pytest-cov nbsphinx
+  - pip install coveralls travis-sphinx
+
 
 
 script:
-  - conda env create -n ppsg -f travis_env.yml
-  - source activate ppsg
-  - python setup.py build_ui
-  - python setup.py install
-  - python setup.py test_ui
-
+  - pytest --cov=libpyhat
 
 after_success:
+  # Code Coverage
   - coveralls
-#   - source deactivate
-#   - conda install conda-build anaconda-client
-#   - conda config --set anaconda_upload yes
-#   - conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION .
+  # Anaconda Upload
+  - conda deactivate
+  - conda install conda-build anaconda-client
+  - conda config --set anaconda_upload no
+  - conda build recipe -q
+  - builddir=(`conda build recipe --output`)
+  - |
+    if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
+        anaconda -t="$CONDA_UPLOAD_TOKEN" upload $builddir --force;
+      fi
+    fi
+  # Docs to gh-pages
+  - source activate test_env  # Reactivate the env to have all deps installed.
+  - travis-sphinx build --source=docs --nowarn # The sphinx build script
+  - travis-sphinx deploy --branches=master
 
-deploy:
-  provider: pypi
-  user: tisaconundrum
-  password: $PYPI_PASSWORD
-  distributions: sdist bdist_wheel
-  on:
-    branch: master
+# deploy:
+#   provider: pypi
+#   user: tisaconundrum
+#   password: $PYPI_PASSWORD
+#   distributions: sdist bdist_wheel
+#   on:
+#     branch: master
