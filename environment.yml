@@ -10,4 +10,7 @@ dependencies:
  - docutils
  - PyYAML=3.12
  - cython
- - libpyhat
+ - plio
+ - pyhat
+ - gdal
+ - qt
