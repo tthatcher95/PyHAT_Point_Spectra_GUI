@@ -1,4 +1,4 @@
-name: ppsg3
+name: ppsg
 channels:
   - conda-forge
   - usgs-astrogeology
