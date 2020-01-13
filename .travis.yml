@@ -36,13 +36,12 @@ install:
   - source activate test_env
 
   # Development installation
+  - conda install pip setuptools
   - conda install --quiet pytest pytest-cov pytest-qt nbsphinx
   - pip install coveralls travis-sphinx
 
-
 script:
   - pytest --cov=point_spectra_gui
-
 
 after_success:
   # Code Coverage
