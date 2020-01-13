@@ -1,4 +1,7 @@
 name: ppsg
+channels:
+  - conda-forge
+  - usgs-astrogeology
 dependencies:
  - python=3
  - pyqt
