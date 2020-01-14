@@ -66,13 +66,17 @@ class StratifiedFolds(Ui_Form, Modules):
         except:
             testfold = 1
         colname = ('comp', self.chooseVarComboBox.currentText())
+        print("1")
         self.data[datakey]=spectral_data(stratified_folds(self.data[datakey].df,nfolds=nfolds, sortby=colname))
-
+        print("2")
         self.data[datakey + '-Train'] = spectral_data(rows_match(self.data[datakey].df,('meta', 'Folds'), [testfold], invert=True))
+        print("3")
         self.data[datakey + '-Test'] = spectral_data(rows_match(self.data[datakey].df,('meta', 'Folds'), [testfold]))
+        print("4")
         self.datakeys.append(datakey + '-Train')
+        print("5")
         self.datakeys.append(datakey + '-Test')
-
+        print("6")
         print(self.data.keys())
         print(self.data[datakey + '-Test'].df.index.shape)
         print(self.data[datakey + '-Train'].df.index.shape)
