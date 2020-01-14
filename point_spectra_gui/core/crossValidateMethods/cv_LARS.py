@@ -45,8 +45,7 @@ class Ui_Form(Ui_Form, Modules):
             'fit_path': [False],
             'positive': positive_items}
 
-        modelkey = str(params)
-        return params, modelkey
+        return params
 
 
 if __name__ == "__main__":

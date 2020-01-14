@@ -32,6 +32,8 @@ class Modules:
     model_xvars = {}
     model_yvars = {}
     parent = []
+    dimred = {} #for storing dimensionality reduction models
+    dimredkeys = []
 
     def __init__(self):
         self.qtickle = Qtickle.Qtickle(self)

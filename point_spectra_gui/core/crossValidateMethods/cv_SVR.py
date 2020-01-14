@@ -54,8 +54,8 @@ class Ui_Form(Ui_Form, Modules):
                   'cache_size': [200],
                   'verbose': [True],
                   'max_iter': [int(i) for i in self.maxIterationsLineEdit.text().split(',')]}
-        modelkey = str(params)
-        return params, modelkey
+
+        return params
 
 
 if __name__ == "__main__":

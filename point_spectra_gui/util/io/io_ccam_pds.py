@@ -144,9 +144,10 @@ def CCAM_SAV(input_data, ave=True):
                                                         'Pversion']+metalist_keep))
     try:
        metadata = pd.DataFrame(metadata, columns=pd.MultiIndex.from_tuples(metadata_cols), index=df.index)
+       df = pd.concat([metadata, df], axis=1)
     except:
         pass
-    df = pd.concat([metadata, df], axis=1)
+
     if ave == True:
         df = df.loc['average']
         df = df.to_frame().T

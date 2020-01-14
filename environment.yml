@@ -1,4 +1,7 @@
 name: ppsg
+channels:
+  - conda-forge
+  - usgs-astrogeology
 dependencies:
  - python=3
  - pyqt
@@ -10,4 +13,7 @@ dependencies:
  - docutils
  - PyYAML=3.12
  - cython
- - libpyhat
+ - plio
+ - pyhat
+ - gdal
+ - qt
