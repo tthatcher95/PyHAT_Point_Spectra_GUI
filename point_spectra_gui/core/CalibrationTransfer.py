@@ -26,7 +26,8 @@ class CalibrationTransfer(Ui_Form, Modules):
          'New CCA',
          'Incremental Proximal Descent DS',
          'Forward Backward DS',
-         'Sparse Low Rank DS']
+         'Sparse Low Rank DS',
+         'PDS-PLS - PDS using Partial Least Squares']
 
         self.setComboBox(self.chooseDataA, self.datakeys)
         self.setComboBox(self.chooseDataB, self.datakeys)
@@ -64,7 +65,8 @@ class CalibrationTransfer(Ui_Form, Modules):
                     'Incremental Proximal Descent DS': caltran_IPDDS.Ui_Form(),
                     'Forward Backward DS': caltran_FBDS.Ui_Form(),
                     'Sparse Low Rank DS': caltran_SparseDS.Ui_Form(),
-                    'Ratio': caltran_Ratio.Ui_Form()
+                    'Ratio': caltran_Ratio.Ui_Form(),
+                    'PDS-PLS - PDS using Partial Least Squares': caltran_cv_PDS_PLS.Ui_Form()
                     }
 
         for item in self.alg:

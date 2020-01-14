@@ -39,7 +39,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
         self.DScheckbox.stateChanged.connect(
             lambda: self.toggle_caltran_widget('DS - Direct Standardization',self.DScheckbox.isChecked()))
         self.PDScheckbox.stateChanged.connect(
-            lambda: self.toggle_caltran_widget('PDS - Piecewise Direct Standardization',self.PDScheckbox.isChecked()))
+            lambda: self.toggle_caltran_widget('PDS - Piecewise DS',self.PDScheckbox.isChecked()))
         self.LASSODScheckbox.stateChanged.connect(
             lambda: self.toggle_caltran_widget('LASSO DS',self.LASSODScheckbox.isChecked()))
         self.PDSPLScheckBox.stateChanged.connect(
@@ -105,7 +105,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
             self.alg[a][0].setHidden(True)
 
     def caltranMethods(self):
-        self.alg = {'PDS - Piecewise Direct Standardization': [caltran_cv_PDS.Ui_Form(), self.PDSlayout],
+        self.alg = {'PDS - Piecewise DS': [caltran_cv_PDS.Ui_Form(), self.PDSlayout],
                     'PDS-PLS - PDS using Partial Least Squares': [caltran_cv_PDS_PLS.Ui_Form(), self.PDSPLSlayout],
                     'DS - Direct Standardization': [caltran_cv_DS.Ui_Form(),self.DSlayout],
                     'LASSO DS': [caltran_cv_LASSODS.Ui_Form(), self.LASSODSlayout],
@@ -139,7 +139,7 @@ class CalibrationTransferCV(Ui_Form, Modules):
 
         paramgrid = [{'method':'None'}]
         if self.PDScheckbox.isChecked():
-            paramgrid.extend(list(ParameterGrid(self.alg['PDS - Piecewise Direct Standardization'][0].run())))
+            paramgrid.extend(list(ParameterGrid(self.alg['PDS - Piecewise DS'][0].run())))
         if self.PDSPLScheckBox.isChecked():
             paramgrid.extend(list(ParameterGrid(self.alg['PDS-PLS - PDS using Partial Least Squares'][0].run())))
         if self.DScheckbox.isChecked():
