@@ -2,8 +2,8 @@
 |Linux  | [![Build Status](https://travis-ci.org/USGS-Astrogeology/PyHAT_Point_Spectra_GUI.svg?branch=master)](https://travis-ci.org/USGS-Astrogeology/PyHAT_Point_Spectra_GUI) |
 |Windows| [![Build status](https://ci.appveyor.com/api/projects/status/orfb1txhicspo7ap/branch/master?svg=true)](https://ci.appveyor.com/project/jlaura/pyhat-point-spectra-gui/branch/dev)|
 
-[![Coverage Status](https://coveralls.io/repos/github/Kelvinrr/PySAT_Point_Spectra_GUI/badge.svg?branch=master)](https://coveralls.io/github/Kelvinrr/PySAT_Point_Spectra_GUI?branch=master)
-[![Join the chat at https://gitter.im/USGS-Astrogeology/PySAT](https://badges.gitter.im/USGS-Astrogeology/PySAT.svg)](https://gitter.im/USGS-Astrogeology/PySAT?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Coverage Status](https://coveralls.io/repos/github/Kelvinrr/pyhat_Point_Spectra_GUI/badge.svg?branch=master)](https://coveralls.io/github/Kelvinrr/pyhat_Point_Spectra_GUI?branch=master)
+[![Join the chat at https://gitter.im/USGS-Astrogeology/pyhat](https://badges.gitter.im/USGS-Astrogeology/pyhat.svg)](https://gitter.im/USGS-Astrogeology/pyhat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 
@@ -20,7 +20,7 @@ Install <a href="https://conda.io/miniconda.html">Miniconda</a>
 
 ### 2. Download the environment file (right click the link and save)
 
-[Environment.yml](https://raw.githubusercontent.com/USGS-Astrogeology/PySAT_Point_Spectra_GUI/master/environment.yml)
+[Environment.yml](https://raw.githubusercontent.com/USGS-Astrogeology/pyhat_Point_Spectra_GUI/master/environment.yml)
 
 ### 3. Open a terminal (on Windows, use the Anaconda prompt or `cmd`, not Powershell) in the directory where you saved the file and type:
 
@@ -49,7 +49,7 @@ point_spectra_gui
 
 ### 6. Update an existing installation
 
-If you already have an earlier version of the PySAT Point Spectra GUI installed as described above and you want to wipe it and update to the latest version, just do:
+If you already have an earlier version of the pyhat Point Spectra GUI installed as described above and you want to wipe it and update to the latest version, just do:
 
 ```bash
 conda env remove -n point_spectra_gui
@@ -60,8 +60,8 @@ And then follow the instructions above to install a fresh version.
 
 ## Run into bugs or features that are missing? Let us know by reporting an issue!
 
-# PYSAT UI
-![PYSAT splash](./images/splash.png)  
+# pyhat UI
+![pyhat splash](./images/splash.png)  
 
 - The UI's backend is designed and created in Python with the QT framework
 
@@ -75,8 +75,8 @@ And then follow the instructions above to install a fresh version.
 - MainWindow.py displays the mainframe in which the UI's submodules will be loaded into
 - MainWindow.py will then foward control to each submodule of focus
 - Each of the submodules build the collective UI library
-- Each submodule also contains all the necessary functions that will interact with Anaconda and PYSAT
-- The PYSAT and Anaconda libraries will then do the necessary data manipulations
+- Each submodule also contains all the necessary functions that will interact with Anaconda and pyhat
+- The pyhat and Anaconda libraries will then do the necessary data manipulations
 - The values are then returned back up to the Submodule which in turn is returned back to MainWindow which will then deal with changed data
 
 # Walkthrough (with images)
