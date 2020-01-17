@@ -17,7 +17,6 @@ dependencies:
  - pyhat
  - gdal
  - qt
- - qtmodern
  - pip
  - pip:
    - Qtickle
