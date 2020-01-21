@@ -216,7 +216,7 @@ class Ui_Form(object):
         self.label.setText(("Choose variable to color code points (optional)"))
         self.oneToOneLabel.setText(("One to One"))
         self.legendLabel.setText(("Legend"))
-        self.alphaLabel.setText(("Alpha"))
+        self.alphaLabel.setText(("Opacity"))
         self.markerLabel.setText(("Marker"))
         self.plotFilenameLabel.setText(("Plot Filename"))
         self.lineLabel.setText(("Line"))
