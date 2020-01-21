@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/Kelvinrr/pyhat_Point_Spectra_GUI/badge.svg?branch=master)](https://coveralls.io/github/Kelvinrr/pyhat_Point_Spectra_GUI?branch=master)
 [![Join the chat at https://gitter.im/USGS-Astrogeology/pyhat](https://badges.gitter.im/USGS-Astrogeology/pyhat.svg)](https://gitter.im/USGS-Astrogeology/pyhat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-
+<img src="https://raw.githubusercontent.com/USGS-Astrogeology/PyHAT_Point_Spectra_GUI/master/images/splash.png" width=500>
 
 ## Installation
 
@@ -41,12 +41,9 @@ conda env remove -n point_spectra_gui
 ```
 And then follow the instructions above to install a fresh version.
 
-# Bugs
+### Bugs
 
-## Run into bugs or features that are missing? Let us know by reporting an issue!
-
-# pyhat UI
-![pyhat splash](./images/splash.png)  
+Run into bugs or features that are missing? Let us know by reporting an issue!
 
 - The UI's backend is designed and created in Python with the QT framework
 
