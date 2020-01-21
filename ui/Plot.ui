@@ -227,7 +227,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="alphaLabel">
           <property name="text">
-           <string>Alpha</string>
+           <string>Opacity</string>
           </property>
          </widget>
         </item>

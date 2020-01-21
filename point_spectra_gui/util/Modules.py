@@ -244,7 +244,7 @@ class Modules:
         obj.clear()
         for i in newchoices:
             if isinstance(i, tuple):
-                obj.addItem(i[1])
+                obj.addItem(str(i[1]))
             elif isinstance(i, str):
                 obj.addItem(i)
         if isinstance(obj,QComboBox):

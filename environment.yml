@@ -16,8 +16,4 @@ dependencies:
  - cython
  - plio
  - pyhat
- - qt
- - qtmodern
- - pip
- - pip:
-   - Qtickle
+
