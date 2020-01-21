@@ -169,7 +169,6 @@ setup(
     keywords='PYHAT LIBS PDART Point Spectra',
     package_dir={'point_spectra_gui': 'point_spectra_gui'},
     packages=find_packages(),
-    install_requires =['scikit-learn', 'pyqt', 'libpyhat'],
     entry_points={
         'gui_scripts': [
             'point_spectra_gui=point_spectra_gui.core.MainWindow:main'
