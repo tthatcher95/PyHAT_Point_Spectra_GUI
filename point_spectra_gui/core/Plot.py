@@ -288,13 +288,17 @@ class Plot(Ui_Form, Modules):
 
         #keep only columns that are numerical (I'm sure there is a more elegant way to do this)
         for i in list(range(len(vars_level0))):
-            if self.data[self.chooseDataComboBox.currentText()].df[vars_level0[i], vars_level1[i]].dtype == 'float':
+            if self.data[self.chooseDataComboBox.currentText()].df[vars_level0[i], vars_level1[i]].dtype == 'float32':
                 self.vars_level0.append(vars_level0[i])
                 self.vars_level1.append(vars_level1[i])
-            if self.data[self.chooseDataComboBox.currentText()].df[vars_level0[i], vars_level1[i]].dtype == 'int':
+            elif self.data[self.chooseDataComboBox.currentText()].df[vars_level0[i], vars_level1[i]].dtype == 'float64':
                 self.vars_level0.append(vars_level0[i])
                 self.vars_level1.append(vars_level1[i])
-
+            elif self.data[self.chooseDataComboBox.currentText()].df[vars_level0[i], vars_level1[i]].dtype == 'int':
+                self.vars_level0.append(vars_level0[i])
+                self.vars_level1.append(vars_level1[i])
+            else:
+                print(vars_level0[i]+','+vars_level1[i]+' is non-numeric. Excluding.')
 
     def get_choices(self):
         try:

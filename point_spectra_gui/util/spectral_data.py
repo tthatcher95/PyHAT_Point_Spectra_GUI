@@ -79,7 +79,7 @@ class spectral_data(object):
         self.df = norm.norm(self.df,ranges, col_var=col_var)
 
     def outlier_removal(self, col, method, params):
-        self.df, self.outlier_removal = outlier_removal.outlier_removal(self.df, col = col, method = method, params = params)
+        self.df = outlier_removal.outlier_removal(self.df, col = col, method = method, params = params)
 
     def peak_area(self, peaks_mins_file):
         self.df, self.peaks, self.mins = peak_area.peak_area(self.df,peaks_mins_file = peaks_mins_file)
