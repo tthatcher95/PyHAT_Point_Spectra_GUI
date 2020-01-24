@@ -67,7 +67,8 @@ def make_plot(x, y, figpath, figfile=None, xrange=None, yrange=None, xtitle='Ref
 
     if colorvar != 'None':
         try:
-            mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=colorval, cmap=cmap, linewidth=0.2, edgecolor='Black')
+            mappable = axes.scatter(np.squeeze(x), np.squeeze(y), c=colorval, cmap=cmap, linewidth=0.2, edgecolor='Black',
+                                    marker = marker)
         except:
             pass
             # try:
@@ -166,10 +167,6 @@ def pca_ica_plot(data, x_component, y_component, dimred_obj, colorvar=None, cmap
     ax3.set_ylabel(y_label)
 
     fig.subplots_adjust(hspace=0)
-
-    #save the loadings to a file
-    outloadings = np.array([wvls, x_loading, y_loading])
-
 
     if figpath and figfile:
         fig.savefig(figpath + '\\' + figfile, dpi=1000)
