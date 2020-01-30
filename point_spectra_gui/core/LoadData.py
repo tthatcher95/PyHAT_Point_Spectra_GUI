@@ -11,16 +11,11 @@ class LoadData(Ui_loadData, Modules):
     Loads the data into the UI.
     The data needs to be a *.csv in order for this application to work
     """
-    count = -1
-
     def __init__(self):
-        LoadData.count += 1
-        self.curr_count = LoadData.count
-        #print('Added LoadData with ID {}'.format(self.curr_count))
+        self.curr_count = len(self.data)
 
     def delete(self):
         try:
-            LoadData.count -= 1
             del self.data[self.datakeys[-1]]
             del self.datakeys[-1]
         except IndexError:
@@ -70,6 +65,7 @@ class LoadData(Ui_loadData, Modules):
         print('Loading data file: ' + str(filename))
         self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=False))
         self.list_amend(self.datakeys, self.curr_count, keyname)
+
 
 
 if __name__ == "__main__":

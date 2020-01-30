@@ -10,21 +10,18 @@ from point_spectra_gui.util.Modules import Modules
 
 
 class RegressionTrain(Ui_Form, Modules):
-    count = -1
 
     def __init__(self):
-        RegressionTrain.count += 1
-        self.curr_count = RegressionTrain.count
+        self.model_count = len(self.models)
 
     def delete(self):
         try:
-            RegressionTrain.count -= 1
             del self.models[self.modelkeys[-1]]
             del self.modelkeys[-1]
         except:
             pass
 
-        RegressionTrain.count -= 1
+        self.modelkeys = self.modelkeys[:-1]
         self.modelkeys = self.modelkeys[:-1]
 
     def setupUi(self, Form):
@@ -134,8 +131,7 @@ class RegressionTrain(Ui_Form, Modules):
             except:
                 modelkey = "Problem naming model - make sure you have selected a y variable"
                 pass
-            self.list_amend(self.modelkeys, self.curr_count, modelkey)
-            #print(params, modelkey)
+            self.list_amend(self.modelkeys, self.model_count, modelkey)
             self.models[modelkey] = regression.regression([method], [yrange], [params])
             self.model_xvars[modelkey] = xvars
             self.model_yvars[modelkey] = yvars
@@ -158,7 +154,7 @@ class RegressionTrain(Ui_Form, Modules):
 
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
-        self.list_amend(self.modelkeys, self.curr_count, modelkey)
+        self.list_amend(self.modelkeys, self.model_count, modelkey)
         self.models[modelkey] = regression.regression([method], [yrange], [params])
 
         x = self.data[datakey].df[xvars]
@@ -185,7 +181,7 @@ class RegressionTrain(Ui_Form, Modules):
                 self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coef]))
             except:
                 self.data['Model Coefficients'] = spectral_data(coef)
-                self.datakeys.append('Model Coefficients')
+                self.list_amend(self.datakeys,len(self.data),'Model Coefficients')
         except:
             pass
 

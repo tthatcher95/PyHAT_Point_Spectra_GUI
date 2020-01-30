@@ -10,8 +10,7 @@ from point_spectra_gui.util.Modules import Modules
 from sklearn.model_selection import ParameterGrid, LeaveOneGroupOut
 
 class CrossValidation(Ui_Form, Modules):
-    count = -1
-
+    
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
