@@ -28,8 +28,12 @@ class CombineDataSets(Ui_Form, Modules):
         if newkey != '':
             self.list_amend(self.datakeys, self.count, newkey)
             try:
-                self.data[newkey] = spectral_data(
-                    pd.concat([self.data[dataSet1].df, self.data[dataSet2].df], ignore_index=True))
+                data1 = self.data[dataSet1].df
+                data2 = self.data[dataSet2].df
+                data1[('meta','Dataset')] = dataSet1
+                data2[('meta', 'Dataset')] = dataSet2
+                newdata = spectral_data(pd.concat([data1, data2], ignore_index=True))
+                self.data[newkey] = newdata
             except:
                 pass
 
