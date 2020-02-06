@@ -10,7 +10,8 @@ from point_spectra_gui.util.Modules import Modules
 from sklearn.model_selection import ParameterGrid, LeaveOneGroupOut
 
 class CrossValidation(Ui_Form, Modules):
-    
+
+
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -180,14 +181,23 @@ class CrossValidation(Ui_Form, Modules):
                             pd.concat([self.data['Model Coefficients'].df, coef]))
                     except:
                         self.data['Model Coefficients'] = spectral_data(coef)
-                        self.datakeys.append('Model Coefficients')
 
-            self.list_amend(self.datakeys, len(self.datakeys), 'CV Results ' + modelkey)
+            self.list_amend(self.datakeys, self.results_index, 'CV Results ' + modelkey)
         except:
             pass
 
 
     def run(self):
+        if 'Model Coefficients' in self.datakeys:
+            pass
+        else:
+            Modules.data_count += 1
+            self.coef_index = Modules.data_count
+            self.list_amend(self.datakeys, self.coef_index, 'Model Coefficients')
+
+        Modules.data_count += 1
+        self.results_index = Modules.data_count
+
         paramgrids = {}
         if self.ARDcheckbox.isChecked():
             paramgrids['ARD']=list(ParameterGrid(self.alg['ARD'][0].run()))
@@ -254,7 +264,8 @@ class CrossValidation(Ui_Form, Modules):
                 self.list_amend(self.predictkeys, len(self.predictkeys), key)
 
             for n, key in enumerate(cvmodelkeys):
-                self.list_amend(self.modelkeys, len(self.modelkeys), key)
+                Modules.model_count += 1
+                self.list_amend(self.modelkeys, Modules.model_count, key)
                 self.models[key] = cvmodels[n]
                 self.model_xvars[key] = xvars
                 self.model_yvars[key] = yvars
@@ -273,7 +284,7 @@ class CrossValidation(Ui_Form, Modules):
                             pd.concat([self.data['Model Coefficients'].df, coef]))
                     except:
                         self.data['Model Coefficients'] = spectral_data(coef)
-                        self.datakeys.append('Model Coefficients')
+
 
         number = 1
         cvid = str('CV Results - ' + yvars[0][1])
@@ -281,7 +292,7 @@ class CrossValidation(Ui_Form, Modules):
             number += 1
             cvid = str('CV Results - ' + yvars[0][1]) + ' - ' + str(number)
 
-        self.datakeys.append(cvid)
+        self.list_amend(self.datakeys,self.results_index,cvid)
         self.data[cvid] = spectral_data(self.cv_results_combined)
 
 

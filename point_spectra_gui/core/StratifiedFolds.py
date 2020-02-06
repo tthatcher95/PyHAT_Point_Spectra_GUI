@@ -13,16 +13,6 @@ import matplotlib.pyplot as plt
 
 class StratifiedFolds(Ui_Form, Modules):
 
-    def __init__(self):
-        self.curr_count = len(self.data)
-
-    def delete(self):
-        try:
-            del self.data[self.datakeys[-1]]
-            del self.datakeys[-1]
-        except IndexError:
-            pass
-
     def setupUi(self, Form):
         super().setupUi(Form)
         Modules.setupUi(self, Form)
@@ -55,6 +45,11 @@ class StratifiedFolds(Ui_Form, Modules):
             pass
 
     def run(self):
+        Modules.data_count += 1
+        self.train_ind = Modules.data_count
+        Modules.data_count += 1
+        self.test_ind = Modules.data_count
+
         datakey = self.chooseDataToStratifyComboBox.currentText()
         nfolds = self.nFoldsSpinBox.value()
         try:
@@ -65,26 +60,12 @@ class StratifiedFolds(Ui_Form, Modules):
         self.data[datakey]=spectral_data(stratified_folds(self.data[datakey].df,nfolds=nfolds, sortby=colname))
         self.data[datakey + '-Train'] = spectral_data(rows_match(self.data[datakey].df,('meta', 'Folds'), [testfold], invert=True))
         self.data[datakey + '-Test'] = spectral_data(rows_match(self.data[datakey].df,('meta', 'Folds'), [testfold]))
-        self.datakeys.append(datakey + '-Train')
-        self.datakeys.append(datakey + '-Test')
-        print(self.data.keys())
-        print(self.data[datakey + '-Test'].df.index.shape)
-        print(self.data[datakey + '-Train'].df.index.shape)
+        self.list_amend(self.datakeys,self.train_ind,datakey + '-Train')
+        self.list_amend(self.datakeys, self.test_ind, datakey + '-Test')
+        print(self.datakeys)
+        print('Test set: '+str(self.data[datakey + '-Test'].df.index.shape[0]))
+        print('Training set: '+str(self.data[datakey + '-Train'].df.index.shape[0]))
 
-        #self.stratifiedfoldshist()
-        folds = self.data[datakey].df[('meta', 'Folds')]
-        folds_unique = folds.unique()[np.isfinite(folds.unique())]
-        for fold in folds_unique:
-            dat_col_folds = self.data[datakey].df[colname][folds == fold]
-            plt.hist(dat_col_folds, bins=20)
-            plt.xlabel(colname[1])
-            plt.ylabel('Frequency')
-            plt.title('Histogram of Fold ' + str(int(fold)))
-            #plt.axis([0, 100, 0, 100])
-            #plt.grid(True)
-           # plt.show()
-            plt.savefig(self.outpath + '//' + colname[1] + '_fold' + str(int(fold)) + '_hist.png')
-            plt.clf()
 
     def strat_fold_change_vars(self):
         self.chooseVarComboBox.clear()

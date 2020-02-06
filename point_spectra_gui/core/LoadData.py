@@ -11,15 +11,9 @@ class LoadData(Ui_loadData, Modules):
     Loads the data into the UI.
     The data needs to be a *.csv in order for this application to work
     """
-    def __init__(self):
-        self.curr_count = len(self.data)
 
-    def delete(self):
-        try:
-            del self.data[self.datakeys[-1]]
-            del self.datakeys[-1]
-        except IndexError:
-            pass
+    # def delete(self):
+    #     Modules.data_count -= 1
 
     def setupUi(self, Form):
         super().setupUi(Form)
@@ -30,17 +24,6 @@ class LoadData(Ui_loadData, Modules):
 
     def connectWidgets(self):
         self.newFilePushButton.clicked.connect(lambda: self.getDataButton_clicked(self.fileNameLineEdit))
-        self.dataSetNameLineEdit.editingFinished.connect(lambda: self.update_dataname())
-
-
-    def update_dataname(self):
-        keyname = self.dataSetNameLineEdit.text()
-        filename = self.fileNameLineEdit.text()
-        self.list_amend(self.datakeys, self.curr_count, keyname)
-        try:
-            self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=False, nrows=2))
-        except:
-            pass
 
     def getDataButton_clicked(self, lineEdit):
         filename, _filter = QtWidgets.QFileDialog.getOpenFileName(None, "Open Data File", self.outpath, "(*.csv)")
@@ -48,23 +31,14 @@ class LoadData(Ui_loadData, Modules):
         if lineEdit.text() == "":
             lineEdit.setText("*.csv")
 
-    def setup(self):
-        """
-        The setup here is only doing the first 2 rows of our dataset
-        This will cut down on time to load.
-
-        :return:
-        """
-        self.update_dataname()
-
     def run(self, filename = None, keyname = None):
-        if filename == None:
-            filename = self.fileNameLineEdit.text()
-        if keyname == None:
-            keyname = self.dataSetNameLineEdit.text()
+        Modules.data_count += 1
+        self.count = Modules.data_count
+        filename = self.fileNameLineEdit.text()
+        keyname = self.dataSetNameLineEdit.text()
         print('Loading data file: ' + str(filename))
         self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=False))
-        self.list_amend(self.datakeys, self.curr_count, keyname)
+        self.list_amend(self.datakeys, self.count, keyname)
 
 
 

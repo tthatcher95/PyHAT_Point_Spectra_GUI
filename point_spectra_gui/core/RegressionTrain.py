@@ -11,19 +11,6 @@ from point_spectra_gui.util.Modules import Modules
 
 class RegressionTrain(Ui_Form, Modules):
 
-    def __init__(self):
-        self.model_count = len(self.models)
-
-    def delete(self):
-        try:
-            del self.models[self.modelkeys[-1]]
-            del self.modelkeys[-1]
-        except:
-            pass
-
-        self.modelkeys = self.modelkeys[:-1]
-        self.modelkeys = self.modelkeys[:-1]
-
     def setupUi(self, Form):
         self.Form = Form
         super().setupUi(Form)
@@ -146,6 +133,14 @@ class RegressionTrain(Ui_Form, Modules):
             pass
 
     def run(self):
+        if 'Model Coefficients' in self.datakeys:
+            pass
+        else:
+            Modules.data_count += 1
+            self.list_amend(self.datakeys, Modules.data_count, 'Model Coefficients')
+        Modules.model_count += 1
+        self.count = Modules.model_count
+
         method = self.chooseAlgorithmComboBox.currentText()
         datakey = self.chooseDataComboBox.currentText()
         xvars = [str(x.text()) for x in self.xVariableList.selectedItems()]
@@ -154,7 +149,7 @@ class RegressionTrain(Ui_Form, Modules):
 
         params, modelkey = self.alg[self.chooseAlgorithmComboBox.currentText()].run()
         modelkey = "{} - {} - ({}, {}) {}".format(method, yvars[0][-1], yrange[0], yrange[1], modelkey)
-        self.list_amend(self.modelkeys, self.model_count, modelkey)
+        self.list_amend(self.modelkeys, self.count, modelkey)
         self.models[modelkey] = regression.regression([method], [yrange], [params])
 
         x = self.data[datakey].df[xvars]
@@ -181,7 +176,7 @@ class RegressionTrain(Ui_Form, Modules):
                 self.data['Model Coefficients'] = spectral_data(pd.concat([self.data['Model Coefficients'].df, coef]))
             except:
                 self.data['Model Coefficients'] = spectral_data(coef)
-                self.list_amend(self.datakeys,len(self.data),'Model Coefficients')
+
         except:
             pass
 
