@@ -34,8 +34,17 @@ class LoadData(Ui_loadData, Modules):
     def run(self, filename = None, keyname = None):
         Modules.data_count += 1
         self.count = Modules.data_count
-        filename = self.fileNameLineEdit.text()
-        keyname = self.dataSetNameLineEdit.text()
+        if filename == None:
+            filename = self.fileNameLineEdit.text()
+        if keyname == None:
+            keyname = self.dataSetNameLineEdit.text()
+
+        #if the datakey exists, add a number to it to make it unique
+        number = 1
+        while keyname in self.datakeys:
+            number += 1
+            keyname = keyname + ' - ' + str(number)
+
         print('Loading data file: ' + str(filename))
         self.data[keyname] = spectral_data(pd.read_csv(filename, header=[0, 1], verbose=False))
         self.list_amend(self.datakeys, self.count, keyname)
