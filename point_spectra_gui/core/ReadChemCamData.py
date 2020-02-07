@@ -81,10 +81,10 @@ class ReadChemCamData(Ui_Form, Modules):
         except:
             lookupfile = None
         ave = self.averagesradioButton.isChecked()
-        progressbar = QtWidgets.QProgressDialog()
         io_ccam_pds.ccam_batch(searchdir, searchstring=searchstring, to_csv=Modules.outpath + '/' + to_csv,
-                               lookupfile=lookupfile, ave=ave, progressbar=progressbar, left_on=left_on,
+                               lookupfile=lookupfile, ave=ave, left_on=left_on,
                                right_on=right_on)
+
         self.Loader.run(filename=Modules.outpath + '/' + to_csv, keyname='ChemCam')
 
 
