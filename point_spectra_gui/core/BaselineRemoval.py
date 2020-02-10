@@ -34,7 +34,6 @@ class BaselineRemoval(Ui_Form, Modules):
                                     'Median',
                                     'Polyfit',
                                     'Rubberband',
-                                    'Mario',
                                     'Wavelet a Trous + Spline',
                                     'Min + Interpolate'
                                     ]
@@ -99,7 +98,6 @@ class BaselineRemoval(Ui_Form, Modules):
             Median,
             Polyfit,
             Rubberband,
-            Mario,
             WaveletSpline,
             MinInterp
         ]
