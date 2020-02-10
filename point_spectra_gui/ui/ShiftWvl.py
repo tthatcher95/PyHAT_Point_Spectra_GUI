@@ -36,7 +36,7 @@ class Ui_Form(object):
         Form.setWindowTitle(("Form"))
         self.groupLayout.setTitle(("Wavelength Shift"))
         self.choosedata_label.setText(("Choose data to shift:"))
-        self.shifts.setToolTip((" (comma separated, in same units as spectral channel labels)"))
+        self.shifts.setToolTip(("Comma separated, in same units as spectral channel labels"))
         self.shifts.setText(("-0.3,-0.2,-0.1,0.1,0.2,0.3"))
         self.shifts_label.setText(("Shift amounts: "))
         self.choosedata.setToolTip(("Shifted spectra will be appended to the same data set"))
