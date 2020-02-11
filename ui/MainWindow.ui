@@ -170,17 +170,10 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Workflow</string>
     </property>
-    <addaction name="separator"/>
-    <addaction name="actionLoad_Data"/>
-    <addaction name="actionRead_ChemCam_Data"/>
-    <addaction name="actionRename_Data"/>
-    <addaction name="actionSave_Current_Data"/>
-    <addaction name="separator"/>
     <addaction name="actionRestore_Workflow"/>
     <addaction name="actionSave_Current_Workflow"/>
-    <addaction name="separator"/>
     <addaction name="actionCreate_New_Workflow"/>
     <addaction name="actionExit"/>
    </widget>
@@ -188,11 +181,6 @@
     <property name="title">
      <string>Preprocessing</string>
     </property>
-    <addaction name="actionLook_Up_Metadata"/>
-    <addaction name="actionRemove_Rows"/>
-    <addaction name="actionCombine_Data_Sets"/>
-    <addaction name="actionOutlier_Removal"/>
-    <addaction name="actionSplit_Data"/>
     <addaction name="actionResample"/>
     <addaction name="actionRemove_Baseline"/>
     <addaction name="actionApply_Mask"/>
@@ -234,7 +222,22 @@
     <addaction name="actionSupervised"/>
     <addaction name="actionCluster"/>
    </widget>
+   <widget class="QMenu" name="menuData">
+    <property name="title">
+     <string>Data</string>
+    </property>
+    <addaction name="actionLoad_Data"/>
+    <addaction name="actionSave_Current_Data"/>
+    <addaction name="actionRead_ChemCam_Data"/>
+    <addaction name="actionRename_Data"/>
+    <addaction name="actionLook_Up_Metadata"/>
+    <addaction name="actionRemove_Rows"/>
+    <addaction name="actionCombine_Data_Sets"/>
+    <addaction name="actionOutlier_Removal"/>
+    <addaction name="actionSplit_Data"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuData"/>
    <addaction name="menuPreprocessing"/>
    <addaction name="menuClassification"/>
    <addaction name="menuRegression"/>
