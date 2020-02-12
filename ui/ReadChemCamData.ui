@@ -32,7 +32,77 @@
       <string>Read ChemCam Data</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="2" column="2">
+      <item row="3" column="1">
+       <widget class="QRadioButton" name="singleShotsradioButton">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="averagesLabel">
+        <property name="text">
+         <string>Averages</string>
+        </property>
+       </widget>
+      </item>
+      <item row="12" column="0" colspan="3">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Data set name</string>
+        </property>
+       </widget>
+      </item>
+      <item row="13" column="1">
+       <widget class="QLineEdit" name="lineEdit">
+        <property name="text">
+         <string>ChemCam</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="1">
+       <widget class="QLineEdit" name="data_col">
+        <property name="text">
+         <string>sclock</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="0">
+       <widget class="QLabel" name="lookup_col_label">
+        <property name="text">
+         <string>Lookup table column</string>
+        </property>
+       </widget>
+      </item>
+      <item row="10" column="0">
+       <widget class="QLabel" name="data_col_label">
+        <property name="text">
+         <string>Data column</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="1">
+       <widget class="QLineEdit" name="lookup_col">
+        <property name="text">
+         <string>Spacecraft Clock</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="singleShotsLabel">
+        <property name="text">
+         <string>Single Shots</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
        <widget class="QPushButton" name="metadatapushButton">
         <property name="maximumSize">
          <size>
@@ -45,44 +115,6 @@
         </property>
        </widget>
       </item>
-      <item row="10" column="1">
-       <widget class="QLineEdit" name="outputFileNameLineEdit">
-        <property name="text">
-         <string>ChemCam.csv</string>
-        </property>
-       </widget>
-      </item>
-      <item row="10" column="0">
-       <widget class="QLabel" name="outputFileNameLabel">
-        <property name="text">
-         <string>Output file name:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0" colspan="2">
-       <widget class="QLabel" name="column_explain">
-        <property name="text">
-         <string>Columns to match on when merging data with metadata:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="searchStringLabel">
-        <property name="text">
-         <string>Search String:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="searchDirectoryLineEdit"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="metadataFilesLabel">
-        <property name="text">
-         <string>Metadata file(s):</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="1">
        <widget class="QLineEdit" name="searchStringLineEdit">
         <property name="text">
@@ -90,13 +122,45 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="metadataFilesLineEdit"/>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="searchDirectoryLabel">
         <property name="text">
          <string>Search directory:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="1">
+       <widget class="QLineEdit" name="outputFileNameLineEdit">
+        <property name="text">
+         <string>ChemCam.csv</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0" colspan="2">
+       <widget class="QLabel" name="column_explain">
+        <property name="text">
+         <string>Columns to match on when merging data with metadata:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="metadataFilesLineEdit">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="0">
+       <widget class="QLabel" name="outputFileNameLabel">
+        <property name="text">
+         <string>Output file name:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="metadataFilesLabel">
+        <property name="text">
+         <string>Metadata file(s):</string>
         </property>
        </widget>
       </item>
@@ -113,63 +177,17 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QRadioButton" name="singleShotsradioButton">
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="searchDirectoryLineEdit"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="searchStringLabel">
         <property name="text">
-         <string/>
+         <string>Search String:</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
-       <widget class="QLabel" name="data_col_label">
-        <property name="text">
-         <string>Data column</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="1">
-       <widget class="QLineEdit" name="lookup_col">
-        <property name="text">
-         <string>Spacecraft Clock</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QLineEdit" name="data_col">
-        <property name="text">
-         <string>sclock</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0">
-       <widget class="QLabel" name="lookup_col_label">
-        <property name="text">
-         <string>Lookup table column</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="singleShotsLabel">
-        <property name="text">
-         <string>Single Shots</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="1">
-       <widget class="QLineEdit" name="lineEdit">
-        <property name="text">
-         <string>ChemCam</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Data set name</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
+      <item row="2" column="1">
        <widget class="QRadioButton" name="averagesradioButton">
         <property name="text">
          <string/>
@@ -179,10 +197,10 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="averagesLabel">
-        <property name="text">
-         <string>Averages</string>
+      <item row="4" column="0" colspan="3">
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
         </property>
        </widget>
       </item>

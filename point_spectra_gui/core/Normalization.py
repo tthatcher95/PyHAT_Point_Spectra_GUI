@@ -15,7 +15,7 @@ class norm_range:
         self.hidden = hidden
         self.hidden.setHidden(True)
         self.hidden.stateChanged.connect(self.Hidden)
-        self.setLimits(0.0, 9999999.0)
+
 
     def Hidden(self):
         if self.hidden.isChecked():

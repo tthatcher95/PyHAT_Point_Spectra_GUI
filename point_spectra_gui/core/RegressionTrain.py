@@ -45,9 +45,6 @@ class RegressionTrain(Ui_Form, Modules):
                                'GP']
         self.setComboBox(self.chooseAlgorithmComboBox, self.algorithm_list)
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.yMaxDoubleSpinBox.setMaximum(999999)
-        self.yMinDoubleSpinBox.setMaximum(999999)
-        self.yMaxDoubleSpinBox.setValue(100)
         self.changeComboListVars(self.yVariableList, self.yvar_choices())
         self.changeComboListVars(self.xVariableList, self.xvar_choices())
         self.xvar_choices()
