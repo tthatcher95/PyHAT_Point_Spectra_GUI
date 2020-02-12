@@ -178,12 +178,12 @@ class RemoveRows(Ui_Form, Modules):
         try:
             colname = (self.vars_level0[self.vars_level1.index(colname)], colname)
             choices = self.data[self.chooseData.currentText()].df[colname]
-            # choices = choices[~np.isnan(choices)]
-            # nchoices2 = choices.size
             nchoice = []
-            #choices = np.sort(choices)
+            try:
+                choices = np.sort(choices)
+            except:
+                pass
             choices = [str(i) for i in choices]
-            choices.sort()
             for choice in choices:
                 if not choice + ' : ' + str(choices.count(choice)) in nchoice:
                     nchoice.append(choice + ' : ' + str(choices.count(choice)))
