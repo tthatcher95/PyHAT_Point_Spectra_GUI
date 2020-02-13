@@ -117,7 +117,7 @@ class Ui_Form(object):
         self.lookup_col.setText(("Spacecraft Clock"))
         self.singleShotsLabel.setText(("Single Shots"))
         self.metadatapushButton.setText(("..."))
-        self.searchStringLineEdit.setText(("*ccs*.csv"))
+        self.searchStringLineEdit.setText(("cl5*ccs*.csv"))
         self.searchDirectoryLabel.setText(("Search directory:"))
         self.outputFileNameLineEdit.setText(("ChemCam.csv"))
         self.column_explain.setText(("Columns to match on when merging data with metadata:"))
