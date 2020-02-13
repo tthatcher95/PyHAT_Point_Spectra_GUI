@@ -188,6 +188,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         # When the user deletes a module, we want to update insertion comboBox and deletion comboBox
         # When we insert we want to always keep the index, but update insertion and deletion comboBoxes
 
+
+        if len(self.widgetList)>1:
+            self.actionRestore_Workflow.setDisabled(True)
+
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
         self.actionCreate_New_Workflow.setShortcut("ctrl+N")
@@ -369,6 +373,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                                                                               "Open Workflow File",
                                                                               self.outpath,
                                                                               '(*.json)')
+        self.delete_module()
         try:
             print(self.restorefilename)
             with open(self.restorefilename, 'r') as fp:
@@ -428,6 +433,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.deleteModuleComboBox.setCurrentIndex(0)
             self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
             print("Cannot delete")
+
+        if len(self.widgetList)==1:
+            self.actionRestore_Workflow.setEnabled(True)
 
     def on_okButton_clicked(self):
         """
