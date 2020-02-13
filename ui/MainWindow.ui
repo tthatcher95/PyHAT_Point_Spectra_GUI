@@ -212,7 +212,6 @@
     <addaction name="actionPlot"/>
     <addaction name="actionPlot_Spectra"/>
     <addaction name="actionPlot_ICA_PCA"/>
-    <addaction name="actionPlot_testmodule"/>
    </widget>
    <widget class="QMenu" name="menuClassification">
     <property name="title">
@@ -446,7 +445,7 @@
   </action>
   <action name="actionOutlier_Removal">
    <property name="text">
-    <string>Outlier Removal</string>
+    <string>Remove Outliers</string>
    </property>
   </action>
   <action name="actionSave_Trained_Model">
