@@ -69,6 +69,14 @@ class Plot(Ui_Form, Modules):
                                     self.chooseYVariableComboBox.currentText()))
         self.comboBoxcolorvar.activated[int].connect(self.color_check)
         self.colorcode_checkBox.stateChanged.connect(self.disable_colors)
+        self.chooseXVariableComboBox.activated[int].connect(self.set_xTitle)
+        self.chooseYVariableComboBox.activated[int].connect(self.set_yTitle)
+
+    def set_xTitle(self):
+        self.xTitleLineEdit.setText(self.chooseXVariableComboBox.currentText())
+
+    def set_yTitle(self):
+        self.yTitleLineEdit.setText(self.chooseYVariableComboBox.currentText())
 
     def newfig_check(self):
         if self.figname_comboBox.currentText() == 'New Figure':

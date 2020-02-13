@@ -44,6 +44,12 @@ class PlotSpectra(Ui_Form, Modules):
         self.chooseColumnComboBox.activated[int].connect(
             lambda: self.set_spect_minmax())
 
+        self.xVariableListWidget.itemSelectionChanged.connect(self.set_xTitle)
+        
+    def set_xTitle(self):
+        self.xtitle_lineEdit.setText(self.xVariableListWidget.currentItem().text())
+
+
     def newfig_check(self):
         if self.figname_comboBox.currentText() == 'New Figure':
             self.newfig_checkBox.setChecked(True)
