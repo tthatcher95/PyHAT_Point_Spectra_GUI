@@ -201,7 +201,11 @@
          </widget>
         </item>
         <item>
-         <widget class="QDoubleSpinBox" name="yMinDoubleSpinBox"/>
+         <widget class="QDoubleSpinBox" name="yMinDoubleSpinBox">
+          <property name="maximum">
+           <double>999999999.000000000000000</double>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QLabel" name="yMaxLabel">
@@ -211,7 +215,14 @@
          </widget>
         </item>
         <item>
-         <widget class="QDoubleSpinBox" name="yMaxDoubleSpinBox"/>
+         <widget class="QDoubleSpinBox" name="yMaxDoubleSpinBox">
+          <property name="maximum">
+           <double>99999999999999.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>100.000000000000000</double>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>

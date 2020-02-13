@@ -72,6 +72,18 @@ class CrossValidation(Ui_Form, Modules):
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
 
+        self.yVariableList.currentItemChanged.connect(self.set_yRange)
+
+    def set_yRange(self):
+        try:
+            yvar = ('comp', self.yVariableList.currentItem().text())
+            ymax = self.data[self.chooseDataComboBox.currentText()].df[yvar].max()
+            ymin = self.data[self.chooseDataComboBox.currentText()].df[yvar].min()
+            self.yMaxDoubleSpinBox.setValue(ymax)
+            self.yMinDoubleSpinBox.setValue(ymin)
+        except:
+            print('Failed to update Y range. Selected data may be non-numeric!')
+
     def getGuiParams(self):
         """
         Overriding Modules' getGuiParams, because I'll need to do a list of lists
@@ -230,7 +242,7 @@ class CrossValidation(Ui_Form, Modules):
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
         y = np.array(self.data[datakey].df[yvars])
         match = np.squeeze((y > yrange[0]) & (y < yrange[1]))
-        data_for_cv = spectral_data(self.data[datakey].df.ix[match])
+        data_for_cv = spectral_data(self.data[datakey].df.loc[match])
 
 
         for key in paramgrids.keys():

@@ -51,6 +51,17 @@ class RegressionTrain(Ui_Form, Modules):
         self.chooseAlgorithmComboBox.currentIndexChanged.connect(
             lambda: self.make_regression_widget(self.chooseAlgorithmComboBox.currentText()))
         self.chooseDataComboBox.currentIndexChanged.connect(self.refreshLists)
+        self.yVariableList.currentItemChanged.connect(self.set_yRange)
+
+    def set_yRange(self):
+        try:
+            yvar = ('comp', self.yVariableList.currentItem().text())
+            ymax = self.data[self.chooseDataComboBox.currentText()].df[yvar].max()
+            ymin = self.data[self.chooseDataComboBox.currentText()].df[yvar].min()
+            self.yMaxDoubleSpinBox.setValue(ymax)
+            self.yMinDoubleSpinBox.setValue(ymin)
+        except:
+            print('Failed to update Y range. Selected data may be non-numeric!')
 
     def refreshLists(self):
         self.changeComboListVars(self.yVariableList, self.yvar_choices())
