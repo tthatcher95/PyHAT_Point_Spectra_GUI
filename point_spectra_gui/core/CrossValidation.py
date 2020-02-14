@@ -261,9 +261,13 @@ class CrossValidation(Ui_Form, Modules):
             progbar = QtWidgets.QProgressBar()
             cv_obj = cv.cv(paramgrid, progressbar=progbar)
 
-            self.data[datakey].df, cv_results, cvmodels, cvmodelkeys, cvpredictkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
+            data_for_cv_out, cv_results, cvmodels, cvmodelkeys, cvpredictkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
                                                                                          ycol=yvars, yrange=yrange, method=method,
                                                                                          alphas = alphas, calc_path = calc_path)
+
+
+            data_for_cv = spectral_data(data_for_cv_out)
+
             try:
                 self.cv_results_combined = pd.concat((self.cv_results_combined,cv_results))
             except:
@@ -303,6 +307,11 @@ class CrossValidation(Ui_Form, Modules):
 
         self.list_amend(self.datakeys,self.results_index,cvid)
         self.data[cvid] = spectral_data(self.cv_results_combined)
+
+        Modules.data_count += 1
+        new_datakey = datakey + '-' +str(yvars)+' '+ str(yrange)+'-CV Predictions'
+        self.list_amend(self.datakeys, Modules.data_count, new_datakey)
+        self.data[new_datakey] = spectral_data(data_for_cv_out)
 
 
     def yvar_choices(self):
