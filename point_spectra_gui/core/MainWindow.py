@@ -229,7 +229,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.LoadData.LoadData))
             self.actionSave_Current_Data.triggered.connect(
                 lambda: self.addWidget(core.WriteToCSV.WriteToCSV))
-
+            self.actionStandardize_Data.triggered.connect(
+                lambda: self.addWidget(core.Standardize.Standardize))
             self.actionRename_Data.triggered.connect(
                 lambda: self.addWidget(core.RenameData.RenameData))
             self.actionApply_Mask.triggered.connect(

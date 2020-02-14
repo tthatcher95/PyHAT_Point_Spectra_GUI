@@ -189,6 +189,8 @@ class Ui_MainWindow(object):
         self.actionSave_Regression_Model.setObjectName("actionSave_Regression_Model")
         self.actionRestore_Regression_Model = QtWidgets.QAction(MainWindow)
         self.actionRestore_Regression_Model.setObjectName("actionRestore_Regression_Model")
+        self.actionStandardize_Data = QtWidgets.QAction(MainWindow)
+        self.actionStandardize_Data.setObjectName("actionStandardize_Data")
         self.menuFile.addAction(self.actionRestore_Workflow)
         self.menuFile.addAction(self.actionSave_Current_Workflow)
         self.menuFile.addAction(self.actionCreate_New_Workflow)
@@ -199,6 +201,7 @@ class Ui_MainWindow(object):
         self.menuPreprocessing.addAction(self.actionPeak_Areas)
         self.menuPreprocessing.addAction(self.actionMultiply_by_Vector)
         self.menuPreprocessing.addAction(self.actionNormalization)
+        self.menuPreprocessing.addAction(self.actionStandardize_Data)
         self.menuPreprocessing.addAction(self.actionDimensionality_Reduction)
         self.menuPreprocessing.addAction(self.actionSpectral_Derivative)
         self.menuPreprocessing.addAction(self.actionWavelength_Shift)
@@ -277,7 +280,7 @@ class Ui_MainWindow(object):
         self.actionApply_Mask.setText(("Apply Mask"))
         self.actionPeak_Areas.setText(("Peak Areas"))
         self.actionMultiply_by_Vector.setText(("Multiply by Vector"))
-        self.actionNormalization.setText(("Normalization"))
+        self.actionNormalization.setText(("Normalize"))
         self.actionDimensionality_Reduction.setText(("Dimensionality Reduction"))
         self.actionStratified_Folds.setText(("Stratified Folds"))
         self.actionCross_Validation.setText(("Cross Validation"))
@@ -316,6 +319,7 @@ class Ui_MainWindow(object):
         self.actionCalibration_Transfer_CV.setText(("Calibration Transfer CV"))
         self.actionSave_Regression_Model.setText(("Save Regression Model"))
         self.actionRestore_Regression_Model.setText(("Restore Regression Model"))
+        self.actionStandardize_Data.setText(("Standardize"))
 
 
 if __name__ == "__main__":

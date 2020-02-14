@@ -37,6 +37,7 @@ class Modules:
     dimred = {} #for storing dimensionality reduction models
     dimredkeys = []
 
+
     def __init__(self):
         self.qtickle = Qtickle.Qtickle(self)
         self.settings = QSettings('USGS', 'PPSG')

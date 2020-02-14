@@ -187,6 +187,7 @@
     <addaction name="actionPeak_Areas"/>
     <addaction name="actionMultiply_by_Vector"/>
     <addaction name="actionNormalization"/>
+    <addaction name="actionStandardize_Data"/>
     <addaction name="actionDimensionality_Reduction"/>
     <addaction name="actionSpectral_Derivative"/>
     <addaction name="actionWavelength_Shift"/>
@@ -320,7 +321,7 @@
   </action>
   <action name="actionNormalization">
    <property name="text">
-    <string>Normalization</string>
+    <string>Normalize</string>
    </property>
   </action>
   <action name="actionDimensionality_Reduction">
@@ -511,6 +512,11 @@
   <action name="actionRestore_Regression_Model">
    <property name="text">
     <string>Restore Regression Model</string>
+   </property>
+  </action>
+  <action name="actionStandardize_Data">
+   <property name="text">
+    <string>Standardize</string>
    </property>
   </action>
  </widget>
