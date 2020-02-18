@@ -201,7 +201,9 @@ class CalibrationTransferCV(Ui_Form, Modules):
                 cv_results.loc[ind, val + '_RMSE'] = rmses[-1] #record the RMSE for the held out spectrum
             cv_results.loc[ind,'average_RMSE']=np.mean(rmses)
             if self.keep_spectra_checkBox.isChecked():
-                self.datakeys.append(transformed_datakey)
+                Modules.data_count += 1
+                self.index = Modules.data_count
+                self.list_amend(self.datakeys,self.index,transformed_datakey)
                 self.data[transformed_datakey] = spectral_data.spectral_data(A_mean_transformed)
             ind = ind + 1
         cv_results.columns = pd.MultiIndex.from_tuples([('cv', col) for col in cv_results.columns])
@@ -211,7 +213,10 @@ class CalibrationTransferCV(Ui_Form, Modules):
         while cvid in self.datakeys:
             number += 1
             cvid = cvid + ' - ' + str(number)
-        self.datakeys.append(cvid)
+
+        Modules.data_count += 1
+        self.index = Modules.data_count
+        self.list_amend(self.datakeys,self.index,cvid)
         self.data[cvid] = cv_results
 
 

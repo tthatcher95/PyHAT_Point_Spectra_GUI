@@ -170,17 +170,10 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Workflow</string>
     </property>
-    <addaction name="separator"/>
-    <addaction name="actionLoad_Data"/>
-    <addaction name="actionRead_ChemCam_Data"/>
-    <addaction name="actionRename_Data"/>
-    <addaction name="actionSave_Current_Data"/>
-    <addaction name="separator"/>
     <addaction name="actionRestore_Workflow"/>
     <addaction name="actionSave_Current_Workflow"/>
-    <addaction name="separator"/>
     <addaction name="actionCreate_New_Workflow"/>
     <addaction name="actionExit"/>
    </widget>
@@ -188,19 +181,14 @@
     <property name="title">
      <string>Preprocessing</string>
     </property>
-    <addaction name="actionLook_Up_Metadata"/>
-    <addaction name="actionRemove_Rows"/>
-    <addaction name="actionCombine_Data_Sets"/>
-    <addaction name="actionOutlier_Removal"/>
-    <addaction name="actionSplit_Data"/>
     <addaction name="actionResample"/>
     <addaction name="actionRemove_Baseline"/>
     <addaction name="actionApply_Mask"/>
     <addaction name="actionPeak_Areas"/>
     <addaction name="actionMultiply_by_Vector"/>
     <addaction name="actionNormalization"/>
+    <addaction name="actionStandardize_Data"/>
     <addaction name="actionDimensionality_Reduction"/>
-    <addaction name="actionStratified_Folds"/>
     <addaction name="actionSpectral_Derivative"/>
     <addaction name="actionWavelength_Shift"/>
     <addaction name="actionCalibration_Transfer"/>
@@ -225,7 +213,6 @@
     <addaction name="actionPlot"/>
     <addaction name="actionPlot_Spectra"/>
     <addaction name="actionPlot_ICA_PCA"/>
-    <addaction name="actionPlot_testmodule"/>
    </widget>
    <widget class="QMenu" name="menuClassification">
     <property name="title">
@@ -234,7 +221,23 @@
     <addaction name="actionSupervised"/>
     <addaction name="actionCluster"/>
    </widget>
+   <widget class="QMenu" name="menuData">
+    <property name="title">
+     <string>Data</string>
+    </property>
+    <addaction name="actionLoad_Data"/>
+    <addaction name="actionSave_Current_Data"/>
+    <addaction name="actionRead_ChemCam_Data"/>
+    <addaction name="actionRename_Data"/>
+    <addaction name="actionLook_Up_Metadata"/>
+    <addaction name="actionRemove_Rows"/>
+    <addaction name="actionCombine_Data_Sets"/>
+    <addaction name="actionOutlier_Removal"/>
+    <addaction name="actionSplit_Data"/>
+    <addaction name="actionStratified_Folds"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuData"/>
    <addaction name="menuPreprocessing"/>
    <addaction name="menuClassification"/>
    <addaction name="menuRegression"/>
@@ -318,7 +321,7 @@
   </action>
   <action name="actionNormalization">
    <property name="text">
-    <string>Normalization</string>
+    <string>Normalize</string>
    </property>
   </action>
   <action name="actionDimensionality_Reduction">
@@ -443,7 +446,7 @@
   </action>
   <action name="actionOutlier_Removal">
    <property name="text">
-    <string>Outlier Removal</string>
+    <string>Remove Outliers</string>
    </property>
   </action>
   <action name="actionSave_Trained_Model">
@@ -509,6 +512,11 @@
   <action name="actionRestore_Regression_Model">
    <property name="text">
     <string>Restore Regression Model</string>
+   </property>
+  </action>
+  <action name="actionStandardize_Data">
+   <property name="text">
+    <string>Standardize</string>
    </property>
   </action>
  </widget>

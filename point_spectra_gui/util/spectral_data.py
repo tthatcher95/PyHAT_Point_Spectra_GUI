@@ -61,7 +61,7 @@ class spectral_data(object):
         self.df = deriv.deriv(self.df)
 
     def dim_red(self, col, method, params, kws, load_fit):
-        self.df, self.dim_red = dim_red.dim_red(self.df, col = col, method = method, params = params, kws = kws, load_fit = load_fit)
+        self.df, self.dim_red = dim_red.dim_red(self.df, col,  method, params, kws, load_fit = load_fit)
 
     def interp(self, xnew):
         self.df = interp.interp(self.df, xnew)
@@ -95,6 +95,7 @@ class spectral_data(object):
 
     def enumerate_duplicates(self, col):
         self.df = enumerate_duplicates(self.df, col=col)
+
 
 
 

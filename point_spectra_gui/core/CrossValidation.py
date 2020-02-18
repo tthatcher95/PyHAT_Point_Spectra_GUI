@@ -10,7 +10,7 @@ from point_spectra_gui.util.Modules import Modules
 from sklearn.model_selection import ParameterGrid, LeaveOneGroupOut
 
 class CrossValidation(Ui_Form, Modules):
-    count = -1
+
 
     def setupUi(self, Form):
         self.Form = Form
@@ -32,9 +32,6 @@ class CrossValidation(Ui_Form, Modules):
     def connectWidgets(self):
 
         self.setComboBox(self.chooseDataComboBox, self.datakeys)
-        self.yMaxDoubleSpinBox.setMaximum(999999)
-        self.yMinDoubleSpinBox.setMaximum(999999)
-        self.yMaxDoubleSpinBox.setValue(100)
         self.changeComboListVars(self.yVariableList, self.yvar_choices())
         self.changeComboListVars(self.xVariableList, self.xvar_choices())
         self.xvar_choices()
@@ -74,6 +71,18 @@ class CrossValidation(Ui_Form, Modules):
             lambda: self.changeComboListVars(self.yVariableList, self.yvar_choices()))
         self.chooseDataComboBox.currentIndexChanged.connect(
             lambda: self.changeComboListVars(self.xVariableList, self.xvar_choices()))
+
+        self.yVariableList.currentItemChanged.connect(self.set_yRange)
+
+    def set_yRange(self):
+        try:
+            yvar = ('comp', self.yVariableList.currentItem().text())
+            ymax = self.data[self.chooseDataComboBox.currentText()].df[yvar].max()
+            ymin = self.data[self.chooseDataComboBox.currentText()].df[yvar].min()
+            self.yMaxDoubleSpinBox.setValue(ymax)
+            self.yMinDoubleSpinBox.setValue(ymin)
+        except:
+            print('Failed to update Y range. Selected data may be non-numeric!')
 
     def getGuiParams(self):
         """
@@ -181,14 +190,23 @@ class CrossValidation(Ui_Form, Modules):
                             pd.concat([self.data['Model Coefficients'].df, coef]))
                     except:
                         self.data['Model Coefficients'] = spectral_data(coef)
-                        self.datakeys.append('Model Coefficients')
 
-            self.list_amend(self.datakeys, len(self.datakeys), 'CV Results ' + modelkey)
+            self.list_amend(self.datakeys, self.results_index, 'CV Results ' + modelkey)
         except:
             pass
 
 
     def run(self):
+        if 'Model Coefficients' in self.datakeys:
+            pass
+        else:
+            Modules.data_count += 1
+            self.coef_index = Modules.data_count
+            self.list_amend(self.datakeys, self.coef_index, 'Model Coefficients')
+
+        Modules.data_count += 1
+        self.results_index = Modules.data_count
+
         paramgrids = {}
         if self.ARDcheckbox.isChecked():
             paramgrids['ARD']=list(ParameterGrid(self.alg['ARD'][0].run()))
@@ -224,7 +242,7 @@ class CrossValidation(Ui_Form, Modules):
         yrange = [self.yMinDoubleSpinBox.value(), self.yMaxDoubleSpinBox.value()]
         y = np.array(self.data[datakey].df[yvars])
         match = np.squeeze((y > yrange[0]) & (y < yrange[1]))
-        data_for_cv = spectral_data(self.data[datakey].df.ix[match])
+        data_for_cv = spectral_data(self.data[datakey].df.loc[match])
 
 
         for key in paramgrids.keys():
@@ -243,9 +261,13 @@ class CrossValidation(Ui_Form, Modules):
             progbar = QtWidgets.QProgressBar()
             cv_obj = cv.cv(paramgrid, progressbar=progbar)
 
-            self.data[datakey].df, cv_results, cvmodels, cvmodelkeys, cvpredictkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
+            data_for_cv_out, cv_results, cvmodels, cvmodelkeys, cvpredictkeys = cv_obj.do_cv(data_for_cv.df, xcols=xvars,
                                                                                          ycol=yvars, yrange=yrange, method=method,
                                                                                          alphas = alphas, calc_path = calc_path)
+
+
+            data_for_cv = spectral_data(data_for_cv_out)
+
             try:
                 self.cv_results_combined = pd.concat((self.cv_results_combined,cv_results))
             except:
@@ -255,7 +277,8 @@ class CrossValidation(Ui_Form, Modules):
                 self.list_amend(self.predictkeys, len(self.predictkeys), key)
 
             for n, key in enumerate(cvmodelkeys):
-                self.list_amend(self.modelkeys, len(self.modelkeys), key)
+                Modules.model_count += 1
+                self.list_amend(self.modelkeys, Modules.model_count, key)
                 self.models[key] = cvmodels[n]
                 self.model_xvars[key] = xvars
                 self.model_yvars[key] = yvars
@@ -274,7 +297,7 @@ class CrossValidation(Ui_Form, Modules):
                             pd.concat([self.data['Model Coefficients'].df, coef]))
                     except:
                         self.data['Model Coefficients'] = spectral_data(coef)
-                        self.datakeys.append('Model Coefficients')
+
 
         number = 1
         cvid = str('CV Results - ' + yvars[0][1])
@@ -282,8 +305,13 @@ class CrossValidation(Ui_Form, Modules):
             number += 1
             cvid = str('CV Results - ' + yvars[0][1]) + ' - ' + str(number)
 
-        self.datakeys.append(cvid)
+        self.list_amend(self.datakeys,self.results_index,cvid)
         self.data[cvid] = spectral_data(self.cv_results_combined)
+
+        Modules.data_count += 1
+        new_datakey = datakey + '-' +str(yvars)+' '+ str(yrange)+'-CV Predictions'
+        self.list_amend(self.datakeys, Modules.data_count, new_datakey)
+        self.data[new_datakey] = spectral_data(data_for_cv_out)
 
 
     def yvar_choices(self):

@@ -91,6 +91,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self.menu_item_shortcuts()  # set up the shortcuts
         self.connectWidgets()
         self.debug_mode()
+        self.addWidget(core.OutputFolder.OutputFolder)
+
         #self.normal_mode()
 
     def normal_mode(self):
@@ -186,6 +188,10 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         # When the user deletes a module, we want to update insertion comboBox and deletion comboBox
         # When we insert we want to always keep the index, but update insertion and deletion comboBoxes
 
+
+        if len(self.widgetList)>1:
+            self.actionRestore_Workflow.setDisabled(True)
+
     def menu_item_shortcuts(self):
         self.actionExit.setShortcut("ctrl+Q")
         self.actionCreate_New_Workflow.setShortcut("ctrl+N")
@@ -223,7 +229,8 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                 lambda: self.addWidget(core.LoadData.LoadData))
             self.actionSave_Current_Data.triggered.connect(
                 lambda: self.addWidget(core.WriteToCSV.WriteToCSV))
-
+            self.actionStandardize_Data.triggered.connect(
+                lambda: self.addWidget(core.Standardize.Standardize))
             self.actionRename_Data.triggered.connect(
                 lambda: self.addWidget(core.RenameData.RenameData))
             self.actionApply_Mask.triggered.connect(
@@ -279,7 +286,6 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.stopPushButton.clicked.connect(self.on_stopButton_clicked)
             self.actionExit.triggered.connect(self.MainWindow.close)
             self.actionSupervised.setEnabled(False)
-            #self.pushButton.clicked.connect(self.on_outPutLocationButton_clicked)
             self.refreshModulePushButton.setHidden(True) #Hide the refresh button until we can find a less buggy way of implementing
 
         except Exception as e:
@@ -368,6 +374,7 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
                                                                               "Open Workflow File",
                                                                               self.outpath,
                                                                               '(*.json)')
+        self.delete_module()
         try:
             print(self.restorefilename)
             with open(self.restorefilename, 'r') as fp:
@@ -427,6 +434,9 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
             self.deleteModuleComboBox.setCurrentIndex(0)
             self.deleteModuleComboBox.currentIndexChanged.connect(self.on_deleteModuleComboBox_changed)
             print("Cannot delete")
+
+        if len(self.widgetList)==1:
+            self.actionRestore_Workflow.setEnabled(True)
 
     def on_okButton_clicked(self):
         """
@@ -646,18 +656,18 @@ class MainWindow(Ui_MainWindow, QtCore.QThread, Modules):
         self._logger(self.runModules)
         self.taskFinished.emit()
 
-    # def on_outPutLocationButton_clicked(self):
-    #     filename = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Output Directory", '.')
-    #     self.folderNameLineEdit.setText(filename)
-    #     if self.folderNameLineEdit.text() == "":
-    #         self.folderNameLineEdit.setText("*/")
-    #
-    #     outpath = self.folderNameLineEdit.text()
-    #     try:
-    #         Modules.outpath = outpath
-    #         print("Output path folder has been set to " + outpath)
-    #     except Exception as e:
-    #         print("Error: {}; using default outpath: {}".format(e, Modules.outpath))
+    def on_outPutLocationButton_clicked(self):
+        filename = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Output Directory", '.')
+        self.folderNameLineEdit.setText(filename)
+        if self.folderNameLineEdit.text() == "":
+            self.folderNameLineEdit.setText("*/")
+
+        outpath = self.folderNameLineEdit.text()
+        try:
+            Modules.outpath = outpath
+            print("Output path folder has been set to " + outpath)
+        except Exception as e:
+            print("Error: {}; using default outpath: {}".format(e, Modules.outpath))
 
 
 def get_splash(app):
