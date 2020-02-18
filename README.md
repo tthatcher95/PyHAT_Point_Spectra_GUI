@@ -12,14 +12,14 @@
 
 ### 1. Install Anaconda (Skip to step 2 if you have Anaconda/Miniconda)
 
-Install <a href="https://www.anaconda.com/download/">Anaconda</a>.
+Install <a href="https://www.anaconda.com/download/">Anaconda</a>. Be sure to choose the Python 3.x version!
 
 
 ### 2. Open a terminal (on Windows, use the Anaconda prompt that gets installed with Anaconda) and type:
 
 ```bash
-conda env create -n ppsg # This creates a new environment named ppsg. Substitute your preferred name if desired.
-conda activate ppsg #this activates the environment
+conda create -n pyhat_gui # This creates a new environment named pyhat_gui. Substitute your preferred name if desired.
+conda activate pyhat_gui #this activates the environment
 conda install -c usgs-astrogeology ppsg # This installs the PyHAT Point Spectra GUI (ppsg) package from Anaconda
 ```
 
