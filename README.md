@@ -23,7 +23,7 @@ conda activate ppsg #this activates the environment
 conda install -c usgs-astrogeology ppsg # This installs the PyHAT Point Spectra GUI (ppsg) package from Anaconda
 ```
 
-### 4. Done! How to use point_spectra_gui
+### 3. Done! How to use point_spectra_gui
 From the terminal type:
 
 ```bash
@@ -31,7 +31,7 @@ conda activate ppsg  # This activates the environment where the tool is installe
 point_spectra_gui # This runs the GUI
 ```
 
-### 5. Update an existing installation
+### 4. Update an existing installation
 
 If you already have an earlier version of the PyHAT Point Spectra GUI installed as described above and you want to wipe it and update to the latest version, just do:
 
