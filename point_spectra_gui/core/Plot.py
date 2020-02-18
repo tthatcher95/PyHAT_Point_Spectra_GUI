@@ -100,8 +100,6 @@ class Plot(Ui_Form, Modules):
             self.yTitleLineEdit.setHidden(False)
             self.plotTitleLabel.setHidden(False)
             self.plotTitleLineEdit.setHidden(False)
-            self.oneToOneLabel.setHidden(False)
-            self.oneToOneCheckBox.setHidden(False)
             self.newfig_lineEdit.setHidden(False)
             self.newfig_label.setHidden(False)
         else:
@@ -119,8 +117,6 @@ class Plot(Ui_Form, Modules):
             self.yTitleLineEdit.setHidden(True)
             self.plotTitleLabel.setHidden(True)
             self.plotTitleLineEdit.setHidden(True)
-            self.oneToOneLabel.setHidden(True)
-            self.oneToOneCheckBox.setHidden(True)
             self.newfig_lineEdit.setHidden(True)
             self.newfig_label.setHidden(True)
 
