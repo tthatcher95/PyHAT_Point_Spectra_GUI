@@ -18,6 +18,7 @@ Install <a href="https://www.anaconda.com/download/">Anaconda</a>. Be sure to ch
 ### 2. Open a terminal (on Windows, use the Anaconda prompt that gets installed with Anaconda) and type:
 
 ```bash
+conda config --add channels conda-forge #This ensures that your conda is connected to the conda-forge channel where many pagkages live
 conda create -n pyhat_gui # This creates a new environment named pyhat_gui. Substitute your preferred name if desired.
 conda activate pyhat_gui #this activates the environment
 conda install -c usgs-astrogeology ppsg # This installs the PyHAT Point Spectra GUI (ppsg) package from Anaconda
@@ -37,6 +38,7 @@ If you already have an earlier version of the PyHAT Point Spectra GUI installed 
 
 ```bash
 conda env remove -n ppsg
+conda clean
 ```
 And then follow the instructions above to install a fresh version.
 
