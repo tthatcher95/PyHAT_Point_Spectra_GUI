@@ -47,7 +47,10 @@ class PlotSpectra(Ui_Form, Modules):
         self.xVariableListWidget.itemSelectionChanged.connect(self.set_xTitle)
         
     def set_xTitle(self):
-        self.xtitle_lineEdit.setText(self.xVariableListWidget.currentItem().text())
+        try:
+            self.xtitle_lineEdit.setText(self.xVariableListWidget.currentItem().text())
+        except:
+            pass
 
 
     def newfig_check(self):
