@@ -37,7 +37,7 @@ build_script:
   - cmd: python setup.py install
 
 test_script:
-  - cmd: pytest libpyhat/
+  - cmd: pytest --cov=point_spectra_gui
 
 on_success:
   - cmd: activate base
