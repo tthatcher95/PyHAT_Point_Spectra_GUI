@@ -8,9 +8,9 @@ os:
   - osx
 
 branches:
-only:
-  - dev
-  - master
+  only:
+    - dev
+    - master
 
 before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then
