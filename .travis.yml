@@ -53,8 +53,8 @@ after_success:
   - builddir=(`conda build recipe --output`)
   - |
     if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-        conda config --set anaconda_upload yes
-        conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION -c usgs-astrogeology conda
+        conda config --set anaconda_upload yes;
+        conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION -c usgs-astrogeology recipe;
     fi
 
   # Docs to gh-pages
