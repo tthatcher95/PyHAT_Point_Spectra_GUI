@@ -14,7 +14,7 @@ build:
 
 requirements:
   build:
-    - python >= 3
+    - python >=3
     - pyqt
     - numpy
     - pandas
@@ -22,8 +22,6 @@ requirements:
     - matplotlib
     - scikit-learn
     - docutils
-    - PyYAML=3.12
-    - cython
     - pyhat
     - setuptools
   run:
@@ -35,8 +33,6 @@ requirements:
     - matplotlib
     - scikit-learn
     - docutils
-    - PyYAML=3.12
-    - cython
     - pyhat
 
 test:
