@@ -1,4 +1,4 @@
-{% set version = "1.0.2" %}
+{% set version = "1.0.3" %}
 
 package:
   name: ppsg
@@ -25,7 +25,7 @@ requirements:
     - pyhat
     - setuptools
   run:
-    - python >= 3
+    - python >=3
     - pyqt
     - numpy
     - pandas
