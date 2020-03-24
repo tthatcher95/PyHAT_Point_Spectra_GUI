@@ -40,9 +40,8 @@ class PlotSpectra(Ui_Form, Modules):
         self.xVariableListWidget.itemSelectionChanged.connect(
             lambda: self.set_spect_minmax())
         self.chooseRowsListWidget.itemSelectionChanged.connect(
-            lambda: self.set_spect_minmax())
-        self.chooseColumnComboBox.activated[int].connect(
-            lambda: self.set_spect_minmax())
+            lambda: self.set_spect_minmax(set_x=False))
+
 
         self.xVariableListWidget.itemSelectionChanged.connect(self.set_xTitle)
         
@@ -231,20 +230,22 @@ class PlotSpectra(Ui_Form, Modules):
         except:
             pass
 
-    def set_spect_minmax(self):
+    def set_spect_minmax(self,set_x=True, set_y=True):
 
         try:
-            datatemp = self.data[self.chooseDataComboBox.currentText()].df
             xvar = self.xVariableListWidget.selectedItems()[0].text()
-            vars = datatemp[xvar].columns.values
-            self.xminDoubleSpinBox.setValue(min(vars))
-            self.xmaxDoubleSpinBox.setValue(max(vars))
+            datatemp = self.data[self.chooseDataComboBox.currentText()].df
 
-            ycol = self.chooseColumnComboBox.currentText()
-            yrow = self.chooseRowsListWidget.selectedItems()[0].text()
-            vals = datatemp[datatemp[('meta',ycol)] == yrow][xvar]
-            self.yminSpinBox.setValue(vals.min(axis=1))
-            self.ymaxSpinBox.setValue(vals.max(axis=1))
+            if set_x:
+                vars = datatemp[xvar].columns.values
+                self.xminDoubleSpinBox.setValue(min(vars))
+                self.xmaxDoubleSpinBox.setValue(max(vars))
+            if set_y:
+                ycol = self.chooseColumnComboBox.currentText()
+                yrow = self.chooseRowsListWidget.selectedItems()[0].text()
+                vals = datatemp[datatemp[('meta',ycol)] == yrow][xvar]
+                self.yminSpinBox.setValue(vals.min(axis=1))
+                self.ymaxSpinBox.setValue(vals.max(axis=1))
         except:
             pass
 
