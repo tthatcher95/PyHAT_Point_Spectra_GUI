@@ -19,10 +19,9 @@ class OutputFolder(Ui_Form, Modules):
     def on_outPutLocationButton_clicked(self):
         filename = QtWidgets.QFileDialog.getExistingDirectory(None, "Select Output Directory", '.')
         self.folderNameLineEdit.setText(filename)
-        if self.folderNameLineEdit.text() == "":
-            self.folderNameLineEdit.setText("*/")
 
     def connectWidgets(self):
+        self.folderNameLineEdit.setText('')
         self.pushButton.clicked.connect(lambda: self.on_outPutLocationButton_clicked())
 
     def setup(self):
