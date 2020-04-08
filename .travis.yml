@@ -45,25 +45,10 @@ script:
 after_success:
   # Code Coverage
   - coveralls
-  # Anaconda Upload
-  # - conda deactivate
-  # - conda install conda-build anaconda-client
-  #
-  # - builddir=(`conda build recipe --output`)
-  # - |
-  #   if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then
-  #       conda config --set anaconda_upload yes;
-  #       conda build --token $CONDA_UPLOAD_TOKEN --python $PYTHON_VERSION -c usgs-astrogeology recipe;
-  #   fi
-  #
-  # # Docs to gh-pages
-  # - source activate test_env  # Reactivate the env to have all deps installed.
-  # - travis-sphinx build --source=docs --nowarn # The sphinx build script
-  # - travis-sphinx deploy --branches=master
 
 deploy:
   provider: script
-  skip_cleanup: true
-  script: bash deploy.sh
+  cleanup: false
+  script: bash deploy.sh $PYTHON_VERSION
   on:
     branch: master
